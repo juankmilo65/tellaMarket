@@ -1,24 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { Component } from "react";
 import "./App.css";
+import { connect } from "react-redux";
+import Beers from "./components/Beers";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Machinery and equipment distributor.</p>
-        <a
-          className="App-link"
-          href="https://www.europages.co.uk/companies/Russia/Moscow/Distributor/machinery%20and%20equipment.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Home Pages
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Beers />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect(state => state.app)(App);
