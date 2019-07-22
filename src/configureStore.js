@@ -5,16 +5,18 @@ import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { fetchBeersEpic } from "./epics/fetchBeers";
 import { beersReducers } from "./reducers/beersReducers";
 import { configReducer } from "./reducers/configReducer";
+import { accountReducers } from "./reducers/accountReducers";
 
 export function configureStore() {
-  const rootEpic = combineEpics(fetchBeersEpic);
+  const rootEpic = combineEpics(fetchBeersEpic); // aca iria la epica de firebase
 
   const epicMiddleware = createEpicMiddleware();
 
   const rootReducer = combineReducers({
     app: appReducer,
     beers: beersReducers,
-    config: configReducer
+    config: configReducer,
+    account: accountReducers
   });
 
   const composeEnhancers =

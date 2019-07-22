@@ -6,6 +6,9 @@ export function appReducer(state = { name: "Shane" }, action) {
         name: action.payload
       };
     }
+    case "LOGIN": {
+      return {};
+    }
     default:
       return state;
   }
