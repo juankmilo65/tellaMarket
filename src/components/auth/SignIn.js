@@ -27,6 +27,7 @@ class SignIn extends Component {
     props.signInWithEmailAndPassword(authData);
   };
   render() {
+    const { authMessage } = this.props;
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -41,6 +42,9 @@ class SignIn extends Component {
           </div>
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Login</button>
+            <div className="red-text center">
+              {authMessage === "" ? null : <p>{authMessage}</p>}
+            </div>
           </div>
         </form>
       </div>
@@ -49,7 +53,9 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  authError: state.auth.authError,
+  authMessage:
+    state.auth.messages.length === 0 ? "" : state.auth.messages[0].text,
+  type: state.auth.messages.length === 0 ? "" : state.auth.messages[0].type,
   auth: state.firebase.auth
 });
 

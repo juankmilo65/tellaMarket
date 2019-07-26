@@ -5,7 +5,8 @@ import {
 } from "./../actions/authActions";
 
 const initState = {
-  status: "idle" // "idle" |  "pending" | "login" | "success" | "failure";
+  status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
+  messages: []
 };
 
 const authReducer = (state = initState, action) => {
