@@ -1,6 +1,7 @@
 import {
-  CREATE_PROJECT,
+  CREATE_PROJECT_SUCCESS,
   CREATE_ITEM_FAILED,
+  GET_ITEMS,
   SET_STATUS
 } from "./../actions/projectActions";
 
@@ -21,21 +22,14 @@ const projectReducer = (state = initState, action) => {
         status: action.payload
       };
     }
-    case CREATE_PROJECT: {
-      console.log("created project", action.payload);
+    case CREATE_PROJECT_SUCCESS: {
       return {
         ...state,
         status: "success",
-        messages: [
-          {
-            type: "ok",
-            text: ["Project Created"]
-          }
-        ]
+        idItem: action.payload
       };
     }
     case CREATE_ITEM_FAILED: {
-      console.log("created project error", action.payload);
       return {
         ...state,
         status: "failure",
@@ -45,6 +39,14 @@ const projectReducer = (state = initState, action) => {
             text: action.payload
           }
         ]
+      };
+    }
+    case GET_ITEMS: {
+      return {
+        ...state,
+        status: "success",
+        data: action.payload,
+        messages: []
       };
     }
     default:

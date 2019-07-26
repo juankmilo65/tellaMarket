@@ -5,10 +5,30 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
+import FirebaseConfig from "./config/FirebaseConfig";
+import { createFirestoreInstance } from "redux-firestore";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+
+const storeConfigured = configureStore();
+
+const rrfConfig = {
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  userProfile: "users",
+  attachAuthIsReady: true
+};
+
+const rrfProps = {
+  firebase: FirebaseConfig,
+  config: rrfConfig,
+  dispatch: storeConfigured.dispatch,
+  createFirestoreInstance // Create firestore instead of craete it in fbConfig.js
+};
 
 ReactDOM.render(
-  <Provider store={configureStore()}>
-    <App />
+  <Provider store={storeConfigured}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <App />
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );
