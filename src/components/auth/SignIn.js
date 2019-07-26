@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { signInWithEmailAndPassword } from "./../../store/actions/authActions";
 
 class SignIn extends Component {
   state = {
@@ -10,9 +14,17 @@ class SignIn extends Component {
       [e.target.id]: e.target.value
     });
   };
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { props, state } = this;
+    const { firebase } = props;
+    const credentials = { ...state };
+    const authData = {
+      firebase,
+      credentials
+    };
+    props.signInWithEmailAndPassword(authData);
   };
   render() {
     return (
@@ -36,4 +48,15 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = state => ({
+  authError: state.auth.authError,
+  auth: state.firebase.auth
+});
+
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps,
+    { signInWithEmailAndPassword }
+  )
+)(SignIn);

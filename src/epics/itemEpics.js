@@ -1,16 +1,15 @@
 import { getFirestore } from "redux-firestore";
-
 import {
   CREATE_PROJECT,
   createProjectSuccess,
   setStatus,
   createItemFailed
-} from "./../store/actions/projectActions";
+} from "../store/actions/projectActions";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
 
-export default function firebaseEpic(action$, state$) {
+export default function itemEpics(action$, state$) {
   const getFS = getFirestore();
 
   return action$.pipe(
