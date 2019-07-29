@@ -7,14 +7,14 @@ import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
 import FirebaseConfig from "./config/FirebaseConfig";
 import { createFirestoreInstance } from "redux-firestore";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { ReactReduxFirebaseProvider, authIsReady } from "react-redux-firebase";
 
 const storeConfigured = configureStore();
 
 const rrfConfig = {
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
   userProfile: "users",
-  attachAuthIsReady: true
+  attachAuthIsReady: false
 };
 
 const rrfProps = {
@@ -24,6 +24,7 @@ const rrfProps = {
   createFirestoreInstance // Create firestore instead of craete it in fbConfig.js
 };
 
+//authIsReady(storeConfigured).then(() => {
 ReactDOM.render(
   <Provider store={storeConfigured}>
     <ReactReduxFirebaseProvider {...rrfProps}>
@@ -32,6 +33,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+//});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signInWithEmailAndPassword } from "./../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
@@ -27,7 +28,9 @@ class SignIn extends Component {
     props.signInWithEmailAndPassword(authData);
   };
   render() {
-    const { authMessage } = this.props;
+    const { authMessage, auth } = this.props;
+
+    if (auth.uid) return <Redirect to="/" />;
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
