@@ -1,7 +1,9 @@
 import {
   SET_STATUS,
   SIGNIN_SUCCESS,
-  SIGNIN_FAILED
+  SIGNIN_FAILED,
+  SIGNOUT_FAILED,
+  SIGNOUT_SUCCESS
 } from "./../actions/authActions";
 
 const initState = {
@@ -30,6 +32,30 @@ const authReducer = (state = initState, action) => {
       };
     }
     case SIGNIN_FAILED: {
+      return {
+        ...state,
+        status: "failure",
+        messages: [
+          {
+            type: "error",
+            text: action.payload
+          }
+        ]
+      };
+    }
+    case SIGNOUT_SUCCESS: {
+      return {
+        ...state,
+        status: "success",
+        messages: [
+          {
+            type: "ok",
+            text: action.payload
+          }
+        ]
+      };
+    }
+    case SIGNOUT_FAILED: {
       return {
         ...state,
         status: "failure",
