@@ -15,7 +15,17 @@ class CreateProject extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createProject(this.state);
+    const { profile, auth } = this.props;
+    const item = {
+      ...this.state,
+      ownerLastName: profile.lastName,
+      ownerName: profile.firstName,
+      authId: auth.uid,
+      createAt: new Date()
+    };
+
+    this.props.createProject(item);
+    this.props.history.push("/");
   };
   render() {
     const { auth } = this.props;
@@ -47,7 +57,8 @@ class CreateProject extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   };
 };
 

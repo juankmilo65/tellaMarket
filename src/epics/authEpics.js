@@ -63,7 +63,7 @@ export default function authEpics(action$, state$) {
                 });
             })
             .then(doc => signUpSuccess(doc.id))
-            .catch(err => signUpFailed(err))
+            .catch(err => signUpFailed(err.message))
         );
       }
     })

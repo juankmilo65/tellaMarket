@@ -30,7 +30,7 @@ class SignUp extends Component {
     props.signUpWithEmailAndPassword(newUserData);
   };
   render() {
-    const { auth } = this.props;
+    const { auth, authMessage } = this.props;
     if (auth.uid) return <Redirect to="/" />;
     return (
       <div className="container">
@@ -54,6 +54,9 @@ class SignUp extends Component {
           </div>
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
+            <div className="red-text center">
+              {authMessage ? <p>{authMessage}</p> : null}
+            </div>
           </div>
         </form>
       </div>

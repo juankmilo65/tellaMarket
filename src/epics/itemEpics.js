@@ -16,17 +16,11 @@ export default function itemEpics(action$, state$) {
     ofType(CREATE_PROJECT),
     switchMap(action => {
       if (action.type === CREATE_PROJECT) {
-        const proj = {
-          ...action.payload,
-          ownerLastName: "Juan",
-          ownerName: "Morales",
-          createAt: new Date()
-        };
         return concat(
           of(setStatus("pending")),
           getFS
             .collection("items")
-            .add(proj)
+            .add(action.payload)
             .then(doc => createProjectSuccess(doc.id))
             .catch(err => createItemFailed(err))
         );

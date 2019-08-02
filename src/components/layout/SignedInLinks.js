@@ -27,7 +27,7 @@ class SignedInLinks extends Component {
         </li>
         <li>
           <NavLink to="/" className="btn btn-floating pink lighten-1">
-            NN
+            {this.props.profile.initials}
           </NavLink>
         </li>
         <li>
