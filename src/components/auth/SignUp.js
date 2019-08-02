@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { signUpWithEmailAndPassword } from "./../../store/actions/authActions";
 
 class SignUp extends Component {
   state = {
@@ -14,9 +17,17 @@ class SignUp extends Component {
       [e.target.id]: e.target.value
     });
   };
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { props, state } = this;
+    const { firebase } = props;
+    const newUser = { ...state };
+    const newUserData = {
+      firebase,
+      newUser
+    };
+    props.signUpWithEmailAndPassword(newUserData);
   };
   render() {
     const { auth } = this.props;
@@ -51,7 +62,15 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
+  authMessage:
+    state.auth.messages.length === 0 ? "" : state.auth.messages[0].text,
   auth: state.firebase.auth
 });
 
-export default connect(mapStateToProps)(SignUp);
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps,
+    { signUpWithEmailAndPassword }
+  )
+)(SignUp);

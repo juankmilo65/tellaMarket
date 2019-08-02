@@ -3,7 +3,9 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_FAILED,
   SIGNOUT_FAILED,
-  SIGNOUT_SUCCESS
+  SIGNOUT_SUCCESS,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILED
 } from "./../actions/authActions";
 
 const initState = {
@@ -56,6 +58,30 @@ const authReducer = (state = initState, action) => {
       };
     }
     case SIGNOUT_FAILED: {
+      return {
+        ...state,
+        status: "failure",
+        messages: [
+          {
+            type: "error",
+            text: action.payload
+          }
+        ]
+      };
+    }
+    case SIGNUP_SUCCESS: {
+      return {
+        ...state,
+        status: "success",
+        messages: [
+          {
+            type: "ok",
+            text: action.payload
+          }
+        ]
+      };
+    }
+    case SIGNUP_FAILED: {
       return {
         ...state,
         status: "failure",
