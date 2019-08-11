@@ -5,10 +5,10 @@ import { compose } from "redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Dashboard from "./dashboard/Dashboard";
-import ProjectDetail from "./projects/ProjectDetail";
-import SignIn from "./auth/SignIn";
-import SignUp from "./auth/SignUp";
-import CreateProject from "./projects/CreateProject";
+import ProjectDetail from "./items/detail/itemDetail";
+import SignIn from "./auth/signin/SignIn";
+import SignUp from "./auth/signup/SignUp";
+import CreateItem from "./items/create/createItem";
 
 class App extends Component {
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
               <Route path="/project/:id" component={ProjectDetail} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
-              <Route path="/createproject" component={CreateProject} />
+              <Route path="/createItem" component={CreateItem} />
             </Switch>
           </div>
         </BrowserRouter>

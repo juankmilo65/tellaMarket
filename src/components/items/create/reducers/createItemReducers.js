@@ -1,16 +1,15 @@
 import {
-  CREATE_PROJECT_SUCCESS,
+  CREATE_ITEM_SUCCESS,
   CREATE_ITEM_FAILED,
-  GET_ITEMS,
   SET_STATUS
-} from "./../actions/projectActions";
+} from "../actions/createItemActions";
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
   projects: []
 };
 
-const projectReducer = (state = initState, action) => {
+const createItemReducers = (state = initState, action) => {
   switch (action.type) {
     case SET_STATUS: {
       return {
@@ -18,7 +17,7 @@ const projectReducer = (state = initState, action) => {
         status: action.payload
       };
     }
-    case CREATE_PROJECT_SUCCESS: {
+    case CREATE_ITEM_SUCCESS: {
       return {
         ...state,
         status: "success",
@@ -37,17 +36,9 @@ const projectReducer = (state = initState, action) => {
         ]
       };
     }
-    case GET_ITEMS: {
-      return {
-        ...state,
-        status: "success",
-        data: action.payload,
-        messages: []
-      };
-    }
     default:
       return state;
   }
 };
 
-export default projectReducer;
+export default createItemReducers;

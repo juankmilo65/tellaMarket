@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { signUpWithEmailAndPassword } from "./../../store/actions/authActions";
+import { signUpWithEmailAndPassword } from "./actions/signupActions";
 
 class SignUp extends Component {
   state = {
@@ -66,7 +66,7 @@ class SignUp extends Component {
 
 const mapStateToProps = state => ({
   authMessage:
-    state.auth.messages.length === 0 ? "" : state.auth.messages[0].text,
+    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
   auth: state.firebase.auth
 });
 

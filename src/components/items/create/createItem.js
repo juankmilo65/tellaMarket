@@ -1,14 +1,27 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { createProject } from "./../../store/actions/projectActions";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { createItem } from "../create/actions/createItemActions";
 
-class CreateProject extends Component {
+class CreateItem extends Component {
   state = {
     title: "",
-    content: ""
+    content: "",
+    image: ""
   };
   handleChange = e => {
+    if (e.target.id === "image") {
+      this.setState({
+        [e.target.id]: e.target.files[0]
+      });
+    } else {
+      this.setState({
+        [e.target.id]: e.target.value
+      });
+    }
+
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -24,7 +37,7 @@ class CreateProject extends Component {
       createAt: new Date()
     };
 
-    this.props.createProject(item);
+    this.props.createItem(item);
     this.props.history.push("/");
   };
   render() {
@@ -47,6 +60,16 @@ class CreateProject extends Component {
             />
           </div>
           <div className="input-field">
+            <label htmlFor="content">Foto</label>
+            <input
+              type="file"
+              className="materialize-textarea"
+              id="image"
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Create</button>
           </div>
         </form>
@@ -62,7 +85,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { createProject }
-)(CreateProject);
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps,
+    { createItem }
+  )
+)(CreateItem);

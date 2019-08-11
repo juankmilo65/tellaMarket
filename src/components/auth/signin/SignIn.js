@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { signInWithEmailAndPassword } from "./../../store/actions/authActions";
+import { signInWithEmailAndPassword } from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 
 class SignIn extends Component {
@@ -57,8 +57,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => ({
   authMessage:
-    state.auth.messages.length === 0 ? "" : state.auth.messages[0].text,
-  type: state.auth.messages.length === 0 ? "" : state.auth.messages[0].type,
+    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
+  type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
   auth: state.firebase.auth
 });
 

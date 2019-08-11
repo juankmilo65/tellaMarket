@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { signOut } from "./../../store/actions/authActions";
+import { signOut } from "../auth/signout/actions/signoutActions";
 
 class SignedInLinks extends Component {
   handleSubmit = e => {
@@ -20,7 +20,7 @@ class SignedInLinks extends Component {
     return (
       <ul className="right">
         <li>
-          <NavLink to="/createproject">New Item</NavLink>
+          <NavLink to="/createItem">New Item</NavLink>
         </li>
         <li>
           <a onClick={this.handleSubmit}>Log Out</a>
