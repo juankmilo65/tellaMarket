@@ -4,6 +4,33 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
+import { useTranslation } from "react-i18next";
+
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
+  }
+
+  return (
+    <div>
+      <li>
+        <NavLink to="/createItem">{t("newItem")} </NavLink>
+      </li>
+      <li>
+        <a onClick={state.handleSubmit}>{t("logout")} </a>
+      </li>
+      <li>
+        <NavLink to="/" className="btn btn-floating pink lighten-1">
+          {state.initials}
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/" />
+      </li>
+    </div>
+  );
+}
 
 class SignedInLinks extends Component {
   handleSubmit = e => {
@@ -16,32 +43,32 @@ class SignedInLinks extends Component {
 
     props.signOut(fireBase);
   };
+
   render() {
+    const { lang } = this.props;
+
     return (
       <ul className="right">
-        <li>
-          <NavLink to="/createItem">New Item</NavLink>
-        </li>
-        <li>
-          <a onClick={this.handleSubmit}>Log Out</a>
-        </li>
-        <li>
-          <NavLink to="/" className="btn btn-floating pink lighten-1">
-            {this.props.profile.initials}
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" />
-        </li>
+        <MyComponent
+          handleSubmit={this.handleSubmit}
+          initials={this.props.profile.initials}
+          lang={lang}
+        />
       </ul>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    lang: state.navar.lang
+  };
+};
+
 export default compose(
   firebaseConnect(),
   connect(
-    null,
+    mapStateToProps,
     { signOut }
   )
 )(SignedInLinks);

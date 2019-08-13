@@ -1,0 +1,16 @@
+{
+  "newItem": "New Item",
+  "logout": "Log Out",
+  "signup": {
+    "title": "Signup",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last name"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password"
+  }
+}

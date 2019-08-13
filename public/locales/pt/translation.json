@@ -1,0 +1,16 @@
+{
+  "newItem": "Novo Item",
+  "logout": "Sair",
+  "signup": {
+    "title": "Inscreva-se",
+    "email": "Correio eletrônico",
+    "password": "Senha",
+    "firstName": "Nomes",
+    "lastName": "sobrenome"
+  },
+  "login": {
+    "title": "Entrar",
+    "email": "Correio eletrônico",
+    "password": "Senha"
+  }
+}

@@ -7,10 +7,14 @@ import signoutReducer from "../components/auth/signout/reducers/signoutReducers"
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
 import createItemReducers from "../components/items/create/reducers/createItemReducers";
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
+import navarReducer from "../components/layout/reducers/navarReducers";
+import phoneAuthenticationReducer from "../components/auth/phoneAuthentication/reducers/phoneAuthenticationReducers";
 import createItemEpics from "../components/items/create/epics/createItemEpics";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
+import navarEpics from "../components/layout/epics/navarEpics";
+import phoneAuthenticationEpics from "../components/auth/phoneAuthentication/epics/phoneAuthenticationEpics";
 
 import FirebaseConfig from "./../config/FirebaseConfig";
 
@@ -19,7 +23,9 @@ export function configureStore() {
     createItemEpics,
     signinEpics,
     signoutEpics,
-    signupEpics
+    signupEpics,
+    navarEpics,
+    phoneAuthenticationEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -29,6 +35,8 @@ export function configureStore() {
     signup: signupReducer,
     createItem: createItemReducers,
     listItems: listItemReducer,
+    navar: navarReducer,
+    phoneAuthentication: phoneAuthenticationReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer
   });

@@ -5,8 +5,7 @@ import {
 } from "../actions/createItemActions";
 
 const initState = {
-  status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
-  projects: []
+  status: "idle" // "idle" | "logout" | "pending" | "login" | "success" | "failure";
 };
 
 const createItemReducers = (state = initState, action) => {

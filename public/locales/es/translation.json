@@ -1,0 +1,16 @@
+{
+  "newItem": "Nuevo Articulo",
+  "logout": "Salir",
+  "signup": {
+    "title": "Registro",
+    "email": "Correo Electronico",
+    "password": "Contraseña",
+    "firstName": "Nombres",
+    "lastName": "Apellidos"
+  },
+  "login": {
+    "title": "Inicio de Sesión",
+    "email": "Correo Electronico",
+    "password": "Contraseña"
+  }
+}
