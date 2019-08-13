@@ -9,6 +9,7 @@ import ProjectDetail from "./items/detail/itemDetail";
 import SignIn from "./auth/signin/SignIn";
 import SignUp from "./auth/signup/SignUp";
 import CreateItem from "./items/create/createItem";
+import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
 
 class App extends Component {
   render() {
@@ -24,6 +25,11 @@ class App extends Component {
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createItem" component={CreateItem} />
+              <Route
+                exact
+                path="/phoneAuthentication"
+                component={PhoneAuthentication}
+              />
             </Switch>
           </div>
         </BrowserRouter>

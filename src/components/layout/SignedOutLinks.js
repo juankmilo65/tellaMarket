@@ -1,21 +1,47 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const SignedOutLinks = () => {
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
+  }
   return (
-    <ul className="right">
+    <div>
       <li>
-        <NavLink to="/signup">Signup</NavLink>
+        <NavLink to="/signup">{t("signup.title")}</NavLink>
       </li>
       <li>
-        <NavLink to="/signin">Login</NavLink>
+        <NavLink to="/signin">{t("login.title")}</NavLink>
       </li>
 
       <li>
         <NavLink to="/" />
       </li>
-    </ul>
+    </div>
   );
+}
+
+class SignedOutLinks extends Component {
+  render() {
+    const { lang } = this.props;
+    return (
+      <ul className="right">
+        <MyComponent lang={lang} />
+      </ul>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    lang: state.navar.lang
+  };
 };
 
-export default SignedOutLinks;
+export default connect(
+  mapStateToProps,
+  null
+)(SignedOutLinks);
