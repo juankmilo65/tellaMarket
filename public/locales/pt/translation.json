@@ -8,9 +8,18 @@
     "firstName": "Nomes",
     "lastName": "sobrenome"
   },
-  "login": {
+  "authentication": {
     "title": "Entrar",
-    "email": "Correio eletrônico",
-    "password": "Senha"
+    "phoneTitle": "Telefone",
+    "login": {
+      "email": "Correio eletrônico",
+      "password": "Senha"
+    },
+    "phone": {
+      "phoneNumer": "Número de Telefone",
+      "requestCode": "Solicitar código de verificação",
+      "code": "Código",
+      "login": "Entrar"
+    }
   }
 }

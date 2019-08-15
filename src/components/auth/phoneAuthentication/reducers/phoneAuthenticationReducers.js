@@ -8,7 +8,8 @@ import {
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: []
+  messages: [],
+  confirmResult: null
 };
 
 const phoneAuthenticationReducer = (state = initState, action) => {

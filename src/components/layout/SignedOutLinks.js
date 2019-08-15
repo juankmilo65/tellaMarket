@@ -14,7 +14,7 @@ function MyComponent(state) {
         <NavLink to="/signup">{t("signup.title")}</NavLink>
       </li>
       <li>
-        <NavLink to="/signin">{t("login.title")}</NavLink>
+        <NavLink to="/signin">{t("authentication.title")}</NavLink>
       </li>
 
       <li>

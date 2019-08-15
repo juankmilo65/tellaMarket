@@ -10,6 +10,7 @@ import SignIn from "./auth/signin/SignIn";
 import SignUp from "./auth/signup/SignUp";
 import CreateItem from "./items/create/createItem";
 import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
+import PrivacyPolicy from "./footer/privacyPolicy";
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
                 path="/phoneAuthentication"
                 component={PhoneAuthentication}
               />
+              <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
             </Switch>
           </div>
         </BrowserRouter>

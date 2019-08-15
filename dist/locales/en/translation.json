@@ -1,0 +1,25 @@
+{
+  "newItem": "New Item",
+  "logout": "Log Out",
+  "signup": {
+    "title": "Signup",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last name"
+  },
+  "authentication": {
+    "title": "Login",
+    "phoneTitle": "Phone",
+    "login": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "phone": {
+      "phoneNumer": "Phone number",
+      "requestCode": "Request Code",
+      "code": "Code",
+      "login": "Login"
+    }
+  }
+}

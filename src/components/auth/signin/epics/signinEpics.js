@@ -3,7 +3,8 @@ import {
   signInSuccess,
   signInFailed,
   SIGNIN_EMAIL_PASSWORD,
-  SIGNIN_GMAIL
+  SIGNIN_GMAIL,
+  SIGNIN_FACEBOOK
 } from "../actions/signinActions";
 import { switchMap, catchError, filter } from "rxjs/operators";
 import { ofType } from "redux-observable";
@@ -13,7 +14,7 @@ import { concat, of, from } from "rxjs";
 export default function signinEpics(action$) {
   const getFS = getFirestore();
   return action$.pipe(
-    ofType(SIGNIN_EMAIL_PASSWORD, SIGNIN_GMAIL),
+    ofType(SIGNIN_EMAIL_PASSWORD, SIGNIN_GMAIL, SIGNIN_FACEBOOK),
     switchMap(action => {
       if (action.type === SIGNIN_EMAIL_PASSWORD) {
         return concat(
@@ -32,7 +33,7 @@ export default function signinEpics(action$) {
         return concat(
           of(setStatus("pending")),
           from(
-            action.payload.firebase.auth().signInWithPopup(googleProvider)
+            action.payload.firebase.auth().signInWithRedirect(googleProvider)
           ).pipe(
             filter(user => {
               if (
@@ -58,6 +59,38 @@ export default function signinEpics(action$) {
             })
           ),
           of(signInSuccess("Loging Success")) // ojo ajustar
+        );
+      } else if (action.type === SIGNIN_FACEBOOK) {
+        const facebookProvider = new action.payload.firebase.auth.FacebookAuthProvider();
+        facebookProvider.addScope("email");
+        return concat(
+          of(setStatus("pending")),
+          from(
+            action.payload.firebase.auth().signInWithRedirect(facebookProvider)
+          ).pipe(
+            filter(user => {
+              if (
+                user !== null &&
+                user !== undefined &&
+                user.user !== undefined
+              ) {
+                of(
+                  createUserDocument(
+                    getFS,
+                    user.additionalUserInfo.profile.first_name,
+                    user.additionalUserInfo.profile.last_name,
+                    user.user.uid,
+                    "Facebook",
+                    user.additionalUserInfo.profile.email
+                  )
+                );
+              }
+            }),
+
+            catchError(err => {
+              return of(signInFailed(err.code));
+            })
+          )
         );
       }
     })

@@ -14,23 +14,32 @@ function MyComponent(state) {
   if (i18n.language !== state.lang.value) {
     i18n.changeLanguage(state.lang.value);
   }
-  return (
-    <div>
+  if (state.confirmResult === null) {
+    return (
       <div>
-        <form onSubmit={state.handlePhoneAuthentication}>
-          <div className="group">
-            <input
-              type="text"
-              id="phoneNumber"
-              onChange={state.handleChange}
-              required
-            />
-            <span className="bar" />
-            <label>Numero Telefonico</label>
-          </div>
-          <button className="btns btn-go">Solicitar codigo</button>
-          <p id="recaptcha-container" />
-        </form>
+        <div>
+          <form onSubmit={state.handlePhoneAuthentication}>
+            <div className="group">
+              <input
+                type="text"
+                id="phoneNumber"
+                onChange={state.handleChange}
+                required
+              />
+              <span className="bar" />
+              <label />
+            </div>
+            <button className="btns btn-go">
+              {t("authentication.phone.requestCode")}
+            </button>
+            <p id="recaptcha-container" />
+          </form>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
         <form onSubmit={state.handleCodeAuthentication}>
           <div className="group">
             <input
@@ -40,13 +49,15 @@ function MyComponent(state) {
               required
             />
             <span className="bar" />
-            <label>Codigo</label>
+            <label>{t("authentication.phone.code")}</label>
           </div>
-          <button className="btns btn-go">Ingresar</button>
+          <button className="btns btn-go">
+            {t("authentication.phone.login")}
+          </button>
         </form>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 class PhoneAuthentication extends Component {
@@ -103,6 +114,7 @@ class PhoneAuthentication extends Component {
         handleCodeAuthentication={this.handleCodeAuthentication}
         handleChange={this.handleChange}
         lang={lang}
+        confirmResult={confirmResult}
       />
     );
   }
@@ -114,7 +126,8 @@ const mapStateToProps = state => ({
   type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
   auth: state.firebase.auth,
   confirmResult: state.phoneAuthentication.confirmResult,
-  lang: state.navar.lang
+  lang: state.navar.lang,
+  confirmResult: state.phoneAuthentication.confirmResult
 });
 
 export default compose(

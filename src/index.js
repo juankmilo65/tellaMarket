@@ -2,21 +2,13 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
-import en from "./languages/en";
-import es from "./languages/es";
-import pt from "./languages/pt";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
 import FirebaseConfig from "./config/FirebaseConfig";
 import { createFirestoreInstance } from "redux-firestore";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-import counterpart from "counterpart";
 import "./i18n";
-
-counterpart.registerTranslations("en", en);
-counterpart.registerTranslations("es", es);
-counterpart.registerTranslations("pt", pt);
 
 const storeConfigured = configureStore();
 

@@ -8,9 +8,18 @@
     "firstName": "First name",
     "lastName": "Last name"
   },
-  "login": {
+  "authentication": {
     "title": "Login",
-    "email": "Email",
-    "password": "Password"
+    "phoneTitle": "Phone",
+    "login": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "phone": {
+      "phoneNumer": "Phone number",
+      "requestCode": "Request Code",
+      "code": "Code",
+      "login": "Login"
+    }
   }
 }

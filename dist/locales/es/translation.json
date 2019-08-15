@@ -1,0 +1,25 @@
+{
+  "newItem": "Nuevo Articulo",
+  "logout": "Salir",
+  "signup": {
+    "title": "Registro",
+    "email": "Correo Electronico",
+    "password": "Contraseña",
+    "firstName": "Nombres",
+    "lastName": "Apellidos"
+  },
+  "authentication": {
+    "title": "Entrar",
+    "phoneTitle": "Teléfono",
+    "login": {
+      "email": "Correo electronico",
+      "password": "Contraseña"
+    },
+    "phone": {
+      "phoneNumer": "Número de Telefono",
+      "requestCode": "Solicitar código de verificación",
+      "code": "Código",
+      "login": "Entrar"
+    }
+  }
+}

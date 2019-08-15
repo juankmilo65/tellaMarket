@@ -4,7 +4,8 @@ import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import {
   signInWithEmailAndPassword,
-  singinGmail
+  singinGmail,
+  singinFacebook
 } from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -18,13 +19,17 @@ function MyComponent(state) {
     <div>
       <div className="container">
         <form onSubmit={state.handleSubmit} className="white">
-          <h5 className="grey-text text-darken-3">{t("login.title")}</h5>
+          <h5 className="grey-text text-darken-3">
+            {t("authentication.title")}
+          </h5>
           <div className="input-field">
-            <label htmlFor="email">{t("login.email")}</label>
+            <label htmlFor="email">{t("authentication.login.email")}</label>
             <input type="email" id="email" onChange={state.handleChange} />
           </div>
           <div className="input-field">
-            <label htmlFor="password">{t("login.password")}</label>
+            <label htmlFor="password">
+              {t("authentication.login.password")}
+            </label>
             <input
               type="password"
               id="password"
@@ -33,7 +38,7 @@ function MyComponent(state) {
           </div>
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">
-              {t("login.title")}
+              {t("authentication.title")}
             </button>
             <button
               onClick={state.handleGmail}
@@ -43,10 +48,16 @@ function MyComponent(state) {
             </button>
             <a
               className="btn pink lighten-1 z-depth-0"
-              href="/phoneAuthentication"
+              onClick={state.handlePhone}
             >
-              Telefono
+              {t("authentication.phoneTitle")}
             </a>
+            <button
+              onClick={state.handleFacebook}
+              className="btn pink lighten-1 z-depth-0"
+            >
+              Facebook
+            </button>
             <div className="red-text center">
               {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
             </div>
@@ -90,6 +101,20 @@ class SignIn extends Component {
     props.singinGmail(authData);
   };
 
+  handleFacebook = e => {
+    const { props } = this;
+    e.preventDefault();
+    const { firebase } = props;
+    const authData = {
+      firebase
+    };
+    props.singinFacebook(authData);
+  };
+
+  handlePhone = () => {
+    this.props.history.push("/phoneAuthentication");
+  };
+
   render() {
     const { authMessage, auth, lang } = this.props;
 
@@ -99,6 +124,8 @@ class SignIn extends Component {
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         handleGmail={this.handleGmail}
+        handlePhone={this.handlePhone}
+        handleFacebook={this.handleFacebook}
         authMessage={authMessage}
         lang={lang}
       />
@@ -118,6 +145,6 @@ export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { signInWithEmailAndPassword, singinGmail }
+    { signInWithEmailAndPassword, singinGmail, singinFacebook }
   )
 )(SignIn);
