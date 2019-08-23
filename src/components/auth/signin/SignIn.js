@@ -9,6 +9,7 @@ import {
 } from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import "./signin.scss";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -16,17 +17,22 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
   return (
-    <div>
-      <div className="container">
-        <form onSubmit={state.handleSubmit} className="white">
-          <h5 className="grey-text text-darken-3">
+    <div className="container-login">
+      <div className="logo"><img src="../src/images/Logo.sgv"/></div>
+      <div className="display-flex">
+        <a href="#" className="item-login--active">Iniciar Sesión</a>
+        <a href="#" className="item-login--inactive">Crear Cuenta</a>
+      </div>
+        <form onSubmit={state.handleSubmit} className="login-form">
+          {/* <h5 className=""> 
             {t("authentication.title")}
-          </h5>
-          <div className="input-field">
+          </h5> */}
+
+          <div className="">
             <label htmlFor="email">{t("authentication.login.email")}</label>
             <input type="email" id="email" onChange={state.handleChange} />
           </div>
-          <div className="input-field">
+          <div className="">
             <label htmlFor="password">
               {t("authentication.login.password")}
             </label>
@@ -36,34 +42,34 @@ function MyComponent(state) {
               onChange={state.handleChange}
             />
           </div>
-          <div className="input-field">
-            <button className="btn pink lighten-1 z-depth-0">
-              {t("authentication.title")}
-            </button>
-            <button
-              onClick={state.handleGmail}
-              className="btn pink lighten-1 z-depth-0"
-            >
-              Google
-            </button>
-            <a
-              className="btn pink lighten-1 z-depth-0"
-              onClick={state.handlePhone}
-            >
-              {t("authentication.phoneTitle")}
-            </a>
-            <button
-              onClick={state.handleFacebook}
-              className="btn pink lighten-1 z-depth-0"
-            >
-              Facebook
-            </button>
-            <div className="red-text center">
+        </form>
+        <div className="">
+          <button className="">
+            {t("authentication.title")}
+          </button>
+          <button
+            onClick={state.handleGmail}
+            className=""
+          >
+            Google
+          </button>
+          <a
+            className=""
+            onClick={state.handlePhone}
+          >
+            {t("authentication.phoneTitle")}
+          </a>
+          <button
+            onClick={state.handleFacebook}
+            className=""
+          >
+            Facebook
+          </button>
+          <div className="">
               {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
             </div>
-          </div>
-        </form>
-      </div>
+        </div>
+        
     </div>
   );
 }
