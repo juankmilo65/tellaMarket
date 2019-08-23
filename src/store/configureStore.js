@@ -9,12 +9,14 @@ import createItemReducers from "../components/items/create/reducers/createItemRe
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
 import navarReducer from "../components/layout/reducers/navarReducers";
 import phoneAuthenticationReducer from "../components/auth/phoneAuthentication/reducers/phoneAuthenticationReducers";
+import fileUploadReducers from "../components/commons/fileUpload/reducers/fileReducers";
 import createItemEpics from "../components/items/create/epics/createItemEpics";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
 import navarEpics from "../components/layout/epics/navarEpics";
 import phoneAuthenticationEpics from "../components/auth/phoneAuthentication/epics/phoneAuthenticationEpics";
+import fileUploadEpics from "../components/commons/fileUpload/epics/fileUploadEpics";
 
 import FirebaseConfig from "./../config/FirebaseConfig";
 
@@ -25,7 +27,8 @@ export function configureStore() {
     signoutEpics,
     signupEpics,
     navarEpics,
-    phoneAuthenticationEpics
+    phoneAuthenticationEpics,
+    fileUploadEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -38,7 +41,8 @@ export function configureStore() {
     navar: navarReducer,
     phoneAuthentication: phoneAuthenticationReducer,
     firestore: firestoreReducer,
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    fileUpload: fileUploadReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
