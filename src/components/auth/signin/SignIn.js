@@ -18,8 +18,9 @@ function MyComponent(state) {
   }
   return (
     <div className="container-login">
-      <div className="logo"><img src="../src/images/Logo.sgv"/></div>
-      <div className="display-flex">
+      <div className="logo">
+      </div>
+      <div className="tab-login">
         <a href="#" className="item-login--active">Iniciar Sesión</a>
         <a href="#" className="item-login--inactive">Crear Cuenta</a>
       </div>
@@ -27,47 +28,40 @@ function MyComponent(state) {
           {/* <h5 className=""> 
             {t("authentication.title")}
           </h5> */}
-
-          <div className="">
+          <div className="item-login--form">
             <label htmlFor="email">{t("authentication.login.email")}</label>
-            <input type="email" id="email" onChange={state.handleChange} />
+            <div className="input-text input-icon">
+              <i class="material-icons">person</i><input type="email" id="email" onChange={state.handleChange} />
+            </div>
           </div>
-          <div className="">
+          <div className="item-login--form">
             <label htmlFor="password">
               {t("authentication.login.password")}
             </label>
-            <input
-              type="password"
-              id="password"
-              onChange={state.handleChange}
-            />
+            <div className="input-text input-icon">
+              <i class="material-icons">vpn_key</i>
+              <input type="password" id="password" onChange={state.handleChange}/>
+            </div>
+          </div>
+          <div className="item-login--btn">
+            <span>¿Olvidaste tu contraseña?</span>
+            <a href="" className="btn btn-go">Iniciar sesión</a>
           </div>
         </form>
-        <div className="">
-          <button className="">
-            {t("authentication.title")}
-          </button>
-          <button
-            onClick={state.handleGmail}
-            className=""
-          >
+        <div className="type-login">
+          <a className="btn-networks facebook" onClick={state.handleFacebook}>
+            Facebook
+          </a>
+          <a className="btn-networks google" onClick={state.handleGmail}>
             Google
-          </button>
-          <a
-            className=""
-            onClick={state.handlePhone}
-          >
+          </a>
+          <a className="btn-networks phone" onClick={state.handlePhone}>
+            <i class="material-icons">phone_iphone</i>
             {t("authentication.phoneTitle")}
           </a>
-          <button
-            onClick={state.handleFacebook}
-            className=""
-          >
-            Facebook
-          </button>
-          <div className="">
+          {/* <div className="">
               {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
-            </div>
+          </div> */}
         </div>
         
     </div>
