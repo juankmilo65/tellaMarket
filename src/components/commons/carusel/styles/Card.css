@@ -100,24 +100,42 @@ section {
   display: none;
 }
 .card .features li.icon-bed {
-  background: url(../components/commons//carusel/assets/bed-left-side.svg) left
-    center;
+  background: url(../assets/bed-left-side.svg) left center;
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
 .card .features li.icon-bath {
-  background: url(../components/commons//carusel/assets/bathtub.svg);
+  background: url(../assets/bathtub.svg);
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
 .card .features li.icon-car {
-  background: url(../components/commons//carusel/assets/car-compact.svg);
+  background: url(../assets/car-compact.svg);
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
 
 /* #endregion */
 /* #region cards slider */
+
+.cards-main-slider-wrapper {
+  display: flex;
+  position: absolute;
+  transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.cards-main-slider-wrapper .card {
+  flex: 1;
+  min-width: 500px;
+  opacity: 0;
+
+  box-shadow: none;
+  background-color: white;
+  border-color: white;
+  transition: opacity 300ms linear, border-color 300ms linear,
+    background-color 300ms linear,
+    transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
 .cards-slider-wrapper {
   display: flex;
   position: absolute;
