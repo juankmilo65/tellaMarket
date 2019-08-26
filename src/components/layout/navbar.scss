@@ -1,0 +1,83 @@
+$yellow:#FFB808;
+$blue:#032B3F;
+$gray-bg: #F6F6F6;
+$gray-text:#7C7C7C;
+
+
+.nav-tella{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.container-tella{
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+}
+
+.logo{
+    display: inline-flex;
+    img{
+        height: 50px;
+    }
+}
+
+ul{
+    div{
+        display: flex;
+    }
+    li{
+        list-style: none;
+    }
+}
+
+.btn-submenu{
+    border-radius: 50px;
+    padding: 0px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    background-color: $blue;
+    color: white;
+    a{
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.search{
+    background-color: $yellow;
+}
+
+.input-search{
+    width: 100%;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    padding-right:20px; 
+    height: 40px;
+    background-color: white;
+    border-radius: 50px;
+    i{
+        color:$yellow;
+    }
+    input{
+        width: 100%;
+        border:none;
+        border-radius: 50px 0 0 50px;
+        padding: 0 20px;
+        font-size: 14px;
+        color:  $gray-text;
+        
+    }
+}

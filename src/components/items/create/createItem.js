@@ -4,36 +4,28 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { createItem } from "../create/actions/createItemActions";
+import FileUpload from "../../commons/fileUpload/fileUpload";
 
 class CreateItem extends Component {
   state = {
     title: "",
     content: "",
-    image: ""
+    images: null
   };
   handleChange = e => {
-    if (e.target.id === "image") {
-      this.setState({
-        [e.target.id]: e.target.files[0]
-      });
-    } else {
-      this.setState({
-        [e.target.id]: e.target.value
-      });
-    }
-
     this.setState({
       [e.target.id]: e.target.value
     });
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { profile, auth } = this.props;
+    const { profile, auth, fileUpload } = this.props;
     const item = {
       ...this.state,
       ownerLastName: profile.lastName,
       ownerName: profile.firstName,
       authId: auth.uid,
+      images: fileUpload,
       createAt: new Date()
     };
 
@@ -41,7 +33,8 @@ class CreateItem extends Component {
     this.props.history.push("/");
   };
   render() {
-    const { auth } = this.props;
+    const { auth, fileUpload } = this.props;
+
     if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div className="container">
@@ -59,16 +52,7 @@ class CreateItem extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="input-field">
-            <label htmlFor="content">Foto</label>
-            <input
-              type="file"
-              className="materialize-textarea"
-              id="image"
-              onChange={this.handleChange}
-            />
-          </div>
-
+          <FileUpload />
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Create</button>
           </div>
@@ -81,7 +65,8 @@ class CreateItem extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    fileUpload: state.fileUpload
   };
 };
 

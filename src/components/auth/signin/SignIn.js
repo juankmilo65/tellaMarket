@@ -10,6 +10,10 @@ import {
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./signin.scss";
+import google from"../../../images/google.svg";
+import facebook from"../../../images/facebook.svg";
+import logo from "../../../images/logo.svg"
+
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -19,10 +23,11 @@ function MyComponent(state) {
   return (
     <div className="container-login">
       <div className="logo">
+        <img src={state.images[0]} alt="Tella Market"/>
       </div>
       <div className="tab-login">
-        <a href="#" className="item-login--active">Iniciar Sesión</a>
-        <a href="#" className="item-login--inactive">Crear Cuenta</a>
+        <a href="#" className="item-tab--login active">Iniciar Sesión</a>
+        <a href="#" className="item-tab--login inactive">Crear Cuenta</a>
       </div>
         <form onSubmit={state.handleSubmit} className="login-form">
           {/* <h5 className=""> 
@@ -44,16 +49,16 @@ function MyComponent(state) {
             </div>
           </div>
           <div className="item-login--btn">
-            <span>¿Olvidaste tu contraseña?</span>
+            <a href="#">¿Olvidaste tu contraseña?</a>
             <a href="" className="btn btn-go">Iniciar sesión</a>
           </div>
         </form>
         <div className="type-login">
           <a className="btn-networks facebook" onClick={state.handleFacebook}>
-            Facebook
+            <img src={state.images[1]} alt="Tella Market"/><span>Facebook</span>
           </a>
           <a className="btn-networks google" onClick={state.handleGmail}>
-            Google
+            <img src={state.images[2]} alt="Tella Market"/> <span>Google</span>
           </a>
           <a className="btn-networks phone" onClick={state.handlePhone}>
             <i class="material-icons">phone_iphone</i>
@@ -117,7 +122,7 @@ class SignIn extends Component {
 
   render() {
     const { authMessage, auth, lang } = this.props;
-
+    const images = [logo, facebook, google]//Logo3, Logo4...logon
     if (auth.uid) return <Redirect to="/" />;
     return (
       <MyComponent
@@ -128,6 +133,7 @@ class SignIn extends Component {
         handleFacebook={this.handleFacebook}
         authMessage={authMessage}
         lang={lang}
+        images={images}
       />
     );
   }
