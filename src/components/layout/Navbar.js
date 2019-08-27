@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import Select from "react-select";
 import { setLanguage } from "./actions/navarActions";
 import "./navbar.scss";
-import logo from "../../images/logo.svg"
-
+import logo from "../../images/Logo.svg";
 
 const options = [
   { label: "EN", value: "en" },
@@ -22,7 +21,7 @@ class Navbar extends Component {
 
   render() {
     const { auth, profile, lang } = this.props;
-    const images = [logo]
+    const images = [logo];
     const links = auth.uid ? (
       <SignedInLinks profile={profile} />
     ) : (
@@ -32,13 +31,13 @@ class Navbar extends Component {
       <div>
         <nav className="nav-wrapper nav-tella">
           <div className="container-tella">
-
             <Link to="/" className="logo">
               <img src={logo} alt="Tella Market" />
             </Link>
             <div className="nav-right">
               {auth.isLoaded && links}
-              <Select className="lenguage"
+              <Select
+                className="lenguage"
                 styles={{
                   control: () => ({
                     // none of react-select's styles are passed to <Control />
@@ -49,8 +48,8 @@ class Navbar extends Component {
                 value=""
                 placeholder="Idioma"
                 images={images}
-                />
-              </div>
+              />
+            </div>
           </div>
         </nav>
         <div className="search">
@@ -60,7 +59,7 @@ class Navbar extends Component {
               <i className="material-icons">keyboard_arrow_down</i>
             </div>
             <div className="input-search">
-              <input type="text" placeholder="Buscar"/>
+              <input type="text" placeholder="Buscar" />
               <i className="material-icons">search</i>
             </div>
           </div>
