@@ -81,3 +81,50 @@ ul{
         
     }
 }
+
+.nav-right{
+    display: flex;
+    .right{
+        margin: 0;
+        margin-right: 20px;
+    }
+}
+
+.lenguage{
+    color:$blue;
+    .css-ia584n-Control{
+        display: flex;
+        min-width: 100px;
+        border: 1px solid $yellow;
+        border-radius: 50px;
+        padding: 0 20px;
+    }
+    .css-1okebmr-indicatorSeparator{
+        display: none;
+    }
+    .css-tlfecz-indicatorContainer{
+        color: $blue;
+
+    }
+
+    .css-1wa3eu0-placeholder{
+        color: $blue;
+        font-weight: bold;
+    }
+
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    min-width: 100px;
+    border: 1px solid #FFB808;
+    border-radius: 50px;
+    padding: 9px 20px;
+    li a.active{
+        color: $blue;
+        font-weight: bold;
+        text-decoration: none;
+        border:none;
+    }
+}

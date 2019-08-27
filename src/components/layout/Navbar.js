@@ -8,6 +8,7 @@ import { setLanguage } from "./actions/navarActions";
 import "./navbar.scss";
 import logo from "../../images/logo.svg"
 
+
 const options = [
   { label: "EN", value: "en" },
   { label: "ES", value: "es" },
@@ -35,29 +36,32 @@ class Navbar extends Component {
             <Link to="/" className="logo">
               <img src={logo} alt="Tella Market" />
             </Link>
-            {auth.isLoaded && links}
-            <Select
-              styles={{
-                control: () => ({
-                  // none of react-select's styles are passed to <Control />
-                })
-              }}
-              onChange={this.handleLanguage}
-              options={options}
-              value={lang}
-              images={images}
-              />
+            <div className="nav-right">
+              {auth.isLoaded && links}
+              <Select className="lenguage"
+                styles={{
+                  control: () => ({
+                    // none of react-select's styles are passed to <Control />
+                  })
+                }}
+                onChange={this.handleLanguage}
+                options={options}
+                value=""
+                placeholder="Idioma"
+                images={images}
+                />
+              </div>
           </div>
         </nav>
         <div className="search">
           <div className="container-tella">
             <div className="btn-submenu">
               <a href="#">Categorias</a>
-              <i class="material-icons">keyboard_arrow_down</i>
+              <i className="material-icons">keyboard_arrow_down</i>
             </div>
             <div className="input-search">
               <input type="text" placeholder="Buscar"/>
-              <i class="material-icons">search</i>
+              <i className="material-icons">search</i>
             </div>
           </div>
         </div>

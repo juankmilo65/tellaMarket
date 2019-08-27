@@ -1,7 +1,6 @@
 import React from "react";
 import ItemSummary from "../summary/itemSumary";
 import { Link } from "react-router-dom";
-import Carrusel from "../../commons/carusel/carrusel";
 
 const ItemList = ({ items }) => {
   return (

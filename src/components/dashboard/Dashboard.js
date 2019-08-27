@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import Carrusel from "../commons/carusel/carrusel";
+import Carousel from "../commons/carousel/carousel";
 
 class Dashboard extends Component {
   render() {
@@ -15,12 +15,20 @@ class Dashboard extends Component {
       <div>
         <div>
           <div>
-            <Carrusel main={true} />
+            <br/>
+            <br/>
+            <br/>
+            <Carousel>
+              
+            </Carousel>
+
+            <br/>
+            <br/>
+            <br/>
+
           </div>
-          <br />
-          <br />
           <div>
-            <Carrusel main={false} />
+ 
           </div>
           <div>
             <ItemList items={items} />

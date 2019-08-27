@@ -5,6 +5,7 @@ import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
 import { useTranslation } from "react-i18next";
+import "./navbar.scss";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -13,18 +14,18 @@ function MyComponent(state) {
   }
 
   return (
-    <div>
-      <li>
+    <div className="user">
+      {/* <li>
         <NavLink to="/createItem">{t("newItem")} </NavLink>
-      </li>
+      </li> */}
       <li>
-        <a onClick={state.handleSubmit}>{t("logout")} </a>
-      </li>
-      <li>
-        <NavLink to="/" className="btn btn-floating pink lighten-1">
+        <NavLink to="/" className="">
           {state.initials}
         </NavLink>
       </li>
+      {/* <li>
+        <a onClick={state.handleSubmit}>{t("logout")} </a>
+      </li> */}
       <li>
         <NavLink to="/" />
       </li>

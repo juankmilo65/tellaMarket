@@ -11,6 +11,8 @@ import SignUp from "./auth/signup/SignUp";
 import CreateItem from "./items/create/createItem";
 import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
 import PrivacyPolicy from "./footer/privacyPolicy";
+import "bootstrap-4-react";
+
 
 class App extends Component {
   render() {
