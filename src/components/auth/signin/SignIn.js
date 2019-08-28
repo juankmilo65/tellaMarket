@@ -10,10 +10,9 @@ import {
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./signin.scss";
-import google from"../../../images/google.svg";
-import facebook from"../../../images/facebook.svg";
-import logo from "../../../images/logo.svg"
-
+import google from "../../../images/google.svg";
+import facebook from "../../../images/facebook.svg";
+import logo from "../../../images/Logo.svg";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -23,52 +22,61 @@ function MyComponent(state) {
   return (
     <div className="container-login">
       <div className="logo">
-        <img src={state.images[0]} alt="Tella Market"/>
+        <img src={state.images[0]} alt="Tella Market" />
       </div>
       <div className="tab-login">
-        <a href="#" className="item-tab--login active">Iniciar Sesión</a>
-        <a href="#" className="item-tab--login inactive">Crear Cuenta</a>
+        <a href="#" className="item-tab--login active">
+          Iniciar Sesión
+        </a>
+        <a href="#" className="item-tab--login inactive">
+          Crear Cuenta
+        </a>
       </div>
-        <form onSubmit={state.handleSubmit} className="login-form">
-          {/* <h5 className=""> 
+      <form onSubmit={state.handleSubmit} className="login-form">
+        {/* <h5 className=""> 
             {t("authentication.title")}
           </h5> */}
-          <div className="item-login--form">
-            <label htmlFor="email">{t("authentication.login.email")}</label>
-            <div className="input-text input-icon">
-              <i class="material-icons">person</i><input type="email" id="email" onChange={state.handleChange} />
-            </div>
+        <div className="item-login--form">
+          <label htmlFor="email">{t("authentication.login.email")}</label>
+          <div className="input-text input-icon">
+            <i class="material-icons">person</i>
+            <input type="email" id="email" onChange={state.handleChange} />
           </div>
-          <div className="item-login--form">
-            <label htmlFor="password">
-              {t("authentication.login.password")}
-            </label>
-            <div className="input-text input-icon">
-              <i class="material-icons">vpn_key</i>
-              <input type="password" id="password" onChange={state.handleChange}/>
-            </div>
+        </div>
+        <div className="item-login--form">
+          <label htmlFor="password">{t("authentication.login.password")}</label>
+          <div className="input-text input-icon">
+            <i class="material-icons">vpn_key</i>
+            <input
+              type="password"
+              id="password"
+              onChange={state.handleChange}
+            />
           </div>
-          <div className="item-login--btn">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="" className="btn btn-go">Iniciar sesión</a>
-          </div>
-        </form>
-        <div className="type-login">
-          <a className="btn-networks facebook" onClick={state.handleFacebook}>
-            <img src={state.images[1]} alt="Tella Market"/><span>Facebook</span>
+        </div>
+        <div className="item-login--btn">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+          <a href="" className="btn btn-go">
+            Iniciar sesión
           </a>
-          <a className="btn-networks google" onClick={state.handleGmail}>
-            <img src={state.images[2]} alt="Tella Market"/> <span>Google</span>
-          </a>
-          <a className="btn-networks phone" onClick={state.handlePhone}>
-            <i class="material-icons">phone_iphone</i>
-            {t("authentication.phoneTitle")}
-          </a>
-          {/* <div className="">
+        </div>
+      </form>
+      <div className="type-login">
+        <a className="btn-networks facebook" onClick={state.handleFacebook}>
+          <img src={state.images[1]} alt="Tella Market" />
+          <span>Facebook</span>
+        </a>
+        <a className="btn-networks google" onClick={state.handleGmail}>
+          <img src={state.images[2]} alt="Tella Market" /> <span>Google</span>
+        </a>
+        <a className="btn-networks phone" onClick={state.handlePhone}>
+          <i class="material-icons">phone_iphone</i>
+          {t("authentication.phoneTitle")}
+        </a>
+        {/* <div className="">
               {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
           </div> */}
-        </div>
-        
+      </div>
     </div>
   );
 }
@@ -122,7 +130,7 @@ class SignIn extends Component {
 
   render() {
     const { authMessage, auth, lang } = this.props;
-    const images = [logo, facebook, google]//Logo3, Logo4...logon
+    const images = [logo, facebook, google]; //Logo3, Logo4...logon
     if (auth.uid) return <Redirect to="/" />;
     return (
       <MyComponent
