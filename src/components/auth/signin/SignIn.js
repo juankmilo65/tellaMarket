@@ -7,7 +7,7 @@ import {
   singinGmail,
   singinFacebook
 } from "./actions/signinActions";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./signin.scss";
 import google from "../../../images/google.svg";
@@ -28,9 +28,9 @@ function MyComponent(state) {
         <a href="#" className="item-tab--login active">
           Iniciar Sesión
         </a>
-        <a href="#" className="item-tab--login inactive">
+        <NavLink to="/signup" className="item-tab--login inactive">
           Crear Cuenta
-        </a>
+        </NavLink>
       </div>
       <form onSubmit={state.handleSubmit} className="login-form">
         {/* <h5 className=""> 

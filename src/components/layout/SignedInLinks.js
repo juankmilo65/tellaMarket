@@ -14,21 +14,26 @@ function MyComponent(state) {
   }
 
   return (
-    <div className="user">
-      {/* <li>
-        <NavLink to="/createItem">{t("newItem")} </NavLink>
-      </li> */}
-      <li>
-        <NavLink to="/" className="">
-          {state.initials}
-        </NavLink>
-      </li>
-      {/* <li>
-        <a onClick={state.handleSubmit}>{t("logout")} </a>
-      </li> */}
-      <li>
-        <NavLink to="/" />
-      </li>
+    <div>
+      <div>
+        <li>
+          <NavLink to="/createItem">{t("newItem")} </NavLink>
+        </li>
+        <li>
+          <a onClick={state.handleSubmit}>{t("logout")} </a>
+        </li>
+      </div>
+      <div className="user">
+        <li>
+          <NavLink to="/" className="">
+            {state.initials}
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/" />
+        </li>
+      </div>
     </div>
   );
 }

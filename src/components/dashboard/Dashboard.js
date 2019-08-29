@@ -21,12 +21,12 @@ class Dashboard extends Component {
   render() {
     const { items, auth, notifications } = this.props;
     const imagesMainBar = [
-      { image:banner1},
+      { image: banner1 },
       {
-        image:banner2
+        image: banner2
       },
       {
-        image:banner3
+        image: banner3
         //Mas propiedades
       }
       //, { mas imagenes}
@@ -36,40 +36,27 @@ class Dashboard extends Component {
       [
         {
           image: bannerXs1,
-          text: "Primer texto Ejemplo 1" //Mas propiedades
+          text: "Primer texto Ejemplo 4444" //Mas propiedades
         },
-        { image: bannerXs1},
-        { image: bannerXs1}
+        { image: bannerXs1 },
+        { image: bannerXs1 }
       ],
-      [
-        { image: bannerXs2},
-        { image: bannerXs2},
-        { image: bannerXs2}
-      ],
-      [
-        { image: bannerXs3},
-        { image: bannerXs3},
-        { image: bannerXs3}
-      ],
-      [
-        { image: bannerXs4},
-        { image: bannerXs4},
-        { image: bannerXs4}
-      ]
+      [{ image: bannerXs2 }, { image: bannerXs2 }, { image: bannerXs2 }],
+      [{ image: bannerXs3 }, { image: bannerXs3 }, { image: bannerXs3 }],
+      [{ image: bannerXs4 }, { image: bannerXs4 }, { image: bannerXs4 }]
     ];
 
-    if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div>
         <div className="container">
           <div className="first-slider">
             <Carousel images={imagesMainBar} />
           </div>
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
           <div>
-           <CarouselMultiple images={imagesMultiBar} />
+            <CarouselMultiple images={imagesMultiBar} />
           </div>
           <div>
             <ItemList items={items} />
@@ -77,51 +64,78 @@ class Dashboard extends Component {
           <div>
             <Notifications notifications={notifications} />
           </div>
-         
-
         </div>
 
         <div className="footer-menu">
           <div className="container">
             <div className="item-footer--menu">
-              <img src={logoWhite}/>
-              <div className="text-footer"><span>+61 3 8376 6284</span></div>
-              <div className="text-footer"><span>info@tellamarket.com</span></div>
+              <img src={logoWhite} />
+              <div className="text-footer">
+                <span>+61 3 8376 6284</span>
+              </div>
+              <div className="text-footer">
+                <span>info@tellamarket.com</span>
+              </div>
               <div className="social-network">
-                <image src="" className="facebook"/>
-                <image src="" className="google"/>
+                <image src="" className="facebook" />
+                <image src="" className="google" />
               </div>
             </div>
             <div className="item-footer--menu">
               <h2>Nosotros</h2>
-              <div className="text-footer"><a href="#">Tella Market</a></div>
-              <div className="text-footer"><a href="#">Contato</a></div>
-              <div className="text-footer"><a href="#">Trabaje con nosotros</a></div>
-              <div className="text-footer"><a href="#">Proveedores</a></div>
+              <div className="text-footer">
+                <a href="#">Tella Market</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Contato</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Trabaje con nosotros</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Proveedores</a>
+              </div>
             </div>
             <div className="item-footer--menu">
               <h2>Categorias</h2>
-              <div className="text-footer"><a href="#">Industrias</a></div>
-              <div className="text-footer"><a href="#">Construcción</a></div>
-              <div className="text-footer"><a href="#">Confecciones</a></div>
-              <div className="text-footer"><a href="#">Descuentos</a></div>
+              <div className="text-footer">
+                <a href="#">Industrias</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Construcción</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Confecciones</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Descuentos</a>
+              </div>
             </div>
 
             <div className="item-footer--menu">
               <h2>Soporte</h2>
-              <div className="text-footer"><a href="#">Blog</a></div>
-              <div className="text-footer"><a href="#">FAQs</a></div>
-              <div className="text-footer"><a href="#">Seguimiento de Order</a></div>
-              <div className="text-footer"><a href="#">Devoluciones</a></div>
+              <div className="text-footer">
+                <a href="#">Blog</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">FAQs</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Seguimiento de Order</a>
+              </div>
+              <div className="text-footer">
+                <a href="#">Devoluciones</a>
+              </div>
             </div>
             <div className="item-footer--menu">
               <h2>Subscríbete</h2>
-              <input type="text" value="" placeholder="Tu email aquí"/>
-              <div className="text-footer"><a href="#">Todos los derechos reservados Tella Market</a></div>
+              <input type="text" value="" placeholder="Tu email aquí" />
+              <div className="text-footer">
+                <a href="#">Todos los derechos reservados Tella Market</a>
+              </div>
             </div>
           </div>
-            
-          </div>
+        </div>
       </div>
     );
   }

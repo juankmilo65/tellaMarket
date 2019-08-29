@@ -11,9 +11,6 @@ function MyComponent(state) {
   return (
     <div>
       <li>
-        <NavLink to="/signup">{t("signup.title")}</NavLink>
-      </li>
-      <li>
         <NavLink to="/signin">{t("authentication.title")}</NavLink>
       </li>
 
