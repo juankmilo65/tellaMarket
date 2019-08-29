@@ -7,13 +7,12 @@ import {
   singinGmail,
   singinFacebook
 } from "./actions/signinActions";
-import { Redirect, NavLink, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "../../layout/actions/navarActions";
 import "./signin.scss";
 import google from "../../../images/google.svg";
 import facebook from "../../../images/facebook.svg";
-import logo from "../../../images/Logo.svg";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -21,19 +20,7 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
   return (
-    <div className="container-login">
-      <Link onClick={state.handleLogo} className="logo">
-        <img src={state.images[0]} alt="Tella Market" />
-      </Link>
-
-      <div className="tab-login">
-        <a href="" className="item-tab--login active">
-          Iniciar Sesión
-        </a>
-        <NavLink to="/signup" className="item-tab--login inactive">
-          Crear Cuenta
-        </NavLink>
-      </div>
+    <div>
       <form onSubmit={state.handleSubmit} className="login-form">
         {/* <h5 className=""> 
             {t("authentication.title")}
@@ -65,11 +52,11 @@ function MyComponent(state) {
       </form>
       <div className="type-login">
         <a className="btn-networks facebook" onClick={state.handleFacebook}>
-          <img src={state.images[1]} alt="Tella Market" />
+          <img src={state.images[0]} alt="Tella Market" />
           <span>Facebook</span>
         </a>
         <a className="btn-networks google" onClick={state.handleGmail}>
-          <img src={state.images[2]} alt="Tella Market" /> <span>Google</span>
+          <img src={state.images[1]} alt="Tella Market" /> <span>Google</span>
         </a>
         <a className="btn-networks phone" onClick={state.handlePhone}>
           <i class="material-icons">phone_iphone</i>
@@ -138,7 +125,7 @@ class SignIn extends Component {
 
   render() {
     const { authMessage, auth, lang } = this.props;
-    const images = [logo, facebook, google]; //Logo3, Logo4...logon
+    const images = [facebook, google];
     if (auth.uid) return <Redirect to="/" />;
     return (
       <MyComponent

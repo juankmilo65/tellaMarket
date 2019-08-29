@@ -5,6 +5,7 @@ import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signUpWithEmailAndPassword } from "./actions/signupActions";
 import { useTranslation } from "react-i18next";
+import "./singup.scss";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();

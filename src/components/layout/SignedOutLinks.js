@@ -12,7 +12,7 @@ function MyComponent(state) {
   }
 
   return (
-    <div>
+    <div className="user">
       <li>
         <a onClick={state.handleSignin}>{t("authentication.title")}</a>
       </li>

@@ -4,7 +4,6 @@ import ItemList from "../items/list/itemtList";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { Redirect } from "react-router-dom";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
 import banner1 from "../commons/carousel/img/banner1.png";

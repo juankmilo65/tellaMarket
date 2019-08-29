@@ -1,0 +1,44 @@
+$yellow: #ffb808;
+$blue: #032b3f;
+$gray-bg: #f6f6f6;
+$gray-text: #7c7c7c;
+
+.container-login {
+  max-width: 600px;
+  padding-top: 66px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 0 auto;
+  justify-content: center;
+  .logo {
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+  }
+}
+
+.tab-login {
+  display: flex;
+  padding: 30px;
+}
+
+.active {
+  border-bottom: 3px solid $yellow;
+  color: $yellow;
+}
+
+.inactive {
+  border-bottom: 2px solid $blue;
+  color: $blue;
+}
+
+.item-tab--login {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}

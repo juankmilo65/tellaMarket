@@ -6,13 +6,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Dashboard from "./dashboard/Dashboard";
 import ProjectDetail from "./items/detail/itemDetail";
-import SignIn from "./auth/signin/SignIn";
+import AuthContainer from "./auth/AuthContainer";
 import SignUp from "./auth/signup/SignUp";
 import CreateItem from "./items/create/createItem";
 import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
 import PrivacyPolicy from "./footer/privacyPolicy";
 import "bootstrap-4-react";
-
 
 class App extends Component {
   render() {
@@ -25,7 +24,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Dashboard} />
               <Route path="/project/:id" component={ProjectDetail} />
-              <Route path="/signin" component={SignIn} />
+              <Route path="/signin" component={AuthContainer} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createItem" component={CreateItem} />
               <Route
