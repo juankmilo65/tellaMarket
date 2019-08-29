@@ -28,7 +28,7 @@ class Navbar extends Component {
       <SignedOutLinks />
     );
     return (
-      <div>
+      <div className="menu-tella">
         <nav className="nav-wrapper nav-tella">
           <div className="container-tella">
             <Link to="/" className="logo">
