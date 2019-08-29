@@ -4,7 +4,7 @@ import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
 import Select from "react-select";
-import { setLanguage } from "./actions/navarActions";
+import { setLanguage, hideHeader } from "./actions/navarActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 
@@ -20,20 +20,28 @@ class Navbar extends Component {
   };
 
   render() {
-    const { auth, profile, lang } = this.props;
+    const { auth, profile, lang, hide, hideHeader } = this.props;
     const images = [logo];
+    const hideHeaderLocal = window.location.pathname == "/signin" ? true : hide;
+    hideHeader(hideHeaderLocal);
     const links = auth.uid ? (
       <SignedInLinks profile={profile} />
     ) : (
       <SignedOutLinks />
     );
+
     return (
       <div>
         <nav className="nav-wrapper nav-tella">
           <div className="container-tella">
-            <Link to="/" className="logo">
-              <img src={logo} alt="Tella Market" />
-            </Link>
+            {hideHeaderLocal ? (
+              <div />
+            ) : (
+              <Link to="/" className="logo">
+                <img src={logo} alt="Tella Market" />
+              </Link>
+            )}
+
             <div className="nav-right">
               {auth.isLoaded && links}
               <Select
@@ -52,18 +60,22 @@ class Navbar extends Component {
             </div>
           </div>
         </nav>
-        <div className="search">
-          <div className="container-tella">
-            <div className="btn-submenu">
-              <a href="#">Categorias</a>
-              <i className="material-icons">keyboard_arrow_down</i>
-            </div>
-            <div className="input-search">
-              <input type="text" placeholder="Buscar" />
-              <i className="material-icons">search</i>
+        {hideHeaderLocal ? (
+          <div />
+        ) : (
+          <div className="search">
+            <div className="container-tella">
+              <div className="btn-submenu">
+                <a href="">Categorias</a>
+                <i className="material-icons">keyboard_arrow_down</i>
+              </div>
+              <div className="input-search">
+                <input type="text" placeholder="Buscar" />
+                <i className="material-icons">search</i>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
@@ -72,11 +84,12 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    lang: state.navar.lang
+    lang: state.navar.lang,
+    hide: state.navar.hide
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setLanguage }
+  { setLanguage, hideHeader }
 )(Navbar);

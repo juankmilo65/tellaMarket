@@ -84,54 +84,54 @@ class Dashboard extends Component {
             <div className="item-footer--menu">
               <h2>Nosotros</h2>
               <div className="text-footer">
-                <a href="#">Tella Market</a>
+                <a href="">Tella Market</a>
               </div>
               <div className="text-footer">
-                <a href="#">Contato</a>
+                <a href="">Contato</a>
               </div>
               <div className="text-footer">
-                <a href="#">Trabaje con nosotros</a>
+                <a href="">Trabaje con nosotros</a>
               </div>
               <div className="text-footer">
-                <a href="#">Proveedores</a>
+                <a href="">Proveedores</a>
               </div>
             </div>
             <div className="item-footer--menu">
               <h2>Categorias</h2>
               <div className="text-footer">
-                <a href="#">Industrias</a>
+                <a href="">Industrias</a>
               </div>
               <div className="text-footer">
-                <a href="#">Construcción</a>
+                <a href="">Construcción</a>
               </div>
               <div className="text-footer">
-                <a href="#">Confecciones</a>
+                <a href="">Confecciones</a>
               </div>
               <div className="text-footer">
-                <a href="#">Descuentos</a>
+                <a href="">Descuentos</a>
               </div>
             </div>
 
             <div className="item-footer--menu">
               <h2>Soporte</h2>
               <div className="text-footer">
-                <a href="#">Blog</a>
+                <a href="">Blog</a>
               </div>
               <div className="text-footer">
-                <a href="#">FAQs</a>
+                <a href="">FAQs</a>
               </div>
               <div className="text-footer">
-                <a href="#">Seguimiento de Order</a>
+                <a href="">Seguimiento de Order</a>
               </div>
               <div className="text-footer">
-                <a href="#">Devoluciones</a>
+                <a href="">Devoluciones</a>
               </div>
             </div>
             <div className="item-footer--menu">
               <h2>Subscríbete</h2>
               <input type="text" value="" placeholder="Tu email aquí" />
               <div className="text-footer">
-                <a href="#">Todos los derechos reservados Tella Market</a>
+                <a href="">Todos los derechos reservados Tella Market</a>
               </div>
             </div>
           </div>

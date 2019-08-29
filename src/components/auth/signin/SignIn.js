@@ -7,8 +7,9 @@ import {
   singinGmail,
   singinFacebook
 } from "./actions/signinActions";
-import { Redirect, NavLink } from "react-router-dom";
+import { Redirect, NavLink, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { hideHeader } from "../../layout/actions/navarActions";
 import "./signin.scss";
 import google from "../../../images/google.svg";
 import facebook from "../../../images/facebook.svg";
@@ -21,11 +22,12 @@ function MyComponent(state) {
   }
   return (
     <div className="container-login">
-      <div className="logo">
+      <Link onClick={state.handleLogo} className="logo">
         <img src={state.images[0]} alt="Tella Market" />
-      </div>
+      </Link>
+
       <div className="tab-login">
-        <a href="#" className="item-tab--login active">
+        <a href="" className="item-tab--login active">
           Iniciar Sesión
         </a>
         <NavLink to="/signup" className="item-tab--login inactive">
@@ -55,7 +57,7 @@ function MyComponent(state) {
           </div>
         </div>
         <div className="item-login--btn">
-          <a href="#">¿Olvidaste tu contraseña?</a>
+          <a href="">¿Olvidaste tu contraseña?</a>
           <a href="" className="btn btn-go">
             Iniciar sesión
           </a>
@@ -128,6 +130,12 @@ class SignIn extends Component {
     this.props.history.push("/phoneAuthentication");
   };
 
+  handleLogo = () => {
+    const { props } = this;
+    props.hideHeader(false);
+    this.props.history.push("/");
+  };
+
   render() {
     const { authMessage, auth, lang } = this.props;
     const images = [logo, facebook, google]; //Logo3, Logo4...logon
@@ -139,6 +147,7 @@ class SignIn extends Component {
         handleGmail={this.handleGmail}
         handlePhone={this.handlePhone}
         handleFacebook={this.handleFacebook}
+        handleLogo={this.handleLogo}
         authMessage={authMessage}
         lang={lang}
         images={images}
@@ -159,6 +168,6 @@ export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { signInWithEmailAndPassword, singinGmail, singinFacebook }
+    { signInWithEmailAndPassword, singinGmail, singinFacebook, hideHeader }
   )
 )(SignIn);
