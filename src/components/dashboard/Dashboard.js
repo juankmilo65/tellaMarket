@@ -7,28 +7,43 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
-import banner1 from "../commons/carousel/banner1.png";
-import banner2 from "../commons/carousel/banner2.png";
-import banner3 from "../commons/carousel/banner3.png";
-import bannerXs1 from "../commons/carousel/banner-xs-1.png";
-import bannerXs2 from "../commons/carousel/banner-xs-2.png";
-import bannerXs3 from "../commons/carousel/banner-xs-3.png";
-import bannerXs4 from "../commons/carousel/banner-xs-4.png";
-import logoWhite from "../commons/carousel/logo-white.png";
+import banner1 from "../commons/carousel/img/banner1.png";
+import banner2 from "../commons/carousel/img/banner2.png";
+import banner3 from "../commons/carousel/img/banner3.png";
+import bannerXs1 from "../commons/carousel/img/banner-xs-1.png";
+import bannerXs2 from "../commons/carousel/img/banner-xs-2.png";
+import bannerXs3 from "../commons/carousel/img/banner-xs-3.png";
+import bannerXs4 from "../commons/carousel/img/banner-xs-4.png";
+import logoWhite from "../commons/carousel/img/logo-white.png";
 import "./dashboard.scss";
 
 class Dashboard extends Component {
   render() {
     const { items, auth, notifications } = this.props;
     const imagesMainBar = [
-      { image: banner1 },
-      {
-        image: banner2
+      { titlecategory:"maquinas & equipos",
+        titleproduct:" The New Standar Tufting Machinery",
+        price:"Desde", 
+        valueprice:"$2000.00",
+        textbtn:"consultar ahora",
+        image: banner1 
       },
       {
-        image: banner3
-        //Mas propiedades
-      }
+        titlecategory:"maquinas & equipos",
+        titleproduct:" The New Standar Tufting Machinery",
+        price:"Desde", 
+        valueprice:"$2000.00",
+        textbtn:"consultar ahora",
+        image: banner2,
+      },
+      { 
+        titlecategory:"maquinas & equipos",
+        titleproduct:" The New Standar Tufting Machinery",
+        price:"Desde", 
+        valueprice:"$2000.00",
+        textbtn:"consultar ahora",
+        image: banner3 
+      },
       //, { mas imagenes}
     ];
 
@@ -36,14 +51,82 @@ class Dashboard extends Component {
       [
         {
           image: bannerXs1,
-          text: "Primer texto Ejemplo 4444" //Mas propiedades
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00"
         },
-        { image: bannerXs1 },
-        { image: bannerXs1 }
+        { image: bannerXs1,
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00" },
+        { image: bannerXs1,
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00" }
       ],
-      [{ image: bannerXs2 }, { image: bannerXs2 }, { image: bannerXs2 }],
-      [{ image: bannerXs3 }, { image: bannerXs3 }, { image: bannerXs3 }],
-      [{ image: bannerXs4 }, { image: bannerXs4 }, { image: bannerXs4 }]
+      [{
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+       },
+       { 
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+       },
+       { 
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+      }], 
+      [{ 
+        image: bannerXs3,
+        titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+        category:"Categoría tres",
+        valueprice:"$230.00" 
+        },
+        { 
+          image: bannerXs3,
+          titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+          category:"Categoría tres",
+          valueprice:"$230.00"
+        },
+        { 
+          image: bannerXs3,
+          titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+          category:"Categoría tres",
+          valueprice:"$230.00"
+        }, 
+      ],
+      [
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+      ]
     ];
 
     return (
@@ -55,7 +138,7 @@ class Dashboard extends Component {
           <br />
           <br />
           <br />
-          <div>
+          <div className="banner-small">
             <CarouselMultiple images={imagesMultiBar} />
           </div>
           <div>
