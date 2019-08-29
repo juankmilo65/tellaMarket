@@ -7,20 +7,26 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
-import ejemplo from "../commons/carousel/ejemplo.jpg";
+import banner1 from "../commons/carousel/banner1.png";
+import banner2 from "../commons/carousel/banner2.png";
+import banner3 from "../commons/carousel/banner3.png";
+import bannerXs1 from "../commons/carousel/banner-xs-1.png";
+import bannerXs2 from "../commons/carousel/banner-xs-2.png";
+import bannerXs3 from "../commons/carousel/banner-xs-3.png";
+import bannerXs4 from "../commons/carousel/banner-xs-4.png";
+import logoWhite from "../commons/carousel/logo-white.png";
+import "./dashboard.scss";
 
 class Dashboard extends Component {
   render() {
     const { items, auth, notifications } = this.props;
     const imagesMainBar = [
-      { image: ejemplo, text: "Texto Ejemplo 1" },
+      { image:banner1},
       {
-        image: ejemplo,
-        text: "Texto Ejemplo 2"
+        image:banner2
       },
       {
-        image: ejemplo,
-        text: "Texto Ejemplo 3"
+        image:banner3
         //Mas propiedades
       }
       //, { mas imagenes}
@@ -29,47 +35,93 @@ class Dashboard extends Component {
     const imagesMultiBar = [
       [
         {
-          image: ejemplo,
+          image: bannerXs1,
           text: "Primer texto Ejemplo 1" //Mas propiedades
         },
-        { image: ejemplo, text: "Segundo texto Ejemplo 1" },
-        { image: ejemplo, text: "Tercero texto Ejemplo 1" }
+        { image: bannerXs1},
+        { image: bannerXs1}
       ],
       [
-        { image: ejemplo, text: "Primer texto Ejemplo 2" },
-        { image: ejemplo, text: "Segundo texto Ejemplo 2" },
-        { image: ejemplo, text: "Tercero texto Ejemplo 2" }
+        { image: bannerXs2},
+        { image: bannerXs2},
+        { image: bannerXs2}
       ],
       [
-        { image: ejemplo, text: "Primer texto Ejemplo 3" },
-        { image: ejemplo, text: "Segundo texto Ejemplo 3" },
-        { image: ejemplo, text: "Tercero texto Ejemplo 3" }
+        { image: bannerXs3},
+        { image: bannerXs3},
+        { image: bannerXs3}
       ],
       [
-        { image: ejemplo, text: "Primer texto Ejemplo 4" },
-        { image: ejemplo, text: "Segundo texto Ejemplo 4" },
-        { image: ejemplo, text: "Tercero texto Ejemplo 4" }
+        { image: bannerXs4},
+        { image: bannerXs4},
+        { image: bannerXs4}
       ]
     ];
+
     if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div>
-        <div>
-          <div>
+        <div className="container">
+          <div className="first-slider">
             <Carousel images={imagesMainBar} />
-            <br />
-            <br />
-            <br />
-            <CarouselMultiple images={imagesMultiBar} />
           </div>
-          <div></div>
+          <br/>
+          <br/>
+          <br/>
+          <div>
+           <CarouselMultiple images={imagesMultiBar} />
+          </div>
           <div>
             <ItemList items={items} />
           </div>
           <div>
             <Notifications notifications={notifications} />
           </div>
+         
+
         </div>
+
+        <div className="footer-menu">
+          <div className="container">
+            <div className="item-footer--menu">
+              <img src={logoWhite}/>
+              <div className="text-footer"><span>+61 3 8376 6284</span></div>
+              <div className="text-footer"><span>info@tellamarket.com</span></div>
+              <div className="social-network">
+                <image src="" className="facebook"/>
+                <image src="" className="google"/>
+              </div>
+            </div>
+            <div className="item-footer--menu">
+              <h2>Nosotros</h2>
+              <div className="text-footer"><a href="#">Tella Market</a></div>
+              <div className="text-footer"><a href="#">Contato</a></div>
+              <div className="text-footer"><a href="#">Trabaje con nosotros</a></div>
+              <div className="text-footer"><a href="#">Proveedores</a></div>
+            </div>
+            <div className="item-footer--menu">
+              <h2>Categorias</h2>
+              <div className="text-footer"><a href="#">Industrias</a></div>
+              <div className="text-footer"><a href="#">Construcción</a></div>
+              <div className="text-footer"><a href="#">Confecciones</a></div>
+              <div className="text-footer"><a href="#">Descuentos</a></div>
+            </div>
+
+            <div className="item-footer--menu">
+              <h2>Soporte</h2>
+              <div className="text-footer"><a href="#">Blog</a></div>
+              <div className="text-footer"><a href="#">FAQs</a></div>
+              <div className="text-footer"><a href="#">Seguimiento de Order</a></div>
+              <div className="text-footer"><a href="#">Devoluciones</a></div>
+            </div>
+            <div className="item-footer--menu">
+              <h2>Subscríbete</h2>
+              <input type="text" value="" placeholder="Tu email aquí"/>
+              <div className="text-footer"><a href="#">Todos los derechos reservados Tella Market</a></div>
+            </div>
+          </div>
+            
+          </div>
       </div>
     );
   }

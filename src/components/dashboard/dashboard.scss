@@ -1,0 +1,41 @@
+$yellow:#FFB808;
+$blue:#032B3F;
+$gray-bg: #F6F6F6;
+$gray-text:#7C7C7C;
+
+
+.footer-menu{
+    height:286px;
+    background-color: $blue;
+    .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 80px 0;
+        height: 100%;
+    }
+    h2{
+        color: $yellow;
+        font-size:16px;
+        font-weight: bold; 
+    }
+    .text-footer{
+        span,a{
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+    }
+
+    .item-footer--menu{
+        input{
+            background-color:$blue;
+            border-top: 2px solid white;
+            border-width: 0 0 2px 0;
+            color: white;
+            min-width: 300px;
+        }
+    }
+    
+}

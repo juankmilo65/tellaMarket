@@ -29,7 +29,7 @@ class carousel extends Component {
             return (
               <Carousel.Item>
                 <img
-                  className="d-block w-100"
+                  className="d-block w-100 h-100"
                   src={image.image}
                   alt="First slide"
                 />
