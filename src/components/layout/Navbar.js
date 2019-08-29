@@ -31,7 +31,7 @@ class Navbar extends Component {
     );
 
     return (
-      <div>
+      <div className="menu-tella">
         <nav className="nav-wrapper nav-tella">
           <div className="container-tella">
             {hideHeaderLocal ? (

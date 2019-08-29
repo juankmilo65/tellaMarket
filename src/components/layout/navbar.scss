@@ -4,6 +4,11 @@ $gray-bg: #F6F6F6;
 $gray-text:#7C7C7C;
 
 
+.menu-tella{
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
 .nav-tella{
     display: flex;
     flex-direction: column;
