@@ -31,7 +31,7 @@ class carousel extends Component {
             return (
               <Carousel.Item>
                 <img
-                  className="d-block w-100 h-100"
+                  className="d-block w-100 img-small"
                   src={image.image}
                   alt="First slide"
                 />
@@ -42,6 +42,11 @@ class carousel extends Component {
                     <div><span className="title-category">{image.price}</span><span className="value-price">{image.valueprice}</span></div>
                   </div>
                   <a className="btns btn-go">{image.textbtn}</a>
+                </div>
+                <div className="item-banner-xs">
+                  <div className="title-product">{image.titleproduct}</div>
+                  <div className="title-category">{image.category}</div>
+                  <div className="value--price">{image.valueprice}</div>
                 </div>
                 <Carousel.Caption>
                   {/* Mas propiedades */}

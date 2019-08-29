@@ -51,14 +51,82 @@ class Dashboard extends Component {
       [
         {
           image: bannerXs1,
-          text: "Primer texto Ejemplo 4444" //Mas propiedades
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00"
         },
-        { image: bannerXs1 },
-        { image: bannerXs1 }
+        { image: bannerXs1,
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00" },
+        { image: bannerXs1,
+          titleproduct:"Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+          category:"Categoría 1",
+          valueprice:"$892.00" }
       ],
-      [{ image: bannerXs2 }, { image: bannerXs2 }, { image: bannerXs2 }],
-      [{ image: bannerXs3 }, { image: bannerXs3 }, { image: bannerXs3 }],
-      [{ image: bannerXs4 }, { image: bannerXs4 }, { image: bannerXs4 }]
+      [{
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+       },
+       { 
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+       },
+       { 
+        image: bannerXs2,
+        titleproduct:"MULLER MARTINI Italiana 370",
+        category:"Textile and Leather Machinery ",
+        valueprice:"$932.00"
+      }], 
+      [{ 
+        image: bannerXs3,
+        titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+        category:"Categoría tres",
+        valueprice:"$230.00" 
+        },
+        { 
+          image: bannerXs3,
+          titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+          category:"Categoría tres",
+          valueprice:"$230.00"
+        },
+        { 
+          image: bannerXs3,
+          titleproduct:"Wohlenberg 185 Cut-Tec, Guillotine",
+          category:"Categoría tres",
+          valueprice:"$230.00"
+        }, 
+      ],
+      [
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+        { 
+          image: bannerXs4,
+          titleproduct:"Kama TS 105, Automatic Die Cutter",
+          category:"Categoría cuatro",
+          valueprice:"$503.00"
+        }, 
+      ]
     ];
 
     return (
@@ -70,7 +138,7 @@ class Dashboard extends Component {
           <br />
           <br />
           <br />
-          <div>
+          <div className="banner-small">
             <CarouselMultiple images={imagesMultiBar} />
           </div>
           <div>

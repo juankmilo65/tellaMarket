@@ -39,3 +39,17 @@ $gray-text:#7C7C7C;
     }
     
 }
+
+
+.first-slider .item-banner-xs{
+    display: none;
+}
+
+.banner-small {
+    .item-first-banner{
+        display: none;
+    }
+    .carousel-indicators{
+        display: none;
+    }
+}
