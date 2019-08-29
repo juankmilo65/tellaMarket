@@ -117,7 +117,7 @@ $google: #F14336;
 
 
 ///button///
-.btn{
+.btns{
     width: 208px;
     height: 45px;
     border-radius: 6px;
@@ -128,11 +128,12 @@ $google: #F14336;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .btn-go{
-    background: $yellow;
-    color: white;
+    background: $yellow !important;
+    color: white !important;
 }
 
 .type-login{
