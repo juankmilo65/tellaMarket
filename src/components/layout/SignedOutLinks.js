@@ -14,7 +14,9 @@ function MyComponent(state) {
   return (
     <div className="user">
       <li>
-        <a onClick={state.handleSignin}>{t("authentication.title")}</a>
+        <button onClick={state.handleSignin}>
+          {t("authentication.title")}
+        </button>
       </li>
       <li>
         <NavLink to="/" />

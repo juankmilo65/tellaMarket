@@ -20,9 +20,10 @@ class Navbar extends Component {
   };
 
   render() {
-    const { auth, profile, lang, hide, hideHeader } = this.props;
+    const { auth, profile, hide, hideHeader } = this.props;
     const images = [logo];
-    const hideHeaderLocal = window.location.pathname == "/signin" ? true : hide;
+    const hideHeaderLocal =
+      window.location.pathname === "/signin" ? true : hide;
     hideHeader(hideHeaderLocal);
     const links = auth.uid ? (
       <SignedInLinks profile={profile} />
@@ -66,7 +67,7 @@ class Navbar extends Component {
           <div className="search">
             <div className="container-tella">
               <div className="btn-submenu">
-                <a href="">Categorias</a>
+                <a href="/">Categorias</a>
                 <i className="material-icons">keyboard_arrow_down</i>
               </div>
               <div className="input-search">

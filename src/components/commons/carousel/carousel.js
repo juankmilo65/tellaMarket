@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "./carousel.scss";
 
-
 class carousel extends Component {
   state = {
     index: 0,
@@ -29,7 +28,7 @@ class carousel extends Component {
         {images &&
           images.map(image => {
             return (
-              <Carousel.Item>
+              <Carousel.Item key={image.id}>
                 <img
                   className="d-block w-100 img-small"
                   src={image.image}
@@ -39,18 +38,25 @@ class carousel extends Component {
                   <div>
                     <div className="title-category">{image.titlecategory}</div>
                     <div className="product">{image.titleproduct}</div>
-                    <div><span className="title-category">{image.price}</span><span className="value-price">{image.valueprice}</span></div>
+                    <div>
+                      <span id={image.id} className="title-category">
+                        {image.price}
+                      </span>
+                      <span id={image.id} className="value-price">
+                        {image.valueprice}
+                      </span>
+                    </div>
                   </div>
-                  <a className="btns btn-go">{image.textbtn}</a>
+                  <a href="/" className="btns btn-go">
+                    {image.textbtn}
+                  </a>
                 </div>
                 <div className="item-banner-xs">
                   <div className="title-product">{image.titleproduct}</div>
                   <div className="title-category">{image.category}</div>
                   <div className="value--price">{image.valueprice}</div>
                 </div>
-                <Carousel.Caption>
-                  {/* Mas propiedades */}
-                </Carousel.Caption>
+                <Carousel.Caption>{/* Mas propiedades */}</Carousel.Caption>
               </Carousel.Item>
             );
           })}

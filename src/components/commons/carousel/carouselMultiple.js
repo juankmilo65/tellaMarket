@@ -4,13 +4,15 @@ import Carousel from "../carousel/carousel";
 class carouselMultiple extends Component {
   render() {
     const { images } = this.props;
+    let idCorrousel = 0;
     return (
       <div>
         <div className="row">
           {images &&
             images.map(image => {
+              idCorrousel++;
               return (
-                <div className="col-md-3">
+                <div key={idCorrousel} className="col-md-3">
                   <Carousel images={image} />
                 </div>
               );

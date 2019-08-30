@@ -126,8 +126,7 @@ const mapStateToProps = state => ({
   type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
   auth: state.firebase.auth,
   confirmResult: state.phoneAuthentication.confirmResult,
-  lang: state.navar.lang,
-  confirmResult: state.phoneAuthentication.confirmResult
+  lang: state.navar.lang
 });
 
 export default compose(

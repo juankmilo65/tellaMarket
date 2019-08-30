@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Notifications from "./Notification";
-import ItemList from "../items/list/itemtList";
+//import ItemList from "../items/list/itemtList";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -18,7 +18,7 @@ import "./dashboard.scss";
 
 class Dashboard extends Component {
   render() {
-    const { items, auth, notifications } = this.props;
+    const { notifications } = this.props;
     const imagesMainBar = [
       {
         titlecategory: "maquinas & equipos",
@@ -26,7 +26,8 @@ class Dashboard extends Component {
         price: "Desde",
         valueprice: "$2000.00",
         textbtn: "consultar ahora",
-        image: banner1
+        image: banner1,
+        id: 1
       },
       {
         titlecategory: "maquinas & equipos",
@@ -34,7 +35,8 @@ class Dashboard extends Component {
         price: "Desde",
         valueprice: "$2000.00",
         textbtn: "consultar ahora",
-        image: banner2
+        image: banner2,
+        id: 2
       },
       {
         titlecategory: "maquinas & equipos",
@@ -42,7 +44,8 @@ class Dashboard extends Component {
         price: "Desde",
         valueprice: "$2000.00",
         textbtn: "consultar ahora",
-        image: banner3
+        image: banner3,
+        id: 3
       }
       //, { mas imagenes}
     ];
@@ -53,19 +56,22 @@ class Dashboard extends Component {
           image: bannerXs1,
           titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
           category: "Categoría 1",
-          valueprice: "$892.00"
+          valueprice: "$892.00",
+          id: 1
         },
         {
           image: bannerXs1,
           titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
           category: "Categoría 1",
-          valueprice: "$892.00"
+          valueprice: "$892.00",
+          id: 2
         },
         {
           image: bannerXs1,
           titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
           category: "Categoría 1",
-          valueprice: "$892.00"
+          valueprice: "$892.00",
+          id: 3
         }
       ],
       [
@@ -73,19 +79,22 @@ class Dashboard extends Component {
           image: bannerXs2,
           titleproduct: "MULLER MARTINI Italiana 370",
           category: "Textile and Leather Machinery ",
-          valueprice: "$932.00"
+          valueprice: "$932.00",
+          id: 1
         },
         {
           image: bannerXs2,
           titleproduct: "MULLER MARTINI Italiana 370",
           category: "Textile and Leather Machinery ",
-          valueprice: "$932.00"
+          valueprice: "$932.00",
+          id: 2
         },
         {
           image: bannerXs2,
           titleproduct: "MULLER MARTINI Italiana 370",
           category: "Textile and Leather Machinery ",
-          valueprice: "$932.00"
+          valueprice: "$932.00",
+          id: 3
         }
       ],
       [
@@ -93,19 +102,22 @@ class Dashboard extends Component {
           image: bannerXs3,
           titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
           category: "Categoría tres",
-          valueprice: "$230.00"
+          valueprice: "$230.00",
+          id: 1
         },
         {
           image: bannerXs3,
           titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
           category: "Categoría tres",
-          valueprice: "$230.00"
+          valueprice: "$230.00",
+          id: 2
         },
         {
           image: bannerXs3,
           titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
           category: "Categoría tres",
-          valueprice: "$230.00"
+          valueprice: "$230.00",
+          id: 3
         }
       ],
       [
@@ -113,25 +125,29 @@ class Dashboard extends Component {
           image: bannerXs4,
           titleproduct: "Kama TS 105, Automatic Die Cutter",
           category: "Categoría cuatro",
-          valueprice: "$503.00"
+          valueprice: "$503.00",
+          id: 1
         },
         {
           image: bannerXs4,
           titleproduct: "Kama TS 105, Automatic Die Cutter",
           category: "Categoría cuatro",
-          valueprice: "$503.00"
+          valueprice: "$503.00",
+          id: 2
         },
         {
           image: bannerXs4,
           titleproduct: "Kama TS 105, Automatic Die Cutter",
           category: "Categoría cuatro",
-          valueprice: "$503.00"
+          valueprice: "$503.00",
+          id: 3
         },
         {
           image: bannerXs4,
           titleproduct: "Kama TS 105, Automatic Die Cutter",
           category: "Categoría cuatro",
-          valueprice: "$503.00"
+          valueprice: "$503.00",
+          id: 4
         }
       ]
     ];
@@ -140,13 +156,13 @@ class Dashboard extends Component {
       <div className="pd-top--130px">
         <div className="container">
           <div className="first-slider">
-            <Carousel images={imagesMainBar} />
+            <Carousel id="main" images={imagesMainBar} />
           </div>
           <br />
           <br />
           <br />
           <div className="banner-small">
-            <CarouselMultiple images={imagesMultiBar} />
+            <CarouselMultiple id="multiple" images={imagesMultiBar} />
           </div>
           {/* <div>
             <ItemList items={items} />
@@ -159,69 +175,69 @@ class Dashboard extends Component {
         <div className="footer-menu">
           <div className="container">
             <div className="item-footer--menu">
-              <img src={logoWhite} />
+              <img alt="witheLogo" src={logoWhite} />
               <div className="text-footer">
                 <span>+61 3 8376 6284</span>
               </div>
               <div className="text-footer">
                 <span>info@tellamarket.com</span>
               </div>
-              <div className="social-network">
+              {/* <div className="social-network">
                 <image src="" className="facebook" />
                 <image src="" className="google" />
-              </div>
+              </div> */}
             </div>
             <div className="item-footer--menu">
               <h2>Nosotros</h2>
               <div className="text-footer">
-                <a href="">Tella Market</a>
+                <a href="/">Tella Market</a>
               </div>
               <div className="text-footer">
-                <a href="">Contato</a>
+                <a href="/">Contato</a>
               </div>
               <div className="text-footer">
-                <a href="">Trabaje con nosotros</a>
+                <a href="/">Trabaje con nosotros</a>
               </div>
               <div className="text-footer">
-                <a href="">Proveedores</a>
+                <a href="/">Proveedores</a>
               </div>
             </div>
             <div className="item-footer--menu">
               <h2>Categorias</h2>
               <div className="text-footer">
-                <a href="">Industrias</a>
+                <a href="/">Industrias</a>
               </div>
               <div className="text-footer">
-                <a href="">Construcción</a>
+                <a href="/">Construcción</a>
               </div>
               <div className="text-footer">
-                <a href="">Confecciones</a>
+                <a href="/">Confecciones</a>
               </div>
               <div className="text-footer">
-                <a href="">Descuentos</a>
+                <a href="/">Descuentos</a>
               </div>
             </div>
 
             <div className="item-footer--menu">
               <h2>Soporte</h2>
               <div className="text-footer">
-                <a href="">Blog</a>
+                <a href="/">Blog</a>
               </div>
               <div className="text-footer">
-                <a href="">FAQs</a>
+                <a href="/">FAQs</a>
               </div>
               <div className="text-footer">
-                <a href="">Seguimiento de Order</a>
+                <a href="/">Seguimiento de Order</a>
               </div>
               <div className="text-footer">
-                <a href="">Devoluciones</a>
+                <a href="/">Devoluciones</a>
               </div>
             </div>
             <div className="item-footer--menu">
               <h2>Subscríbete</h2>
-              <input type="text" value="" placeholder="Tu email aquí" />
+              {/* <input type="text" value="" placeholder="Tu email aquí" /> */}
               <div className="text-footer">
-                <a href="">Todos los derechos reservados Tella Market</a>
+                <a href="/">Todos los derechos reservados Tella Market</a>
               </div>
             </div>
           </div>

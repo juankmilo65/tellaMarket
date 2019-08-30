@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./FrameAuth.scss";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../../../images/Logo.svg";
 import { selectTab } from "../frame/actions/frameActions";
+import { hideHeader } from "../../layout/actions/navarActions";
+// import { Redirect } from "react-router-dom";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -14,12 +15,12 @@ function MyComponent(state) {
   return (
     <div>
       <div className="container-login">
-        <Link onClick={state.handleLogo} className="logo">
+        <div onClick={state.handleLogo} className="logo">
           <img src={state.logo} alt="Tella Market" />
-        </Link>
+        </div>
       </div>
       <div className="tab-login">
-        <a
+        <div
           id="login"
           onClick={state.handleTab}
           className={
@@ -29,8 +30,8 @@ function MyComponent(state) {
           }
         >
           {t("authentication.title")}
-        </a>
-        <a
+        </div>
+        <div
           id="signup"
           onClick={state.handleTab}
           className={
@@ -40,7 +41,7 @@ function MyComponent(state) {
           }
         >
           {t("signup.title")}
-        </a>
+        </div>
       </div>
     </div>
   );
@@ -49,8 +50,14 @@ function MyComponent(state) {
 class FrameAuth extends Component {
   handleTab = e => {
     const { props } = this;
-    const isLogin = e.target.id == "login" ? true : false;
+    const isLogin = e.target.id === "login" ? true : false;
     props.selectTab(isLogin);
+  };
+
+  handleLogo = () => {
+    const { props } = this;
+    props.hideHeader(false);
+    //this.props.history.push("/");
   };
 
   render() {
@@ -61,6 +68,7 @@ class FrameAuth extends Component {
         logo={logo}
         isLogin={isLogin}
         handleTab={this.handleTab}
+        handleLogo={this.handleLogo}
       />
     );
   }
@@ -68,10 +76,11 @@ class FrameAuth extends Component {
 
 const mapStateToProps = state => ({
   lang: state.navar.lang,
-  isLogin: state.frame.isLogin
+  isLogin: state.frame.isLogin,
+  hide: state.navar.hide
 });
 
 export default connect(
   mapStateToProps,
-  { selectTab }
+  { selectTab, hideHeader }
 )(FrameAuth);

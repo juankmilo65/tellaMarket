@@ -9,7 +9,7 @@ import {
 } from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { hideHeader } from "../../layout/actions/navarActions";
+
 import "./signin.scss";
 import google from "../../../images/google.svg";
 import facebook from "../../../images/facebook.svg";
@@ -28,14 +28,14 @@ function MyComponent(state) {
         <div className="item-login--form">
           <label htmlFor="email">{t("authentication.login.email")}</label>
           <div className="input-text input-icon">
-            <i class="material-icons">person</i>
+            <i className="material-icons">person</i>
             <input type="email" id="email" onChange={state.handleChange} />
           </div>
         </div>
         <div className="item-login--form">
           <label htmlFor="password">{t("authentication.login.password")}</label>
           <div className="input-text input-icon">
-            <i class="material-icons">vpn_key</i>
+            <i className="material-icons">vpn_key</i>
             <input
               type="password"
               id="password"
@@ -44,24 +44,27 @@ function MyComponent(state) {
           </div>
         </div>
         <div className="item-login--btn">
-          <a href="">¿Olvidaste tu contraseña?</a>
-          <a href="" className="btn btn-go">
+          <a href="/">¿Olvidaste tu contraseña?</a>
+          <a href="/" className="btn btn-go">
             Iniciar sesión
           </a>
         </div>
       </form>
       <div className="type-login">
-        <a className="btn-networks facebook" onClick={state.handleFacebook}>
+        <button
+          className="btn-networks facebook"
+          onClick={state.handleFacebook}
+        >
           <img src={state.images[0]} alt="Tella Market" />
           <span>Facebook</span>
-        </a>
-        <a className="btn-networks google" onClick={state.handleGmail}>
+        </button>
+        <button className="btn-networks google" onClick={state.handleGmail}>
           <img src={state.images[1]} alt="Tella Market" /> <span>Google</span>
-        </a>
-        <a className="btn-networks phone" onClick={state.handlePhone}>
-          <i class="material-icons">phone_iphone</i>
+        </button>
+        <button className="btn-networks phone" onClick={state.handlePhone}>
+          <i className="material-icons">phone_iphone</i>
           {t("authentication.phoneTitle")}
-        </a>
+        </button>
         {/* <div className="">
               {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
           </div> */}
@@ -117,12 +120,6 @@ class SignIn extends Component {
     this.props.history.push("/phoneAuthentication");
   };
 
-  handleLogo = () => {
-    const { props } = this;
-    props.hideHeader(false);
-    this.props.history.push("/");
-  };
-
   render() {
     const { authMessage, auth, lang } = this.props;
     const images = [facebook, google];
@@ -134,7 +131,6 @@ class SignIn extends Component {
         handleGmail={this.handleGmail}
         handlePhone={this.handlePhone}
         handleFacebook={this.handleFacebook}
-        handleLogo={this.handleLogo}
         authMessage={authMessage}
         lang={lang}
         images={images}
@@ -155,6 +151,6 @@ export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { signInWithEmailAndPassword, singinGmail, singinFacebook, hideHeader }
+    { signInWithEmailAndPassword, singinGmail, singinFacebook }
   )
 )(SignIn);
