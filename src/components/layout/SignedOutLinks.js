@@ -32,17 +32,23 @@ class SignedOutLinks extends Component {
 
   handleSignin = () => {
     const { props } = this;
-    props.hideHeader(true);
-    //this.setState({ redirect: true });
+    const header = {
+      isFomSignin: false,
+      hideHeader: true
+    };
+    this.setState({ redirect: true });
+    props.hideHeader(header);
   };
 
   render() {
-    const { lang, hide } = this.props;
+    const { lang, header } = this.props;
 
     return (
       <div>
-        {hide ? (
+        {this.state.redirect && header.hideHeader ? (
           <Redirect to={"/signin"} />
+        ) : header.hideHeader ? (
+          <div />
         ) : (
           <ul className="right">
             <MyComponent lang={lang} handleSignin={this.handleSignin} />
@@ -56,7 +62,7 @@ class SignedOutLinks extends Component {
 const mapStateToProps = state => {
   return {
     lang: state.navar.lang,
-    hide: state.navar.hide
+    header: state.navar.header
   };
 };
 

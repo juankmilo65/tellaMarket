@@ -7,7 +7,10 @@ import {
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
   lang: { label: "EN", value: "en" },
-  hide: false
+  header: {
+    isFomSignin: false,
+    hideHeader: false
+  }
 };
 
 const navarReducers = (state = initState, action) => {
@@ -29,7 +32,7 @@ const navarReducers = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        hide: action.payload
+        header: action.payload
       };
     }
     default:
