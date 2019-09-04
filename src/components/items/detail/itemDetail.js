@@ -4,6 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
+import "../detail/itemDetail.scss"
 
 const ProjectDetail = props => {
   const { item, auth } = props;
@@ -16,7 +17,7 @@ const ProjectDetail = props => {
             <span className="card-title">Item Title - {item.title}</span>
             <p>{item.content}</p>
           </div>
-          <div className="card-action gret lighten-4 grey-text">
+          <div className="card-action">
             <div>
               Posted by {item.ownerName} {item.ownerLastName}
             </div>

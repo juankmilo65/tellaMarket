@@ -1,0 +1,17 @@
+$yellow:#FFB808;
+$blue:#032B3F;
+$gray-bg: #F6F6F6;
+$gray-text:#7C7C7C;
+
+.card{
+  .card-title{
+    background: $blue;
+    color: white;
+    padding: 10px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .notifications{
+    padding: 0;
+  }
+} 
