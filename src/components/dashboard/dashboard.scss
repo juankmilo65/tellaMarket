@@ -5,8 +5,21 @@ $gray-text:#7C7C7C;
 
 
 .provider{
-    height: 855px;
+    height: 600px;
     background: $gray-bg;
+    padding: 40px 0;
+}
+
+.title-item--product{
+    font-size: 42px;
+    color: $blue;
+    label{
+        border-bottom: 3px solid $yellow;
+        font-weight: bold;
+        span{
+            font-weight: 300;
+        }
+    }
 }
 
 .footer-menu{

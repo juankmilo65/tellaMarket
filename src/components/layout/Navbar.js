@@ -44,6 +44,7 @@ class Navbar extends Component {
 
             <div className="nav-right">
               {auth.isLoaded && links}
+              
               <Select
                 className="lenguage"
                 styles={{
