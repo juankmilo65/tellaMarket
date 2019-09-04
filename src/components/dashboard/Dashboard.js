@@ -138,24 +138,26 @@ class Dashboard extends Component {
 
     return (
       <div className="pd-top--130px">
-        <div className="container">
-          <div className="first-slider">
-            <Carousel images={imagesMainBar} />
-          </div>
-          <br />
-          <br />
-          <br />
-          <div className="banner-small">
-            <CarouselMultiple images={imagesMultiBar} />
-          </div>
-          {/* <div>
-            <ItemList items={items} />
-          </div> */}
-          <div>
-            <Notifications notifications={notifications} />
+        <div className="first-slider container">
+          <Carousel images={imagesMainBar} />
+        </div>
+        <br />
+        <br />
+        <br />
+        <div className="banner-small container">
+          <CarouselMultiple images={imagesMultiBar} />
+        </div>
+        {/* <div>
+          <ItemList items={items} />
+        </div> */}
+        <div className="provider">
+          <div className="container">
+
           </div>
         </div>
-
+        <div>
+          <Notifications notifications={notifications} />
+        </div>
         <div className="footer-menu">
           <div className="container">
             <div className="item-footer--menu">
@@ -226,7 +228,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-      </div>
+        </div>
     );
   }
 }

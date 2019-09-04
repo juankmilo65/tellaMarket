@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import photo from "../../../src/images/photo.svg";
 
 const Notifications = props => {
   const { notifications } = props;
@@ -21,11 +22,12 @@ const Notifications = props => {
             {notifications &&
               notifications.map(notification => {
                 return (
-                  <li key={notification.id}>
-                    <span className="pink-text">{notification.user} </span>
-                    <span>{notification.content}</span>
-                    <div className="grey-text note-date">
-                      {moment(notification.time.toDate()).fromNow()}
+                  <li key={notification.id} className="item-notification">
+                    <img src={photo}/>
+                    <div className="notification-text">
+                      <span  className="user-notification">{notification.user} </span>
+                      <span className="content-notification">{notification.content}</span>
+                      <span className="date-notification">{moment(notification.time.toDate()).fromNow()}</span>
                     </div>
                   </li>
                 );
