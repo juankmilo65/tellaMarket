@@ -11,6 +11,7 @@ import SignUp from "./auth/signup/SignUp";
 import CreateItem from "./items/create/createItem";
 import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
 import PrivacyPolicy from "./footer/privacyPolicy";
+import CreateMenu from "./administration/menu/createMenu";
 import "bootstrap-4-react";
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
               <Route path="/signin" component={AuthContainer} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createItem" component={CreateItem} />
+              <Route path="/createMenu" component={CreateMenu} />
               <Route
                 exact
                 path="/phoneAuthentication"
