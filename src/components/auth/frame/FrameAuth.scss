@@ -21,17 +21,17 @@ $gray-text: #7c7c7c;
 .tab-login {
   display: flex;
   padding: 30px;
+  .active {
+    border-bottom: 3px solid $yellow;
+    color: $yellow;
+  }
+  
+  .inactive {
+    border-bottom: 2px solid $blue;
+    color: $blue;
+  }
 }
 
-.active {
-  border-bottom: 3px solid $yellow;
-  color: $yellow;
-}
-
-.inactive {
-  border-bottom: 2px solid $blue;
-  color: $blue;
-}
 
 .item-tab--login {
   padding: 10px;

@@ -12,9 +12,9 @@ function MyComponent(state) {
   }
 
   return (
-    <div className="user">
+    <div>
       <li>
-        <button onClick={state.handleSignin}>
+        <button  className="user" onClick={state.handleSignin}>
           {t("authentication.title")}
         </button>
       </li>

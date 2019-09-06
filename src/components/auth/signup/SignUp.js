@@ -48,7 +48,7 @@ function MyComponent(state) {
             </div>
           </div>
           <div className="item-login--btn justify-content-end">
-            <button className="btn btn-go">
+            <button className="btns btn-go">
                 {t("signup.title")}
               </button>
               <div className="red-text center">

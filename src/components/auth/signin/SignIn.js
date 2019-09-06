@@ -45,9 +45,9 @@ function MyComponent(state) {
         </div>
         <div className="item-login--btn">
           <a href="/">¿Olvidaste tu contraseña?</a>
-          <a href="/" className="btn btn-go">
+          <button className="btns btn-go">
             Iniciar sesión
-          </a>
+          </button>
         </div>
       </form>
       <div className="type-login">

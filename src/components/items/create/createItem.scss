@@ -1,0 +1,75 @@
+$yellow:#FFB808;
+$blue:#032B3F;
+$gray-bg: #F6F6F6;
+$gray-text:#7C7C7C;
+
+
+.title-product{
+  padding-top:30px; 
+  h2{
+    font-size:42px;
+    font-weight: bold;
+    color: $blue;
+  }
+  label{
+    color: $yellow;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.box-steps{
+  border:1px solid $gray-bg;
+  border-radius:5px;
+  padding: 15px 40px;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  label{
+    font-size: 18px;
+    font-weight: 600;
+    color: $gray-text;
+    margin: 0;
+  }
+}
+
+.number{
+  background-color: $gray-bg;
+  border-radius: 50%;
+  color: $gray-text;
+  font-size:20px;
+  font-weight: 600;
+  display: inline-block;
+  width: 33px;
+  text-align: center;
+  height: 33px;
+  margin-right:15px; 
+  &.active{
+    background-color: $yellow;
+    color: white;
+  }
+}
+
+.box-product{
+  padding: 20px 40px;
+  background-color: $gray-bg;
+  .title-box{
+    display: flex;
+    justify-content: space-between;
+    label{
+      font-size: 24px;
+      font-weight: 600;
+      color: $blue;
+    }
+  }
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before{
+  background-color: white;
+  border: 1px solid $gray-text; 
+}
+
+.custom-control-input:checked~.custom-control-label::before{
+  background-color: $yellow;
+}
