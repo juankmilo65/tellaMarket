@@ -4,7 +4,8 @@ import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
 import Select from "react-select";
-import { setLanguage, hideHeader } from "./actions/navarActions";
+import { hideHeader } from "../layout/actions/navarActions";
+import { setLanguage } from "./actions/navarActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 
@@ -20,10 +21,18 @@ class Navbar extends Component {
   };
 
   render() {
-    const { auth, profile, lang, hide, hideHeader } = this.props;
+    const { auth, profile, header, hideHeader } = this.props;
     const images = [logo];
-    const hideHeaderLocal = window.location.pathname == "/signin" ? true : hide;
-    hideHeader(hideHeaderLocal);
+    const hideHeaderLocal =
+      header.isFomSignin && window.location.pathname === "/signin"
+        ? false
+        : !header.isFomSignin && window.location.pathname !== "/signin"
+        ? header.hideHeader
+        : true;
+
+    header.hideHeader = hideHeaderLocal;
+    hideHeader(header);
+
     const links = auth.uid ? (
       <SignedInLinks profile={profile} />
     ) : (
@@ -67,7 +76,7 @@ class Navbar extends Component {
           <div className="search">
             <div className="container-tella">
               <div className="btn-submenu">
-                <a href="">Categorias</a>
+                <a href="/">Categorias</a>
                 <i className="material-icons">keyboard_arrow_down</i>
               </div>
               <div className="input-search">
@@ -86,7 +95,7 @@ const mapStateToProps = state => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     lang: state.navar.lang,
-    hide: state.navar.hide
+    header: state.navar.header
   };
 };
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -33,7 +33,7 @@ class CreateItem extends Component {
     this.props.history.push("/");
   };
   render() {
-    const { auth, fileUpload } = this.props;
+    // const { auth, fileUpload } = this.props;
 
     // if (!auth.uid) return <Redirect to="/signin" />;
     return (

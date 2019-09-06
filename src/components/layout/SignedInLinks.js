@@ -20,7 +20,7 @@ function MyComponent(state) {
           <NavLink to="/createItem">{t("newItem")} </NavLink>
         </li>
         <li>
-          <a onClick={state.handleSubmit}>{t("logout")} </a>
+          <button onClick={state.handleSubmit}>{t("logout")} </button>
         </li>
       </div>
       <div className="user">
