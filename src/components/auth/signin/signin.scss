@@ -51,15 +51,19 @@ $google: #f14336;
   padding: 0 20px;
   i {
     font-size: 30px;
-    color: $yellow;
+    color: red;
   }
   input {
     width: 100%;
     border: none;
-    font-size: 16sspx;
+    font-size: 16px;
     color: $blue;
-    padding: 15px;
+    padding: 10px;
   }
+}
+
+.pd-top--0{
+  padding-top:0 !important; 
 }
 
 ///generic flex///

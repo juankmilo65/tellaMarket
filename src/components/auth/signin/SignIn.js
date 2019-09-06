@@ -20,7 +20,7 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
   return (
-    <div>
+    <div  className="container-login pd-top--0">
       <form onSubmit={state.handleSubmit} className="login-form">
         {/* <h5 className=""> 
             {t("authentication.title")}

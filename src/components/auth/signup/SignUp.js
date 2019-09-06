@@ -14,41 +14,49 @@ function MyComponent(state) {
   }
 
   return (
-    <div>
-      <div className="container">
-        <form onSubmit={state.handleSubmit} className="white">
-          <h5 className="grey-text text-darken-3">{t("signup.title")}</h5>
-          <div className="input-field">
+      <div className="container-login  pd-top--0">
+        <form onSubmit={state.handleSubmit} className="login-form">
+          {/* <h5 className="grey-text text-darken-3">{t("signup.title")}</h5> */}
+
+          <div className="item-login--form">
             <label htmlFor="email">{t("signup.email")}</label>
-            <input type="email" id="email" onChange={state.handleChange} />
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">{t("signup.password")}</label>
-            <input
-              type="password"
-              id="password"
-              onChange={state.handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="firstName">{t("signup.firstName")}</label>
-            <input type="text" id="firstName" onChange={state.handleChange} />
-          </div>
-          <div className="input-field">
-            <label htmlFor="lastName">{t("signup.lastName")}</label>
-            <input type="text" id="lastName" onChange={state.handleChange} />
-          </div>
-          <div className="input-field">
-            <button className="btn pink lighten-1 z-depth-0">
-              {t("signup.title")}
-            </button>
-            <div className="red-text center">
-              {state.authMessage ? <p>{state.authMessage}</p> : null}
+            <div className="input-text input-icon">
+              <i className="material-icons">person</i>
+              <input type="email" id="email" onChange={state.handleChange} />
             </div>
+          </div>
+          <div className="item-login--form">
+            <label htmlFor="password">{t("signup.password")}</label>
+            <div className="input-text input-icon">
+              <i className="material-icons">vpn_key</i>
+              <input type="password" id="password" onChange={state.handleChange}/>
+            </div>
+          </div>
+
+          <div className="item-login--form">
+            <label htmlFor="firstName">{t("signup.firstName")}</label>
+            <div className="input-text input-icon">
+              <i className="material-icons">person</i>
+              <input type="text" id="firstName" onChange={state.handleChange} />
+            </div>
+          </div>
+          <div className="item-login--form">
+           <label htmlFor="lastName">{t("signup.lastName")}</label>
+            <div className="input-text input-icon">
+              <i className="material-icons">person</i>
+              <input type="text" id="lastName" onChange={state.handleChange} />
+            </div>
+          </div>
+          <div className="item-login--btn justify-content-end">
+            <button className="btn btn-go">
+                {t("signup.title")}
+              </button>
+              <div className="red-text center">
+                {state.authMessage ? <p>{state.authMessage}</p> : null}
+              </div>
           </div>
         </form>
       </div>
-    </div>
   );
 }
 

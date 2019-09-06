@@ -19,28 +19,30 @@ function MyComponent(state) {
           <img src={state.logo} alt="Tella Market" />
         </div>
       </div>
-      <div className="tab-login">
-        <div
-          id="login"
-          onClick={state.handleTab}
-          className={
-            state.isLogin
-              ? "item-tab--login active"
-              : "item-tab--login inactive"
-          }
-        >
-          {t("authentication.title")}
-        </div>
-        <div
-          id="signup"
-          onClick={state.handleTab}
-          className={
-            state.isLogin
-              ? "item-tab--login inactive"
-              : "item-tab--login active"
-          }
-        >
-          {t("signup.title")}
+      <div className="container-login">
+        <div className="tab-login">
+          <div
+            id="login"
+            onClick={state.handleTab}
+            className={
+              state.isLogin
+                ? "item-tab--login active"
+                : "item-tab--login inactive"
+            }
+          >
+            {t("authentication.title")}
+          </div>
+          <div
+            id="signup"
+            onClick={state.handleTab}
+            className={
+              state.isLogin
+                ? "item-tab--login inactive"
+                : "item-tab--login active"
+            }
+          >
+            {t("signup.title")}
+          </div>
         </div>
       </div>
     </div>
