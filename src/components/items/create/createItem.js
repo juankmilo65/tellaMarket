@@ -82,7 +82,7 @@ class CreateItem extends Component {
               <label>Confirmación</label>
             </div>
         </div>
-        <div className="box-product">
+        <div className="box-product mt-1 mb-1">
           <div className="title-box">
             <label>Seleccione una Categoría</label>
             <button className="btns btn-go">Siguiente</button>
@@ -143,7 +143,7 @@ class CreateItem extends Component {
           </div>
         </div>
 
-        <div className="box-product">
+        <div className="box-product mt-1 mb-1">
           <div className="title-box">
             <label>Información del Producto</label>
             <button className="btns btn-se">atras</button>
