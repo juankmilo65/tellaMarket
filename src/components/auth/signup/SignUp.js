@@ -14,11 +14,11 @@ function MyComponent(state) {
   }
 
   return (
-      <div className="container-login  pd-top--0">
+      <div className="container-login mb-3">
         <form onSubmit={state.handleSubmit} className="login-form">
           {/* <h5 className="grey-text text-darken-3">{t("signup.title")}</h5> */}
 
-          <div className="item-login--form">
+          <div className="item-login--form m-0">
             <label htmlFor="email">{t("signup.email")}</label>
             <div className="input-text input-icon">
               <i className="material-icons">person</i>

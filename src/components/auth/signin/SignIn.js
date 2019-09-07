@@ -22,10 +22,7 @@ function MyComponent(state) {
   return (
     <div  className="container-login pd-top--0">
       <form onSubmit={state.handleSubmit} className="login-form">
-        {/* <h5 className=""> 
-            {t("authentication.title")}
-          </h5> */}
-        <div className="item-login--form">
+        <div className="item-login--form m-0">
           <label htmlFor="email">{t("authentication.login.email")}</label>
           <div className="input-text input-icon">
             <i className="material-icons">person</i>

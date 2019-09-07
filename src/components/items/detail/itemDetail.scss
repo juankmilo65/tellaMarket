@@ -1,14 +1,11 @@
-$yellow:#FFB808;
-$blue:#032B3F;
-$gray-bg: #F6F6F6;
-$gray-text:#7C7C7C;
+@import "../../variables.scss";
 
 .card{
   width: 270px;
   position: fixed !important;
   bottom: 15px;
   right: 15px;
-  box-shadow: 0px 0px 5px 0px rgba(3,43,63,1);
+ // box-shadow: 0px 0px 5px 0px rgba(3,43,63,1);
   border:0;
   .card-title{
     background: $blue;

@@ -38,7 +38,7 @@ class CreateItem extends Component {
 
     // if (!auth.uid) return <Redirect to="/signin" />;
     return (
-      <div className="pd-top--130px container">
+      <div className="container pd-top--130px pb-4">
         <div>
             {/* <form onSubmit={this.handleSubmit} className="white">  ****Informacion anterior****
               <h5 className="grey-text text-darken-3"></h5>
@@ -74,11 +74,11 @@ class CreateItem extends Component {
               <label>Descripción</label>
             </div>
             <div className="steps-items">
-              <span className="number">2</span>
+              <span className="number">3</span>
               <label>Fotos</label>
             </div>
             <div className="steps-items">
-              <span className="number">2</span>
+              <span className="number">4</span>
               <label>Confirmación</label>
             </div>
         </div>
@@ -87,17 +87,69 @@ class CreateItem extends Component {
             <label>Seleccione una Categoría</label>
             <button className="btns btn-go">Siguiente</button>
           </div>
-          <div>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"/>
-            <label class="custom-control-label" for="customRadio1">Equipamiento de laboratorio textil <span>(793)</span></label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"/>
-            <label class="custom-control-label" for="customRadio2">  Equipo clínico y de laboratorio <span>(1)</span></label>
-          </div>
+          <div className="d-flex">
+            <div className="col-6 pt-4">
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio1">Equipamiento de laboratorio textil <span>(793)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio2">  Equipo clínico y de laboratorio <span>(1)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio3">  Fabricación de hilados  <span>(483)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio4">Fabricación de hilados (sintéticos, algodón) <span>(5,493)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio5">  Maquinaria para tejer<span>(3,764)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio6" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio6">  Acabado y otros equipos de prensa  <span>(483)</span></label>
+              </div>
+            </div>
+            <div className="col-6 pt-4">
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio11" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio11">Equipamiento de laboratorio textil <span>(793)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio12" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio12">  Equipo clínico y de laboratorio <span>(1)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio13" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio13">  Fabricación de hilados  <span>(483)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio14" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio14">Fabricación de hilados (sintéticos, algodón) <span>(5,493)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio15" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio15">  Maquinaria para tejer<span>(3,764)</span></label>
+              </div>
+              <div class="custom-control custom-radio radio-tella">
+                <input type="radio" id="customRadio16" name="customRadio" class="custom-control-input"/>
+                <label class="custom-control-label" for="customRadio16">  Acabado y otros equipos de prensa  <span>(483)</span></label>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="box-product">
+          <div className="title-box">
+            <label>Información del Producto</label>
+            <button className="btns btn-se">atras</button>
+            <button className="btns btn-go">Siguiente</button>
+          </div>
+        </div>  
 
       </div>
     );
