@@ -89,6 +89,12 @@
   color: white !important;
 }
 
+.btn-se {
+  background: white !important;
+  color: $yellow !important;
+  border: 1px solid $yellow;
+}
+
 .type-login {
   display: flex;
   justify-content: space-between;

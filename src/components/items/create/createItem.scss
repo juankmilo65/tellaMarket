@@ -91,3 +91,44 @@
   }
 
 }
+
+form{
+  .item-form{
+    display: flex;
+    margin: 0 -7px;
+  }
+}
+
+.input-tella{
+  flex:1;
+  padding: 0 7px;
+  position: relative;
+
+  label{
+    color: $gray-text;
+  }
+  input,textarea{
+    border: 1px solid $gray-border;
+    color: $gray-text;
+    border-radius: 6px;
+    &::placeholder {
+      color:$gray-placeholder;
+    }
+    &:focus{
+      box-shadow: none;
+      border-color:$gray-text;
+    }
+  }
+}
+
+.input-icon{
+  input{
+    padding-right: 30px;
+  }
+  i{
+    position: absolute;
+    bottom: 7px;
+    right: 15px;
+    color: $yellow;
+  }
+}

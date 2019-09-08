@@ -82,7 +82,7 @@ class CreateItem extends Component {
               <label>Confirmación</label>
             </div>
         </div>
-        <div className="box-product mt-1 mb-1">
+        <div className="box-product mt-1 mb-1 d-none">
           <div className="title-box">
             <label>Seleccione una Categoría</label>
             <button className="btns btn-go">Siguiente</button>
@@ -146,9 +146,54 @@ class CreateItem extends Component {
         <div className="box-product mt-1 mb-1">
           <div className="title-box">
             <label>Información del Producto</label>
-            <button className="btns btn-se">atras</button>
-            <button className="btns btn-go">Siguiente</button>
+            <div className="d-flex">
+              <button className="btns btn-se mr-3">atras</button>
+              <button className="btns btn-go">Siguiente</button>
+            </div>
           </div>
+          <form>
+            <div className="item-form">
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Titulo</label>
+                <input type="text" class="form-control" placeholder="Nombre de la maquina"/>
+              </div>
+            </div>
+            <div className="item-form">
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Referencia</label>
+                <input type="text" class="form-control" placeholder="Referencia de la maquina"/>
+              </div>
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Modelo</label>
+                <input type="text" class="form-control" placeholder="Modelo de la maquina"/>
+              </div>
+            </div>
+            <div className="item-form">
+              <div class="form-group input-tella input-icon">
+                <label for="formGroupExampleInput">Año</label>
+                <input type="text" class="form-control" placeholder="Año"/>
+                <i class="material-icons icon-calendar">today</i>
+              </div>
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Diámetro del Cilindro</label>
+                <input type="text" class="form-control" placeholder="Cilindro"/>
+              </div>
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Calibre</label>
+                <input type="text" class="form-control" placeholder="Calibre "/>
+              </div>
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Cantidad</label>
+                <input type="text" class="form-control" placeholder="Unidades"/>
+              </div>
+            </div>
+            <div className="item-form">
+              <div class="form-group input-tella">
+                <label for="formGroupExampleInput">Descripción</label>
+                <textarea type="text" class="form-control" rows="3" placeholder="Descripción de la maquina"></textarea>
+              </div>
+            </div>
+          </form>
         </div>  
 
       </div>
