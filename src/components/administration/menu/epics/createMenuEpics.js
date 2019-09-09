@@ -19,10 +19,10 @@ export default function createMenuEpics(action$) {
           of(setStatus("pending")),
           getFS
             .collection(action.payload.language)
-            .document("MachinesAndEquipment")
+            .doc("MachinesAndEquipment")
             .collection(action.payload.categoryName)
-            .document(action.payload.subCategoryName)
-            .add(action.payload.item)
+            .doc(action.payload.subCategoryName)
+            .set(action.payload.items)
             .then(() => createMenuSuccess("saved"))
             .catch(err => createMenuFailed(err))
         );
