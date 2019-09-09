@@ -20,12 +20,9 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
   return (
-    <div>
+    <div  className="container-login pd-top--0">
       <form onSubmit={state.handleSubmit} className="login-form">
-        {/* <h5 className=""> 
-            {t("authentication.title")}
-          </h5> */}
-        <div className="item-login--form">
+        <div className="item-login--form m-0">
           <label htmlFor="email">{t("authentication.login.email")}</label>
           <div className="input-text input-icon">
             <i className="material-icons">person</i>
@@ -45,9 +42,9 @@ function MyComponent(state) {
         </div>
         <div className="item-login--btn">
           <a href="/">¿Olvidaste tu contraseña?</a>
-          <a href="/" className="btn btn-go">
+          <button className="btns btn-go">
             Iniciar sesión
-          </a>
+          </button>
         </div>
       </form>
       <div className="type-login">

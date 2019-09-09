@@ -1,11 +1,7 @@
-$yellow: #ffb808;
-$blue: #032b3f;
-$gray-bg: #f6f6f6;
-$gray-text: #7c7c7c;
+@import "../../variables.scss";
 
 .container-login {
   max-width: 600px;
-  padding-top: 66px;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -15,23 +11,26 @@ $gray-text: #7c7c7c;
     display: flex;
     justify-content: center;
     z-index: 10;
+    padding-top: 66px;
+    cursor: pointer;
   }
 }
 
 .tab-login {
   display: flex;
-  padding: 30px;
+  padding: 30px 30px 15px;
+  cursor: pointer;
+  .active {
+    border-bottom: 3px solid $yellow;
+    color: $yellow;
+  }
+  
+  .inactive {
+    border-bottom: 2px solid $blue;
+    color: $blue;
+  }
 }
 
-.active {
-  border-bottom: 3px solid $yellow;
-  color: $yellow;
-}
-
-.inactive {
-  border-bottom: 2px solid $blue;
-  color: $blue;
-}
 
 .item-tab--login {
   padding: 10px;

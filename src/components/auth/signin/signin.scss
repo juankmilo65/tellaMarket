@@ -1,10 +1,4 @@
-$yellow: #ffb808;
-$blue: #032b3f;
-$gray-bg: #f6f6f6;
-$gray-text: #7c7c7c;
-
-$facebook: #004fb5;
-$google: #f14336;
+@import "../../variables.scss";
 
 .login-form {
   display: flex;
@@ -20,7 +14,7 @@ $google: #f14336;
   margin-top: 20px;
   border-radius: 7px;
   label {
-    font-size: 20px;
+    font-size: 18px;
     color: $gray-text;
     font-weight: bold;
     text-align: left;
@@ -47,7 +41,7 @@ $google: #f14336;
   display: flex;
   align-items: center;
   border-radius: 6px;
-  height: 50px;
+  height: 40px;
   padding: 0 20px;
   i {
     font-size: 30px;
@@ -56,9 +50,9 @@ $google: #f14336;
   input {
     width: 100%;
     border: none;
-    font-size: 16sspx;
+    font-size: 16px;
     color: $blue;
-    padding: 15px;
+    padding: 5px 0;
   }
 }
 
@@ -85,6 +79,9 @@ $google: #f14336;
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
+  border:none;
+  background-color: white;
+  cursor: pointer;
 }
 
 .btn-go {
@@ -92,10 +89,16 @@ $google: #f14336;
   color: white !important;
 }
 
+.btn-se {
+  background: white !important;
+  color: $yellow !important;
+  border: 1px solid $yellow;
+}
+
 .type-login {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin: 15px 0;
 }
 .btn-networks {
   border: 1px solid;
@@ -109,6 +112,7 @@ $google: #f14336;
   align-items: center;
   height: 35px;
   cursor: pointer;
+  background-color: white
 }
 
 .facebook {

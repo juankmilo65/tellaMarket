@@ -64,7 +64,6 @@ class Navbar extends Component {
                 onChange={this.handleLanguage}
                 options={options}
                 value=""
-                placeholder="Idioma"
                 images={images}
               />
             </div>
