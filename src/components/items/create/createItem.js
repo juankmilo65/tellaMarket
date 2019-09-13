@@ -82,7 +82,7 @@ class CreateItem extends Component {
               <label>Confirmación</label>
             </div>
         </div>
-        <div className="box-product mt-1 mb-1 d-none">
+        <div className="box-product mt-1 mb-1">
           <div className="title-box">
             <label>Seleccione una Categoría</label>
             <button className="btns btn-go">Siguiente</button>
@@ -194,6 +194,44 @@ class CreateItem extends Component {
               </div>
             </div>
           </form>
+        </div>  
+
+        <div className="box-product mt-1 mb-1">
+          <div className="title-box">
+            <label>Cargar Archivos Multimedia</label>
+            <div className="d-flex">
+              <button className="btns btn-se mr-3">atras</button>
+              <button className="btns btn-go">Siguiente</button>
+            </div>  
+          </div>
+          <div className="upload-image">
+            <div className="box-group">
+              <div className="box active">
+                  <i class="material-icons">add_photo_alternate</i>
+                  <span> Subir Archivos </span>
+              </div>
+              <div className="box">
+                  <i class="material-icons">add_photo_alternate</i>
+                  <span> Subir Archivos </span>
+              </div>
+              <div className="box">
+                  <i class="material-icons">add_photo_alternate</i>
+                  <span> Subir Archivos </span>
+              </div>
+              <div className="box">
+                  <i class="material-icons">add_photo_alternate</i>
+                  <span> Subir Archivos </span>
+              </div>
+              <div className="box">
+                  <i class="material-icons">add_photo_alternate</i>
+                  <span> Subir Archivos </span>
+              </div>
+            </div>
+            <div className="box-upload">
+              <span>También puedes arrastrar</span>
+            </div>
+          </div>
+
         </div>  
 
       </div>

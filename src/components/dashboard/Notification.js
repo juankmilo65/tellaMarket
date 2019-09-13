@@ -15,9 +15,9 @@ const Notifications = props => {
       <br />
       <br />
       <br />
-      <div className="card z-depth-0">
+      <div className="card"> {/*Poner clase inactive para ocultar la notification */}
         <div className="card-content">
-          <div className="card-title">Notifications</div>
+          <div className="card-title">Notifications<i class="material-icons">close</i> </div>
           <ul className="notifications">
             {notifications &&
               notifications.map(notification => {

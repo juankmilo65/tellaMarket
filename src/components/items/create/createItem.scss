@@ -132,3 +132,39 @@ form{
     color: $yellow;
   }
 }
+
+.box-group{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0;
+  .box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 160px;
+    color: transparent;
+    border-radius:6px;
+    border:1px solid $gray-border;
+    &.active{
+      background: white;
+      color: $yellow;
+      cursor: pointer;
+      i{
+        font-size: 40px;
+      }
+    }   
+  }
+}
+
+.box-upload{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background: white;
+  border:1px dashed $gray-border;
+  color: $yellow;
+  cursor: pointer;
+}

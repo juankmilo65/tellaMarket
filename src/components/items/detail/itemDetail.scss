@@ -5,9 +5,17 @@
   position: fixed !important;
   bottom: 15px;
   right: 15px;
- // box-shadow: 0px 0px 5px 0px rgba(3,43,63,1);
-  border:0;
+  border:0 !important;
+  border-radius: 0!important;
+  transition: 2s;
+  &.inactive{
+    bottom: -255px;
+    border:1px solid $gray-bg !important;
+    transition: 2s;
+  }
   .card-title{
+    display: flex;
+    justify-content: space-between;
     background: $blue;
     color: white;
     padding: 10px;
