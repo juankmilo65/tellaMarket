@@ -7,11 +7,11 @@
   right: 15px;
   border:0 !important;
   border-radius: 0!important;
-  transition: 2s;
+  transition: 3s;
+  box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.3);
   &.inactive{
     bottom: -255px;
-    border:1px solid $gray-bg !important;
-    transition: 2s;
+    transition: 3s;
   }
   .card-title{
     display: flex;

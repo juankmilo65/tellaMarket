@@ -155,7 +155,7 @@ class Dashboard extends Component {
     return (
       <div className="pd-top--130px">
 
-        <div className="first-slider container">
+        <div className="first-slider">
           <Carousel images={imagesMainBar} />
         </div>
         <div className="banner-small container">

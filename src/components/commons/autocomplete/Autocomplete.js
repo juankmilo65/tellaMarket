@@ -74,6 +74,7 @@ class Autocomplete extends Component {
           autoComplete="off"
           value={value}
           required
+          placeholder="Buscar"
         ></input>
         {this.renderSuggestions()}
       </div>

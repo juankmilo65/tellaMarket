@@ -50,6 +50,10 @@ ul{
     cursor: pointer;
     background-color: $blue;
     color: white;
+    border:0;
+    &:focus{
+        outline: 0;
+    }
     a{
         text-decoration: none;
         color: white;
@@ -79,7 +83,6 @@ ul{
         padding: 0 20px;
         font-size: 14px;
         color:  $gray-text;
-        
     }
 }
 
