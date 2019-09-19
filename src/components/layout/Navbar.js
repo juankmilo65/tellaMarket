@@ -8,6 +8,7 @@ import { hideHeader } from "../layout/actions/navarActions";
 import { setLanguage } from "./actions/navarActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
+import Autocomplete from "../commons/autocomplete/Autocomplete";
 
 const options = [
   { label: "EN", value: "en" },
@@ -16,6 +17,8 @@ const options = [
 ];
 
 class Navbar extends Component {
+  handleChange = e => {};
+
   handleLanguage = e => {
     this.props.setLanguage(e);
   };
@@ -53,7 +56,7 @@ class Navbar extends Component {
 
             <div className="nav-right">
               {auth.isLoaded && links}
-              
+
               <Select
                 className="lenguage"
                 styles={{
@@ -79,7 +82,9 @@ class Navbar extends Component {
                 <i className="material-icons">keyboard_arrow_down</i>
               </div>
               <div className="input-search">
-                <input type="text" placeholder="Buscar" />
+                <Autocomplete idInput="search" onChange={this.handleChange} />
+
+                {/* <input type="text" placeholder="Buscar" /> */}
                 <i className="material-icons">search</i>
               </div>
             </div>

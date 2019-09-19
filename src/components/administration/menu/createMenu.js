@@ -60,14 +60,22 @@ function MyComponent(state) {
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="enSubcategory" />
+                    <Autocomplete
+                      idInput="enSubcategory"
+                      onChange={state.handleChange}
+                      value={state.state["enSubcategory"]}
+                    />
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="enItem1" />
+                    <Autocomplete
+                      idInput="enItem1"
+                      onChange={state.handleChange}
+                      value={state.state["enItem1"]}
+                    />
                   </div>
                 </div>
               </div>
@@ -79,21 +87,33 @@ function MyComponent(state) {
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="esCategory" />
+                    <Autocomplete
+                      idInput="esCategory"
+                      onChange={state.handleChange}
+                      value={state.state["esCategory"]}
+                    />
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="esSubcategory" />
+                    <Autocomplete
+                      idInput="esSubcategory"
+                      onChange={state.handleChange}
+                      value={state.state["esSubcategory"]}
+                    />
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="esItem1" />
+                    <Autocomplete
+                      idInput="esItem1"
+                      onChange={state.handleChange}
+                      value={state.state["esItem1"]}
+                    />
                   </div>
                 </div>
               </div>
@@ -105,21 +125,33 @@ function MyComponent(state) {
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="ptCategory" />
+                    <Autocomplete
+                      idInput="ptCategory"
+                      onChange={state.handleChange}
+                      value={state.state["ptCategory"]}
+                    />
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="ptSubCategory" />
+                    <Autocomplete
+                      idInput="ptSubCategory"
+                      onChange={state.handleChange}
+                      value={state.state["ptSubCategory"]}
+                    />
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="ptItem1" />
+                    <Autocomplete
+                      idInput="ptItem1"
+                      onChange={state.handleChange}
+                      value={state.state["ptItem1"]}
+                    />
                   </div>
                 </div>
               </div>
@@ -159,7 +191,15 @@ class CreateMenu extends Component {
     catalogoEn: {},
     catalogoEs: {},
     catalogoPt: {},
-    enCategory: ""
+    enCategory: "",
+    enSubcategory: "",
+    enItem1: "",
+    esCategory: "",
+    esSubcategory: "",
+    esItem1: "",
+    ptCategory: "",
+    ptSubcategory: "",
+    ptItem1: ""
   };
 
   handleSubmit = e => {
@@ -243,9 +283,15 @@ class CreateMenu extends Component {
 
   handleAddItem = () => {
     this.setState({ countItems: this.state.countItems + 1 });
+
     const idEn = "enItem" + this.state.countItems;
     const idEs = "esItem" + this.state.countItems;
     const idPt = "ptItem" + this.state.countItems;
+
+    this.setState({ idEn: "" });
+    this.setState({ idEs: "" });
+    this.setState({ idPt: "" });
+
     this.displayData.push(
       <div
         key={this.state.countItems}
@@ -263,13 +309,17 @@ class CreateMenu extends Component {
           <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
-                <Autocomplete idInput={idEn} />
+                <Autocomplete
+                  idInput={idEn}
+                  onChange={this.handleChange}
+                  value={this.state[idEn]}
+                />
               </div>
             </div>
           </div>
         </div>
         <div>
-          <div class="input-group">
+          <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
                 <Autocomplete idInput={idEs} />
@@ -287,7 +337,7 @@ class CreateMenu extends Component {
           </div>
         </div>
         <div>
-          <div class="input-group">
+          <div className="input-group">
             <button onClick={this.handleDeleteItem}>Eliminar Item</button>
           </div>
         </div>
