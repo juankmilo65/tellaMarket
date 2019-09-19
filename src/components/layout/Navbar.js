@@ -77,9 +77,19 @@ class Navbar extends Component {
         ) : (
           <div className="search">
             <div className="container-tella">
-              <div className="btn-submenu">
-                <a href="/">Categorias</a>
-                <i className="material-icons">keyboard_arrow_down</i>
+
+              <div class="dropdown">
+                <button class="btn-submenu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Categorias
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Clinical & Laboratory Equipment</a>
+                  <a class="dropdown-item" href="#">Textile Laboratory equipment</a>
+                  <a class="dropdown-item" href="#">Yarn manufacturing</a>
+                  <a class="dropdown-item" href="#">Weaving machinery</a>
+                  <a class="dropdown-item" href="#">Finishing and other press equipment</a>
+                  
+                </div>
               </div>
               <div className="input-search">
                 <Autocomplete idInput="search" onChange={this.handleChange} />

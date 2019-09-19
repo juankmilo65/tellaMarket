@@ -6,16 +6,7 @@ const Notifications = props => {
   const { notifications } = props;
   return (
     <div className="section">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="card"> {/*Poner clase inactive para ocultar la notification */}
+      <div className="card inactive"> {/*Poner clase inactive para ocultar la notification */}
         <div className="card-content">
           <div className="card-title">Notifications<i class="material-icons">close</i> </div>
           <ul className="notifications">
