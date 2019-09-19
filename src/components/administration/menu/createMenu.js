@@ -11,6 +11,26 @@ function MyComponent(state) {
   if (i18n.language !== state.lang.value) {
     i18n.changeLanguage(state.lang.value);
   }
+
+  let count = 1;
+  this.displayData = state.state.newItem;
+  this.displayDataNew = [];
+  this.displayDataNew = this.displayData.filter(item => {
+    item.props.children[
+      count
+    ].props.children.props.children.props.children.props.children.props.value =
+      state.state[
+        item.props.children[
+          count
+        ].props.children.props.children.props.children.props.children.props.idInput
+      ];
+    count = count + 1;
+  });
+
+  state.setState({
+    ["newItem"]: this.displayData
+  });
+
   return (
     <div className="pd-top--130px">
       <div className="container">
