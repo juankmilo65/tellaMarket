@@ -15,126 +15,113 @@ function MyComponent(state) {
     <div className="pd-top--130px">
       <div className="container">
         <div>
-          <label style={{ width: 150 + "px", "margin-bottom": ".9rem" }}>
+          <label style={{ width: 150 + "px", marginBottom: ".9rem" }}>
             Maquinaria y Equipo
           </label>
         </div>
         <form onSubmit={state.handleSubmit}>
-          <div class="row">
+          <div className="row">
             <div>
-              <div class="input-group">
+              <div className="input-group">
                 <label htmlFor="englishMachine">.</label>
               </div>
 
-              <div class="input-group">
-                <label style={{ width: 150 + "px", "margin-bottom": ".9rem" }}>
+              <div className="input-group">
+                <label style={{ width: 150 + "px", marginBottom: ".9rem" }}>
                   Categoria
                 </label>
               </div>
-              <div class="input-group">
-                <label style={{ width: 150 + "px", "margin-bottom": ".9rem" }}>
+              <div className="input-group">
+                <label style={{ width: 150 + "px", marginBottom: ".9rem" }}>
                   Subcategoria
                 </label>
               </div>
-              <div class="input-group">
-                <label style={{ width: 150 + "px", "margin-bottom": ".9rem" }}>
+              <div className="input-group">
+                <label style={{ width: 150 + "px", marginBottom: ".9rem" }}>
                   Articulo 1
                 </label>
               </div>
             </div>
             <div>
-              <div class="input-group">
+              <div className="input-group">
                 <label>Ingles</label>
               </div>
-              <div class="input-group">
-                {/* <input
-                  type="text"
-                  id="enCategory"
-                  class="form-control"
-                  onChange={state.handleChange}
-                  required
-                /> */}
+              <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete idInput="enCategory" />
+                    <Autocomplete
+                      idInput="enCategory"
+                      onChange={state.handleChange}
+                      value={state.state["enCategory"]}
+                    />
                   </div>
                 </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="enSubcategory"
-                  class="form-control"
-                  onChange={state.handleChange}
-                  required
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="enSubcategory" />
+                  </div>
+                </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="enItem1"
-                  class="form-control"
-                  onChange={state.handleChange}
-                  required
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="enItem1" />
+                  </div>
+                </div>
               </div>
             </div>
             <div>
-              <div class="input-group">
+              <div className="input-group">
                 <label>Español</label>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="esCategory"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="esCategory" />
+                  </div>
+                </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="esSubcategory"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="esSubcategory" />
+                  </div>
+                </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="esItem1"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="esItem1" />
+                  </div>
+                </div>
               </div>
             </div>
             <div>
-              <div class="input-group">
+              <div className="input-group">
                 <label>Portugues</label>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="ptCategory"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="ptCategory" />
+                  </div>
+                </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="ptSubCategory"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="ptSubCategory" />
+                  </div>
+                </div>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="ptItem1"
-                  onChange={state.handleChange}
-                  class="form-control"
-                />
+              <div className="input-group">
+                <div className="App-Component">
+                  <div className="App-Component">
+                    <Autocomplete idInput="ptItem1" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -144,12 +131,15 @@ function MyComponent(state) {
               return item;
             })}
 
-          <div class="row">
+          <div className="row">
             <div>
               <button type="button" onClick={state.handleAddItem}>
                 Agregar nuevo Articulo
               </button>
               <button>Guardar Catalogo</button>
+              <button type="button" onClick={state.handleCleanForm}>
+                Limpiar formulario
+              </button>
             </div>
           </div>
         </form>
@@ -168,7 +158,8 @@ class CreateMenu extends Component {
     countItems: 2,
     catalogoEn: {},
     catalogoEs: {},
-    catalogoPt: {}
+    catalogoPt: {},
+    enCategory: ""
   };
 
   handleSubmit = e => {
@@ -238,48 +229,61 @@ class CreateMenu extends Component {
     });
   };
 
+  handleChange = e => {
+    if (e.target.id.includes("en")) {
+      this.setStore(e, "catalogoEn");
+    } else if (e.target.id.includes("es")) {
+      this.setStore(e, "catalogoEs");
+    } else if (e.target.id.includes("pt")) {
+      this.setStore(e, "catalogoPt");
+    }
+  };
+
+  handleCleanForm = () => {};
+
   handleAddItem = () => {
     this.setState({ countItems: this.state.countItems + 1 });
     const idEn = "enItem" + this.state.countItems;
     const idEs = "esItem" + this.state.countItems;
     const idPt = "ptItem" + this.state.countItems;
     this.displayData.push(
-      <div key={this.state.countItems} id={this.state.countItems} class="row">
+      <div
+        key={this.state.countItems}
+        id={this.state.countItems}
+        className="row"
+      >
         <div>
           <div>
-            <label style={{ width: 150 + "px", "margin-bottom": ".9rem" }}>
+            <label style={{ width: 150 + "px", marginBottom: ".9rem" }}>
               Articulo {this.state.countItems}
             </label>
           </div>
         </div>
         <div>
-          <div class="input-group">
-            <input
-              type="text"
-              id={idEn}
-              onChange={this.handleChange}
-              class="form-control"
-            />
+          <div className="input-group">
+            <div className="App-Component">
+              <div className="App-Component">
+                <Autocomplete idInput={idEn} />
+              </div>
+            </div>
           </div>
         </div>
         <div>
           <div class="input-group">
-            <input
-              type="text"
-              id={idEs}
-              onChange={this.handleChange}
-              class="form-control"
-            />
+            <div className="App-Component">
+              <div className="App-Component">
+                <Autocomplete idInput={idEs} />
+              </div>
+            </div>
           </div>
         </div>
         <div>
-          <div class="input-group">
-            <input
-              type="text"
-              id={idPt}
-              onChange={this.handleChange}
-              class="form-control"
-            />
+          <div className="input-group">
+            <div className="App-Component">
+              <div className="App-Component">
+                <Autocomplete idInput={idPt} />
+              </div>
+            </div>
           </div>
         </div>
         <div>
@@ -294,6 +298,22 @@ class CreateMenu extends Component {
     });
   };
 
+  setStore(e, catalogoName) {
+    if (this.propertiesEn.length > 0 && e.target.id.includes("en")) {
+      Object.values(this.propertiesEn).map(property => {
+        Object.keys(property).map(prop => {
+          property[e.target.id] = e.target.value;
+        });
+      });
+    } else if (e.target.id.includes("en")) {
+      this.propertiesEn.push({ [e.target.id]: e.target.value });
+    }
+    this.setState({ [e.target.id]: e.target.value });
+    this.setState({
+      [catalogoName]: this.propertiesEn
+    });
+  }
+
   render() {
     const { lang, auth } = this.props;
     //if (!auth.uid) return <Redirect to="/signin" />;
@@ -301,10 +321,11 @@ class CreateMenu extends Component {
       <MyComponent
         lang={lang}
         handleSubmit={this.handleSubmit}
-        //handleChange={this.handleChange}
+        handleChange={this.handleChange}
         newItem={this.state.newItem}
         handleAddItem={this.handleAddItem}
         handleDeleteItem={this.handleDeleteItem}
+        state={this.state}
       />
     );
   }

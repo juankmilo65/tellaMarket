@@ -23,19 +23,19 @@ class dropdown extends Component {
         className={
           lang === "en"
             ? "<img src=" + { spain } + "/> English"
-            : '<span class="flag-icon flag-icon-mx"></span> Español'
+            : '<span className="flag-icon flag-icon-mx"></span> Español'
         }
         data-width="fit"
       >
         <option
           id="es"
-          data-content='<span class="flag-icon flag-icon-us"></span> English'
+          data-content='<span className="flag-icon flag-icon-us"></span> English'
         >
           English
         </option>
         <option
           id="en"
-          data-content='<span class="flag-icon flag-icon-mx"></span> Español'
+          data-content='<span className="flag-icon flag-icon-mx"></span> Español'
         >
           Español
         </option>

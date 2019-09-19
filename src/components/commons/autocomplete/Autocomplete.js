@@ -2,54 +2,49 @@ import React, { Component } from "react";
 import "./Autocomplete.css";
 
 class Autocomplete extends Component {
-  items = ["David", "Daniel", "Sara", "Juan"];
-  state = {
-    suggestions: [],
-    text: ""
-  };
-
-  setStore(e, catalogoName) {
-    // if (this.propertiesEn.length > 0 && e.target.id.includes("en")) {
-    //   Object.values(this.propertiesEn).map(property => {
-    //     Object.keys(property).map(prop => {
-    //       property[e.target.id] = e.target.value;
-    //     });
-    //   });
-    // } else if (e.target.id.includes("en")) {
-    //   this.propertiesEn.push({ [e.target.id]: e.target.value });
-    // }
-    // this.setState({
-    //   [catalogoName]: this.propertiesEn
-    // });
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = e => {
-    const value = e.target.value;
+  items = [
+    { id: 1, text: "David" },
+    { id: 2, text: "Daniel" },
+    { id: 3, text: "Sara" },
+    { id: 3, text: "Juan" }
+  ];
+  state = {
+    suggestions: [],
+    idInput: this.props.idInput
+  };
+
+  handleChange(event) {
+    const value = event.target.value;
     let suggestions = [];
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggestions = this.items.sort().filter(v => regex.test(v));
+      suggestions = this.items.sort().filter(v => regex.test(v.text));
     }
-    this.setState(() => ({ text: value, suggestions }));
+    this.setState(() => ({ suggestions }));
+    this.props.onChange(event);
+  }
 
-    // if (e.target.id.includes("en")) {
-    //   this.setStore(e, "catalogoEn");
-    // } else if (e.target.id.includes("es")) {
-    //   this.setStore(e, "catalogoEs");
-    // } else if (e.target.id.includes("pt")) {
-    //   this.setStore(e, "catalogoPt");
-    // }
-  };
+  suggestionSelected(value, idInput) {
+    const valueSelected = {
+      target: {
+        value: value,
+        id: idInput
+      }
+    };
+    this.props.onChange(valueSelected);
 
-  suggestionSelected(value) {
     this.setState(() => ({
-      text: value,
       suggestions: []
     }));
   }
 
   renderSuggestions() {
-    const { suggestions } = this.state;
+    const { suggestions, idInput } = this.state;
     if (suggestions.length === 0) {
       return null;
     }
@@ -57,23 +52,28 @@ class Autocomplete extends Component {
     return (
       <ul>
         {suggestions.map(item => (
-          <li onClick={() => this.suggestionSelected(item)}>{item}</li>
+          <li
+            key={item.id}
+            onClick={() => this.suggestionSelected(item.text, idInput)}
+          >
+            {item.text}
+          </li>
         ))}
       </ul>
     );
   }
 
   render() {
-    const { idInput } = this.props;
-    const { text } = this.state;
+    const { idInput, value } = this.props;
     return (
       <div className="AutocompleteText">
         <input
           id={idInput}
           onChange={this.handleChange}
           type="text"
-          autocomplete="off"
-          value={text}
+          autoComplete="off"
+          value={value}
+          required
         ></input>
         {this.renderSuggestions()}
       </div>
