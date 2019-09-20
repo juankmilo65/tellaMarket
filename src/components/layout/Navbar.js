@@ -77,17 +77,37 @@ class Navbar extends Component {
         ) : (
           <div className="search">
             <div className="container-tella">
-              <div class="dropdown">
-                <button class="btn-submenu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <div className="dropdown">
+                <button
+                  className="btn-submenu dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
                   Categorias
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Clinical & Laboratory Equipment</a>
-                  <a class="dropdown-item" href="#">Textile Laboratory equipment</a>
-                  <a class="dropdown-item" href="#">Yarn manufacturing</a>
-                  <a class="dropdown-item" href="#">Weaving machinery</a>
-                  <a class="dropdown-item" href="#">Finishing and other press equipment</a>
-                  
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <a className="dropdown-item" href="#">
+                    Clinical & Laboratory Equipment
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Textile Laboratory equipment
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Yarn manufacturing
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Weaving machinery
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Finishing and other press equipment
+                  </a>
                 </div>
               </div>
               <div className="input-search">

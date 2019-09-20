@@ -12,24 +12,101 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
 
-  let count = 1;
-  this.displayData = state.state.newItem;
-  this.displayDataNew = [];
-  this.displayDataNew = this.displayData.filter(item => {
-    item.props.children[
-      count
-    ].props.children.props.children.props.children.props.children.props.value =
-      state.state[
-        item.props.children[
-          count
-        ].props.children.props.children.props.children.props.children.props.idInput
-      ];
-    count = count + 1;
-  });
+  let countNewItem = 0;
+  let displayData = [];
+  let displayDataFInish = [];
 
-  state.setState({
-    ["newItem"]: this.displayData
-  });
+  if (state.newItem.length > 0) {
+    state.newItem.map(item => {
+      let countChild = 0;
+      item.props.children.map(itemChild => {
+        if (
+          itemChild.props.children.props.children.type !== null &&
+          (itemChild.props.children.props.children.type !== "label" &&
+            itemChild.props.children.props.children.type !== "button")
+        ) {
+          var newItemProp = {
+            ...itemChild.props.children.props.children.props.children.props
+              .children.props,
+            ["value"]: "hola"
+          };
+
+          let childrenProperties = {
+            ...itemChild.props.children.props.children.props.children.props
+              .children,
+            ["props"]: newItemProp
+          };
+
+          let childrenPropertiesChidren = {
+            ...itemChild.props.children.props.children.props.children.props,
+            ["children"]: childrenProperties
+          };
+
+          let childrenPropertiesChidrenProperties = {
+            ...itemChild.props.children.props.children.props.children,
+            ["props"]: childrenPropertiesChidren
+          };
+
+          let childrenPropertiesChidrenPropertiesChildren = {
+            ...itemChild.props.children.props.children.props,
+            ["children"]: childrenPropertiesChidrenProperties
+          };
+
+          let childrenPropertiesChidrenPropertiesChildrenProperties = {
+            ...itemChild.props.children.props.children,
+            ["props"]: childrenPropertiesChidrenPropertiesChildren
+          };
+
+          let childrenPropertiesChidrenPropertiesChildrenPropertiesClindren = {
+            ...itemChild.props.children.prop,
+            ["children"]: childrenPropertiesChidrenPropertiesChildrenProperties
+          };
+
+          let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenProperties = {
+            ...itemChild.props.children,
+            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindren
+          };
+
+          let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildren = {
+            ...itemChild.props,
+            ["children"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenProperties
+          };
+
+          let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildrenProperties = {
+            ...itemChild,
+            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildren
+          };
+
+          var f = childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildrenProperties;
+          displayData.push(f);
+        } else {
+          displayData.push(itemChild);
+        }
+
+        countChild = countChild + 1;
+      });
+
+      var newItemChildren = {
+        ...item.props,
+        ["children"]: displayData
+      };
+
+      displayDataFInish = {
+        ...item,
+        ["props"]: newItemChildren
+      };
+
+      countNewItem = countNewItem + 1;
+    });
+
+    if (
+      JSON.stringify(state.newItem[0]) !== JSON.stringify(displayDataFInish)
+    ) {
+      state.state.setState({
+        ["newItem"]: displayDataFInish
+      });
+    }
+  }
 
   return (
     <div className="pd-top--130px">
