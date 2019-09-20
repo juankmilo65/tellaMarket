@@ -91,18 +91,16 @@ function MyComponent(state) {
         ["children"]: displayData
       };
 
-      displayDataFInish = {
+      displayDataFInish.push({
         ...item,
         ["props"]: newItemChildren
-      };
+      });
 
       countNewItem = countNewItem + 1;
     });
 
-    if (
-      JSON.stringify(state.newItem[0]) !== JSON.stringify(displayDataFInish)
-    ) {
-      state.state.setState({
+    if (JSON.stringify(state.newItem) !== JSON.stringify(displayDataFInish)) {
+      state.this.setState({
         ["newItem"]: displayDataFInish
       });
     }
@@ -473,6 +471,7 @@ class CreateMenu extends Component {
         handleAddItem={this.handleAddItem}
         handleDeleteItem={this.handleDeleteItem}
         state={this.state}
+        this={this}
       />
     );
   }
