@@ -97,6 +97,7 @@ function MyComponent(state) {
       });
 
       countNewItem = countNewItem + 1;
+      displayData = [];
     });
 
     if (JSON.stringify(state.newItem) !== JSON.stringify(displayDataFInish)) {
