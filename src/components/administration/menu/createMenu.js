@@ -15,11 +15,12 @@ function MyComponent(state) {
   let countNewItem = 0;
   let displayData = [];
   let displayDataFInish = [];
+  let copyState = Object.assign({}, state);
 
   if (state.newItem.length > 0) {
-    state.newItem.map(item => {
+    state.newItem.map(function(item) {
       let countChild = 0;
-      item.props.children.map(itemChild => {
+      item.props.children.map(function(itemChild) {
         if (
           itemChild.props.children.props.children.type !== null &&
           (itemChild.props.children.props.children.type !== "label" &&
@@ -28,7 +29,16 @@ function MyComponent(state) {
           var newItemProp = {
             ...itemChild.props.children.props.children.props.children.props
               .children.props,
-            ["value"]: "hola"
+            ["value"]:
+              this.state[
+                itemChild.props.children.props.children.props.children.props
+                  .children.props.idInput
+              ] === undefined
+                ? ""
+                : this.state[
+                    itemChild.props.children.props.children.props.children.props
+                      .children.props.idInput
+                  ]
           };
 
           let childrenProperties = {
@@ -84,7 +94,7 @@ function MyComponent(state) {
         }
 
         countChild = countChild + 1;
-      });
+      }, copyState);
 
       var newItemChildren = {
         ...item.props,
@@ -98,7 +108,7 @@ function MyComponent(state) {
 
       countNewItem = countNewItem + 1;
       displayData = [];
-    });
+    }, copyState);
 
     if (JSON.stringify(state.newItem) !== JSON.stringify(displayDataFInish)) {
       state.this.setState({
