@@ -312,8 +312,8 @@ class CreateMenu extends Component {
     e.preventDefault();
     const { lang } = this.props;
     const listItemEn = {};
-    const listItemEs = [];
-    const listItemPt = [];
+    const listItemEs = {};
+    const listItemPt = {};
     let category = "";
     let subCagtegory = "";
 
@@ -343,9 +343,9 @@ class CreateMenu extends Component {
                   count = count + 1;
                 }
               });
-            } else if (property.includes("Category")) {
+            } else if (property.includes("enCategory")) {
               category = Object.values(this.state.catalogoEn[0])[0];
-            } else if (property.includes("Subcategory")) {
+            } else if (property.includes("enSubcategory")) {
               subCagtegory = Object.values(this.state.catalogoEn[0])[1];
             }
           });
@@ -360,7 +360,83 @@ class CreateMenu extends Component {
 
         this.props.createMenu(catalogo);
       } else if (state === "catalogoEs") {
+        this.state.catalogoEs.map(item => {
+          const englishProperties = Object.keys(item);
+          englishProperties.map(property => {
+            let count = 2;
+            if (property.includes("Item")) {
+              const itemPropertyName = Object.keys(this.state.catalogoEs[0]);
+              itemPropertyName.map(itemProperty => {
+                if (
+                  Object.keys(listItemEs).length === 0 &&
+                  itemProperty.includes("Item")
+                ) {
+                  const key = itemProperty.substr(2);
+                  const value = Object.values(this.state.catalogoEs[0])[count];
+                  listItemEs[key] = value;
+                  count = count + 1;
+                } else if (itemProperty.includes("Item")) {
+                  listItemEs[itemProperty.substr(2)] = Object.values(
+                    this.state.catalogoEs[0]
+                  )[count];
+                  count = count + 1;
+                }
+              });
+            } else if (property.includes("esCategory")) {
+              category = Object.values(this.state.catalogoEs[0])[0];
+            } else if (property.includes("esSubcategory")) {
+              subCagtegory = Object.values(this.state.catalogoEs[0])[1];
+            }
+          });
+        });
+
+        const catalogo = {
+          language: "es",
+          categoryName: category,
+          subCategoryName: subCagtegory,
+          items: listItemEs
+        };
+
+        this.props.createMenu(catalogo);
       } else if (state === "catalogoPt") {
+        this.state.catalogoPt.map(item => {
+          const englishProperties = Object.keys(item);
+          englishProperties.map(property => {
+            let count = 2;
+            if (property.includes("Item")) {
+              const itemPropertyName = Object.keys(this.state.catalogoPt[0]);
+              itemPropertyName.map(itemProperty => {
+                if (
+                  Object.keys(listItemPt).length === 0 &&
+                  itemProperty.includes("Item")
+                ) {
+                  const key = itemProperty.substr(2);
+                  const value = Object.values(this.state.catalogoPt[0])[count];
+                  listItemPt[key] = value;
+                  count = count + 1;
+                } else if (itemProperty.includes("Item")) {
+                  listItemPt[itemProperty.substr(2)] = Object.values(
+                    this.state.catalogoPt[0]
+                  )[count];
+                  count = count + 1;
+                }
+              });
+            } else if (property.includes("ptCategory")) {
+              category = Object.values(this.state.catalogoPt[0])[0];
+            } else if (property.includes("ptSubCategory")) {
+              subCagtegory = Object.values(this.state.catalogoPt[0])[1];
+            }
+          });
+        });
+
+        const catalogo = {
+          language: "pt",
+          categoryName: category,
+          subCategoryName: subCagtegory,
+          items: listItemPt
+        };
+
+        this.props.createMenu(catalogo);
       }
     });
   };
@@ -428,7 +504,11 @@ class CreateMenu extends Component {
           <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
-                <Autocomplete idInput={idEs} />
+                <Autocomplete
+                  idInput={idEs}
+                  onChange={this.handleChange}
+                  value={this.state[idEs]}
+                />
               </div>
             </div>
           </div>
@@ -437,7 +517,11 @@ class CreateMenu extends Component {
           <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
-                <Autocomplete idInput={idPt} />
+                <Autocomplete
+                  idInput={idPt}
+                  onChange={this.handleChange}
+                  value={this.state[idPt]}
+                />
               </div>
             </div>
           </div>
@@ -464,9 +548,35 @@ class CreateMenu extends Component {
     } else if (e.target.id.includes("en")) {
       this.propertiesEn.push({ [e.target.id]: e.target.value });
     }
+
+    if (this.propertiesEs.length > 0 && e.target.id.includes("es")) {
+      Object.values(this.propertiesEs).map(property => {
+        Object.keys(property).map(prop => {
+          property[e.target.id] = e.target.value;
+        });
+      });
+    } else if (e.target.id.includes("es")) {
+      this.propertiesEs.push({ [e.target.id]: e.target.value });
+    }
+
+    if (this.propertiesPt.length > 0 && e.target.id.includes("pt")) {
+      Object.values(this.propertiesPt).map(property => {
+        Object.keys(property).map(prop => {
+          property[e.target.id] = e.target.value;
+        });
+      });
+    } else if (e.target.id.includes("pt")) {
+      this.propertiesPt.push({ [e.target.id]: e.target.value });
+    }
+
     this.setState({ [e.target.id]: e.target.value });
     this.setState({
-      [catalogoName]: this.propertiesEn
+      [catalogoName]:
+        catalogoName === "catalogoEn"
+          ? this.propertiesEn
+          : catalogoName === "catalogoEs"
+          ? this.propertiesEs
+          : this.propertiesPt
     });
   }
 
