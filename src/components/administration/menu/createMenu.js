@@ -10,6 +10,7 @@ import {
 } from "../../commons/data/actions/dataActions";
 import Autocomplete from "../../commons/autocomplete/Autocomplete";
 import Table from "../../commons/table/Table";
+import Popup from "reactjs-popup";
 import "./createMenu.scss";
 
 function MyComponent(state) {
@@ -285,6 +286,14 @@ function MyComponent(state) {
                 Limpiar formulario
               </button>
             </div>
+
+            <Popup
+              modal
+              open={state.showModal}
+              onClose={state.handleCloseModal}
+            >
+              Catalogo creado exitosamente
+            </Popup>
           </div>
         </form>
         {state.catalogList.length === 0 ? (
@@ -317,7 +326,8 @@ class CreateMenu extends Component {
     ptCategory: "",
     ptSubcategory: "",
     ptItem1: "",
-    loadGrid: true
+    loadGrid: true,
+    showModal: false
   };
 
   handleSubmit = e => {
@@ -475,6 +485,11 @@ class CreateMenu extends Component {
     this.setState({ ["esItem1"]: "" });
     this.setState({ ["enItem1"]: "" });
     this.setState({ ["ptItem1"]: "" });
+    this.setState({ ["showModal"]: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ ["showModal"]: false });
   };
 
   handleDeleteItem = e => {
@@ -731,6 +746,8 @@ class CreateMenu extends Component {
         state={this.state}
         this={this}
         catalogList={list}
+        showModal={this.state.showModal}
+        handleCloseModal={this.handleCloseModal}
       />
     );
   }
