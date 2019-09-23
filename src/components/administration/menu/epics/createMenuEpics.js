@@ -17,14 +17,17 @@ export default function createMenuEpics(action$) {
       if (action.type === CREATE_MENU) {
         return concat(
           of(setStatus("pending")),
+          // getFS
+          //   .collection(action.payload.language)
+          //   .doc("MachinesAndEquipment")
+          //   .collection(action.payload.categoryName)
+          //   .doc(action.payload.subCategoryName)
+          //   .set(action.payload.items)
+          //   .then(() => createMenuSuccess("saved"))
+          //   .catch(err => createMenuFailed(err))
           getFS
-            .collection(action.payload.language)
-            .doc("MachinesAndEquipment")
-            .collection(action.payload.categoryName)
-            .doc(action.payload.subCategoryName)
-            .set(action.payload.items)
-            .then(() => createMenuSuccess("saved"))
-            .catch(err => createMenuFailed(err))
+            .collection(action.payload.language + "_" + "MachinesAndEquipment")
+            .add(action.payload.myCatalog)
         );
       }
     })

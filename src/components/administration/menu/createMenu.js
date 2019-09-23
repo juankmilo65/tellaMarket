@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 import { createMenu } from "../menu/actions/createMenuActions";
+import { getDocuments } from "../../commons/data/actions/dataActions";
 import Autocomplete from "../../commons/autocomplete/Autocomplete";
-import { Redirect } from "react-router-dom";
+import Table from "../../commons/table/Table";
 import "./createMenu.scss";
 
 function MyComponent(state) {
@@ -281,6 +284,11 @@ function MyComponent(state) {
             </div>
           </div>
         </form>
+        {state.catalogList.length === 0 ? (
+          <div />
+        ) : (
+          <Table catalogList={state.catalogList} />
+        )}
       </div>
     </div>
   );
@@ -351,11 +359,15 @@ class CreateMenu extends Component {
           });
         });
 
+        var subCategoryObj = new Object();
+        subCategoryObj[subCagtegory] = listItemEn;
+
+        var myCatalog = new Object();
+        myCatalog[category] = subCategoryObj;
+
         const catalogo = {
           language: "en",
-          categoryName: category,
-          subCategoryName: subCagtegory,
-          items: listItemEn
+          myCatalog
         };
 
         this.props.createMenu(catalogo);
@@ -390,11 +402,15 @@ class CreateMenu extends Component {
           });
         });
 
+        var subCategoryObj = new Object();
+        subCategoryObj[subCagtegory] = listItemEs;
+
+        var myCatalog = new Object();
+        myCatalog[category] = subCategoryObj;
+
         const catalogo = {
           language: "es",
-          categoryName: category,
-          subCategoryName: subCagtegory,
-          items: listItemEs
+          myCatalog
         };
 
         this.props.createMenu(catalogo);
@@ -429,11 +445,15 @@ class CreateMenu extends Component {
           });
         });
 
+        var subCategoryObj = new Object();
+        subCategoryObj[subCagtegory] = listItemPt;
+
+        var myCatalog = new Object();
+        myCatalog[category] = subCategoryObj;
+
         const catalogo = {
           language: "pt",
-          categoryName: category,
-          subCategoryName: subCagtegory,
-          items: listItemPt
+          myCatalog
         };
 
         this.props.createMenu(catalogo);
@@ -581,7 +601,95 @@ class CreateMenu extends Component {
   }
 
   render() {
-    const { lang, auth } = this.props;
+    const {
+      lang,
+      documentsEn,
+      documentsEs,
+      documentsPt,
+      firebase
+    } = this.props;
+
+    let list = [];
+
+    if (documentsPt.length === 0) {
+      this.props.getDocuments({ firebase, language: "pt" });
+    }
+
+    if (documentsEs.length === 0) {
+      this.props.getDocuments({ firebase, language: "es" });
+    }
+
+    if (documentsEn.length === 0) {
+      this.props.getDocuments({ firebase, language: "en" });
+    }
+
+    if (
+      documentsEn.length > 0 &&
+      documentsEs.length > 0 &&
+      documentsPt.length > 0
+    ) {
+      let countId = 1;
+      documentsEn.forEach(doc => {
+        var obj = new Object();
+        var items = Object.keys(
+          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+        );
+
+        items.forEach(item => {
+          obj["id"] = countId;
+          obj["Category"] = Object.keys(doc)[0];
+          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Item"] =
+            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
+              item
+            ];
+          obj["Language"] = "Spanish";
+        });
+        countId = countId + 1;
+        list.push(obj);
+      });
+
+      documentsEs.forEach(doc => {
+        var obj = new Object();
+        var items = Object.keys(
+          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+        );
+
+        items.forEach(item => {
+          obj["id"] = countId;
+          obj["Category"] = Object.keys(doc)[0];
+          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Item"] =
+            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
+              item
+            ];
+          obj["Language"] = "Spanish";
+        });
+        countId = countId + 1;
+        list.push(obj);
+      });
+
+      documentsPt.forEach(doc => {
+        var obj = new Object();
+        var items = Object.keys(
+          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+        );
+
+        items.forEach(item => {
+          obj["id"] = countId;
+          obj["Category"] = Object.keys(doc)[0];
+          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Item"] =
+            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
+              item
+            ];
+          obj["Language"] = "Portugues";
+        });
+        countId = countId + 1;
+        list.push(obj);
+      });
+    }
+
     //if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <MyComponent
@@ -593,6 +701,7 @@ class CreateMenu extends Component {
         handleDeleteItem={this.handleDeleteItem}
         state={this.state}
         this={this}
+        catalogList={list}
       />
     );
   }
@@ -600,10 +709,16 @@ class CreateMenu extends Component {
 
 const mapStateToProps = state => ({
   lang: state.navar.lang,
-  auth: state.firebase.auth
+  auth: state.firebase.auth,
+  documentsEn: state.data.documentsEn,
+  documentsEs: state.data.documentsEs,
+  documentsPt: state.data.documentsPt
 });
 
-export default connect(
-  mapStateToProps,
-  { createMenu }
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps,
+    { createMenu, getDocuments }
+  )
 )(CreateMenu);

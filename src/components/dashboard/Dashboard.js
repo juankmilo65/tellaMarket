@@ -154,12 +154,13 @@ class Dashboard extends Component {
 
     return (
       <div className="pd-top--130px">
-
         <div className="first-slider">
           <Carousel images={imagesMainBar} />
         </div>
         <div className="banner-small container">
-          <div className="item-title"><span>Grandes Ofertas</span></div>
+          <div className="item-title">
+            <span>Grandes Ofertas</span>
+          </div>
           <CarouselMultiple images={imagesMultiBar} />
         </div>
         {/* <div>
@@ -167,8 +168,11 @@ class Dashboard extends Component {
         </div> */}
         <div className="provider">
           <div className="container">
-            <div className="title-item--product"><label>Nuevos <span>proveedores</span></label></div>
-
+            <div className="title-item--product">
+              <label>
+                Nuevos <span>proveedores</span>
+              </label>
+            </div>
           </div>
         </div>
         <div>
@@ -244,7 +248,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 }

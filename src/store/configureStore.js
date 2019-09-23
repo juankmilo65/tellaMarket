@@ -12,6 +12,7 @@ import phoneAuthenticationReducer from "../components/auth/phoneAuthentication/r
 import fileUploadReducers from "../components/commons/fileUpload/reducers/fileReducers";
 import frameReducers from "../components/auth/frame/reducers/frameReducers";
 import createmenuReducers from "../components/administration/menu/reducers/CreatemenuReducers";
+import dataReducers from "../components/commons/data/reducers/dataReducers";
 import createItemEpics from "../components/items/create/epics/createItemEpics";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
@@ -21,6 +22,7 @@ import phoneAuthenticationEpics from "../components/auth/phoneAuthentication/epi
 import fileUploadEpics from "../components/commons/fileUpload/epics/fileUploadEpics";
 import frameEpics from "../components/auth/frame/epics/frameEpics";
 import createMenuEpics from "../components/administration/menu/epics/createMenuEpics";
+import dataEpics from "../components/commons/data/epics/dataEpics";
 
 import FirebaseConfig from "./../config/FirebaseConfig";
 
@@ -34,7 +36,8 @@ export function configureStore() {
     phoneAuthenticationEpics,
     fileUploadEpics,
     frameEpics,
-    createMenuEpics
+    createMenuEpics,
+    dataEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -50,7 +53,8 @@ export function configureStore() {
     firebase: firebaseReducer,
     fileUpload: fileUploadReducers,
     frame: frameReducers,
-    createmenu: createmenuReducers
+    createmenu: createmenuReducers,
+    data: dataReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
