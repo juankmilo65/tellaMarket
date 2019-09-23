@@ -497,7 +497,18 @@ class CreateMenu extends Component {
     }
   };
 
-  handleCleanForm = () => {};
+  handleCleanForm = () => {
+    this.setState({ ["newItem"]: [] });
+    this.setState({ ["enCategory"]: "" });
+    this.setState({ ["esCategory"]: "" });
+    this.setState({ ["ptCategory"]: "" });
+    this.setState({ ["enSubcategory"]: "" });
+    this.setState({ ["esSubcategory"]: "" });
+    this.setState({ ["ptSubcategory"]: "" });
+    this.setState({ ["esItem1"]: "" });
+    this.setState({ ["enItem1"]: "" });
+    this.setState({ ["ptItem1"]: "" });
+  };
 
   handleAddItem = () => {
     this.setState({ ["loadGrid"]: false });
@@ -712,6 +723,7 @@ class CreateMenu extends Component {
       <MyComponent
         lang={lang}
         handleSubmit={this.handleSubmit}
+        handleCleanForm={this.handleCleanForm}
         handleChange={this.handleChange}
         newItem={this.state.newItem}
         handleAddItem={this.handleAddItem}
