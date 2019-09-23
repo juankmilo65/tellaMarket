@@ -2,11 +2,13 @@ import { getFirestore } from "redux-firestore";
 import {
   GET_DOCUMENTS,
   GET_COLLECTIONS_BY_DOCUMENT,
+  CLEAN_LIST,
   setStatus,
   getDocumentsEnSuccess,
   getDocumentsEsSuccess,
   getDocumentsPtSuccess,
-  getDocumentsFailed
+  getDocumentsFailed,
+  cleanListSuccess
 } from "../actions/dataActions";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
@@ -15,7 +17,7 @@ import { concat, of } from "rxjs";
 export default function dataEpics(action$) {
   const getFS = getFirestore();
   return action$.pipe(
-    ofType(GET_DOCUMENTS, GET_COLLECTIONS_BY_DOCUMENT),
+    ofType(GET_DOCUMENTS, GET_COLLECTIONS_BY_DOCUMENT, CLEAN_LIST),
     switchMap(action => {
       if (action.type === GET_DOCUMENTS) {
         return concat(
@@ -39,6 +41,9 @@ export default function dataEpics(action$) {
             })
             .catch(err => of(getDocumentsFailed(err)))
         );
+      }
+      if (action.type === CLEAN_LIST) {
+        return concat(of(setStatus("pending")), of(cleanListSuccess("ok")));
       }
     })
   );

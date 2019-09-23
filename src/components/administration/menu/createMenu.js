@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { createMenu } from "../menu/actions/createMenuActions";
-import { getDocuments } from "../../commons/data/actions/dataActions";
+import {
+  getDocuments,
+  cleanList
+} from "../../commons/data/actions/dataActions";
 import Autocomplete from "../../commons/autocomplete/Autocomplete";
 import Table from "../../commons/table/Table";
 import "./createMenu.scss";
@@ -246,9 +249,9 @@ function MyComponent(state) {
                 <div className="App-Component">
                   <div className="App-Component">
                     <Autocomplete
-                      idInput="ptSubCategory"
+                      idInput="ptSubcategory"
                       onChange={state.handleChange}
-                      value={state.state["ptSubCategory"]}
+                      value={state.state["ptSubcategory"]}
                     />
                   </div>
                 </div>
@@ -313,12 +316,13 @@ class CreateMenu extends Component {
     esItem1: "",
     ptCategory: "",
     ptSubcategory: "",
-    ptItem1: ""
+    ptItem1: "",
+    loadGrid: true
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { lang } = this.props;
+    const { lang, cleanList } = this.props;
     const listItemEn = {};
     const listItemEs = {};
     const listItemPt = {};
@@ -439,7 +443,7 @@ class CreateMenu extends Component {
               });
             } else if (property.includes("ptCategory")) {
               category = Object.values(this.state.catalogoPt[0])[0];
-            } else if (property.includes("ptSubCategory")) {
+            } else if (property.includes("ptSubcategory")) {
               subCagtegory = Object.values(this.state.catalogoPt[0])[1];
             }
           });
@@ -459,6 +463,18 @@ class CreateMenu extends Component {
         this.props.createMenu(catalogo);
       }
     });
+
+    cleanList();
+    this.setState({ ["newItem"]: [] });
+    this.setState({ ["enCategory"]: "" });
+    this.setState({ ["esCategory"]: "" });
+    this.setState({ ["ptCategory"]: "" });
+    this.setState({ ["enSubcategory"]: "" });
+    this.setState({ ["esSubcategory"]: "" });
+    this.setState({ ["ptSubcategory"]: "" });
+    this.setState({ ["esItem1"]: "" });
+    this.setState({ ["enItem1"]: "" });
+    this.setState({ ["ptItem1"]: "" });
   };
 
   handleDeleteItem = e => {
@@ -484,6 +500,7 @@ class CreateMenu extends Component {
   handleCleanForm = () => {};
 
   handleAddItem = () => {
+    this.setState({ ["loadGrid"]: false });
     this.setState({ countItems: this.state.countItems + 1 });
 
     const idEn = "enItem" + this.state.countItems;
@@ -643,7 +660,7 @@ class CreateMenu extends Component {
             doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
               item
             ];
-          obj["Language"] = "Spanish";
+          obj["Language"] = "English";
         });
         countId = countId + 1;
         list.push(obj);
@@ -719,6 +736,6 @@ export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { createMenu, getDocuments }
+    { createMenu, getDocuments, cleanList }
   )
 )(CreateMenu);

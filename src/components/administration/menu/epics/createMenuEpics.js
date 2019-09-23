@@ -28,6 +28,8 @@ export default function createMenuEpics(action$) {
           getFS
             .collection(action.payload.language + "_" + "MachinesAndEquipment")
             .add(action.payload.myCatalog)
+            .then(() => createMenuSuccess("Ok"))
+            .catch(err => createMenuFailed(err))
         );
       }
     })

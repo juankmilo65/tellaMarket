@@ -5,6 +5,7 @@ import {
   GET_DOCUMENTS_ES_SUCCESS,
   GET_DOCUMENTS_PT_SUCCESS,
   GET_DOCUMENTS_FAILED,
+  CLEAN_LIST_SUCCESS,
   SET_STATUS
 } from "../actions/dataActions";
 
@@ -22,6 +23,16 @@ const dataReducers = (state = initState, action) => {
       return {
         ...state,
         status: action.payload
+      };
+    }
+    case CLEAN_LIST_SUCCESS: {
+      return {
+        ...state,
+        status: "success",
+        message: action.payload,
+        documentsEn: [],
+        documentsEs: [],
+        documentsPt: []
       };
     }
     case GET_DOCUMENTS_EN_SUCCESS: {

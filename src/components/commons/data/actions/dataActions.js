@@ -10,11 +10,27 @@ export const GET_COLLECTIONS_BY_DOCUMENT_SUCCESS =
   "GET_COLLECTIONS_BY_DOCUMENT_SUCCESS";
 export const GET_COLLECTIONS_BY_DOCUMENT_FAILED =
   "GET_COLLECTIONS_BY_DOCUMENT_FAILED";
+export const CLEAN_LIST = "CLEAN_LIST";
+export const CLEAN_LIST_SUCCESS = "CLEAN_LIST_SUCCESS";
 
 export function setStatus(status) {
   return {
     type: SET_STATUS,
     payload: status
+  };
+}
+
+export function cleanList(clean) {
+  return {
+    type: CLEAN_LIST,
+    payload: clean
+  };
+}
+
+export function cleanListSuccess(menssage) {
+  return {
+    type: CLEAN_LIST_SUCCESS,
+    payload: menssage
   };
 }
 

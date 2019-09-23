@@ -67,8 +67,10 @@ class Table extends Component {
       <div>
         <h1 id="title">Listado Catalogo</h1>
         <table id="students">
-          <tr>{this.renderTableHeader()}</tr>
-          <tbody>{this.renderTableData()}</tbody>
+          <tbody>
+            <tr>{this.renderTableHeader()}</tr>
+            {this.renderTableData()}
+          </tbody>
         </table>
       </div>
     );
