@@ -6,43 +6,12 @@ class Table extends Component {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       students: props.catalogList
-      //state is by default an object
-      // students: [
-      //   {
-      //     id: 1,
-      //     Category: "Categoria 1",
-      //     SubCategory: "SubCategoria 1",
-      //     Item: "Articulo 1",
-      //     Language: "Ingles"
-      //   },
-      //   {
-      //     id: 2,
-      //     Category: "Categoria 1",
-      //     SubCategory: "SubCategoria 1",
-      //     Item: "Articulo 1",
-      //     Language: "Ingles"
-      //   },
-      //   {
-      //     id: 3,
-      //     Category: "Categoria 1",
-      //     SubCategory: "SubCategoria 1",
-      //     Item: "Articulo 1",
-      //     Language: "Español"
-      //   },
-      //   {
-      //     id: 4,
-      //     Category: "Categoria 1",
-      //     SubCategory: "SubCategoria 1",
-      //     Item: "Articulo 1",
-      //     Language: "Portugues"
-      //   }
-      // ]
     };
   }
 
   renderTableData() {
     return this.state.students.map((student, index) => {
-      const { id, Category, SubCategory, Item, Language } = student; //destructuring
+      const { id, Category, SubCategory, Item, Language, fsId } = student; //destructuring
       return (
         <tr key={id}>
           <td>{id}</td>
@@ -50,6 +19,7 @@ class Table extends Component {
           <td>{SubCategory}</td>
           <td>{Item}</td>
           <td>{Language}</td>
+          <td>{fsId}</td>
         </tr>
       );
     });

@@ -25,6 +25,8 @@ export default function createMenuEpics(action$) {
           //   .set(action.payload.items)
           //   .then(() => createMenuSuccess("saved"))
           //   .catch(err => createMenuFailed(err))
+          //action.payload.documents.forEach()
+
           getFS
             .collection(action.payload.language + "_" + "MachinesAndEquipment")
             .add(action.payload.myCatalog)

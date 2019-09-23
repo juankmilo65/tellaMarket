@@ -332,12 +332,20 @@ class CreateMenu extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { lang, cleanList } = this.props;
+
+    const {
+      lang,
+      cleanList,
+      documentsEn,
+      documentsEs,
+      documentsPt
+    } = this.props;
     const listItemEn = {};
     const listItemEs = {};
     const listItemPt = {};
     let category = "";
     let subCagtegory = "";
+    let listDocuments = [];
 
     const stateProperties = Object.keys(this.state);
 
@@ -381,7 +389,8 @@ class CreateMenu extends Component {
 
         const catalogo = {
           language: "en",
-          myCatalog
+          myCatalog,
+          documents: documentsEn
         };
 
         this.props.createMenu(catalogo);
@@ -424,7 +433,8 @@ class CreateMenu extends Component {
 
         const catalogo = {
           language: "es",
-          myCatalog
+          myCatalog,
+          documents: documentsEs
         };
 
         this.props.createMenu(catalogo);
@@ -467,7 +477,8 @@ class CreateMenu extends Component {
 
         const catalogo = {
           language: "pt",
-          myCatalog
+          myCatalog,
+          documents: documentsPt
         };
 
         this.props.createMenu(catalogo);
@@ -675,61 +686,82 @@ class CreateMenu extends Component {
       documentsEn.forEach(doc => {
         var obj = new Object();
         var items = Object.keys(
-          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+          doc.data[Object.keys(doc.data)[0]][
+            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+          ]
         );
 
         items.forEach(item => {
           obj["id"] = countId;
-          obj["Category"] = Object.keys(doc)[0];
-          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Category"] = Object.keys(doc.data)[0];
+          obj["SubCategory"] = Object.keys(
+            doc.data[Object.keys(doc.data)[0]]
+          )[0];
           obj["Item"] =
-            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
-              item
-            ];
+            doc.data[Object.keys(doc.data)[0]][
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            ][item];
           obj["Language"] = "English";
+          obj["fsId"] = doc["id"];
+
+          var newObject = Object.assign({}, obj);
+          list.push(newObject);
+          countId = countId + 1;
         });
-        countId = countId + 1;
-        list.push(obj);
       });
 
       documentsEs.forEach(doc => {
         var obj = new Object();
         var items = Object.keys(
-          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+          doc.data[Object.keys(doc.data)[0]][
+            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+          ]
         );
 
         items.forEach(item => {
           obj["id"] = countId;
-          obj["Category"] = Object.keys(doc)[0];
-          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Category"] = Object.keys(doc.data)[0];
+          obj["SubCategory"] = Object.keys(
+            doc.data[Object.keys(doc.data)[0]]
+          )[0];
           obj["Item"] =
-            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
-              item
-            ];
+            doc.data[Object.keys(doc.data)[0]][
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            ][item];
           obj["Language"] = "Spanish";
+          obj["fsId"] = doc["id"];
+
+          var newObject = Object.assign({}, obj);
+          list.push(newObject);
+          countId = countId + 1;
         });
-        countId = countId + 1;
-        list.push(obj);
       });
 
       documentsPt.forEach(doc => {
         var obj = new Object();
         var items = Object.keys(
-          doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]]
+          doc.data[Object.keys(doc.data)[0]][
+            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+          ]
         );
 
         items.forEach(item => {
           obj["id"] = countId;
-          obj["Category"] = Object.keys(doc)[0];
-          obj["SubCategory"] = Object.keys(doc[Object.keys(doc)[0]])[0];
+          obj["Category"] = Object.keys(doc.data)[0];
+          obj["SubCategory"] = Object.keys(
+            doc.data[Object.keys(doc.data)[0]]
+          )[0];
           obj["Item"] =
-            doc[Object.keys(doc)[0]][Object.keys(doc[Object.keys(doc)[0]])[0]][
-              item
-            ];
+            doc.data[Object.keys(doc.data)[0]][
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            ][item];
           obj["Language"] = "Portugues";
+          obj["fsId"] = doc["id"];
+
+          var newObject = Object.assign({}, obj);
+          list.push(newObject);
+          countId = countId + 1;
         });
-        countId = countId + 1;
-        list.push(obj);
       });
     }
 

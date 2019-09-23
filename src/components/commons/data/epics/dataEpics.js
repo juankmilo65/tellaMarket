@@ -28,7 +28,7 @@ export default function dataEpics(action$) {
             .then(querySnapshot => {
               let listDocumentIds = [];
               querySnapshot.forEach(doc => {
-                listDocumentIds.push(doc.data());
+                listDocumentIds.push({ id: doc.id, data: doc.data() });
               });
 
               if (action.payload.language === "pt") {
