@@ -30,9 +30,9 @@ const dataReducers = (state = initState, action) => {
         ...state,
         status: "success",
         message: action.payload,
-        documentsEn: { id: "", data: {} },
-        documentsEs: { id: "", data: {} },
-        documentsPt: { id: "", data: {} }
+        documentsEn: [],
+        documentsEs: [],
+        documentsPt: []
       };
     }
     case GET_DOCUMENTS_EN_SUCCESS: {

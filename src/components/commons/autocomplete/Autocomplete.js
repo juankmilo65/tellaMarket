@@ -22,7 +22,7 @@ class Autocomplete extends Component {
     const value = event.target.value;
     let suggestions = [];
     if (value.length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
+      const regex = new RegExp("[-!$%^&*()_+|~=`{}[]:\";'<>?,./]");
       suggestions = this.items.sort().filter(v => regex.test(v.text));
     }
     this.setState(() => ({ suggestions }));
