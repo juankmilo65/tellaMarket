@@ -14,6 +14,7 @@ import frameReducers from "../components/auth/frame/reducers/frameReducers";
 import createmenuReducers from "../components/administration/menu/reducers/CreatemenuReducers";
 import dataReducers from "../components/commons/data/reducers/dataReducers";
 import stepReducer from "../components/items/steps/reducer/stepsReducers";
+import controlDataItemReducers from "../components/items/controlDataItem/reducer/controlDataItemReducers";
 import createItemEpics from "../components/items/create/epics/createItemEpics";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
@@ -25,7 +26,7 @@ import frameEpics from "../components/auth/frame/epics/frameEpics";
 import createMenuEpics from "../components/administration/menu/epics/createMenuEpics";
 import dataEpics from "../components/commons/data/epics/dataEpics";
 import stepEpics from "../components/items/steps/epics/stepsEpics";
-
+import controlDataItemEpics from "../components/items/controlDataItem/epics/controlDataItemEpics";
 import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
@@ -40,7 +41,8 @@ export function configureStore() {
     frameEpics,
     createMenuEpics,
     dataEpics,
-    stepEpics
+    stepEpics,
+    controlDataItemEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -58,7 +60,8 @@ export function configureStore() {
     frame: frameReducers,
     createmenu: createmenuReducers,
     data: dataReducers,
-    step: stepReducer
+    step: stepReducer,
+    dataItem: controlDataItemReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

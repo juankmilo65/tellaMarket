@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getDocuments } from "../../commons/data/actions/dataActions";
+import { setSubcategory } from "../../items/controlDataItem/actions/controlDataItemActions";
 import "./categories.scss";
 
 function MyComponent(state) {
@@ -31,6 +32,7 @@ function MyComponent(state) {
                     id={item.id}
                     name="customRadio"
                     className="custom-control-input"
+                    onChange={state.handleSelectCheck}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
                     {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
@@ -66,6 +68,14 @@ function MyComponent(state) {
 }
 
 class Categories extends Component {
+  handleSelectCheck = e => {
+    const { setSubcategory } = this.props;
+    var obj = new Object();
+    obj["categorySelectedId"] = e.target.id;
+    obj["subcategoryName"] = e.target.labels[0].innerHTML;
+    setSubcategory(obj);
+  };
+
   render() {
     const { auth, lang, documentsEn, documentsEs, firebase } = this.props;
 
@@ -141,6 +151,7 @@ class Categories extends Component {
             lang={lang}
             columnOne={columnOne}
             columnTwo={columnTwo}
+            handleSelectCheck={this.handleSelectCheck}
           ></MyComponent>
         )}
       </div>
@@ -157,5 +168,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getDocuments }
+  {
+    getDocuments,
+    setSubcategory
+  }
 )(Categories);
