@@ -21,5 +21,15 @@
       "code": "Código",
       "login": "Entrar"
     }
+  },
+  "step": {
+    "categories": "Categorías",
+    "description": "Descripción",
+    "photos": "Fotos",
+    "confirmation": "Confirmación"
+  },
+  "category": {
+    "selectCategory": "Seleccione una Categoría",
+    "next": "Siguiente"
   }
 }

@@ -21,5 +21,15 @@
       "code": "Code",
       "login": "Login"
     }
+  },
+  "step": {
+    "categories": "Categories",
+    "description": "Description",
+    "photos": "Photos",
+    "confirmation": "Confirmation"
+  },
+  "category": {
+    "selectCategory": "Select Category",
+    "next": "Next"
   }
 }
