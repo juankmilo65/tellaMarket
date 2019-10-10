@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
+import { setStep } from "../../items/steps/actions/stepsActions";
 import "./productInformation.scss";
 
 function MyComponent(state) {
@@ -18,7 +19,7 @@ function MyComponent(state) {
         <div className="title-box">
           <label>{t("productInformation.title")}</label>
           <div className="d-flex">
-            <button className="btns btn-se mr-3">
+            <button className="btns btn-se mr-3" onClick={state.handleBack}>
               {t("productInformation.back")}
             </button>
             <button className="btns btn-go">
@@ -351,6 +352,10 @@ class ProductInformation extends Component {
     { id: 200, country: "Zambia" },
     { id: 201, country: "Zimbabue" }
   ];
+  handleBack = e => {
+    const { setStep } = this.props;
+    setStep(1);
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -365,6 +370,8 @@ class ProductInformation extends Component {
       description
     } = this.state;
 
+    const { setProductInformation, setStep } = this.props;
+
     var obj = new Object();
     obj["productName"] = productName;
     obj["brand"] = brand;
@@ -374,7 +381,8 @@ class ProductInformation extends Component {
     obj["location"] = location;
     obj["description"] = description;
 
-    this.props.setProductInformation(obj);
+    setProductInformation(obj);
+    setStep(3);
   };
 
   handleChange = e => {
@@ -403,6 +411,7 @@ class ProductInformation extends Component {
         countries={this.countries}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        handleBack={this.handleBack}
       ></MyComponent>
     );
   }
@@ -415,5 +424,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setProductInformation }
+  { setProductInformation, setStep }
 )(ProductInformation);

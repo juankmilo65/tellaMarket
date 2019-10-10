@@ -37,7 +37,7 @@ class CreateItem extends Component {
     this.props.history.push("/");
   };
   render() {
-    // const { auth, fileUpload } = this.props;
+    const { auth, fileUpload, step } = this.props;
 
     // if (!auth.uid) return <Redirect to="/signin" />;
     return (
@@ -47,10 +47,17 @@ class CreateItem extends Component {
           <label>Edición Producto</label>
         </div>
         <Steps />
-        <Categories />
-        <ProductInformation />
+        {step === 1 ? (
+          <Categories />
+        ) : step === 2 ? (
+          <ProductInformation />
+        ) : step === 3 ? (
+          <ProductInformation />
+        ) : (
+          <div></div>
+        )}
 
-        <div className="box-product mt-1 mb-1">
+        {/* <div className="box-product mt-1 mb-1">
           <div className="title-box">
             <label>Cargar Archivos Multimedia</label>
             <div className="d-flex">
@@ -85,7 +92,7 @@ class CreateItem extends Component {
               <span>También puedes arrastrar</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -95,7 +102,8 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    fileUpload: state.fileUpload
+    fileUpload: state.fileUpload,
+    step: state.step.step
   };
 };
 

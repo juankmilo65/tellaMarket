@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getDocuments } from "../../commons/data/actions/dataActions";
 import { setSubcategory } from "../../items/controlDataItem/actions/controlDataItemActions";
+import { setStep } from "../../items/steps/actions/stepsActions";
 import "./categories.scss";
 
 function MyComponent(state) {
@@ -15,7 +16,9 @@ function MyComponent(state) {
     <div className="box-product mt-1 mb-1">
       <div className="title-box">
         <label>{t("category.selectCategory")}</label>
-        <button className="btns btn-go">{t("category.next")}</button>
+        <button className="btns btn-go" onClick={state.handleSubmit}>
+          {t("category.next")}
+        </button>
       </div>
 
       <div className="d-flex">
@@ -74,6 +77,11 @@ class Categories extends Component {
     obj["categorySelectedId"] = e.target.id;
     obj["subcategoryName"] = e.target.labels[0].innerHTML;
     setSubcategory(obj);
+  };
+
+  handleSubmit = e => {
+    const { setStep } = this.props;
+    setStep(2);
   };
 
   render() {
@@ -152,6 +160,7 @@ class Categories extends Component {
             columnOne={columnOne}
             columnTwo={columnTwo}
             handleSelectCheck={this.handleSelectCheck}
+            handleSubmit={this.handleSubmit}
           ></MyComponent>
         )}
       </div>
@@ -170,6 +179,7 @@ export default connect(
   mapStateToProps,
   {
     getDocuments,
-    setSubcategory
+    setSubcategory,
+    setStep
   }
 )(Categories);
