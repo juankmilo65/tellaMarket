@@ -7,6 +7,7 @@ import { createItem } from "../create/actions/createItemActions";
 import FileUpload from "../../commons/fileUpload/fileUpload";
 import Steps from "../steps/steps";
 import Categories from "../category/categories";
+import ProductInformation from "../productInformation/productInformation";
 import "./createItem.scss";
 
 class CreateItem extends Component {
@@ -47,88 +48,7 @@ class CreateItem extends Component {
         </div>
         <Steps />
         <Categories />
-
-        <div className="box-product mt-1 mb-1">
-          <div className="title-box">
-            <label>Información del Producto</label>
-            <div className="d-flex">
-              <button className="btns btn-se mr-3">atras</button>
-              <button className="btns btn-go">Siguiente</button>
-            </div>
-          </div>
-          <form>
-            <div className="item-form">
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Titulo</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Nombre de la maquina"
-                />
-              </div>
-            </div>
-            <div className="item-form">
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Referencia</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Referencia de la maquina"
-                />
-              </div>
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Modelo</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Modelo de la maquina"
-                />
-              </div>
-            </div>
-            <div className="item-form">
-              <div className="form-group input-tella input-icon">
-                <label for="formGroupExampleInput">Año</label>
-                <input type="text" className="form-control" placeholder="Año" />
-                <i className="material-icons icon-calendar">today</i>
-              </div>
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Diámetro del Cilindro</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Cilindro"
-                />
-              </div>
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Calibre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Calibre "
-                />
-              </div>
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Cantidad</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Unidades"
-                />
-              </div>
-            </div>
-            <div className="item-form">
-              <div className="form-group input-tella">
-                <label for="formGroupExampleInput">Descripción</label>
-                <textarea
-                  type="text"
-                  className="form-control"
-                  rows="3"
-                  placeholder="Descripción de la maquina"
-                ></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
+        <ProductInformation />
 
         <div className="box-product mt-1 mb-1">
           <div className="title-box">

@@ -31,5 +31,21 @@
   "category": {
     "selectCategory": "Select Category",
     "next": "Next"
+  },
+  "productInformation": {
+    "back": "Back",
+    "next": "Next",
+    "title": "Product information",
+    "productName": "Product name",
+    "machineNamePlaceHolder": "Machine name",
+    "brand": "Brand",
+    "referencePlaceHolder": "Machine reference",
+    "model": "Model",
+    "modelPlaceHolder": "Model machine",
+    "year": "Year",
+    "conservationState": "Conservation state",
+    "location": "Location",
+    "description": "Description",
+    "descriptionPlaceHolder": "Full details"
   }
 }

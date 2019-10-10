@@ -31,5 +31,21 @@
   "category": {
     "selectCategory": "Seleccione una Categoría",
     "next": "Siguiente"
+  },
+  "productInformation": {
+    "back": "Regresar",
+    "next": "Siguiente",
+    "title": "Información del producto",
+    "productName": "Nombre del producto",
+    "machineNamePlaceHolder": "Nombre de la maquina",
+    "brand": "Marca",
+    "referencePlaceHolder": "Referencia de la maquina",
+    "model": "Modelo",
+    "modelPlaceHolder": "Modelo de la maquina",
+    "year": "Año",
+    "conservationState": "Estado de conservación",
+    "location": "Localización",
+    "description": "Descripción",
+    "descriptionPlaceHolder": "Descripción detallada"
   }
 }

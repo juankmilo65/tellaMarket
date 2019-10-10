@@ -1,10 +1,12 @@
 import {
   SET_SUBCATEGORY_SUCCES,
-  SET_STATUS
+  SET_STATUS,
+  SET_PRODUCT_INFORMATION_SUCCES
 } from "../actions/controlDataItemActions";
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
+  idUsuario: {},
   subcategory: {},
   productInformation: {},
   multimedia: {}
@@ -23,6 +25,13 @@ const controlDataItemReducers = (state = initState, action) => {
         ...state,
         status: "success",
         subcategory: action.payload
+      };
+    }
+    case SET_PRODUCT_INFORMATION_SUCCES: {
+      return {
+        ...state,
+        status: "success",
+        productInformation: action.payload
       };
     }
 
