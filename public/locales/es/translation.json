@@ -47,5 +47,8 @@
     "location": "Localización",
     "description": "Descripción",
     "descriptionPlaceHolder": "Descripción detallada"
+  },
+  "errors": {
+    "requiredField": "Campo Obligatorio"
   }
 }

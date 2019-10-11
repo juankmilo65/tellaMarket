@@ -6,12 +6,17 @@ import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import "./productInformation.scss";
+import { of } from "rxjs";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
   if (i18n.language !== state.lang.value) {
     i18n.changeLanguage(state.lang.value);
   }
+
+  const pStyle = {
+    color: "red"
+  };
 
   return (
     <div className="box-product mt-1 mb-1">
@@ -39,7 +44,13 @@ function MyComponent(state) {
               placeholder={t("productInformation.machineNamePlaceHolder")}
               id="productName"
               onChange={state.handleChange}
+              value={state.state.productName}
             />
+            {state.state.errors.productName === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
         </div>
         <div className="item-form">
@@ -51,7 +62,13 @@ function MyComponent(state) {
               placeholder={t("productInformation.referencePlaceHolder")}
               id="brand"
               onChange={state.handleChange}
+              value={state.state.brand}
             />
+            {state.state.errors.brand === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
           <div className="form-group input-tella">
             <label htmlFor="model">{t("productInformation.model")}</label>
@@ -61,7 +78,13 @@ function MyComponent(state) {
               className="form-control"
               placeholder={t("productInformation.modelPlaceHolder")}
               onChange={state.handleChange}
+              value={state.state.model}
             />
+            {state.state.errors.model === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
         </div>
         <div className="item-form">
@@ -72,8 +95,14 @@ function MyComponent(state) {
               id="year"
               className="form-control"
               onChange={state.handleChange}
+              value={state.state.year}
             />
             {/* <i className="material-icons icon-calendar">today</i> */}
+            {state.state.errors.year === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
           <div className="form-group input-tella">
             <label htmlFor="conservationState">
@@ -84,6 +113,7 @@ function MyComponent(state) {
                 className="form-control"
                 id="conservationState"
                 onChange={state.handleChange}
+                value={state.state.conservationState}
               >
                 <option value="-1">-</option>
                 <option value="1">New</option>
@@ -94,11 +124,17 @@ function MyComponent(state) {
                 className="form-control"
                 id="conservationState"
                 onChange={state.handleChange}
+                value={state.state.conservationState}
               >
                 <option value="-1">-</option>
                 <option value="1">Nuevo</option>
                 <option value="2">Usado</option>
               </select>
+            )}
+            {state.state.errors.conservationState === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
             )}
           </div>
           <div className="form-group input-tella">
@@ -107,6 +143,7 @@ function MyComponent(state) {
               className="form-control"
               id="location"
               onChange={state.handleChange}
+              value={state.state.locationId}
             >
               {state.countries.map(country => {
                 return (
@@ -116,6 +153,11 @@ function MyComponent(state) {
                 );
               })}
             </select>
+            {state.state.errors.location === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
         </div>
         <div className="item-form">
@@ -130,7 +172,13 @@ function MyComponent(state) {
               rows="3"
               placeholder={t("productInformation.descriptionPlaceHolder")}
               onChange={state.handleChange}
+              value={state.state.description}
             ></textarea>
+            {state.state.errors.description === true ? (
+              <p style={pStyle}>{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
           </div>
         </div>
       </form>
@@ -146,7 +194,54 @@ class ProductInformation extends Component {
     model: "",
     conservationState: "",
     location: "",
-    description: ""
+    locationId: "",
+    description: "",
+    errors: {
+      productName: false,
+      brand: false,
+      year: false,
+      model: false,
+      conservationState: false,
+      location: false
+    }
+  };
+
+  validateError = () => {
+    const {
+      productName,
+      brand,
+      year,
+      model,
+      conservationState,
+      location,
+      description
+    } = this.state;
+    const error = {};
+
+    if (productName === "") {
+      error.productName = true;
+    }
+    if (brand === "") {
+      error.brand = true;
+    }
+    if (year === "") {
+      error.year = true;
+    }
+    if (model === "") {
+      error.model = true;
+    }
+    if (conservationState === -1 || conservationState === "") {
+      error.conservationState = true;
+    }
+    if (description === -1 || description === "") {
+      error.description = true;
+    }
+    if (location === "-" || location === "") {
+      error.location = true;
+    }
+    this.setState({
+      ["errors"]: error
+    });
   };
 
   countries = [
@@ -354,12 +449,26 @@ class ProductInformation extends Component {
   ];
   handleBack = e => {
     const { setStep } = this.props;
+    this.handleSetProductInformation();
     setStep(1);
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
+    const { errors } = this.state;
+
+    this.validateError();
+
+    if (errors.productName === "") {
+      const { setStep } = this.props;
+      this.handleSetProductInformation();
+      setStep(3);
+    }
+  };
+
+  handleSetProductInformation = () => {
+    const { setProductInformation } = this.props;
     const {
       productName,
       brand,
@@ -367,10 +476,9 @@ class ProductInformation extends Component {
       model,
       conservationState,
       location,
+      locationId,
       description
     } = this.state;
-
-    const { setProductInformation, setStep } = this.props;
 
     var obj = new Object();
     obj["productName"] = productName;
@@ -379,32 +487,49 @@ class ProductInformation extends Component {
     obj["model"] = model;
     obj["conservationState"] = conservationState;
     obj["location"] = location;
+    obj["locationId"] = locationId;
     obj["description"] = description;
 
     setProductInformation(obj);
-    setStep(3);
   };
 
   handleChange = e => {
+    const { errors } = this.state;
+
+    Object.keys(errors).map(error => {
+      if (error === e.target.id) {
+        errors[error] = false;
+      }
+    });
+
     if (e.target.labels[0].innerHTML === "Location") {
       let text = this.countries.find(c => c.id.toString() === e.target.value)
         .country;
-      this.setState({
-        [e.target.id]: text
+      this.setState({ [e.target.id]: text });
+      this.setState({ ["locationId"]: e.target.value }, function() {
+        this.handleSetProductInformation();
       });
     } else if (e.target.value === "-1") {
       this.setState({
         [e.target.id]: ""
       });
     } else {
-      this.setState({
-        [e.target.id]: e.target.value
+      this.setState({ ["errors"]: errors });
+      this.setState({ [e.target.id]: e.target.value }, function() {
+        this.handleSetProductInformation();
       });
     }
   };
 
   render() {
-    const { auth, lang, firebase } = this.props;
+    const { auth, lang, firebase, productInformation } = this.props;
+
+    Object.keys(productInformation).map(info => {
+      if (this.state[info] !== productInformation[info]) {
+        this.setState({ [info]: productInformation[info] });
+      }
+    });
+
     return (
       <MyComponent
         lang={lang}
@@ -412,6 +537,7 @@ class ProductInformation extends Component {
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         handleBack={this.handleBack}
+        state={this.state}
       ></MyComponent>
     );
   }
@@ -419,7 +545,8 @@ class ProductInformation extends Component {
 
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
-  lang: state.navar.lang
+  lang: state.navar.lang,
+  productInformation: state.dataItem.productInformation
 });
 
 export default connect(

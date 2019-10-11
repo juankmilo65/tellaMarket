@@ -47,5 +47,8 @@
     "location": "Location",
     "description": "Description",
     "descriptionPlaceHolder": "Full details"
+  },
+  "errors": {
+    "requiredField": "Required field"
   }
 }
