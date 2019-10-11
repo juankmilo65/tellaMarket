@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { getDocuments } from "../../commons/data/actions/dataActions";
 import { setSubcategory } from "../../items/controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
+import Popup from "reactjs-popup";
 import "./categories.scss";
 
 function MyComponent(state) {
@@ -36,6 +37,7 @@ function MyComponent(state) {
                     name="customRadio"
                     className="custom-control-input"
                     onChange={state.handleSelectCheck}
+                    checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
                     {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
@@ -57,6 +59,8 @@ function MyComponent(state) {
                     id={item.id}
                     name="customRadio"
                     className="custom-control-input"
+                    onChange={state.handleSelectCheck}
+                    checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
                     {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
@@ -66,11 +70,19 @@ function MyComponent(state) {
             })}
         </div>
       </div>
+
+      <Popup modal open={state.showModal}>
+        Error, debe seleccionar una subcategoria
+      </Popup>
     </div>
   );
 }
 
 class Categories extends Component {
+  state = {
+    showModal: false
+  };
+
   handleSelectCheck = e => {
     const { setSubcategory } = this.props;
     var obj = new Object();
@@ -80,12 +92,29 @@ class Categories extends Component {
   };
 
   handleSubmit = e => {
-    const { setStep } = this.props;
-    setStep(2);
+    const { setStep, subcategory } = this.props;
+
+    if (
+      Object.entries(subcategory).length === 0 &&
+      subcategory.constructor === Object
+    ) {
+      this.setState({
+        ["showModal"]: true
+      });
+    } else {
+      setStep(2);
+    }
   };
 
   render() {
-    const { auth, lang, documentsEn, documentsEs, firebase } = this.props;
+    const {
+      auth,
+      lang,
+      documentsEn,
+      documentsEs,
+      firebase,
+      subcategory
+    } = this.props;
 
     let spanishCategories = [];
     let englishCategories = [];
@@ -161,6 +190,8 @@ class Categories extends Component {
             columnTwo={columnTwo}
             handleSelectCheck={this.handleSelectCheck}
             handleSubmit={this.handleSubmit}
+            showModal={this.state.showModal}
+            subcategory={subcategory}
           ></MyComponent>
         )}
       </div>
@@ -172,7 +203,8 @@ const mapStateToProps = state => ({
   auth: state.firebase.auth,
   lang: state.navar.lang,
   documentsEn: state.data.documentsEn,
-  documentsEs: state.data.documentsEs
+  documentsEs: state.data.documentsEs,
+  subcategory: state.dataItem.subcategory
 });
 
 export default connect(

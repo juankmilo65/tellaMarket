@@ -8,6 +8,7 @@ import FileUpload from "../../commons/fileUpload/fileUpload";
 import Steps from "../steps/steps";
 import Categories from "../category/categories";
 import ProductInformation from "../productInformation/productInformation";
+import Popup from "reactjs-popup";
 import "./createItem.scss";
 
 class CreateItem extends Component {
@@ -56,43 +57,6 @@ class CreateItem extends Component {
         ) : (
           <div></div>
         )}
-
-        {/* <div className="box-product mt-1 mb-1">
-          <div className="title-box">
-            <label>Cargar Archivos Multimedia</label>
-            <div className="d-flex">
-              <button className="btns btn-se mr-3">atras</button>
-              <button className="btns btn-go">Siguiente</button>
-            </div>
-          </div>
-          <div className="upload-image">
-            <div className="box-group">
-              <div className="box active">
-                <i className="material-icons">add_photo_alternate</i>
-                <span> Subir Archivos </span>
-              </div>
-              <div className="box">
-                <i className="material-icons">add_photo_alternate</i>
-                <span> Subir Archivos </span>
-              </div>
-              <div className="box">
-                <i className="material-icons">add_photo_alternate</i>
-                <span> Subir Archivos </span>
-              </div>
-              <div className="box">
-                <i className="material-icons">add_photo_alternate</i>
-                <span> Subir Archivos </span>
-              </div>
-              <div className="box">
-                <i className="material-icons">add_photo_alternate</i>
-                <span> Subir Archivos </span>
-              </div>
-            </div>
-            <div className="box-upload">
-              <span>También puedes arrastrar</span>
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }
