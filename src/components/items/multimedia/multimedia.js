@@ -16,37 +16,39 @@ function MyComponent(state) {
   return (
     <div className="box-product mt-1 mb-1">
       <div className="title-box">
-        <label>Cargar Archivos Multimedia</label>
+        <label>{t("multimedia.title")}</label>
         <div className="d-flex">
-          <button className="btns btn-se mr-3">atras</button>
-          <button className="btns btn-go">Siguiente</button>
+          <button className="btns btn-se mr-3" onClick={state.handleBack}>
+            {t("buttons.back")}
+          </button>
+          <button className="btns btn-go">{t("buttons.next")}</button>
         </div>
       </div>
       <div className="upload-image">
         <div className="box-group">
           <div className="box active">
             <i className="material-icons">add_photo_alternate</i>
-            <span> Subir Archivos </span>
+            <span>{t("multimedia.uploadFiles")}</span>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
-            <span> Subir Archivos </span>
+            <span>{t("multimedia.uploadFiles")}</span>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
-            <span> Subir Archivos </span>
+            <span>{t("multimedia.uploadFiles")}</span>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
-            <span> Subir Archivos </span>
+            <span>{t("multimedia.uploadFiles")}</span>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
-            <span> Subir Archivos </span>
+            <span>{t("multimedia.uploadFiles")}</span>
           </div>
         </div>
         <div className="box-upload">
-          <span>También puedes arrastrar</span>
+          <span>{t("multimedia.drag&drop")}</span>
         </div>
       </div>
     </div>

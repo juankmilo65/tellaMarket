@@ -202,7 +202,8 @@ class ProductInformation extends Component {
       year: false,
       model: false,
       conservationState: false,
-      location: false
+      location: false,
+      description: false
     }
   };
 
@@ -216,7 +217,15 @@ class ProductInformation extends Component {
       location,
       description
     } = this.state;
-    const error = {};
+    const error = {
+      productName: false,
+      brand: false,
+      year: false,
+      model: false,
+      conservationState: false,
+      location: false,
+      description: false
+    };
 
     if (productName === "") {
       error.productName = true;
@@ -239,8 +248,22 @@ class ProductInformation extends Component {
     if (location === "-" || location === "") {
       error.location = true;
     }
-    this.setState({
-      ["errors"]: error
+    this.setState({ ["errors"]: error }, function() {
+      const { errors } = this.state;
+
+      if (
+        errors.productName === false &&
+        errors.brand === false &&
+        errors.year === false &&
+        errors.model === false &&
+        errors.conservationState === false &&
+        errors.location === false &&
+        errors.description === false
+      ) {
+        const { setStep } = this.props;
+        this.handleSetProductInformation();
+        setStep(3);
+      }
     });
   };
 
@@ -456,15 +479,7 @@ class ProductInformation extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { errors } = this.state;
-
     this.validateError();
-
-    if (errors.productName === "") {
-      const { setStep } = this.props;
-      this.handleSetProductInformation();
-      setStep(3);
-    }
   };
 
   handleSetProductInformation = () => {

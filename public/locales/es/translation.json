@@ -48,6 +48,15 @@
     "description": "Descripción",
     "descriptionPlaceHolder": "Descripción detallada"
   },
+  "multimedia": {
+    "title": "Cargar Archivos Multimedia",
+    "uploadFiles": "Subir Archivos",
+    "drag&drop": "Arrastre su foto aqui"
+  },
+  "buttons": {
+    "back": "Regresar",
+    "next": "Siguiente"
+  },
   "errors": {
     "requiredField": "Campo Obligatorio"
   }

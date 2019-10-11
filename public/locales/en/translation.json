@@ -48,6 +48,15 @@
     "description": "Description",
     "descriptionPlaceHolder": "Full details"
   },
+  "multimedia": {
+    "title": "Upload Multimedia Files",
+    "uploadFiles": "Upload files",
+    "drag&drop": "drag and drop"
+  },
+  "buttons": {
+    "back": "Back",
+    "next": "Next"
+  },
   "errors": {
     "requiredField": "Required field"
   }

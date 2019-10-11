@@ -8,7 +8,7 @@ import FileUpload from "../../commons/fileUpload/fileUpload";
 import Steps from "../steps/steps";
 import Categories from "../category/categories";
 import ProductInformation from "../productInformation/productInformation";
-import Popup from "reactjs-popup";
+import Multimedia from "../multimedia/multimedia";
 import "./createItem.scss";
 
 class CreateItem extends Component {
@@ -53,7 +53,7 @@ class CreateItem extends Component {
         ) : step === 2 ? (
           <ProductInformation />
         ) : step === 3 ? (
-          <ProductInformation />
+          <Multimedia />
         ) : (
           <div></div>
         )}

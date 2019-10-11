@@ -93,7 +93,6 @@ class Categories extends Component {
 
   handleSubmit = e => {
     const { setStep, subcategory } = this.props;
-
     if (
       Object.entries(subcategory).length === 0 &&
       subcategory.constructor === Object
