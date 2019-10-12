@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
+import axios from "axios";
 import "./multimedia.scss";
 
 function MyComponent(state) {
@@ -23,7 +24,9 @@ function MyComponent(state) {
           <button className="btns btn-se mr-3" onClick={state.handleBack}>
             {t("buttons.back")}
           </button>
-          <button className="btns btn-go">{t("buttons.next")}</button>
+          <button className="btns btn-go" onClick={state.handleSubmit}>
+            {t("buttons.next")}
+          </button>
         </div>
       </div>
       <div className="upload-image">
@@ -32,7 +35,6 @@ function MyComponent(state) {
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
             <input type="file" onChange={state.handleUpload}></input>
-            <progress value={state.uploadValue} max="100"></progress>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
@@ -63,32 +65,46 @@ function MyComponent(state) {
 class Multimedia extends Component {
   state = {
     uploadValue: 0,
-    picture: ""
+    picture: "",
+    selectedFile: null
+  };
+  handleSubmit = () => {
+    const fd = new FormData();
+    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
+    axios
+      .post(
+        "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
+        fd
+      )
+      .then(res => {
+        console.log(res);
+      });
   };
 
   handleUpload = e => {
     e.preventDefault();
+    this.setState({ selectedFile: e.target.files[0] });
 
-    const { props } = this;
-    const { firebase } = props;
-    const file = e.target.files[0];
-    const storageRef = firebase.storage().ref(`/galeria/${file.name}`);
-    const task = storageRef.put(file);
-    task.on(
-      "state_changed",
-      snapshot => {
-        let percentage =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState({
-          ["uploadValue"]: percentage
-        });
-      },
-      () => {
-        this.setState({
-          ["picture"]: task.snapshot.downloadURL
-        });
-      }
-    );
+    // const { props } = this;
+    // const { firebase } = props;
+    // const file = e.target.files[0];
+    // const storageRef = firebase.storage().ref(`/galeria/${file.name}`);
+    // const task = storageRef.put(file);
+    // task.on(
+    //   "state_changed",
+    //   snapshot => {
+    //     let percentage =
+    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //     this.setState({
+    //       ["uploadValue"]: percentage
+    //     });
+    //   },
+    //   () => {
+    //     this.setState({
+    //       ["picture"]: task.snapshot.downloadURL
+    //     });
+    //   }
+    // );
   };
 
   handleBack = e => {
