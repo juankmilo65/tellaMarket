@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 import { useTranslation } from "react-i18next";
 import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
@@ -29,10 +31,13 @@ function MyComponent(state) {
           <div className="box active">
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
+            <input type="file" onChange={state.handleUpload}></input>
+            <progress value={state.uploadValue} max="100"></progress>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
+            <img width="320" src={state.picture}></img>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
@@ -56,6 +61,36 @@ function MyComponent(state) {
 }
 
 class Multimedia extends Component {
+  state = {
+    uploadValue: 0,
+    picture: ""
+  };
+
+  handleUpload = e => {
+    e.preventDefault();
+
+    const { props } = this;
+    const { firebase } = props;
+    const file = e.target.files[0];
+    const storageRef = firebase.storage().ref(`/galeria/${file.name}`);
+    const task = storageRef.put(file);
+    task.on(
+      "state_changed",
+      snapshot => {
+        let percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.setState({
+          ["uploadValue"]: percentage
+        });
+      },
+      () => {
+        this.setState({
+          ["picture"]: task.snapshot.downloadURL
+        });
+      }
+    );
+  };
+
   handleBack = e => {
     const { setStep } = this.props;
     setStep(2);
@@ -67,7 +102,7 @@ class Multimedia extends Component {
   };
 
   render() {
-    const { auth, lang, firebase } = this.props;
+    const { auth, lang } = this.props;
     return (
       <MyComponent
         lang={lang}
@@ -75,6 +110,9 @@ class Multimedia extends Component {
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         handleBack={this.handleBack}
+        uploadValue={this.state.uploadValue}
+        picture={this.state.picture}
+        handleUpload={this.handleUpload}
       ></MyComponent>
     );
   }
@@ -85,7 +123,10 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default connect(
-  mapStateToProps,
-  { setProductInformation, setStep }
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps,
+    { setProductInformation, setStep }
+  )
 )(Multimedia);
