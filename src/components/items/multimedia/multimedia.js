@@ -38,8 +38,10 @@ function MyComponent(state) {
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-            <img width="320" src={state.picture}></img>
+            <span>
+              {t("multimedia.uploadFiles")}
+              <img width="160px" height="150px" src={state.preview}></img>
+            </span>
           </div>
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
@@ -66,7 +68,8 @@ class Multimedia extends Component {
   state = {
     uploadValue: 0,
     picture: "",
-    selectedFile: null
+    selectedFile: null,
+    preview: ""
   };
   handleSubmit = () => {
     const fd = new FormData();
@@ -84,27 +87,7 @@ class Multimedia extends Component {
   handleUpload = e => {
     e.preventDefault();
     this.setState({ selectedFile: e.target.files[0] });
-
-    // const { props } = this;
-    // const { firebase } = props;
-    // const file = e.target.files[0];
-    // const storageRef = firebase.storage().ref(`/galeria/${file.name}`);
-    // const task = storageRef.put(file);
-    // task.on(
-    //   "state_changed",
-    //   snapshot => {
-    //     let percentage =
-    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //     this.setState({
-    //       ["uploadValue"]: percentage
-    //     });
-    //   },
-    //   () => {
-    //     this.setState({
-    //       ["picture"]: task.snapshot.downloadURL
-    //     });
-    //   }
-    // );
+    this.setState({ preview: URL.createObjectURL(e.target.files[0]) });
   };
 
   handleBack = e => {
@@ -129,6 +112,7 @@ class Multimedia extends Component {
         uploadValue={this.state.uploadValue}
         picture={this.state.picture}
         handleUpload={this.handleUpload}
+        preview={this.state.preview}
       ></MyComponent>
     );
   }
