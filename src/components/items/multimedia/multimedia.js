@@ -36,14 +36,21 @@ function MyComponent(state) {
             <span>{t("multimedia.uploadFiles")}</span>
             <input type="file" onChange={state.handleUpload}></input>
           </div>
-          <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>
-              {t("multimedia.uploadFiles")}
-              <img width="160px" height="150px" src={state.preview}></img>
-            </span>
-          </div>
-          <div className="box">
+
+          {state.selectedFiles != null &&
+            state.selectedFiles.map(file => {
+              return (
+                <div key={file.id} className="box">
+                  <i className="material-icons">add_photo_alternate</i>
+                  <span>
+                    {t("multimedia.uploadFiles")}
+                    <img width="160px" height="150px" src={file.preview}></img>
+                  </span>
+                </div>
+              );
+            })}
+
+          {/* <div className="box">
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
           </div>
@@ -54,7 +61,7 @@ function MyComponent(state) {
           <div className="box">
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
-          </div>
+          </div> */}
         </div>
         <div className="box-upload">
           <span>{t("multimedia.drag&drop")}</span>
@@ -68,8 +75,8 @@ class Multimedia extends Component {
   state = {
     uploadValue: 0,
     picture: "",
-    selectedFile: null,
-    preview: ""
+    selectedFiles: [],
+    previews: []
   };
   handleSubmit = () => {
     const fd = new FormData();
@@ -86,8 +93,35 @@ class Multimedia extends Component {
 
   handleUpload = e => {
     e.preventDefault();
-    this.setState({ selectedFile: e.target.files[0] });
-    this.setState({ preview: URL.createObjectURL(e.target.files[0]) });
+    let images = [];
+
+    let objImage = {
+      id: 0,
+      image: "",
+      preview: ""
+    };
+
+    const { selectedFiles } = this.state;
+
+    if (selectedFiles.length === 0) {
+      objImage.id = images.length === 0 ? 0 : images[images.length - 1].id + 1;
+      objImage.image = e.target.files[0];
+      objImage.preview = URL.createObjectURL(e.target.files[0]);
+
+      images.push(objImage);
+    } else {
+      selectedFiles.map(image => {
+        images.push(image);
+      });
+
+      objImage.id = images.length === 0 ? 0 : images[images.length - 1].id + 1;
+      objImage.image = e.target.files[0];
+      objImage.preview = URL.createObjectURL(e.target.files[0]);
+
+      images.push(objImage);
+    }
+
+    this.setState({ selectedFiles: images });
   };
 
   handleBack = e => {
@@ -112,7 +146,7 @@ class Multimedia extends Component {
         uploadValue={this.state.uploadValue}
         picture={this.state.picture}
         handleUpload={this.handleUpload}
-        preview={this.state.preview}
+        selectedFiles={this.state.selectedFiles}
       ></MyComponent>
     );
   }
