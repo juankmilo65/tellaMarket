@@ -56,3 +56,26 @@
     }
   }
 }
+
+.modal-alert-content{
+  min-height: 300px;
+  h3{
+    text-align: center;
+  }
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 40px !important;
+}
+
+.img-alert{
+  height: 60px;
+}
+
+.text-alert{
+  text-align: center;
+  font-size: 20px;
+}

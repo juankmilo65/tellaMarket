@@ -14,10 +14,6 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
 
-  const pStyle = {
-    color: "red"
-  };
-
   return (
     <div className="box-product mt-1 mb-1">
       <form onSubmit={state.handleSubmit}>
@@ -35,7 +31,7 @@ function MyComponent(state) {
 
         <div className="item-form">
           <div className="form-group input-tella">
-            <label htmlFor="productName">
+            <label htmlFor="productName" className="is-required">
               {t("productInformation.productName")}
             </label>
             <input
@@ -47,7 +43,7 @@ function MyComponent(state) {
               value={state.state.productName}
             />
             {state.state.errors.productName === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
@@ -55,7 +51,7 @@ function MyComponent(state) {
         </div>
         <div className="item-form">
           <div className="form-group input-tella">
-            <label htmlFor="brand">{t("productInformation.brand")}</label>
+            <label htmlFor="brand" className="is-required">{t("productInformation.brand")}</label>
             <input
               type="text"
               className="form-control"
@@ -65,13 +61,13 @@ function MyComponent(state) {
               value={state.state.brand}
             />
             {state.state.errors.brand === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
           </div>
           <div className="form-group input-tella">
-            <label htmlFor="model">{t("productInformation.model")}</label>
+            <label htmlFor="model" className="is-required">{t("productInformation.model")}</label>
             <input
               id="model"
               type="text"
@@ -81,7 +77,7 @@ function MyComponent(state) {
               value={state.state.model}
             />
             {state.state.errors.model === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
@@ -89,7 +85,7 @@ function MyComponent(state) {
         </div>
         <div className="item-form">
           <div className="form-group input-tella input-icon">
-            <label htmlFor="year">{t("productInformation.year")}</label>
+            <label htmlFor="year" className="is-required">{t("productInformation.year")}</label>
             <input
               type="date"
               id="year"
@@ -99,13 +95,13 @@ function MyComponent(state) {
             />
             {/* <i className="material-icons icon-calendar">today</i> */}
             {state.state.errors.year === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
           </div>
           <div className="form-group input-tella">
-            <label htmlFor="conservationState">
+            <label htmlFor="conservationState" className="is-required">
               {t("productInformation.conservationState")}
             </label>
             {state.lang.value === "en" ? (
@@ -132,13 +128,13 @@ function MyComponent(state) {
               </select>
             )}
             {state.state.errors.conservationState === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
           </div>
           <div className="form-group input-tella">
-            <label htmlFor="location">{t("productInformation.location")}</label>
+            <label htmlFor="location" className="is-required">{t("productInformation.location")}</label>
             <select
               className="form-control"
               id="location"
@@ -154,7 +150,7 @@ function MyComponent(state) {
               })}
             </select>
             {state.state.errors.location === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}
@@ -162,7 +158,7 @@ function MyComponent(state) {
         </div>
         <div className="item-form">
           <div className="form-group input-tella">
-            <label htmlFor="description">
+            <label htmlFor="description" className="is-required">
               {t("productInformation.description")}
             </label>
             <textarea
@@ -175,7 +171,7 @@ function MyComponent(state) {
               value={state.state.description}
             ></textarea>
             {state.state.errors.description === true ? (
-              <p style={pStyle}>{t("errors.requiredField")}</p>
+              <p className="text-required">{t("errors.requiredField")}</p>
             ) : (
               <p></p>
             )}

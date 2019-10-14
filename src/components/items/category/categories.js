@@ -7,6 +7,7 @@ import { setSubcategory } from "../../items/controlDataItem/actions/controlDataI
 import { setStep } from "../../items/steps/actions/stepsActions";
 import Popup from "reactjs-popup";
 import "./categories.scss";
+import warning from "../../../images/triangle.svg"
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -71,8 +72,12 @@ function MyComponent(state) {
         </div>
       </div>
 
-      <Popup modal open={state.showModal}>
-        Error, debe seleccionar una subcategoria
+      <Popup modal open={state.showModal} className="modal-alert">
+        <img src={warning} className="img-alert"/>
+        <h3 >
+          ¡Error!
+        </h3>
+        <span className="text-alert">Seleccione una subcategoria</span>
       </Popup>
     </div>
   );

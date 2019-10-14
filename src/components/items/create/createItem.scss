@@ -128,3 +128,11 @@ form {
   color: $yellow;
   cursor: pointer;
 }
+
+
+.is-required{
+  &:before {
+    content: "* ";
+    color: $red;
+  }
+}
