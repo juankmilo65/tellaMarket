@@ -71,13 +71,19 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
     let uploadData = null;
     busboy.on("file", (filedname, file, filename, encoding, mimetype) => {
       const filepath = path.join(os.tmpdir(), filename);
-      uploadData = { file: filepath, type: mimetype };
+      uploadData = {
+        file: filepath,
+        type: mimetype,
+        folderName: req.headers.foldername,
+        fileName: filename
+      };
       file.pipe(fs.createWriteStream(filepath));
     });
     busboy.on("finish", () => {
       const bucket = gcs.bucket("tellamachines.appspot.com");
       bucket
         .upload(uploadData.file, {
+          destination: `${uploadData.folderName}/${uploadData.fileName}`,
           uploadType: "media",
           metadata: {
             metadata: {
