@@ -7,7 +7,7 @@ import { setSubcategory } from "../../items/controlDataItem/actions/controlDataI
 import { setStep } from "../../items/steps/actions/stepsActions";
 import Popup from "reactjs-popup";
 import "./categories.scss";
-import warning from "../../../images/triangle.svg";
+import warning from "../../../images/triangle.svg"
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -73,8 +73,10 @@ function MyComponent(state) {
       </div>
 
       <Popup modal open={state.showModal} className="modal-alert">
-        <img src={warning} className="img-alert" />
-        <h3>¡Error!</h3>
+        <img src={warning} className="img-alert"/>
+        <h3 >
+          ¡Error!
+        </h3>
         <span className="text-alert">Seleccione una subcategoria</span>
       </Popup>
     </div>
@@ -83,9 +85,7 @@ function MyComponent(state) {
 
 class Categories extends Component {
   state = {
-    showModal: false,
-    columnOne: [],
-    columnTwo: []
+    showModal: false
   };
 
   handleSelectCheck = e => {
@@ -110,33 +110,6 @@ class Categories extends Component {
     }
   };
 
-  generateLists(list) {
-    let categories = [];
-    let columnOne = [];
-
-    if (list.length > 0) {
-      list.forEach(doc => {
-        if (
-          !categories.includes(
-            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
-          )
-        ) {
-          categories.push(Object.keys(doc.data[Object.keys(doc.data)[0]])[0]);
-        }
-      });
-      var pos = Math.ceil(list.length / 2) - 1;
-      var quantity = list.length - pos + 1;
-
-      this.setState({
-        ["columnOne"]: list.length >= 0 ? list.splice(pos, quantity) : list
-      });
-
-      if (columnOne.length !== list.length) {
-        this.setState({ ["columnTwo"]: list.splice(0, pos) });
-      }
-    }
-  }
-
   render() {
     const {
       auth,
@@ -147,20 +120,67 @@ class Categories extends Component {
       subcategory
     } = this.props;
 
+    let spanishCategories = [];
+    let englishCategories = [];
+    let columnOne = [];
+    let columnTwo = [];
+
     if (lang.value === "es") {
       if (documentsEs.length === 0) {
         this.props.getDocuments({ firebase, language: "es" });
       }
-      this.generateLists(documentsEs);
+      if (documentsEs.length > 0) {
+        documentsEs.forEach(doc => {
+          if (
+            !spanishCategories.includes(
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            )
+          ) {
+            spanishCategories.push(
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            );
+          }
+        });
+        var pos = Math.ceil(documentsEs.length / 2);
+        var quantity = documentsEs.length - pos;
+        columnOne =
+          documentsEs.length >= 0
+            ? documentsEs.splice(pos, quantity)
+            : documentsEs;
+
+        if (columnOne.length !== documentsEs.length) {
+          columnTwo = documentsEs.splice(0, pos);
+        }
+      }
     } else if (lang.value === "en") {
       if (documentsEn.length === 0) {
         this.props.getDocuments({ firebase, language: "en" });
       }
 
-      this.generateLists(documentsEn);
-    }
+      if (documentsEn.length > 0) {
+        documentsEn.forEach(doc => {
+          if (
+            !englishCategories.includes(
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            )
+          ) {
+            englishCategories.push(
+              Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
+            );
+          }
+        });
+        var pos = Math.ceil(documentsEn.length / 2) - 1;
+        var quantity = documentsEn.length - pos + 1;
+        columnOne =
+          documentsEn.length >= 0
+            ? documentsEn.splice(pos, quantity)
+            : documentsEn;
 
-    const { columnOne, columnTwo } = this.state;
+        if (columnOne.length !== documentsEn.length) {
+          columnTwo = documentsEn.splice(0, pos);
+        }
+      }
+    }
 
     if (auth.uid) return <Redirect to="/" />;
     return (
