@@ -58,6 +58,8 @@
     "next": "Next"
   },
   "errors": {
-    "requiredField": "Required field"
+    "requiredField": "Required field",
+    "requeredCategory": "Please select one category.",
+    "ok": "Ok"
   }
 }

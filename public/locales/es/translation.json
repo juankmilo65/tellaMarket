@@ -58,6 +58,8 @@
     "next": "Siguiente"
   },
   "errors": {
-    "requiredField": "Campo Obligatorio"
+    "requiredField": "Campo Obligatorio",
+    "requeredCategory": "Porfavor seleccione una categoria.",
+    "ok": "Aceptar"
   }
 }
