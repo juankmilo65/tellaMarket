@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
+import { default as NumberFormat } from "react-number-format";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import "./productInformation.scss";
-import { of } from "rxjs";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -51,7 +50,9 @@ function MyComponent(state) {
         </div>
         <div className="item-form">
           <div className="form-group input-tella">
-            <label htmlFor="brand" className="is-required">{t("productInformation.brand")}</label>
+            <label htmlFor="brand" className="is-required">
+              {t("productInformation.brand")}
+            </label>
             <input
               type="text"
               className="form-control"
@@ -67,7 +68,9 @@ function MyComponent(state) {
             )}
           </div>
           <div className="form-group input-tella">
-            <label htmlFor="model" className="is-required">{t("productInformation.model")}</label>
+            <label htmlFor="model" className="is-required">
+              {t("productInformation.model")}
+            </label>
             <input
               id="model"
               type="text"
@@ -82,10 +85,39 @@ function MyComponent(state) {
               <p></p>
             )}
           </div>
+          <div className="form-group input-tella">
+            <label htmlFor="price" className="is-required">
+              {t("productInformation.price")}
+            </label>
+            {/* <input
+              id="price"
+              type="text"
+              className="form-control"
+              placeholder={t("productInformation.pricePlaceHolder")}
+              onChange={state.handleChange}
+              onBlur={formatter.format(state.state.price)}
+              value={state.state.price}
+            /> */}
+            <NumberFormat
+              className="form-control"
+              id="price"
+              thousandSeparator={true}
+              prefix={"$"}
+              value={state.state.price}
+              onChange={state.handleChangePrice}
+            />
+            {state.state.errors.price === true ? (
+              <p className="text-required">{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
+          </div>
         </div>
         <div className="item-form">
           <div className="form-group input-tella input-icon">
-            <label htmlFor="year" className="is-required">{t("productInformation.year")}</label>
+            <label htmlFor="year" className="is-required">
+              {t("productInformation.year")}
+            </label>
             <input
               type="date"
               id="year"
@@ -134,7 +166,9 @@ function MyComponent(state) {
             )}
           </div>
           <div className="form-group input-tella">
-            <label htmlFor="location" className="is-required">{t("productInformation.location")}</label>
+            <label htmlFor="location" className="is-required">
+              {t("productInformation.location")}
+            </label>
             <select
               className="form-control"
               id="location"
@@ -192,6 +226,7 @@ class ProductInformation extends Component {
     location: "",
     locationId: "",
     description: "",
+    price: "",
     errors: {
       productName: false,
       brand: false,
@@ -211,7 +246,8 @@ class ProductInformation extends Component {
       model,
       conservationState,
       location,
-      description
+      description,
+      price
     } = this.state;
     const error = {
       productName: false,
@@ -220,9 +256,13 @@ class ProductInformation extends Component {
       model: false,
       conservationState: false,
       location: false,
-      description: false
+      description: false,
+      price: false
     };
 
+    if (price === "") {
+      error.price = true;
+    }
     if (productName === "") {
       error.productName = true;
     }
@@ -474,7 +514,6 @@ class ProductInformation extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
     this.validateError();
   };
 
@@ -488,7 +527,8 @@ class ProductInformation extends Component {
       conservationState,
       location,
       locationId,
-      description
+      description,
+      price
     } = this.state;
 
     var obj = new Object();
@@ -500,8 +540,19 @@ class ProductInformation extends Component {
     obj["location"] = location;
     obj["locationId"] = locationId;
     obj["description"] = description;
+    obj["price"] = document.getElementById("price").value;
 
     setProductInformation(obj);
+  };
+
+  handleChangePrice = () => {
+    if (document.getElementById("price").value !== "") {
+      const { errors } = this.state;
+      errors["price"] = false;
+      this.setState({ ["errors"]: errors });
+    }
+
+    this.setState({ ["price"]: document.getElementById("price").value });
   };
 
   handleChange = e => {
@@ -513,7 +564,10 @@ class ProductInformation extends Component {
       }
     });
 
-    if (e.target.labels[0].innerHTML === "Location") {
+    if (
+      e.target.labels !== undefined &&
+      e.target.labels[0].innerHTML === "Location"
+    ) {
       let text = this.countries.find(c => c.id.toString() === e.target.value)
         .country;
       this.setState({ [e.target.id]: text });
@@ -546,6 +600,7 @@ class ProductInformation extends Component {
         lang={lang}
         countries={this.countries}
         handleChange={this.handleChange}
+        handleChangePrice={this.handleChangePrice}
         handleSubmit={this.handleSubmit}
         handleBack={this.handleBack}
         state={this.state}

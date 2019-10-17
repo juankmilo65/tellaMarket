@@ -46,7 +46,9 @@
     "conservationState": "Conservation state",
     "location": "Location",
     "description": "Description",
-    "descriptionPlaceHolder": "Full details"
+    "descriptionPlaceHolder": "Full details",
+    "price": "Price",
+    "pricePlaceHolder": "UDS Dollars"
   },
   "multimedia": {
     "title": "Upload Multimedia Files",

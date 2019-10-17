@@ -46,7 +46,9 @@
     "conservationState": "Estado de conservación",
     "location": "Localización",
     "description": "Descripción",
-    "descriptionPlaceHolder": "Descripción detallada"
+    "descriptionPlaceHolder": "Descripción detallada",
+    "price": "Precio",
+    "pricePlaceHolder": "Dolares americanos"
   },
   "multimedia": {
     "title": "Cargar Archivos Multimedia",
