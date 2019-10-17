@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import "./itemList.scss";
 
 function MyComponent(state) {
@@ -19,17 +20,29 @@ function MyComponent(state) {
             <div key={item.id}>
               <label>{item.name}</label>
               <label>{item.year}</label>
-              <button onClick={state.handleItemDetail}> Ver mas</button>
+              <button onClick={state.setRedirect}>Ver mas</button>
             </div>
           );
         })}
+      {state.renderRedirect()}
     </div>
   );
 }
 
 class ItemList extends Component {
-  handleItemDetail = () => {
-    this.props.history.push("/itemDetail");
+  state = {
+    redirect: false
+  };
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/itemDetail" />;
+    }
   };
 
   render() {
@@ -50,7 +63,8 @@ class ItemList extends Component {
     return (
       <MyComponent
         lang={lang}
-        handleItemDetail={this.handleItemDetail}
+        setRedirect={this.setRedirect}
+        renderRedirect={this.renderRedirect}
         items={items}
       ></MyComponent>
     );

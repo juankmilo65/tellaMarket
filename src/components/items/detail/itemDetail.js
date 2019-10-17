@@ -11,6 +11,13 @@ function MyComponent(state) {
 
   return (
     <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
       <label>Aca va el dettale del producto</label>
     </div>
   );

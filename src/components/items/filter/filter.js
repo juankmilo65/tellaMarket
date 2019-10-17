@@ -36,8 +36,8 @@ function MyComponent(state) {
       {state.filters.years != null &&
         state.filters.years.map(item => {
           return (
-            <div>
-              <label>{item}</label>
+            <div key={item.id}>
+              <label>{item.year}</label>
             </div>
           );
         })}
@@ -66,7 +66,11 @@ class Filter extends Component {
         minimun: "200",
         maximun: "50000"
       },
-      years: ["1988", "2002", "2009"],
+      years: [
+        { id: 1, year: "1988" },
+        { id: 3, year: "2002" },
+        { id: 3, year: "2009" }
+      ],
       yearRange: {
         lastYear: "1988",
         newYear: "2019"
