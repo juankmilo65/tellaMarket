@@ -8,6 +8,8 @@ import { DateTimePicker } from "react-widgets";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import axios from "axios";
+import Popup from "reactjs-popup";
+import warning from "../../../images/triangle.svg";
 import "./multimedia.scss";
 
 function MyComponent(state) {
@@ -31,7 +33,7 @@ function MyComponent(state) {
       </div>
       <div className="upload-image">
         <div className="box-group">
-          <label class="box active custom-file-upload">
+          <label className="box active custom-file-upload">
             <input type="file" onChange={state.handleUpload} />
             <i className="material-icons">add_photo_alternate</i>
             <span>{t("multimedia.uploadFiles")}</span>
@@ -52,28 +54,57 @@ function MyComponent(state) {
           <span>{t("multimedia.drag&drop")}</span>
         </div>
       </div>
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
+        <img src={warning} className="img-alert" />
+        <h3>¡Error!</h3>
+        <span className="text-alert">{t("errors.numberOfPhotos")}</span>
+        <button className="btns btn-go" onClick={state.handleOkError}>
+          {t("errors.ok")}
+        </button>
+      </Popup>
     </div>
   );
 }
 
 class Multimedia extends Component {
   state = {
+    showModal: false,
+    columnOne: [],
     uploadValue: 0,
     picture: "",
     selectedFiles: [],
     previews: []
   };
   handleSubmit = () => {
-    const fd = new FormData();
-    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-    axios
-      .post(
-        "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-        fd
-      )
-      .then(res => {
-        console.log(res);
+    const { selectedFiles } = this.state;
+
+    if (selectedFiles.length < 4) {
+      this.setState({
+        ["showModal"]: true
       });
+    } else {
+      const fd = new FormData();
+      fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
+      axios
+        .post(
+          "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
+          fd
+        )
+        .then(res => {
+          console.log(res);
+        });
+    }
+  };
+
+  handleOkError = e => {
+    this.setState({
+      ["showModal"]: false
+    });
   };
 
   handleUpload = e => {
@@ -132,6 +163,8 @@ class Multimedia extends Component {
         picture={this.state.picture}
         handleUpload={this.handleUpload}
         selectedFiles={this.state.selectedFiles}
+        handleOkError={this.handleOkError}
+        showModal={this.state.showModal}
       ></MyComponent>
     );
   }

@@ -62,6 +62,7 @@
   "errors": {
     "requiredField": "Required field",
     "requeredCategory": "Please select one category.",
-    "ok": "Ok"
+    "ok": "Ok",
+    "numberOfPhotos": "The minimum number of photos to create the product must be 4."
   }
 }

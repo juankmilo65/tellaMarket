@@ -1,54 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import moment from "moment";
-import "../detail/itemDetail.scss";
+import "./itemDetail.scss";
 
-const ProjectDetail = props => {
-  const { item } = props;
-
-  if (item) {
-    return (
-      <div className="container section project-details">
-        <div className="card">
-          <div className="card-content">
-            <span className="card-title">Item Title - {item.title}</span>
-            <p>{item.content}</p>
-          </div>
-          <div className="card-action">
-            <div>
-              Posted by {item.ownerName} {item.ownerLastName}
-            </div>
-            <div>{moment(item.createAt.toDate()).calendar()}</div>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="container center">
-        <p>Loading project....</p>
-      </div>
-    );
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
   }
-};
 
-const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id;
-  const items = state.firestore.data.items;
-  const item = items ? items[id] : null;
-  return {
-    item: item,
-    auth: state.firebase.auth
-  };
-};
+  return (
+    <div>
+      <label>Aca va el dettale del producto</label>
+    </div>
+  );
+}
 
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    {
-      collection: "items"
-    }
-  ])
-)(ProjectDetail);
+class ItemDetail extends Component {
+  render() {
+    const { lang } = this.props;
+    return <MyComponent lang={lang}></MyComponent>;
+  }
+}
+
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  lang: state.navar.lang
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(ItemDetail);
