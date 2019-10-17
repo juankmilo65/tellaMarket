@@ -32,9 +32,9 @@ function MyComponent(state) {
       <div className="upload-image">
         <div className="box-group">
           <label class="box active custom-file-upload">
-              <input type="file" onChange={state.handleUpload}/>
-              <i className="material-icons">add_photo_alternate</i>
-              <span>{t("multimedia.uploadFiles")}</span>
+            <input type="file" onChange={state.handleUpload} />
+            <i className="material-icons">add_photo_alternate</i>
+            <span>{t("multimedia.uploadFiles")}</span>
           </label>
 
           {state.selectedFiles != null &&
@@ -47,19 +47,6 @@ function MyComponent(state) {
                 </div>
               );
             })}
-
-          {/* <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div>
-          <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div>
-          <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div> */}
         </div>
         <div className="box-upload">
           <span>{t("multimedia.drag&drop")}</span>

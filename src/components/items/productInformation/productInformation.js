@@ -89,15 +89,6 @@ function MyComponent(state) {
             <label htmlFor="price" className="is-required">
               {t("productInformation.price")}
             </label>
-            {/* <input
-              id="price"
-              type="text"
-              className="form-control"
-              placeholder={t("productInformation.pricePlaceHolder")}
-              onChange={state.handleChange}
-              onBlur={formatter.format(state.state.price)}
-              value={state.state.price}
-            /> */}
             <NumberFormat
               className="form-control"
               id="price"
