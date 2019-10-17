@@ -38,7 +38,7 @@ function MyComponent(state) {
               className="form-control"
               placeholder={t("productInformation.machineNamePlaceHolder")}
               id="productName"
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.productName}
             />
             {state.state.errors.productName === true ? (
@@ -58,7 +58,7 @@ function MyComponent(state) {
               className="form-control"
               placeholder={t("productInformation.referencePlaceHolder")}
               id="brand"
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.brand}
             />
             {state.state.errors.brand === true ? (
@@ -76,7 +76,7 @@ function MyComponent(state) {
               type="text"
               className="form-control"
               placeholder={t("productInformation.modelPlaceHolder")}
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.model}
             />
             {state.state.errors.model === true ? (
@@ -95,7 +95,7 @@ function MyComponent(state) {
               thousandSeparator={true}
               prefix={"$"}
               value={state.state.price}
-              onChange={state.handleChangePrice}
+              onChange={state.handleChangeTest}
             />
             {state.state.errors.price === true ? (
               <p className="text-required">{t("errors.requiredField")}</p>
@@ -113,7 +113,7 @@ function MyComponent(state) {
               type="date"
               id="year"
               className="form-control"
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.year}
             />
             {/* <i className="material-icons icon-calendar">today</i> */}
@@ -131,7 +131,7 @@ function MyComponent(state) {
               <select
                 className="form-control"
                 id="conservationState"
-                onChange={state.handleChange}
+                onChange={state.handleChangeTest}
                 value={state.state.conservationState}
               >
                 <option value="-1">-</option>
@@ -142,7 +142,7 @@ function MyComponent(state) {
               <select
                 className="form-control"
                 id="conservationState"
-                onChange={state.handleChange}
+                onChange={state.handleChangeTest}
                 value={state.state.conservationState}
               >
                 <option value="-1">-</option>
@@ -163,7 +163,7 @@ function MyComponent(state) {
             <select
               className="form-control"
               id="location"
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.locationId}
             >
               {state.countries.map(country => {
@@ -192,7 +192,7 @@ function MyComponent(state) {
               className="form-control"
               rows="3"
               placeholder={t("productInformation.descriptionPlaceHolder")}
-              onChange={state.handleChange}
+              onChange={state.handleChangeTest}
               value={state.state.description}
             ></textarea>
             {state.state.errors.description === true ? (
@@ -536,24 +536,12 @@ class ProductInformation extends Component {
     setProductInformation(obj);
   };
 
-  handleChangePrice = () => {
-    if (document.getElementById("price").value !== "") {
+  handleChangeTest = e => {
+    if (document.getElementById(e.target.id).value !== "") {
       const { errors } = this.state;
-      errors["price"] = false;
+      errors[e.target.id] = false;
       this.setState({ ["errors"]: errors });
     }
-
-    this.setState({ ["price"]: document.getElementById("price").value });
-  };
-
-  handleChange = e => {
-    const { errors } = this.state;
-
-    Object.keys(errors).map(error => {
-      if (error === e.target.id) {
-        errors[error] = false;
-      }
-    });
 
     if (
       e.target.labels !== undefined &&
@@ -562,17 +550,12 @@ class ProductInformation extends Component {
       let text = this.countries.find(c => c.id.toString() === e.target.value)
         .country;
       this.setState({ [e.target.id]: text });
-      this.setState({ ["locationId"]: e.target.value }, function() {
-        this.handleSetProductInformation();
-      });
-    } else if (e.target.value === "-1") {
-      this.setState({
-        [e.target.id]: ""
-      });
+      this.setState({ ["locationId"]: e.target.value });
+    } else if (document.getElementById(e.target.id).value === "-1") {
+      this.setState({ [e.target.id]: "" });
     } else {
-      this.setState({ ["errors"]: errors });
-      this.setState({ [e.target.id]: e.target.value }, function() {
-        this.handleSetProductInformation();
+      this.setState({
+        [e.target.id]: document.getElementById(e.target.id).value
       });
     }
   };
@@ -592,6 +575,7 @@ class ProductInformation extends Component {
         countries={this.countries}
         handleChange={this.handleChange}
         handleChangePrice={this.handleChangePrice}
+        handleChangeTest={this.handleChangeTest}
         handleSubmit={this.handleSubmit}
         handleBack={this.handleBack}
         state={this.state}
