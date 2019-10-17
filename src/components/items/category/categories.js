@@ -72,7 +72,12 @@ function MyComponent(state) {
         </div>
       </div>
 
-      <Popup modal open={state.showModal} className="modal-alert">
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
         <img src={warning} className="img-alert" />
         <h3>¡Error!</h3>
         <span className="text-alert">{t("errors.requeredCategory")}</span>
