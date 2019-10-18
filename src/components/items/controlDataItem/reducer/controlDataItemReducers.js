@@ -1,7 +1,8 @@
 import {
   SET_SUBCATEGORY_SUCCES,
   SET_STATUS,
-  SET_PRODUCT_INFORMATION_SUCCES
+  SET_PRODUCT_INFORMATION_SUCCES,
+  SET_MULTIMEDIA_SUCCES
 } from "../actions/controlDataItemActions";
 
 const initState = {
@@ -34,7 +35,13 @@ const controlDataItemReducers = (state = initState, action) => {
         productInformation: action.payload
       };
     }
-
+    case SET_MULTIMEDIA_SUCCES: {
+      return {
+        ...state,
+        status: "success",
+        multimedia: action.payload
+      };
+    }
     default:
       return state;
   }

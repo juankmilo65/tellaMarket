@@ -9,6 +9,7 @@ import Steps from "../steps/steps";
 import Categories from "../category/categories";
 import ProductInformation from "../productInformation/productInformation";
 import Multimedia from "../multimedia/multimedia";
+import Plans from "../plans/plans";
 import "./createItem.scss";
 
 class CreateItem extends Component {
@@ -54,6 +55,8 @@ class CreateItem extends Component {
           <ProductInformation />
         ) : step === 3 ? (
           <Multimedia />
+        ) : step === 4 ? (
+          <Plans />
         ) : (
           <div></div>
         )}
