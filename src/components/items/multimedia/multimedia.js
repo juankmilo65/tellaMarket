@@ -40,10 +40,10 @@ function MyComponent(state) {
             state.selectedFiles.map(file => {
               return (
                 <div key={file.id} className="box">
-                  <button onClick={() => state.handleRemoveImage(file.id)}>
-                    Remover
+                  <button className="remove" onClick={() => state.handleRemoveImage(file.id)}>
+                    <i class="material-icons">close</i>
                   </button>
-                  <span>
+                  <span classname="img-preview">
                     <img src={file.preview}></img>
                   </span>
                 </div>
