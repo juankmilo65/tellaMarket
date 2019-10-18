@@ -2,7 +2,7 @@ import { SET_STEP_SUCCESS, SET_STATUS } from "../actions/stepsActions";
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
-  step: 3
+  step: 4
 };
 
 const stepReducers = (state = initState, action) => {

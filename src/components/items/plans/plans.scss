@@ -1,0 +1,11 @@
+@import "../../variables.scss";
+
+.custom-control-label {
+  padding-left: 10px;
+  color: $gray-text;
+  &::before {
+    background: white;
+    border: 1px solid $gray-border;
+    top: 2px;
+  }
+}

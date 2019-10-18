@@ -55,9 +55,62 @@
     "uploadFiles": "Subir Archivos",
     "drag&drop": "Arrastre su foto aqui"
   },
+  "plan": {
+    "title": "Seleccione plan",
+    "planOne": {
+      "id": "0",
+      "name": "Gratuito",
+      "description": "Plan A",
+      "price": "$0/Mes",
+      "features": {
+        "featureA": "Piblicación de 5 productos",
+        "featureB": "Tus productos apareceran en las consultas genericas",
+        "featureC": "Tus productos apareceran en las consultas"
+      }
+    },
+    "planTwo": {
+      "id": "1",
+      "name": "Basico",
+      "description": "Plan B, Plan Basico, especialmente para ti, si apenas esás iniciando con tu negocio y necesitas ayuda",
+      "price": "$20/Mes",
+      "features": {
+        "featureA": "Publicación de 5 Productos",
+        "featureB": "Tus productos apareceran en las consultas genericas",
+        "featureC": "Podras aparecer durante un mes en nuestra sección grandes ofertas",
+        "featureD": "Siempre apareceras en nuestras consultas."
+      }
+    },
+    "planThree": {
+      "id": "2",
+      "name": "Plus",
+      "description": "Plan C, Plan plus, Muchas mas caracteristicas",
+      "price": "$35/Mes",
+      "features": {
+        "featureA": "Publicación de 15 productos",
+        "featureB": "Tus productos podran aparecer en las cunsultas genericas",
+        "featureC": "Podras aparecer durante un mes en nuestra sección grandes ofertas",
+        "featureD": "Apareceras en notificaciones",
+        "featureE": "Apareceras en nuestras busquedas"
+      }
+    },
+    "planFour": {
+      "id": "3",
+      "name": "Premium",
+      "description": "Plan D, Plan Premium ",
+      "price": "$100/Mes",
+      "features": {
+        "featureA": "Publicación de 20 Productos",
+        "featureB": "Apareceras en las consultas genericas",
+        "featureC": "Un mes en banner principal",
+        "featureD": "Apareceras en notificaciones",
+        "featureE": "Apareceras en nuestras busquedas"
+      }
+    }
+  },
   "buttons": {
     "back": "Regresar",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "SelectPlan": "Seleccione"
   },
   "errors": {
     "requiredField": "Campo Obligatorio",

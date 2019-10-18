@@ -3,10 +3,12 @@ import {
   setSubcategorySuccess,
   setProductInformationSuccess,
   setMultimediaSuccess,
+  setPlanSuccess,
   createItemSuccess,
   SET_SUBCATEGORY,
   SET_PRODUCT_INFORMATION,
   SET_MULTIMEDIA,
+  SET_PLAN,
   CREATE_ITEM
 } from "../actions/controlDataItemActions";
 import { switchMap } from "rxjs/operators";
@@ -19,7 +21,8 @@ export default function controlDataItemEpics(action$) {
       SET_SUBCATEGORY,
       SET_PRODUCT_INFORMATION,
       SET_MULTIMEDIA,
-      CREATE_ITEM
+      CREATE_ITEM,
+      SET_PLAN
     ),
     switchMap(action => {
       if (action.type === SET_SUBCATEGORY) {
@@ -38,6 +41,12 @@ export default function controlDataItemEpics(action$) {
         return concat(
           of(setStatus("pending")),
           of(setMultimediaSuccess(action.payload)),
+          of(setStatus("ok"))
+        );
+      } else if (action.type === SET_PLAN) {
+        return concat(
+          of(setStatus("pending")),
+          of(setPlanSuccess(action.payload)),
           of(setStatus("ok"))
         );
       } else if (action.type === CREATE_ITEM) {

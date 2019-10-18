@@ -2,7 +2,9 @@ import {
   SET_SUBCATEGORY_SUCCES,
   SET_STATUS,
   SET_PRODUCT_INFORMATION_SUCCES,
-  SET_MULTIMEDIA_SUCCES
+  SET_MULTIMEDIA_SUCCES,
+  SET_PLAN_SUCCES,
+  CREATE_ITEM_SUCCES
 } from "../actions/controlDataItemActions";
 
 const initState = {
@@ -10,7 +12,8 @@ const initState = {
   idUsuario: {},
   subcategory: {},
   productInformation: {},
-  multimedia: {}
+  multimedia: {},
+  plan: {}
 };
 
 const controlDataItemReducers = (state = initState, action) => {
@@ -40,6 +43,19 @@ const controlDataItemReducers = (state = initState, action) => {
         ...state,
         status: "success",
         multimedia: action.payload
+      };
+    }
+    case SET_PLAN_SUCCES: {
+      return {
+        ...state,
+        status: "success",
+        plan: action.payload
+      };
+    }
+    case CREATE_ITEM_SUCCES: {
+      return {
+        status: "success",
+        plan: action.payload
       };
     }
     default:

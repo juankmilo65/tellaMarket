@@ -5,6 +5,8 @@ export const SET_PRODUCT_INFORMATION = "SET_PRODUCT_INFORMATION";
 export const SET_PRODUCT_INFORMATION_SUCCES = "SET_PRODUCT_INFORMATION_SUCCES";
 export const SET_MULTIMEDIA = "SET_MULTIMEDIA";
 export const SET_MULTIMEDIA_SUCCES = "SET_MULTIMEDIA_SUCCES";
+export const SET_PLAN = "SET_PLAN";
+export const SET_PLAN_SUCCES = "SET_PLAN_SUCCES";
 export const CREATE_ITEM = "CREATE_ITEM";
 export const CREATE_ITEM_SUCCES = "CREATE_ITEM_SUCCES";
 
@@ -14,6 +16,20 @@ export function setStatus(status) {
     payload: status
   };
 }
+export function setPlan(plan) {
+  return {
+    type: SET_PLAN,
+    payload: plan
+  };
+}
+
+export function setPlanSuccess(message) {
+  return {
+    type: SET_PLAN_SUCCES,
+    payload: message
+  };
+}
+
 export function createItem(item) {
   return {
     type: CREATE_ITEM,

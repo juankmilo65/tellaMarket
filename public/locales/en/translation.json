@@ -55,9 +55,62 @@
     "uploadFiles": "Upload files",
     "drag&drop": "drag and drop"
   },
+  "plan": {
+    "title": "Select plan",
+    "planOne": {
+      "id": "0",
+      "name": "Free",
+      "description": "Plan A",
+      "price": "$0/Month",
+      "features": {
+        "featureA": "publish 5 Products",
+        "featureB": "Your products will be shown in the generic searches",
+        "featureC": "you will always appear in our searches"
+      }
+    },
+    "planTwo": {
+      "id": "1",
+      "name": "Basic",
+      "description": "Plan B, Basic plan, this is for you is you are running your bussines and need help",
+      "price": "$20/Month",
+      "features": {
+        "featureA": "Publish 10 Products",
+        "featureB": "Your products will be shown in the generic searches",
+        "featureC": "You can appear for one month in us secction Big offers",
+        "featureD": "you will always appear in our searches"
+      }
+    },
+    "planThree": {
+      "id": "2",
+      "name": "Plus",
+      "description": "Plan C, plan plus, whit more features",
+      "price": "$35/Month",
+      "features": {
+        "featureA": "Publish 15 Products",
+        "featureB": "Your products will be shown in the generic searches",
+        "featureC": "You can appear for one month in us secction Big offers",
+        "featureD": "Your publications will be notified by the system so that customers know your productsyour publications will be notified by the system, the other users will be able to know your products in a faster way",
+        "featureE": "You will always appear in our searches"
+      }
+    },
+    "planFour": {
+      "id": "3",
+      "name": "Premium",
+      "description": "Plan D, Premium plam ",
+      "price": "$100/Month",
+      "features": {
+        "featureA": "publish 20 Products",
+        "featureB": "Your products will be shown in the generic searches",
+        "featureC": "You can appear for one month in us Main Banner",
+        "featureD": "Your publications will be notified by the system so that customers know your productsyour publications will be notified by the system, the other users will be able to know your products in a faster way",
+        "featureE": "You will always appear in our searches"
+      }
+    }
+  },
   "buttons": {
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "SelectPlan": "Select"
   },
   "errors": {
     "requiredField": "Required field",
