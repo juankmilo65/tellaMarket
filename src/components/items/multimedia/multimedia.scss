@@ -30,6 +30,28 @@
     border-radius: 6px;
     border: 1px solid $gray-border;
     margin-right:15px ;
+    position: relative;
+    .remove{
+      display: none;
+    }
+    &:hover {
+      .remove{
+        position: absolute;
+        background: white;
+        display: flex;
+        padding: 5px;
+        border: 1px solid $gray-border;
+        border-radius: 50px;
+        color: $yellow;
+        z-index: 1;
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+        cursor: pointer;
+      }
+      img{
+        opacity:0.5;
+      }
+    }
+    
     &.active {
       background: white;
       color: $yellow;
@@ -41,6 +63,7 @@
     img{
       max-width: 150px;
       max-height:140px;
+      display: block;
     }
   }
 }
@@ -53,3 +76,4 @@ input[type="file"] {
   padding: 6px 12px;
   cursor: pointer;
 }
+
