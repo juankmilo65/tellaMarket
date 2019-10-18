@@ -11,11 +11,13 @@ import {
   SET_PLAN,
   CREATE_ITEM
 } from "../actions/controlDataItemActions";
+import { getFirestore } from "redux-firestore";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
 
 export default function controlDataItemEpics(action$) {
+  const getFS = getFirestore();
   return action$.pipe(
     ofType(
       SET_SUBCATEGORY,
@@ -50,7 +52,13 @@ export default function controlDataItemEpics(action$) {
           of(setStatus("ok"))
         );
       } else if (action.type === CREATE_ITEM) {
-        return concat(of(setStatus("pending")));
+        return concat(
+          of(setStatus("pending")),
+          getFS
+            .collection("items")
+            .add(action.payload.productInformation)
+            .then(() => createItemSuccess("Ok"))
+        );
       }
     })
   );

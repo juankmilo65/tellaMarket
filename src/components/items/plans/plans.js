@@ -4,6 +4,7 @@ import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { useTranslation } from "react-i18next";
 import { setStep } from "../../items/steps/actions/stepsActions";
+import { createItem } from "../../items/controlDataItem/actions/controlDataItemActions";
 import axios from "axios";
 import "./plans.scss";
 
@@ -126,11 +127,12 @@ function MyComponent(state) {
               {t("plan.planThree.features.featureE")}
             </label>
           </div>
-          <button onClick={() => state.handleSave(2)}>
+          <button onClick={() => state.handleSave(3)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
         <div className="col-6 pt-4">
+          x
           <div className="custom-control">
             <label htmlFor="productName" className="is-required">
               {t("plan.planFour.name")}
@@ -166,7 +168,7 @@ function MyComponent(state) {
               {t("plan.planFour.features.featureE")}
             </label>
           </div>
-          <button onClick={() => state.handleSave(2)}>
+          <button onClick={() => state.handleSave(4)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
@@ -177,23 +179,30 @@ function MyComponent(state) {
 
 class Plans extends Component {
   state = {};
-  handleSave = () => {
-    const { dataItem } = this.props;
+  handleSave = id => {
+    const { subcategory, productInformation, multimedia } = this.state;
+    const { createItem } = this.props;
 
-    const fd = new FormData();
-    fd.append(
-      "image",
-      dataItem.selectedFiles[0],
-      dataItem.selectedFiles[0].name
-    );
-    axios
-      .post(
-        "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-        fd
-      )
-      .then(res => {
-        console.log(res);
-      });
+    var obj = new Object();
+    obj["productInformation"] = { subcategory, productInformation }; //productInformation;
+    obj["multimedia"] = multimedia;
+
+    createItem(obj);
+
+    // const fd = new FormData();
+    // fd.append(
+    //   "image",
+    //   multimedia.selectedFiles[0],
+    //   multimedia.selectedFiles[0].name
+    // );
+    // axios
+    //   .post(
+    //     "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
+    //     fd
+    //   )
+    //   .then(res => {
+    //     console.log(res);
+    //   });
   };
 
   handleBack = e => {
@@ -217,13 +226,15 @@ class Plans extends Component {
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
   lang: state.navar.lang,
-  dataItem: state.dataItem.productInformation
+  subcategory: state.dataItem.subcategory,
+  productInformation: state.dataItem.productInformation,
+  multimedia: state.dataItem.multimedia
 });
 
 export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { setStep }
+    { setStep, createItem }
   )
 )(Plans);
