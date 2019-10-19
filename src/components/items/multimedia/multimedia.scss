@@ -18,6 +18,7 @@
   display: flex;
   justify-content:flex-start;
   padding: 30px 0;
+  flex-wrap: wrap;
   
   .box {
     display: flex;
@@ -29,7 +30,7 @@
     color: transparent;
     border-radius: 6px;
     border: 1px solid $gray-border;
-    margin-right:15px ;
+    margin:10px 40px 10px 0;
     position: relative;
     .remove{
       display: none;
@@ -75,5 +76,9 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+}
+
+.upload-image{
+  display: flex;
 }
 
