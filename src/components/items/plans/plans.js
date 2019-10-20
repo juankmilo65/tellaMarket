@@ -7,6 +7,14 @@ import { setStep } from "../../items/steps/actions/stepsActions";
 import { createItem } from "../../items/controlDataItem/actions/controlDataItemActions";
 import axios from "axios";
 import "./plans.scss";
+import plan1 from "../../commons/carousel/img/img-plan-1.svg";
+import plan2 from "../../commons/carousel/img/img-plan-2.svg";
+import plan3 from "../../commons/carousel/img/img-plan-3.svg";
+import plan4 from "../../commons/carousel/img/img-plan-4.svg";
+import plan5 from "../../commons/carousel/img/img-plan-5.svg";
+import plan6 from "../../commons/carousel/img/img-plan-6.svg";
+import plan7 from "../../commons/carousel/img/img-plan-7.svg";
+import plan8 from "../../commons/carousel/img/img-plan-8.svg";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -24,154 +32,136 @@ function MyComponent(state) {
           </button>
         </div>
       </div>
-
-      <div className="d-flex">
-        <div className="col-6 pt-4">
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planOne.name")}
-            </label>
+      <div className="business-plans">
+        <div className="card-plans">
+          <h2 htmlFor="productName">{t("plan.planOne.name")}</h2>
+          <div className="price">
+            <span className="sign">$</span>
+            <span className="plan-value--price">{t("plan.planOne.price")}</span>
+            <span className="month">Month</span>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planOne.price")}
-            </label>
+          <div>
+            <img className="img-plan" src={plan1} />
+            <img className="img-plan--hover" src={plan5} />
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planOne.features.featureA")}
-            </label>
+          <div className="plan-description">
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planOne.features.featureA")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planOne.features.featureB")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planOne.features.featureC")}</span>
+            </div>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planOne.features.featureB")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planOne.features.featureC")}
-            </label>
-          </div>
-          <button onClick={() => state.handleSave(1)}>
+          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(1)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
-        <div className="col-6 pt-4">
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.name")}
-            </label>
+        <div className="card-plans">
+          <h2 htmlFor="productName">{t("plan.planTwo.name")}</h2>
+          <div className="price">
+            <span className="sign">$</span>
+            <span className="plan-value--price">{t("plan.planTwo.price")}</span>
+            <span className="month">Month</span>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.price")}
-            </label>
+          <div>
+            <img className="img-plan" src={plan2} />
+            <img className="img-plan--hover" src={plan6} />
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.features.featureA")}
-            </label>
+          <div className="plan-description">
+            <div className="item-description">
+            <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planTwo.features.featureA")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planTwo.features.featureB")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planTwo.features.featureC")}</span>
+            </div>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.features.featureB")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.features.featureC")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planTwo.features.featureD")}
-            </label>
-          </div>
-          <button onClick={() => state.handleSave(2)}>
+          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(2)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
-        <div className="col-6 pt-4">
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.name")}
-            </label>
+        <div className="card-plans">
+          <h2 htmlFor="productName">{t("plan.planThree.name")}</h2>
+          <div className="price">
+            <span className="sign">$</span>
+            <span className="plan-value--price">{t("plan.planThree.price")}</span>
+            <span className="month">Month</span>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.price")}
-            </label>
+          <div>
+            <img className="img-plan" src={plan3} />
+            <img className="img-plan--hover" src={plan7} />
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.features.featureA")}
-            </label>
+          <div className="plan-description">
+            <div className="item-description">   
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planThree.features.featureA")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planThree.features.featureB")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planThree.features.featureC")}</span>
+            </div>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.features.featureB")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.features.featureC")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.features.featureD")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planThree.features.featureE")}
-            </label>
-          </div>
-          <button onClick={() => state.handleSave(3)}>
+          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(3)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
-        <div className="col-6 pt-4">
-          x
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.name")}
-            </label>
+        <div className="card-plans">
+          <h2 htmlFor="productName">{t("plan.planFour.name")}</h2>
+          <div className="price">
+            <span className="sign">$</span>
+            <span className="plan-value--price">{t("plan.planFour.price")}</span>
+            <span className="month">Month</span>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.price")}
-            </label>
+          <div>
+            <img className="img-plan" src={plan4} />
+            <img className="img-plan--hover" src={plan8} />
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.features.featureA")}
-            </label>
+          <div className="plan-description">
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planFour.features.featureA")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planFour.features.featureB")}</span>
+            </div>
+            <div className="item-description">
+              <i class="material-icons i-normal">check_circle_outline</i>
+              <i class="material-icons i-hover">check_circle</i>
+              <span>{t("plan.planFour.features.featureC")}</span>
+            </div>
           </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.features.featureB")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.features.featureC")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.features.featureD")}
-            </label>
-          </div>
-          <div className="custom-control">
-            <label htmlFor="productName" className="is-required">
-              {t("plan.planFour.features.featureE")}
-            </label>
-          </div>
-          <button onClick={() => state.handleSave(4)}>
+          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(4)}>
             {t("buttons.SelectPlan")}
           </button>
         </div>
+      
       </div>
     </div>
   );
