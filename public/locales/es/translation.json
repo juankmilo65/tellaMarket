@@ -117,5 +117,8 @@
     "requeredCategory": "Porfavor seleccione una categoria.",
     "ok": "Aceptar",
     "numberOfPhotos": "El mínimo de fotos para realizar la creación del producto deben ser 4"
+  },
+  "messages": {
+    "createItem": "Producto creado satisfactoriamente"
   }
 }

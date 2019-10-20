@@ -9,6 +9,7 @@ export const SET_PLAN = "SET_PLAN";
 export const SET_PLAN_SUCCES = "SET_PLAN_SUCCES";
 export const CREATE_ITEM = "CREATE_ITEM";
 export const CREATE_ITEM_SUCCES = "CREATE_ITEM_SUCCES";
+export const CREATE_ITEM_ERROR = "CREATE_ITEM_ERROR";
 
 export function setStatus(status) {
   return {
@@ -43,6 +44,14 @@ export function createItemSuccess(message) {
     payload: message
   };
 }
+
+export function createItemError(message) {
+  return {
+    type: CREATE_ITEM_SUCCES,
+    payload: message
+  };
+}
+
 export function setMultimedia(multimedia) {
   return {
     type: SET_MULTIMEDIA,

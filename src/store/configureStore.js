@@ -5,7 +5,6 @@ import { firebaseReducer } from "react-redux-firebase";
 import signinReducer from "../components/auth/signin/reducers/signinReducers";
 import signoutReducer from "../components/auth/signout/reducers/signoutReducers";
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
-import createItemReducers from "../components/items/create/reducers/createItemReducers";
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
 import navarReducer from "../components/layout/reducers/navarReducers";
 import phoneAuthenticationReducer from "../components/auth/phoneAuthentication/reducers/phoneAuthenticationReducers";
@@ -15,7 +14,6 @@ import createmenuReducers from "../components/administration/menu/reducers/Creat
 import dataReducers from "../components/commons/data/reducers/dataReducers";
 import stepReducer from "../components/items/steps/reducer/stepsReducers";
 import controlDataItemReducers from "../components/items/controlDataItem/reducer/controlDataItemReducers";
-import createItemEpics from "../components/items/create/epics/createItemEpics";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
@@ -31,7 +29,6 @@ import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
   const rootEpic = combineEpics(
-    createItemEpics,
     signinEpics,
     signoutEpics,
     signupEpics,
@@ -50,7 +47,6 @@ export function configureStore() {
     signin: signinReducer,
     signout: signoutReducer,
     signup: signupReducer,
-    createItem: createItemReducers,
     listItems: listItemReducer,
     navar: navarReducer,
     phoneAuthentication: phoneAuthenticationReducer,

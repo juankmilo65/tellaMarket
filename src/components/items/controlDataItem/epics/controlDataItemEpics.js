@@ -5,6 +5,7 @@ import {
   setMultimediaSuccess,
   setPlanSuccess,
   createItemSuccess,
+  createItemError,
   SET_SUBCATEGORY,
   SET_PRODUCT_INFORMATION,
   SET_MULTIMEDIA,
@@ -15,6 +16,7 @@ import { getFirestore } from "redux-firestore";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import axios from "axios";
 
 export default function controlDataItemEpics(action$) {
   const getFS = getFirestore();
@@ -57,7 +59,20 @@ export default function controlDataItemEpics(action$) {
           getFS
             .collection("items")
             .add(action.payload.productInformation)
-            .then(() => createItemSuccess("Ok"))
+            .then(doc => {
+              let count = 1;
+              action.payload.multimedia.map(file => {
+                const fd = new FormData();
+                fd.append("image", file.image, file.image.name);
+                axios.post(
+                  "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
+                  fd,
+                  { headers: { folderName: doc.id } }
+                );
+              });
+              return setPlanSuccess("Ok");
+            })
+            .catch(err => createItemError(err))
         );
       }
     })

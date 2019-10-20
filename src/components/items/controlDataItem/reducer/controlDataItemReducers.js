@@ -4,7 +4,8 @@ import {
   SET_PRODUCT_INFORMATION_SUCCES,
   SET_MULTIMEDIA_SUCCES,
   SET_PLAN_SUCCES,
-  CREATE_ITEM_SUCCES
+  CREATE_ITEM_SUCCES,
+  CREATE_ITEM_ERROR
 } from "../actions/controlDataItemActions";
 
 const initState = {
@@ -13,7 +14,8 @@ const initState = {
   subcategory: {},
   productInformation: {},
   multimedia: {},
-  plan: {}
+  result: {},
+  idDocument: {}
 };
 
 const controlDataItemReducers = (state = initState, action) => {
@@ -47,15 +49,23 @@ const controlDataItemReducers = (state = initState, action) => {
     }
     case SET_PLAN_SUCCES: {
       return {
-        ...state,
         status: "success",
-        plan: action.payload
+        result: action.payload
       };
     }
     case CREATE_ITEM_SUCCES: {
       return {
         status: "success",
-        plan: action.payload
+        idDocument: action.payload
+      };
+    }
+    case CREATE_ITEM_ERROR: {
+      return {
+        status: "failure",
+        message: {
+          type: "error",
+          text: action.payload
+        }
       };
     }
     default:

@@ -5,7 +5,9 @@ import { compose } from "redux";
 import { useTranslation } from "react-i18next";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import { createItem } from "../../items/controlDataItem/actions/controlDataItemActions";
-import axios from "axios";
+import Popup from "reactjs-popup";
+import { Redirect } from "react-router-dom";
+import warning from "../../../images/triangle.svg";
 import "./plans.scss";
 
 function MyComponent(state) {
@@ -173,36 +175,43 @@ function MyComponent(state) {
           </button>
         </div>
       </div>
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
+        <img src={warning} className="img-alert" />
+        <h3>¡Error!</h3>
+        <span className="text-alert">{t("messages.createItem")}</span>
+        <button className="btns btn-go" onClick={state.handleOk}>
+          {t("errors.ok")}
+        </button>
+      </Popup>
+      {state.renderRedirect()}
     </div>
   );
 }
 
 class Plans extends Component {
-  state = {};
+  state = { showModal: false, redirect: false };
   handleSave = id => {
-    const { subcategory, productInformation, multimedia } = this.state;
+    const { subcategory, productInformation, multimedia } = this.props;
     const { createItem } = this.props;
 
     var obj = new Object();
-    obj["productInformation"] = { subcategory, productInformation }; //productInformation;
+    obj["productInformation"] = {
+      planId: id,
+      subcategory,
+      productInformation,
+      creationDate: new Date()
+    };
     obj["multimedia"] = multimedia;
 
     createItem(obj);
-
-    // const fd = new FormData();
-    // fd.append(
-    //   "image",
-    //   multimedia.selectedFiles[0],
-    //   multimedia.selectedFiles[0].name
-    // );
-    // axios
-    //   .post(
-    //     "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-    //     fd
-    //   )
-    //   .then(res => {
-    //     console.log(res);
-    //   });
+    // this.setState({
+    //   ["showModal"]: true
+    // });
   };
 
   handleBack = e => {
@@ -210,14 +219,34 @@ class Plans extends Component {
     setStep(3);
   };
 
+  handleOk = () => {
+    this.setState({ redirect: true });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+  };
+
   render() {
-    const { auth, lang } = this.props;
+    const { auth, lang, authMessage, result } = this.props;
+    const { showModal } = this.state;
+
+    if (result === "Ok" && showModal === false) {
+      this.setState({
+        ["showModal"]: true
+      });
+    }
 
     return (
       <MyComponent
         lang={lang}
         handleBack={this.handleBack}
         handleSave={this.handleSave}
+        renderRedirect={this.renderRedirect}
+        handleOk={this.handleOk}
+        showModal={this.state.showModal}
       ></MyComponent>
     );
   }
@@ -228,7 +257,10 @@ const mapStateToProps = state => ({
   lang: state.navar.lang,
   subcategory: state.dataItem.subcategory,
   productInformation: state.dataItem.productInformation,
-  multimedia: state.dataItem.multimedia
+  multimedia: state.dataItem.multimedia,
+  authMessage:
+    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
+  result: state.dataItem.result
 });
 
 export default compose(

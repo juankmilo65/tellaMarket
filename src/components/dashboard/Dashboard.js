@@ -177,53 +177,92 @@ class Dashboard extends Component {
               </label>
             </div>
             <div className="content-provider">
-                <div className="box-provider--big">
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img class="d-block" src={imgproveedor} alt="First slide"/>
+              <div className="box-provider--big">
+                <div
+                  id="carouselExampleIndicators"
+                  className="carousel slide"
+                  data-ride="carousel"
+                >
+                  <div className="carousel-inner">
+                    <div className="carousel-item active">
+                      <img
+                        className="d-block"
+                        src={imgproveedor}
+                        alt="First slide"
+                      />
                     </div>
-                    <div class="carousel-item">
-                      <img class="d-block" src={imgproveedor} alt="Second slide"/>
+                    <div className="carousel-item">
+                      <img
+                        className="d-block"
+                        src={imgproveedor}
+                        alt="Second slide"
+                      />
                     </div>
-                    <div class="carousel-item">
-                      <img class="d-block" src={imgproveedor} alt="Third slide"/>
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-                </div>
-                <div className="box-provider--double">
-                  <div className="item-box--provider">
-                    <div className="item-box--text">
-                      <label className="title-item--provider">Suspendisse dignissim tristique </label>
-                      <span className="description-item--provider">Fusce vel nibh sollicitudin</span>
-                      <button className="btns btn-se">cotizar</button>
-                    </div>
-                    <div className="item-box--img">
-                      <img class="d-block" src={producto1} alt=""/>
+                    <div className="carousel-item">
+                      <img
+                        className="d-block"
+                        src={imgproveedor}
+                        alt="Third slide"
+                      />
                     </div>
                   </div>
-                  <div className="item-box--provider">
-                    <div className="item-box--text">
-                      <label className="title-item--provider">Integer vehicula |pellentesque</label>
-                      <span className="description-item--provider">Integer ac metus eu sapien placerat</span>
-                      <button className="btns btn-se">cotizar</button>
-                    </div>
-                    <div className="item-box--img">
-                      <img class="d-block" src={producto2} alt=""/>
-                    </div>
+                  <a
+                    className="carousel-control-prev"
+                    href="#carouselExampleIndicators"
+                    role="button"
+                    data-slide="prev"
+                  >
+                    <span
+                      className="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Previous</span>
+                  </a>
+                  <a
+                    className="carousel-control-next"
+                    href="#carouselExampleIndicators"
+                    role="button"
+                    data-slide="next"
+                  >
+                    <span
+                      className="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+              <div className="box-provider--double">
+                <div className="item-box--provider">
+                  <div className="item-box--text">
+                    <label className="title-item--provider">
+                      Suspendisse dignissim tristique{" "}
+                    </label>
+                    <span className="description-item--provider">
+                      Fusce vel nibh sollicitudin
+                    </span>
+                    <button className="btns btn-se">cotizar</button>
+                  </div>
+                  <div className="item-box--img">
+                    <img className="d-block" src={producto1} alt="" />
+                  </div>
+                </div>
+                <div className="item-box--provider">
+                  <div className="item-box--text">
+                    <label className="title-item--provider">
+                      Integer vehicula |pellentesque
+                    </label>
+                    <span className="description-item--provider">
+                      Integer ac metus eu sapien placerat
+                    </span>
+                    <button className="btns btn-se">cotizar</button>
+                  </div>
+                  <div className="item-box--img">
+                    <img className="d-block" src={producto2} alt="" />
                   </div>
                 </div>
               </div>
-           
+            </div>
           </div>
         </div>
         <div>

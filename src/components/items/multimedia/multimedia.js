@@ -40,10 +40,13 @@ function MyComponent(state) {
             state.selectedFiles.map(file => {
               return (
                 <div key={file.id} className="box">
-                  <button className="remove" onClick={() => state.handleRemoveImage(file.id)}>
-                    <i class="material-icons">close</i>
+                  <button
+                    className="remove"
+                    onClick={() => state.handleRemoveImage(file.id)}
+                  >
+                    <i className="material-icons">close</i>
                   </button>
-                  <span classname="img-preview">
+                  <span className="img-preview">
                     <img src={file.preview}></img>
                   </span>
                 </div>
@@ -91,16 +94,6 @@ class Multimedia extends Component {
     } else {
       setMultimedia(this.state.selectedFiles);
       setStep(4);
-      // const fd = new FormData();
-      // fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-      // axios
-      //   .post(
-      //     "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-      //     fd
-      //   )
-      //   .then(res => {
-      //     console.log(res);
-      //   });
     }
   };
 

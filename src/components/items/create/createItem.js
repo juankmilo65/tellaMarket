@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-//import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { createItem } from "../create/actions/createItemActions";
-import FileUpload from "../../commons/fileUpload/fileUpload";
 import Steps from "../steps/steps";
 import Categories from "../category/categories";
 import ProductInformation from "../productInformation/productInformation";
@@ -13,31 +10,6 @@ import Plans from "../plans/plans";
 import "./createItem.scss";
 
 class CreateItem extends Component {
-  state = {
-    title: "",
-    content: "",
-    images: null
-  };
-  handleChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    const { profile, auth, fileUpload } = this.props;
-    const item = {
-      ...this.state,
-      ownerLastName: profile.lastName,
-      ownerName: profile.firstName,
-      authId: auth.uid,
-      images: fileUpload,
-      createAt: new Date()
-    };
-
-    this.props.createItem(item);
-    this.props.history.push("/");
-  };
   render() {
     const { auth, fileUpload, step } = this.props;
 
@@ -78,6 +50,6 @@ export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { createItem }
+    null
   )
 )(CreateItem);
