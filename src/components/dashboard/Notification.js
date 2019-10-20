@@ -8,7 +8,7 @@ const Notifications = props => {
     <div className="section">
       <div className="card inactive"> {/*Poner clase inactive para ocultar la notification */}
         <div className="card-content">
-          <div className="card-title">Notifications<i class="material-icons">close</i> </div>
+          <div className="card-title"><span className="d-flex align-items-center">Notifications <span className="number-notification">10</span></span><i class="material-icons">close</i> </div>
           <ul className="notifications">
             {notifications &&
               notifications.map(notification => {

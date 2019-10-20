@@ -61,7 +61,7 @@
       "id": "0",
       "name": "Free",
       "description": "Plan A",
-      "price": "$0/Month",
+      "price": "0",
       "features": {
         "featureA": "publish 5 Products",
         "featureB": "Your products will be shown in the generic searches",
@@ -72,7 +72,7 @@
       "id": "1",
       "name": "Basic",
       "description": "Plan B, Basic plan, this is for you is you are running your bussines and need help",
-      "price": "$20/Month",
+      "price": "20",
       "features": {
         "featureA": "Publish 10 Products",
         "featureB": "Your products will be shown in the generic searches",
@@ -84,7 +84,7 @@
       "id": "2",
       "name": "Plus",
       "description": "Plan C, plan plus, whit more features",
-      "price": "$35/Month",
+      "price": "35",
       "features": {
         "featureA": "Publish 15 Products",
         "featureB": "Your products will be shown in the generic searches",
@@ -97,7 +97,7 @@
       "id": "3",
       "name": "Premium",
       "description": "Plan D, Premium plam ",
-      "price": "$100/Month",
+      "price": "100",
       "features": {
         "featureA": "publish 20 Products",
         "featureB": "Your products will be shown in the generic searches",

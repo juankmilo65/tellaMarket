@@ -136,3 +136,15 @@
         max-height: 100%;
     }
 }
+
+.number-notification{
+    display: inline-flex;
+    font-size: 10px;
+    font-weight: bold;
+    background: white;
+    color: $blue;
+    padding: 0 5px;
+    border-radius: 20px;
+    position: relative;
+    top: 0;
+}

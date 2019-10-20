@@ -1,11 +1,96 @@
 @import "../../variables.scss";
 
-.custom-control-label {
-  padding-left: 10px;
-  color: $gray-text;
-  &::before {
-    background: white;
-    border: 1px solid $gray-border;
-    top: 2px;
+.business-plans{
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.card-plans{
+  display: flex;
+  flex-direction: column;
+  border-radius:6px ;
+  border:1px solid $gray-border;
+  align-items: center;
+  background-color: white;
+  padding: 30px;
+
+  h2{
+    font-size:20px;
+    color: $gray-text;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .price{
+    color: $blue;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    line-height: 1;
+    margin-bottom:60px ;
+    .sing, .month{
+      font-size: 14px;
+    }
+    .sign{
+      position: relative;
+      top: 30%;
+      left: -20%;
+    }
+    .month{
+      text-align: center;
+    }
+    .plan-value--price{
+      font-size: 48px;
+      font-weight: bold;
+    }
+  }
+  .plan-description{
+    margin-top: 40px;
+  }
+  .item-description{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: $gray-text;
+    max-width: 208px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+
+    i{
+      font-size: 21px;
+      margin-right: 5px;
+    }
+  }
+
+  .btn-hover{
+    display: none;
+    margin-top: 20px;
+    border-radius: 50px;
+    font-size: 14px;
+  }
+
+  .img-plan--hover{
+    display: none;
+  }
+
+  .i-hover{
+    color: $yellow;
+    display: none;
+  }
+  
+  &:hover{
+    padding:20px 50px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    h2{
+      color: $yellow;
+      font-weight: 600;
+    }
+    .img-plan,.i-normal{
+      display: none;
+    }
+    .btn-hover,.img-plan--hover,.i-hover{ 
+      display: block;
+    }
   }
 }

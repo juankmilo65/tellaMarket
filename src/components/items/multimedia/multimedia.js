@@ -31,14 +31,17 @@ function MyComponent(state) {
       <div className="upload-image">
         <div className="box-group">
           <label className="box active custom-file-upload">
-            <input type="file" onChange={state.handleUpload} />
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
+              <input type="file" onChange={state.handleUpload} />
+              <i className="material-icons">add_photo_alternate</i>
+              <span>{t("multimedia.uploadFiles")}</span>
           </label>
-
+        </div>
+        <div className="box-group">
+          
           {state.selectedFiles != null &&
             state.selectedFiles.map(file => {
               return (
+            
                 <div key={file.id} className="box">
                   <button
                     className="remove"
@@ -50,12 +53,13 @@ function MyComponent(state) {
                     <img src={file.preview}></img>
                   </span>
                 </div>
+        
               );
             })}
-        </div>
-        <div className="box-upload">
+        </div> 
+      </div>
+      <div className="box-upload">
           <span>{t("multimedia.drag&drop")}</span>
-        </div>
       </div>
       <Popup
         modal
