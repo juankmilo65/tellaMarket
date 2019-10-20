@@ -48,22 +48,25 @@ function MyComponent(state) {
           </div>
           <div className="plan-description">
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planOne.features.featureA")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planOne.features.featureB")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planOne.features.featureC")}</span>
             </div>
           </div>
-          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(1)}>
+          <button
+            className="btns btn-go btn-hover"
+            onClick={() => state.handleSave(1)}
+          >
             {t("buttons.SelectPlan")}
           </button>
         </div>
@@ -80,22 +83,25 @@ function MyComponent(state) {
           </div>
           <div className="plan-description">
             <div className="item-description">
-            <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planTwo.features.featureA")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planTwo.features.featureB")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planTwo.features.featureC")}</span>
             </div>
           </div>
-          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(2)}>
+          <button
+            className="btns btn-go btn-hover"
+            onClick={() => state.handleSave(2)}
+          >
             {t("buttons.SelectPlan")}
           </button>
         </div>
@@ -103,7 +109,9 @@ function MyComponent(state) {
           <h2 htmlFor="productName">{t("plan.planThree.name")}</h2>
           <div className="price">
             <span className="sign">$</span>
-            <span className="plan-value--price">{t("plan.planThree.price")}</span>
+            <span className="plan-value--price">
+              {t("plan.planThree.price")}
+            </span>
             <span className="month">Month</span>
           </div>
           <div>
@@ -111,23 +119,26 @@ function MyComponent(state) {
             <img className="img-plan--hover" src={plan7} />
           </div>
           <div className="plan-description">
-            <div className="item-description">   
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+            <div className="item-description">
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planThree.features.featureA")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planThree.features.featureB")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planThree.features.featureC")}</span>
             </div>
           </div>
-          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(3)}>
+          <button
+            className="btns btn-go btn-hover"
+            onClick={() => state.handleSave(3)}
+          >
             {t("buttons.SelectPlan")}
           </button>
         </div>
@@ -135,7 +146,9 @@ function MyComponent(state) {
           <h2 htmlFor="productName">{t("plan.planFour.name")}</h2>
           <div className="price">
             <span className="sign">$</span>
-            <span className="plan-value--price">{t("plan.planFour.price")}</span>
+            <span className="plan-value--price">
+              {t("plan.planFour.price")}
+            </span>
             <span className="month">Month</span>
           </div>
           <div>
@@ -144,26 +157,28 @@ function MyComponent(state) {
           </div>
           <div className="plan-description">
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planFour.features.featureA")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planFour.features.featureB")}</span>
             </div>
             <div className="item-description">
-              <i class="material-icons i-normal">check_circle_outline</i>
-              <i class="material-icons i-hover">check_circle</i>
+              <i className="material-icons i-normal">check_circle_outline</i>
+              <i className="material-icons i-hover">check_circle</i>
               <span>{t("plan.planFour.features.featureC")}</span>
             </div>
           </div>
-          <button className="btns btn-go btn-hover" onClick={() => state.handleSave(4)}>
+          <button
+            className="btns btn-go btn-hover"
+            onClick={() => state.handleSave(4)}
+          >
             {t("buttons.SelectPlan")}
           </button>
         </div>
-      
       </div>
       <Popup
         modal
@@ -199,9 +214,6 @@ class Plans extends Component {
     obj["multimedia"] = multimedia;
 
     createItem(obj);
-    // this.setState({
-    //   ["showModal"]: true
-    // });
   };
 
   handleBack = e => {

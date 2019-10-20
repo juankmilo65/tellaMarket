@@ -61,7 +61,7 @@
       "id": "0",
       "name": "Gratuito",
       "description": "Plan A",
-      "price": "$0/Mes",
+      "price": "0",
       "features": {
         "featureA": "Piblicación de 5 productos",
         "featureB": "Tus productos apareceran en las consultas genericas",
@@ -72,7 +72,7 @@
       "id": "1",
       "name": "Basico",
       "description": "Plan B, Plan Basico, especialmente para ti, si apenas esás iniciando con tu negocio y necesitas ayuda",
-      "price": "$20/Mes",
+      "price": "20",
       "features": {
         "featureA": "Publicación de 5 Productos",
         "featureB": "Tus productos apareceran en las consultas genericas",
@@ -84,7 +84,7 @@
       "id": "2",
       "name": "Plus",
       "description": "Plan C, Plan plus, Muchas mas caracteristicas",
-      "price": "$35/Mes",
+      "price": "35",
       "features": {
         "featureA": "Publicación de 15 productos",
         "featureB": "Tus productos podran aparecer en las cunsultas genericas",
@@ -97,7 +97,7 @@
       "id": "3",
       "name": "Premium",
       "description": "Plan D, Plan Premium ",
-      "price": "$100/Mes",
+      "price": "100",
       "features": {
         "featureA": "Publicación de 20 Productos",
         "featureB": "Apareceras en las consultas genericas",
