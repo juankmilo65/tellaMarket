@@ -30,6 +30,7 @@ function MyComponent(state) {
                   <button  className="btns btn-go" onClick={state.setRedirect}>Ver mas</button>
                 </div>
               </div>
+              <div>Acorderon</div>
             </div>
           );
         })}

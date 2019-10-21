@@ -48,4 +48,21 @@
 .price-list{
     color: $yellow;
     font-size: 32px;
+    padding-top:10px ;
+}
+
+.info-product--description{
+    font-size: 14px;
+    color:$blue;
+    ul{
+        padding: 20px 0 20px 40px;
+        li{
+            list-style-type: disc;
+            color:$yellow;
+            span{
+                color: $gray-text;
+                font-size: 12px;
+            }
+        }
+    }
 }
