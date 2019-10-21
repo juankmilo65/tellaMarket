@@ -13,10 +13,19 @@ class Query extends Component {
         <br />
         <br />
         <br />
-        <label>Puede ser un titulo</label>
-        <Filter />
-        <ItemList />
+        <div className="container">
+          <div className="title-product">
+            <h2>Producto y Categorías</h2>
+            <label>Listado de productos</label>
+          </div>
+          <div className="list-product">
+            <Filter />
+            <ItemList />
+          </div>
+        </div>
+
       </div>
+      
     );
   }
 }

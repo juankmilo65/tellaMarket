@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "./itemList.scss";
+import producto1 from "../../commons/carousel/img/producto1.png";
+import producto2 from "../../commons/carousel/img/producto2.png";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -10,17 +12,24 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
 
-  return (
-    <div>
-      <label>Aca va el listado de los filtros</label>
-
+  return (    
+    <div className="list-products">
       {state.items != null &&
         state.items.map(item => {
           return (
-            <div key={item.id}>
-              <label>{item.name}</label>
-              <label>{item.year}</label>
-              <button onClick={state.setRedirect}>Ver mas</button>
+            <div className="item-product--list" key={item.id}>
+              <div className="img-list">
+                <img src={producto2}/>
+              </div>
+              <div className="info-product--list">
+                <label className="title-product--list">{item.name}</label>
+                <div className="category-list">Categoría uno</div>
+                <div className="category-list">{item.year}</div>
+                <div className="price-button--list">
+                  <div className="price-list">$ 892.00</div>
+                  <button  className="btns btn-go" onClick={state.setRedirect}>Ver mas</button>
+                </div>
+              </div>
             </div>
           );
         })}

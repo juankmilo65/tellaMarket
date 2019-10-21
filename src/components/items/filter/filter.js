@@ -11,40 +11,62 @@ function MyComponent(state) {
   }
 
   return (
-    <div>
-      <label>Aca van los filtros</label>
-      <br />
-      <label>Ordernar por</label>
-      <Select options={state.filters.orderBy} />
-      <br />
-      <label>Categorias</label>
-      {state.filters.categories != null &&
-        state.filters.categories.map(item => {
-          return (
-            <div key={item.id}>
-              <label>{item.category}</label>
-            </div>
-          );
-        })}
-      <br />
-      <label>Precios</label>
-      <label>{state.filters.prices.minimun}</label>
-      <label>{state.filters.prices.maximun}</label>
-      <br />
+    <div className="filter">
+      <div className="order">
+        <label className="title-filter">Ordernar por</label>
+        <Select options={state.filters.orderBy} />
+      </div>
+      <div className="category">
+        <label className="title-filter">Categoria</label>
+        {state.filters.categories != null &&
+          state.filters.categories.map(item => {
+            return (
+              <div className="item-category" key={item.id}>
+                <label>{item.category}</label><span>(5)</span>
+              </div>
+            );
+          })}
+      </div>
+      <div className="price">
+        <label className="title-filter">Precios</label>
+        <div>
+          <label>{state.filters.prices.minimun}</label>
+        </div>
+        *Rango de precio
+        <div>
+          <label>{state.filters.prices.maximun}</label>
+        </div>
+      </div>
+      <div className="year">
+        <label  className="title-filter">Año</label>
+        {state.filters.years != null &&
+          state.filters.years.map(item => {
+            return (
+              <div key={item.id} className="item-year">
+                <label>{item.year}</label><span>(5)</span>
+              </div>
+            );
+          })}
+        <div className="item-all"><a href="#">Ver todos</a></div>
+        <div className="d-flex mt-2">
+          <select className="select-tella" name="select">
+            <option value="value1" selected>Desde</option> 
+            <option value="value2">2000</option>
+            <option value="value3">2001</option>
+          </select>
+          <select className="select-tella" name="select">
+            <option value="value1" selected>Hasta</option> 
+            <option value="value2">2018</option>
+            <option value="value3">2019</option>
+          </select>
+        </div>
 
-      <label>Año</label>
-      {state.filters.years != null &&
-        state.filters.years.map(item => {
-          return (
-            <div key={item.id}>
-              <label>{item.year}</label>
-            </div>
-          );
-        })}
-      <label>Rango año</label>
-      <label>{state.filters.yearRange.lastYear}</label>
-      <label>{state.filters.yearRange.newYear}</label>
+        {/* <label>{state.filters.yearRange.lastYear}</label>
+        <label>{state.filters.yearRange.newYear}</label> */}
+
+      </div>
     </div>
+ 
   );
 }
 
