@@ -61,14 +61,29 @@ export default function controlDataItemEpics(action$) {
             .add(action.payload.productInformation)
             .then(doc => {
               let count = 1;
+              var obj = new Object();
+              obj["images"] = [];
               action.payload.multimedia.map(file => {
                 const fd = new FormData();
                 fd.append("image", file.image, file.image.name);
-                axios.post(
-                  "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-                  fd,
-                  { headers: { folderName: doc.id } }
-                );
+                axios
+                  .post(
+                    "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
+                    fd,
+                    { headers: { folderName: doc.id } }
+                  )
+                  .then(result => {
+                    var objImage = new Object();
+                    objImage["imageUrl" + count] = result.data.downloadURL;
+                    obj.images.push(objImage);
+                    if (action.payload.multimedia.length === count) {
+                      getFS
+                        .collection("items")
+                        .doc(doc.id)
+                        .update(obj);
+                    }
+                    count = count + 1;
+                  });
               });
               return setPlanSuccess("Ok");
             })

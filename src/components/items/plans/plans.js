@@ -7,7 +7,8 @@ import { setStep } from "../../items/steps/actions/stepsActions";
 import { createItem } from "../../items/controlDataItem/actions/controlDataItemActions";
 import Popup from "reactjs-popup";
 import { Redirect } from "react-router-dom";
-import warning from "../../../images/triangle.svg";
+import success from "../../../images/success.svg";
+import moment from "moment";
 import "./plans.scss";
 import plan1 from "../../commons/carousel/img/img-plan-1.svg";
 import plan2 from "../../commons/carousel/img/img-plan-2.svg";
@@ -186,11 +187,11 @@ function MyComponent(state) {
         closeOnDocumentClick={false}
         className="modal-alert"
       >
-        <img src={warning} className="img-alert" />
-        <h3>¡Error!</h3>
+        <img src={success} className="img-alert" />
+        <h3>{t("messages.congratulation")}</h3>
         <span className="text-alert">{t("messages.createItem")}</span>
         <button className="btns btn-go" onClick={state.handleOk}>
-          {t("errors.ok")}
+          {t("messages.ok")}
         </button>
       </Popup>
       {state.renderRedirect()}
@@ -206,10 +207,14 @@ class Plans extends Component {
 
     var obj = new Object();
     obj["productInformation"] = {
+      userId: "xxxx",
       planId: id,
       subcategory,
       productInformation,
-      creationDate: new Date()
+      creationDate: new Date(),
+      expirationDate: moment(new Date())
+        .add(1, "y")
+        .toDate()
     };
     obj["multimedia"] = multimedia;
 

@@ -48,7 +48,7 @@ class carousel extends Component {
                     </div>
                   </div>
                   <a href="/" className="btns btn-go">
-                    {image.textbtn}
+                    Consultar ahora
                   </a>
                 </div>
                 <div className="item-banner-xs">

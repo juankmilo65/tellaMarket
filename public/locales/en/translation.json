@@ -119,6 +119,8 @@
     "numberOfPhotos": "The minimum number of photos to create the product must be 4."
   },
   "messages": {
-    "createItem": "Product successfully created"
+    "createItem": "Product successfully created",
+    "ok": "Ok",
+    "congratulation": "Congratulations"
   }
 }

@@ -6,6 +6,7 @@ const spawn = require("child-process-promise").spawn;
 const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 const fs = require("fs");
+const axios = require("axios");
 const { Storage } = require("@google-cloud/storage");
 
 const gcconfig = {
@@ -91,9 +92,15 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
             }
           }
         })
-        .then(() => {
-          res.status(200).json({
-            message: "File Upload"
+        .then(data => {
+          getScpecificInfo(data[0].id).then(response => {
+            res.status(200).json({
+              downloadURL:
+                "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/" +
+                data[0].id +
+                "?alt=media&token=" +
+                response
+            });
           });
         })
         .catch(err => {
@@ -103,3 +110,14 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
     busboy.end(req.rawBody);
   });
 });
+
+async function getScpecificInfo(id) {
+  return await axios
+    .get(
+      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/" +
+        id
+    )
+    .then(data2 => {
+      return data2.data.downloadTokens;
+    });
+}
