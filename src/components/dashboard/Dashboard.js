@@ -173,7 +173,7 @@ class Dashboard extends Component {
     obj["titleproduct"] = "Titulo Producto";
     obj["valueprice"] = "$1000";
     obj["image"] =
-      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F1464.jpg?alt=media&token=62a8ec9f-8ab9-4812-998a-75f09df59899";
+      "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg";
     obj["id"] = 2;
     imagesMainBar.push(obj);
 
