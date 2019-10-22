@@ -159,6 +159,24 @@ class Dashboard extends Component {
       ]
     ];
 
+    var obj = new Object();
+    obj["titlecategory"] = "Titulo Categoria";
+    obj["titleproduct"] = "Titulo Producto";
+    obj["valueprice"] = "$1000";
+    obj["image"] =
+      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8";
+    obj["id"] = 1;
+    imagesMainBar.push(obj);
+
+    var obj = new Object();
+    obj["titlecategory"] = "Titulo Categoria";
+    obj["titleproduct"] = "Titulo Producto";
+    obj["valueprice"] = "$1000";
+    obj["image"] =
+      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F1464.jpg?alt=media&token=62a8ec9f-8ab9-4812-998a-75f09df59899";
+    obj["id"] = 2;
+    imagesMainBar.push(obj);
+
     //     if (itemsPremium.length === 0) {
     //       getDashboardProductsPlanPremium(firebase);
     //     } else {
