@@ -122,5 +122,15 @@
     "createItem": "Producto creado satisfactoriamente",
     "ok": "Ok",
     "congratulation": "Felicitaciones"
+  },
+  "dashboard": {
+    "bigOffers": "Grandes ofertas",
+    "new": "Nuevos",
+    "suppliers": "proveedores",
+    "contact": "Contacto",
+    "categories": "Categorias",
+    "support": "Soporte",
+    "copyright": "Todos los derechos reservados Tella Market",
+    "notifications": "Notificaciones"
   }
 }

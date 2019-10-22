@@ -130,6 +130,7 @@
     "contact": "Contact",
     "categories": "Categories",
     "support": "Support",
-    "Copyright": "Copyright: All the reserved rights on texts and images"
+    "copyright": "Copyright: All the reserved rights on texts and images",
+    "notifications": "Notifications"
   }
 }

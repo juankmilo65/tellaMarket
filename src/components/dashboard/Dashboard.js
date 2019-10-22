@@ -38,7 +38,7 @@ function MyComponent(state) {
         <div className="container">
           <div className="title-item--product">
             <label>
-              Nuevos <span>proveedores</span>
+              {t("dashboard.new")} <span>{t("dashboard.suppliers")}</span>
             </label>
           </div>
           <div className="content-provider">
@@ -95,7 +95,7 @@ function MyComponent(state) {
                 </a>
               </div>
             </div>
-            {/* <div className="box-provider--double">
+            <div className="box-provider--double">
               <div className="item-box--provider">
                 <div className="item-box--text">
                   <label className="title-item--provider">
@@ -125,7 +125,6 @@ function MyComponent(state) {
                 </div>
               </div>
             </div>
-           */}
           </div>
         </div>
       </div>
@@ -153,11 +152,11 @@ function MyComponent(state) {
               <a href="/">Tella Market</a>
             </div>
             <div className="text-footer">
-              <a href="/">Contato</a>
+              <a href="/">{t("dashboard.contact")}</a>
             </div>
           </div>
           <div className="item-footer--menu">
-            <h2>Categorias</h2>
+            <h2>{t("dashboard.categories")}</h2>
             <div className="text-footer">
               <a href="/">Industrias</a>
             </div>
@@ -173,7 +172,7 @@ function MyComponent(state) {
           </div>
 
           <div className="item-footer--menu">
-            <h2>Soporte</h2>
+            <h2>{t("dashboard.support")}</h2>
             <div className="text-footer">
               <a href="/">Blog</a>
             </div>
@@ -185,7 +184,7 @@ function MyComponent(state) {
             <h2>Subscríbete</h2>
             {/* <input type="text" value="" placeholder="Tu email aquí" /> */}
             <div className="text-footer">
-              <a href="/">Todos los derechos reservados Tella Market</a>
+              <a href="/">{t("dashboard.copyright")}</a>
             </div>
           </div>
         </div>
@@ -217,13 +216,14 @@ class Dashboard extends Component {
       },
       {
         imageUrl:
-          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+          "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
       }
     ];
     obj["image"] =
       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8";
     obj["id"] = 1;
     imagesMainBar.push(obj);
+    imagesMultiBar.push(obj);
 
     var obj = new Object();
     obj["titlecategory"] = "Titulo Categoria";
