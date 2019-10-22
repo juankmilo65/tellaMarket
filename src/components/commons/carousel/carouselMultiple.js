@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Carousel from "../carousel/carousel";
+import CarouselImage from "../carousel/carouselImage";
+import "./carousel.scss";
 
 class carouselMultiple extends Component {
   render() {
@@ -13,7 +14,14 @@ class carouselMultiple extends Component {
               idCorrousel++;
               return (
                 <div key={idCorrousel} className="col-md-3">
-                  <Carousel images={image} />
+                  <div className="carrusel-small">
+                    <CarouselImage images={image} />
+                    <div className="item-banner-xs">
+                      <div className="title-product">titulo</div>
+                      <div className="title-category">categoria</div>
+                      <div className="value--price">123</div>
+                    </div>
+                  </div>
                 </div>
               );
             })}

@@ -5,8 +5,12 @@ export const GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS =
   "GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS";
 export const GET_DASHBOARD_PRODUCTS_PLAN_PLUS =
   "GET_DASHBOARD_PRODUCTS_PLAN_PLUS";
+export const GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS =
+  "GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS";
 export const GET_DASHBOARD_PRODUCTS_PLAN_BASIC =
   "GET_DASHBOARD_PRODUCTS_PLAN_BASIC";
+export const GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS =
+  "GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS";
 
 export function setStatus(status) {
   return {
@@ -29,14 +33,30 @@ export function getDashboardProductsPlanPremiumSuccess(itemList) {
   };
 }
 
-export function getDashboardProductsPlanPlus() {
+export function getDashboardProductsPlanPlus(firebase) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PLUS
+    type: GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
+    payload: firebase
   };
 }
 
-export function getDashboardProductsPlanBasic() {
+export function getDashboardProductsPlanPlusSuccess(itemList) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_BASIC
+    type: GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS,
+    payload: itemList
+  };
+}
+
+export function getDashboardProductsPlanBasic(firebase) {
+  return {
+    type: GET_DASHBOARD_PRODUCTS_PLAN_BASIC,
+    payload: firebase
+  };
+}
+
+export function getDashboardProductsPlanBasicSuccess(itemList) {
+  return {
+    type: GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS,
+    payload: itemList
   };
 }

@@ -1,6 +1,8 @@
 import {
   setStatus,
   getDashboardProductsPlanPremiumSuccess,
+  getDashboardProductsPlanPlusSuccess,
+  getDashboardProductsPlanBasicSuccess,
   GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
   GET_DASHBOARD_PRODUCTS_PLAN_PLUS,
   GET_DASHBOARD_PRODUCTS_PLAN_BASIC
@@ -38,6 +40,46 @@ export default function dashboardEpics(action$) {
                 itemList.push(obj);
               });
               return getDashboardProductsPlanPremiumSuccess(itemList);
+            })
+        );
+      } else if (action.type === GET_DASHBOARD_PRODUCTS_PLAN_PLUS) {
+        return concat(
+          of(setStatus("pending")),
+          getFS
+            .collection("items")
+            .where("planId", "==", 1)
+            .where("expirationDate", ">=", new Date())
+            .get()
+            .then(snapshot => {
+              let itemList = [];
+              snapshot.forEach(doc => {
+                var obj = {
+                  id: doc.id,
+                  data: doc.data()
+                };
+                itemList.push(obj);
+              });
+              return getDashboardProductsPlanPlusSuccess(itemList);
+            })
+        );
+      } else if (action.type === GET_DASHBOARD_PRODUCTS_PLAN_BASIC) {
+        return concat(
+          of(setStatus("pending")),
+          getFS
+            .collection("items")
+            .where("planId", "==", 1)
+            .where("expirationDate", ">=", new Date())
+            .get()
+            .then(snapshot => {
+              let itemList = [];
+              snapshot.forEach(doc => {
+                var obj = {
+                  id: doc.id,
+                  data: doc.data()
+                };
+                itemList.push(obj);
+              });
+              return getDashboardProductsPlanBasicSuccess(itemList);
             })
         );
       }

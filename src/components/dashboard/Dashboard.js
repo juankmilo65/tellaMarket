@@ -6,10 +6,11 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
-import { getDashboardProductsPlanPremium } from "../dashboard/actions/dashboardActions";
-import banner1 from "../commons/carousel/img/banner1.png";
-import banner2 from "../commons/carousel/img/banner2.png";
-import banner3 from "../commons/carousel/img/banner3.png";
+import {
+  getDashboardProductsPlanPremium,
+  getDashboardProductsPlanPlus,
+  getDashboardProductsPlanBasic
+} from "../dashboard/actions/dashboardActions";
 import bannerXs1 from "../commons/carousel/img/banner-xs-1.png";
 import bannerXs2 from "../commons/carousel/img/banner-xs-2.png";
 import bannerXs3 from "../commons/carousel/img/banner-xs-3.png";
@@ -23,7 +24,7 @@ import "./dashboard.scss";
 class Dashboard extends Component {
   render() {
     const { getDashboardProductsPlanPremium, firebase, lang } = this.props;
-    const { notifications, itemsPremium } = this.props;
+    const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
     const imagesMainBar = [];
 
     const imagesMultiBar = [
@@ -158,23 +159,48 @@ class Dashboard extends Component {
       ]
     ];
 
-    if (itemsPremium.length === 0) {
-      getDashboardProductsPlanPremium(firebase);
-    } else {
-      itemsPremium.map(item => {
-        var obj = new Object();
-        obj["titlecategory"] =
-          lang === "en"
-            ? item.data.subcategory.subcategoryName
-            : item.data.subcategory.subcategoryName;
-        obj["titleproduct"] = item.data.productInformation.brand;
-        obj["valueprice"] = item.data.productInformation.price;
-        obj["image"] = item.data.images[0].imageUrl1;
-        obj["id"] = item.id;
+    //     if (itemsPremium.length === 0) {
+    //       getDashboardProductsPlanPremium(firebase);
+    //     } else {
+    //       itemsPremium.map(item => {
+    //         var obj = new Object();
+    //         obj["titlecategory"] =
+    //           lang === "en"
+    //             ? item.data.subcategory.subcategoryName
+    //             : item.data.subcategory.subcategoryName;
+    //         obj["titleproduct"] = item.data.productInformation.brand;
+    //         obj["valueprice"] = item.data.productInformation.price;
+    //         obj["image"] = item.data.images[0].imageUrl1;
+    //         obj["id"] = item.id;
+    //         imagesMainBar.push(obj);
+    //       });
+    //     }
 
-        imagesMainBar.push(obj);
-      });
-    }
+    //      if (itemsPlus.length === 0) {
+    //        getDashboardProductsPlanPlus(firebase);
+    //      } else {
+    //        itemsPremium.map(item => {
+
+    // // {
+    // //           image: bannerXs1,
+    // //           titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
+    // //           category: "Categoría 1",
+    // //           valueprice: "$892.00",
+    // //           id: 1
+    // //         }
+
+    //          var obj = new Object();
+    //          obj["category"] =
+    //            lang === "en"
+    //              ? item.data.subcategory.subcategoryName
+    //              : item.data.subcategory.subcategoryName;
+    //          obj["titleproduct"] = item.data.productInformation.brand;
+    //          obj["valueprice"] = item.data.productInformation.price;
+    //          obj["images"] = item.data.images;
+    //          obj["id"] = item.id;
+    //          imagesMainBar.push(obj);
+    //        });
+    //      }
 
     return (
       <div className="pd-top--130px">
@@ -380,7 +406,11 @@ const mapStateToProps = state => {
 export default compose(
   connect(
     mapStateToProps,
-    { getDashboardProductsPlanPremium }
+    {
+      getDashboardProductsPlanPremium,
+      getDashboardProductsPlanPlus,
+      getDashboardProductsPlanBasic
+    }
   ),
   firestoreConnect([
     { collection: "items", orderBy: ["createAt", "desc"] },
