@@ -122,5 +122,14 @@
     "createItem": "Product successfully created",
     "ok": "Ok",
     "congratulation": "Congratulations"
+  },
+  "dashboard": {
+    "bigOffers": "Big offers",
+    "new": "New",
+    "suppliers": "suppliers",
+    "contact": "Contact",
+    "categories": "Categories",
+    "support": "Support",
+    "Copyright": "Copyright: All the reserved rights on texts and images"
   }
 }
