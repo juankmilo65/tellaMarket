@@ -74,7 +74,7 @@ export default function controlDataItemEpics(action$) {
                   )
                   .then(result => {
                     var objImage = new Object();
-                    objImage["imageUrl" + count] = result.data.downloadURL;
+                    objImage["imageUrl"] = result.data.downloadURL;
                     obj.images.push(objImage);
                     if (action.payload.multimedia.length === count) {
                       getFS

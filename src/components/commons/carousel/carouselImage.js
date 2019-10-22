@@ -31,7 +31,7 @@ class carouselImage extends Component {
               <Carousel.Item key={image.id}>
                 <img
                   className="d-block w-100"
-                  src={image.image}
+                  src={image.imageUrl}
                   alt="First slide"
                 />
               </Carousel.Item>

@@ -23,146 +23,30 @@ import "./dashboard.scss";
 
 class Dashboard extends Component {
   render() {
-    const { getDashboardProductsPlanPremium, firebase, lang } = this.props;
+    const {
+      getDashboardProductsPlanPremium,
+      getDashboardProductsPlanPlus,
+      firebase,
+      lang
+    } = this.props;
     const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
     const imagesMainBar = [];
-
-    const imagesMultiBar = [
-      [
-        {
-          image: bannerXs1,
-          titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
-          category: "Categoría 1",
-          valueprice: "$892.00",
-          id: 1
-        },
-        {
-          image: bannerXs1,
-          titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
-          category: "Categoría 1",
-          valueprice: "$892.00",
-          id: 2
-        },
-        {
-          image: bannerXs1,
-          titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
-          category: "Categoría 1",
-          valueprice: "$892.00",
-          id: 3
-        }
-      ],
-      [
-        {
-          image: bannerXs2,
-          titleproduct: "MULLER MARTINI Italiana 370",
-          category: "Textile and Leather Machinery ",
-          valueprice: "$932.00",
-          id: 1
-        },
-        {
-          image: bannerXs2,
-          titleproduct: "MULLER MARTINI Italiana 370",
-          category: "Textile and Leather Machinery ",
-          valueprice: "$932.00",
-          id: 2
-        },
-        {
-          image: bannerXs2,
-          titleproduct: "MULLER MARTINI Italiana 370",
-          category: "Textile and Leather Machinery ",
-          valueprice: "$932.00",
-          id: 3
-        }
-      ],
-      [
-        {
-          image: bannerXs3,
-          titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
-          category: "Categoría tres",
-          valueprice: "$230.00",
-          id: 1
-        },
-        {
-          image: bannerXs3,
-          titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
-          category: "Categoría tres",
-          valueprice: "$230.00",
-          id: 2
-        },
-        {
-          image: bannerXs3,
-          titleproduct: "Wohlenberg 185 Cut-Tec, Guillotine",
-          category: "Categoría tres",
-          valueprice: "$230.00",
-          id: 3
-        }
-      ],
-      [
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 1
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 2
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 3
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 4
-        }
-      ],
-      [
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 1
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 2
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 3
-        },
-        {
-          image: bannerXs4,
-          titleproduct: "Kama TS 105, Automatic Die Cutter",
-          category: "Categoría cuatro",
-          valueprice: "$503.00",
-          id: 4
-        }
-      ]
-    ];
+    const imagesMultiBar = [];
 
     var obj = new Object();
     obj["titlecategory"] = "Titulo Categoria";
     obj["titleproduct"] = "Titulo Producto";
-    obj["valueprice"] = "$1000";
+    obj["valueprice"] = "$2000";
+    obj["images"] = [
+      {
+        imageUrl:
+          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+      },
+      {
+        imageUrl:
+          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+      }
+    ];
     obj["image"] =
       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8";
     obj["id"] = 1;
@@ -175,6 +59,16 @@ class Dashboard extends Component {
     obj["image"] =
       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg";
     obj["id"] = 2;
+    obj["images"] = [
+      {
+        imageUrl:
+          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+      },
+      {
+        imageUrl:
+          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+      }
+    ];
     imagesMainBar.push(obj);
 
     //     if (itemsPremium.length === 0) {
@@ -194,31 +88,29 @@ class Dashboard extends Component {
     //       });
     //     }
 
-    //      if (itemsPlus.length === 0) {
-    //        getDashboardProductsPlanPlus(firebase);
-    //      } else {
-    //        itemsPremium.map(item => {
+    if (itemsPlus.length === 0) {
+      getDashboardProductsPlanPlus(firebase);
+    } else {
+      itemsPlus.map(item => {
+        var obj = new Object();
+        obj["titlecategory"] =
+          lang === "en"
+            ? item.data.subcategory.subcategoryName
+            : item.data.subcategory.subcategoryName;
+        obj["titleproduct"] = item.data.productInformation.brand;
+        obj["valueprice"] = item.data.productInformation.price;
+        obj["images"] = item.data.images;
+        obj["id"] = item.id;
+        imagesMultiBar.push(obj);
+      });
 
-    // // {
-    // //           image: bannerXs1,
-    // //           titleproduct: "Guardar 30 gal. Hazardous Location Drum Vacuum Kits",
-    // //           category: "Categoría 1",
-    // //           valueprice: "$892.00",
-    // //           id: 1
-    // //         }
-
-    //          var obj = new Object();
-    //          obj["category"] =
-    //            lang === "en"
-    //              ? item.data.subcategory.subcategoryName
-    //              : item.data.subcategory.subcategoryName;
-    //          obj["titleproduct"] = item.data.productInformation.brand;
-    //          obj["valueprice"] = item.data.productInformation.price;
-    //          obj["images"] = item.data.images;
-    //          obj["id"] = item.id;
-    //          imagesMainBar.push(obj);
-    //        });
-    //      }
+      {
+        imagesMainBar &&
+          imagesMainBar.map(item => {
+            imagesMultiBar.push(item);
+          });
+      }
+    }
 
     return (
       <div className="pd-top--130px">
@@ -229,7 +121,7 @@ class Dashboard extends Component {
           <div className="item-title">
             <span>Grandes Ofertas</span>
           </div>
-          <CarouselMultiple images={imagesMultiBar} />
+          <CarouselMultiple items={imagesMultiBar} />
         </div>
         {/* <div>
           <ItemList items={items} />

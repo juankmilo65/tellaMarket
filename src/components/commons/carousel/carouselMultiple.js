@@ -4,22 +4,20 @@ import "./carousel.scss";
 
 class carouselMultiple extends Component {
   render() {
-    const { images } = this.props;
-    let idCorrousel = 0;
+    const { items } = this.props;
     return (
       <div>
         <div className="row">
-          {images &&
-            images.map(image => {
-              idCorrousel++;
+          {items &&
+            items.map(item => {
               return (
-                <div key={idCorrousel} className="col-md-3">
+                <div key={item.id} className="col-md-3">
                   <div className="carrusel-small">
-                    <CarouselImage images={image} />
+                    <CarouselImage images={item.images} />
                     <div className="item-banner-xs">
-                      <div className="title-product">titulo</div>
-                      <div className="title-category">categoria</div>
-                      <div className="value--price">123</div>
+                      <div className="title-product">{item.titleproduct}</div>
+                      <div className="title-category">{item.titlecategory}</div>
+                      <div className="value--price">{item.valueprice}</div>
                     </div>
                   </div>
                 </div>

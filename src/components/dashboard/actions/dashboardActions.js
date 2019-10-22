@@ -35,7 +35,7 @@ export function getDashboardProductsPlanPremiumSuccess(itemList) {
 
 export function getDashboardProductsPlanPlus(firebase) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
+    type: GET_DASHBOARD_PRODUCTS_PLAN_PLUS,
     payload: firebase
   };
 }
