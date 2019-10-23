@@ -209,7 +209,8 @@ class Dashboard extends Component {
     obj["titlecategory"] = "Titulo Categoria";
     obj["titleproduct"] = "Titulo Producto";
     obj["valueprice"] = "$2000";
-    obj["description"] = "Description Test";
+    obj["description"] =
+      "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
     obj["email"] = "asdfgh@sdfghj.com";
     obj["phone"] = "33333333";
     obj["images"] = [
@@ -225,6 +226,7 @@ class Dashboard extends Component {
     obj["image"] =
       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8";
     obj["id"] = 1;
+    obj["year"] = "2019-10-03";
     imagesMainBar.push(obj);
     imagesMultiBar.push(obj);
 
@@ -232,7 +234,9 @@ class Dashboard extends Component {
     obj["titlecategory"] = "Titulo Categoria";
     obj["titleproduct"] = "Titulo Producto";
     obj["valueprice"] = "$1000";
-    obj["description"] = "Description Test";
+    obj["year"] = "2019-10-03";
+    obj["description"] =
+      "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
     obj["email"] = "asdfgh@sdfghj.com";
     obj["phone"] = "22222222";
     obj["image"] =
@@ -267,6 +271,7 @@ class Dashboard extends Component {
     //         obj["phone"] = item.data.productInformation.phone;
     //         obj["image"] = item.data.images[0].imageUrl1;
     //         obj["id"] = item.id;
+    //         obj["year"] = item.data.productInformation.year;
     //         imagesMainBar.push(obj);
     //       });
     //     }
@@ -283,10 +288,11 @@ class Dashboard extends Component {
     //     obj["titleproduct"] = item.data.productInformation.brand;
     //     obj["valueprice"] = item.data.productInformation.price;
     //     obj["description"] = item.data.productInformation.description;
-    //         obj["email"] = item.data.productInformation.email;
-    //         obj["phone"] = item.data.productInformation.phone;
+    //     obj["email"] = item.data.productInformation.email;
+    //     obj["phone"] = item.data.productInformation.phone;
     //     obj["images"] = item.data.images;
     //     obj["id"] = item.id;
+    //     obj["year"] = item.data.productInformation.year;
     //     imagesMultiBar.push(obj);
     //   });
 

@@ -29,7 +29,6 @@ function MyComponent(state) {
               className="img-big"
               src={state.itemtemObjet.images[0].imageUrl}
             />
-
             <div className="img-slider">
               {state.itemtemObjet.images &&
                 state.itemtemObjet.images.map(image => {
@@ -44,19 +43,15 @@ function MyComponent(state) {
           <div className="col-5">
             <div>
               <label className="title-product--list">
-                Mid Century Modern Plant Stand with Square Legs
+                {state.itemtemObjet.titleproduct}
               </label>
             </div>
-            <div className="price-list">$ 892.00</div>
+            <div className="price-list"> {state.itemtemObjet.valueprice}</div>
             <div className="hr"></div>
             <div className="info-product--description">
-              <span>
-                Descripción del producto viverra at erat vel, mattis commodo
-                magna. Vestibulum porta leo at augue hendrerit, nec consequat
-                purus varius. Vivamus libero nunc, aliquet quis viverra.
-              </span>
+              <span>{state.itemtemObjet.description}</span>
               <ul>
-                <li>
+                {/* <li>
                   <span>7 x 5.5 x 7.5 in</span>
                 </li>
                 <li>
@@ -66,26 +61,26 @@ function MyComponent(state) {
                   <span>
                     Adecuado para plantas que miden 2-4 pulgadas de diámetro.
                   </span>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="button-icon">
-              <button className="btns btn-go">Contactar al vendedor</button>
-              <i className="material-icons unlike">favorite_border</i>
+              <button className="btns btn-go">{t("itemDetal.contact")}</button>
+              {/* <i className="material-icons unlike">favorite_border</i>*/}
               <i className="material-icons like">favorite</i>
             </div>
             <div className="detail-product">
               <div>
-                <label>Disponibilidad:</label>
-                <span className="cl-green">En stock</span>
+                <label>{t("itemDetal.availability")}:</label>
+                <span className="cl-green">{t("itemDetal.stok")}</span>
               </div>
               <div>
-                <label>Categorías:</label>
-                <span>Categoria 1</span>
+                <label>{t("itemDetal.categories")}:</label>
+                <span>{state.itemtemObjet.titlecategory}</span>
               </div>
               <div>
-                <label>Año:</label>
-                <span>2000</span>
+                <label>{t("itemDetal.year")}:</label>
+                <span>{state.itemtemObjet.valueprice}</span>
               </div>
             </div>
           </div>

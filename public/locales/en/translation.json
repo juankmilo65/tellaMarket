@@ -136,5 +136,12 @@
     "support": "Support",
     "copyright": "Copyright: All the reserved rights on texts and images",
     "notifications": "Notifications"
+  },
+  "itemDetal": {
+    "availability": "Availability",
+    "categories": "Categories",
+    "year": "Year",
+    "contact": "Contact the seller",
+    "stok": "In stock"
   }
 }
