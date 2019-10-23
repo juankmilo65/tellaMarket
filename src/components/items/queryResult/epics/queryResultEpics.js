@@ -19,11 +19,7 @@ export default function queryResultEpics(action$) {
           of(setStatus("pending")),
           getFS
             .collection("items")
-            .where(
-              "subcategory.categorySelectedId",
-              "==",
-              action.payload.idCategory
-            )
+            .where("subcategory.categorySelectedId", "==", action.payload)
             .get()
             .then(snapshot => {
               let itemList = [];

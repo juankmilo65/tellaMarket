@@ -12,22 +12,32 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
 
-  return (    
+  return (
     <div className="list-products">
       {state.items != null &&
         state.items.map(item => {
           return (
             <div className="item-product--list" key={item.id}>
               <div className="img-list">
-                <img src={producto2}/>
+                <img src={item.data.images[0].imageUrl} />
               </div>
               <div className="info-product--list">
-                <label className="title-product--list">{item.name}</label>
-                <div className="category-list">Categoría uno</div>
-                <div className="category-list">{item.year}</div>
+                <label className="title-product--list">
+                  {item.data.productInformation.productName}
+                </label>
+                <div className="category-list">
+                  {item.data.subcategory.subcategoryName}
+                </div>
+                <div className="category-list">
+                  {item.data.productInformation.year}
+                </div>
                 <div className="price-button--list">
-                  <div className="price-list">$ 892.00</div>
-                  <button  className="btns btn-go" onClick={state.setRedirect}>Ver mas</button>
+                  <div className="price-list">
+                    {item.data.productInformation.price} USD
+                  </div>
+                  <button className="btns btn-go" onClick={state.setRedirect}>
+                    Ver mas
+                  </button>
                 </div>
               </div>
             </div>
@@ -55,20 +65,8 @@ class ItemList extends Component {
   };
 
   render() {
-    const { lang } = this.props;
+    const { lang, items } = this.props;
 
-    const items = [
-      {
-        id: 1,
-        name: "Item 1",
-        year: "1998"
-      },
-      {
-        id: 2,
-        name: "Item 2",
-        year: "2005"
-      }
-    ];
     return (
       <MyComponent
         lang={lang}

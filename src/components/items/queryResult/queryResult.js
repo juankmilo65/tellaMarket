@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import Filter from "../filter/filter";
 import ItemList from "../list/itemList";
 import "./queryResult.scss";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
 
 class Query extends Component {
   render() {
     const { idCategory } = this.props.location.state;
+    const { getProductsByCategory, items } = this.props;
+
+    if (items.length == 0) {
+      getProductsByCategory(idCategory);
+    }
 
     return (
       <div>
@@ -16,7 +24,7 @@ class Query extends Component {
           </div>
           <div className="list-product">
             <Filter />
-            <ItemList />
+            <ItemList items={items} />
           </div>
         </div>
       </div>
@@ -24,4 +32,15 @@ class Query extends Component {
   }
 }
 
-export default Query;
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  lang: state.navar.lang,
+  items: state.queryResult.items
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getProductsByCategory
+  }
+)(Query);
