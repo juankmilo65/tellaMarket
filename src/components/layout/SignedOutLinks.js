@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "./actions/navarActions";
 import { Redirect } from "react-router-dom";

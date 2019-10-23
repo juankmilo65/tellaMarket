@@ -5,6 +5,8 @@ import "./queryResult.scss";
 
 class Query extends Component {
   render() {
+    const { idCategory } = this.props.location.state;
+
     return (
       <div>
         <br />
@@ -23,9 +25,7 @@ class Query extends Component {
             <ItemList />
           </div>
         </div>
-
       </div>
-      
     );
   }
 }

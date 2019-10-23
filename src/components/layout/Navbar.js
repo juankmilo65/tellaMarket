@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
@@ -19,10 +20,38 @@ const options = [
 ];
 
 class Navbar extends Component {
+  state = {
+    redirect: false,
+    idCategory: ""
+  };
   handleChange = e => {};
 
   handleLanguage = e => {
     this.props.setLanguage(e);
+  };
+
+  setRedirect = idCategory => {
+    this.setState({
+      redirect: true
+    });
+    this.setState({
+      idCategory: idCategory
+    });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/query",
+            state: {
+              idCategory: this.state.idCategory
+            }
+          }}
+        />
+      );
+    }
   };
 
   render() {
@@ -121,7 +150,10 @@ class Navbar extends Component {
                     list.map(category => {
                       return (
                         <div key={category.id}>
-                          <a className="dropdown-item" href="#">
+                          <a
+                            className="dropdown-item"
+                            onClick={() => this.setRedirect(category.id)}
+                          >
                             {
                               Object.keys(
                                 category.data[Object.keys(category.data)[0]]
@@ -142,6 +174,7 @@ class Navbar extends Component {
             </div>
           </div>
         )}
+        {this.renderRedirect()}
       </div>
     );
   }
