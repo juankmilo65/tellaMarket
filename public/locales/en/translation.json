@@ -48,7 +48,9 @@
     "description": "Description",
     "descriptionPlaceHolder": "Full details",
     "price": "Price",
-    "pricePlaceHolder": "UDS Dollars"
+    "pricePlaceHolder": "UDS Dollars",
+    "phone": "Contact phone",
+    "email": "Email"
   },
   "multimedia": {
     "title": "Upload Multimedia Files",

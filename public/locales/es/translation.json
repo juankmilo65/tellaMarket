@@ -48,7 +48,9 @@
     "description": "Descripción",
     "descriptionPlaceHolder": "Descripción detallada",
     "price": "Precio",
-    "pricePlaceHolder": "Dolares americanos"
+    "pricePlaceHolder": "Dolares americanos",
+    "phone": "Telefono de contacto",
+    "email": "Correo electronico"
   },
   "multimedia": {
     "title": "Cargar Archivos Multimedia",
