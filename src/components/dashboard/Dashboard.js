@@ -15,7 +15,7 @@ import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
-import banner1 from "../commons/carousel/img/banner1.jpeg";
+import banner1 from "../commons/carousel/img/banner1.png";
 import "./dashboard.scss";
 
 function MyComponent(state) {

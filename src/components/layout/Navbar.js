@@ -9,6 +9,7 @@ import { setLanguage } from "./actions/navarActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 import Autocomplete from "../commons/autocomplete/Autocomplete";
+import ControlledOpenSelect from "../commons/select/select"
 
 const options = [
   { label: "EN", value: "en" },
@@ -69,6 +70,9 @@ class Navbar extends Component {
                 value=""
                 images={images}
               />
+              <ControlledOpenSelect></ControlledOpenSelect>
+
+
             </div>
           </div>
         </nav>
