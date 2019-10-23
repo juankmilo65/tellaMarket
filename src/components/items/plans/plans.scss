@@ -94,3 +94,31 @@
     }
   }
 }
+
+.water-soon{
+
+}
+.watermark{
+  position: relative;
+  .water-soon{
+    display: none;
+  }
+  &:hover{
+    .water-soon{
+      padding: 20px 50px;
+      position: absolute;
+      color: $blue;
+      font-weight: bold;
+      font-size: 26px;
+      text-transform: uppercase;
+      border-left: 0;
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      align-items: center;
+    }
+    .card-plans{
+      opacity: 0.2;
+    }
+  }
+}

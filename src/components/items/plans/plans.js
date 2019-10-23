@@ -71,42 +71,47 @@ function MyComponent(state) {
             {t("buttons.SelectPlan")}
           </button>
         </div>
-        <div className="card-plans">
-          <h2 htmlFor="productName">{t("plan.planTwo.name")}</h2>
-          <div className="price">
-            <span className="sign">$</span>
-            <span className="plan-value--price">{t("plan.planTwo.price")}</span>
-            <span className="month">Month</span>
-          </div>
-          <div>
-            <img className="img-plan" src={plan2} />
-            <img className="img-plan--hover" src={plan6} />
-          </div>
-          <div className="plan-description">
-            <div className="item-description">
-              <i className="material-icons i-normal">check_circle_outline</i>
-              <i className="material-icons i-hover">check_circle</i>
-              <span>{t("plan.planTwo.features.featureA")}</span>
+        <div className="watermark">
+          <div className="water-soon"><span>Próximamente</span></div>
+          <div className="card-plans">
+            <h2 htmlFor="productName">{t("plan.planTwo.name")}</h2>
+            <div className="price">
+              <span className="sign">$</span>
+              <span className="plan-value--price">{t("plan.planTwo.price")}</span>
+              <span className="month">Month</span>
             </div>
-            <div className="item-description">
-              <i className="material-icons i-normal">check_circle_outline</i>
-              <i className="material-icons i-hover">check_circle</i>
-              <span>{t("plan.planTwo.features.featureB")}</span>
+            <div>
+              <img className="img-plan" src={plan2} />
+              <img className="img-plan--hover" src={plan6} />
             </div>
-            <div className="item-description">
-              <i className="material-icons i-normal">check_circle_outline</i>
-              <i className="material-icons i-hover">check_circle</i>
-              <span>{t("plan.planTwo.features.featureC")}</span>
+            <div className="plan-description">
+              <div className="item-description">
+                <i className="material-icons i-normal">check_circle_outline</i>
+                <i className="material-icons i-hover">check_circle</i>
+                <span>{t("plan.planTwo.features.featureA")}</span>
+              </div>
+              <div className="item-description">
+                <i className="material-icons i-normal">check_circle_outline</i>
+                <i className="material-icons i-hover">check_circle</i>
+                <span>{t("plan.planTwo.features.featureB")}</span>
+              </div>
+              <div className="item-description">
+                <i className="material-icons i-normal">check_circle_outline</i>
+                <i className="material-icons i-hover">check_circle</i>
+                <span>{t("plan.planTwo.features.featureC")}</span>
+              </div>
             </div>
+            <button
+              className="btns btn-go btn-hover"
+              onClick={() => state.handleSave(2)}
+            >
+              {t("buttons.SelectPlan")}
+            </button>
           </div>
-          <button
-            className="btns btn-go btn-hover"
-            onClick={() => state.handleSave(2)}
-          >
-            {t("buttons.SelectPlan")}
-          </button>
         </div>
-        <div className="card-plans">
+        <div className="watermark">
+          <div className="water-soon"><span>Próximamente</span></div>
+          <div className="card-plans">
           <h2 htmlFor="productName">{t("plan.planThree.name")}</h2>
           <div className="price">
             <span className="sign">$</span>
@@ -143,7 +148,10 @@ function MyComponent(state) {
             {t("buttons.SelectPlan")}
           </button>
         </div>
-        <div className="card-plans">
+        </div>
+        <div className="watermark">
+          <div className="water-soon"><span>Próximamente</span></div>
+          <div className="card-plans">
           <h2 htmlFor="productName">{t("plan.planFour.name")}</h2>
           <div className="price">
             <span className="sign">$</span>
@@ -179,6 +187,7 @@ function MyComponent(state) {
           >
             {t("buttons.SelectPlan")}
           </button>
+        </div>
         </div>
       </div>
       <Popup
