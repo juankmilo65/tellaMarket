@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 import Select from "react-select";
 import { hideHeader } from "../layout/actions/navarActions";
 import { setLanguage } from "./actions/navarActions";
+import { getDocuments } from "../commons/data/actions/dataActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 import Autocomplete from "../commons/autocomplete/Autocomplete";
-import ControlledOpenSelect from "../commons/select/select"
+import ControlledOpenSelect from "../commons/select/select";
 
 const options = [
   { label: "EN", value: "en" },
@@ -25,7 +26,17 @@ class Navbar extends Component {
   };
 
   render() {
-    const { auth, profile, header, hideHeader } = this.props;
+    const {
+      auth,
+      lang,
+      profile,
+      header,
+      hideHeader,
+      documentsEn,
+      documentsEs,
+      firebase
+    } = this.props;
+    let list = [];
     const images = [logo];
     const hideHeaderLocal =
       header.isFomSignin && window.location.pathname === "/signin"
@@ -36,6 +47,18 @@ class Navbar extends Component {
 
     header.hideHeader = hideHeaderLocal;
     hideHeader(header);
+
+    if (lang.value === "es") {
+      if (documentsEs.length === 0) {
+        this.props.getDocuments({ firebase, language: "es" });
+      }
+    } else if (lang.value === "en") {
+      if (documentsEn.length === 0) {
+        this.props.getDocuments({ firebase, language: "en" });
+      }
+    }
+
+    list = lang.value === "en" ? documentsEn : documentsEs;
 
     const links = auth.uid ? (
       <SignedInLinks profile={profile} />
@@ -71,8 +94,6 @@ class Navbar extends Component {
                 images={images}
               />
               <ControlledOpenSelect></ControlledOpenSelect>
-
-
             </div>
           </div>
         </nav>
@@ -96,21 +117,20 @@ class Navbar extends Component {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton"
                 >
-                  <a className="dropdown-item" href="#">
-                    Clinical & Laboratory Equipment
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Textile Laboratory equipment
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Yarn manufacturing
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Weaving machinery
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Finishing and other press equipment
-                  </a>
+                  {list &&
+                    list.map(category => {
+                      return (
+                        <div key={category.id}>
+                          <a className="dropdown-item" href="#">
+                            {
+                              Object.keys(
+                                category.data[Object.keys(category.data)[0]]
+                              )[0]
+                            }
+                          </a>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
               <div className="input-search">
@@ -131,11 +151,13 @@ const mapStateToProps = state => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     lang: state.navar.lang,
-    header: state.navar.header
+    header: state.navar.header,
+    documentsEn: state.data.documentsEn,
+    documentsEs: state.data.documentsEs
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setLanguage, hideHeader }
+  { setLanguage, hideHeader, getDocuments }
 )(Navbar);
