@@ -5,12 +5,16 @@ import "./carousel.scss";
 
 class carouselMultiple extends Component {
   state = {
-    redirect: false
+    redirect: false,
+    selectedItem: {}
   };
 
-  setRedirect = () => {
+  setRedirect = item => {
     this.setState({
       redirect: true
+    });
+    this.setState({
+      selectedItem: item
     });
   };
 
@@ -20,7 +24,9 @@ class carouselMultiple extends Component {
         <Redirect
           to={{
             pathname: "/itemDetail",
-            state: { id: "123" }
+            state: {
+              itemtemObjet: this.state.selectedItem
+            }
           }}
         />
       );
@@ -41,10 +47,9 @@ class carouselMultiple extends Component {
                       <div className="title-product">{item.titleproduct}</div>
                       <div className="title-category">{item.titlecategory}</div>
                       <div className="value--price">{item.valueprice}</div>
-
                       <button
                         className="btns btn-go"
-                        onClick={this.setRedirect}
+                        onClick={() => this.setRedirect(item)}
                       >
                         Ver mas
                       </button>
@@ -54,6 +59,7 @@ class carouselMultiple extends Component {
               );
             })}
         </div>
+        {this.renderRedirect()}
       </div>
     );
   }

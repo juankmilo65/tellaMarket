@@ -209,6 +209,9 @@ class Dashboard extends Component {
     obj["titlecategory"] = "Titulo Categoria";
     obj["titleproduct"] = "Titulo Producto";
     obj["valueprice"] = "$2000";
+    obj["description"] = "Description Test";
+    obj["email"] = "asdfgh@sdfghj.com";
+    obj["phone"] = "33333333";
     obj["images"] = [
       {
         imageUrl:
@@ -229,6 +232,9 @@ class Dashboard extends Component {
     obj["titlecategory"] = "Titulo Categoria";
     obj["titleproduct"] = "Titulo Producto";
     obj["valueprice"] = "$1000";
+    obj["description"] = "Description Test";
+    obj["email"] = "asdfgh@sdfghj.com";
+    obj["phone"] = "22222222";
     obj["image"] =
       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg";
     obj["id"] = 2;
@@ -256,6 +262,9 @@ class Dashboard extends Component {
     //             : item.data.subcategory.subcategoryName;
     //         obj["titleproduct"] = item.data.productInformation.brand;
     //         obj["valueprice"] = item.data.productInformation.price;
+    //         obj["description"] = item.data.productInformation.description;
+    //         obj["email"] = item.data.productInformation.email;
+    //         obj["phone"] = item.data.productInformation.phone;
     //         obj["image"] = item.data.images[0].imageUrl1;
     //         obj["id"] = item.id;
     //         imagesMainBar.push(obj);
@@ -273,6 +282,9 @@ class Dashboard extends Component {
     //         : item.data.subcategory.subcategoryName;
     //     obj["titleproduct"] = item.data.productInformation.brand;
     //     obj["valueprice"] = item.data.productInformation.price;
+    //     obj["description"] = item.data.productInformation.description;
+    //         obj["email"] = item.data.productInformation.email;
+    //         obj["phone"] = item.data.productInformation.phone;
     //     obj["images"] = item.data.images;
     //     obj["id"] = item.id;
     //     imagesMultiBar.push(obj);

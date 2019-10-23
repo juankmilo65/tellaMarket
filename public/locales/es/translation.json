@@ -49,7 +49,9 @@
     "descriptionPlaceHolder": "Descripción detallada",
     "price": "Precio",
     "pricePlaceHolder": "Dolares americanos",
-    "phone": "Telefono de contacto",
+    "phonePlaceholder": "Telefono de contacto",
+    "emailPlaceholder": "Correo electronico",
+    "phone": "Celular",
     "email": "Correo electronico"
   },
   "multimedia": {

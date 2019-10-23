@@ -49,7 +49,9 @@
     "descriptionPlaceHolder": "Full details",
     "price": "Price",
     "pricePlaceHolder": "UDS Dollars",
-    "phone": "Contact phone",
+    "phonePlaceholder": "Contact phone",
+    "emailPlaceholder": "Email",
+    "phone": "Phone",
     "email": "Email"
   },
   "multimedia": {

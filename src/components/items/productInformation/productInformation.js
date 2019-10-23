@@ -104,6 +104,7 @@ function MyComponent(state) {
             )}
           </div>
         </div>
+
         <div className="item-form">
           <div className="form-group input-tella input-icon">
             <label htmlFor="year" className="is-required">
@@ -183,6 +184,45 @@ function MyComponent(state) {
         </div>
         <div className="item-form">
           <div className="form-group input-tella">
+            <label htmlFor="phone" className="is-required">
+              {t("productInformation.phone")}
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder={t("productInformation.phonePlaceholder")}
+              id="phone"
+              onChange={state.handleChangeTest}
+              value={state.state.phone}
+            />
+            {state.state.errors.phone === true ? (
+              <p className="text-required">{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
+          </div>
+          <div className="form-group input-tella">
+            <label htmlFor="email" className="is-required">
+              {t("productInformation.email")}
+            </label>
+            <input
+              id="email"
+              type="text"
+              className="form-control"
+              placeholder={t("productInformation.emailPlaceholder")}
+              onChange={state.handleChangeTest}
+              value={state.state.email}
+            />
+            {state.state.errors.email === true ? (
+              <p className="text-required">{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
+          </div>
+        </div>
+
+        <div className="item-form">
+          <div className="form-group input-tella">
             <label htmlFor="description" className="is-required">
               {t("productInformation.description")}
             </label>
@@ -218,6 +258,8 @@ class ProductInformation extends Component {
     locationId: "",
     description: "",
     price: "",
+    phone: "",
+    email: "",
     errors: {
       productName: false,
       brand: false,
@@ -225,7 +267,9 @@ class ProductInformation extends Component {
       model: false,
       conservationState: false,
       location: false,
-      description: false
+      description: false,
+      phone: false,
+      email: false
     }
   };
 
@@ -238,7 +282,9 @@ class ProductInformation extends Component {
       conservationState,
       location,
       description,
-      price
+      price,
+      phone,
+      email
     } = this.state;
     const error = {
       productName: false,
@@ -248,9 +294,17 @@ class ProductInformation extends Component {
       conservationState: false,
       location: false,
       description: false,
-      price: false
+      price: false,
+      phone: false,
+      email: false
     };
 
+    if (email === "") {
+      error.email = true;
+    }
+    if (phone === "") {
+      error.phone = true;
+    }
     if (price === "") {
       error.price = true;
     }
@@ -285,7 +339,10 @@ class ProductInformation extends Component {
         errors.model === false &&
         errors.conservationState === false &&
         errors.location === false &&
-        errors.description === false
+        errors.description === false &&
+        errors.price === false &&
+        errors.phone === false &&
+        errors.email === false
       ) {
         const { setStep } = this.props;
         this.handleSetProductInformation();
@@ -519,7 +576,8 @@ class ProductInformation extends Component {
       location,
       locationId,
       description,
-      price
+      phone,
+      email
     } = this.state;
 
     var obj = new Object();
@@ -532,6 +590,8 @@ class ProductInformation extends Component {
     obj["locationId"] = locationId;
     obj["description"] = description;
     obj["price"] = document.getElementById("price").value;
+    obj["phone"] = phone;
+    obj["email"] = email;
 
     setProductInformation(obj);
   };
