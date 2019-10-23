@@ -126,7 +126,8 @@
   "messages": {
     "createItem": "Product successfully created",
     "ok": "Ok",
-    "congratulation": "Congratulations"
+    "congratulation": "Congratulations",
+    "soon": "Coming soon"
   },
   "dashboard": {
     "bigOffers": "Big offers",
