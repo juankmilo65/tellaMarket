@@ -14,12 +14,12 @@ function MyComponent(state) {
   return (
     <div>
       <li>
-        <button  className="user" onClick={state.handleSignin}>
+        <button className="user" onClick={state.handleSignin}>
           {t("authentication.title")}
         </button>
       </li>
       <li>
-        <NavLink to="/" />
+        <NavLink to="/query">{t("lisProducts")} </NavLink>
       </li>
     </div>
   );

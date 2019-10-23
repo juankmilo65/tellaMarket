@@ -1,5 +1,6 @@
 {
   "newItem": "Nuevo Articulo",
+  "lisProducts": "Listar todos los productos",
   "logout": "Salir",
   "signup": {
     "title": "Registro",

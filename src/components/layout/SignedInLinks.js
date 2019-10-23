@@ -17,9 +17,6 @@ function MyComponent(state) {
     <div>
       <div>
         <li>
-          <NavLink to="/createItem">{t("newItem")} </NavLink>
-        </li>
-        <li>
           <button onClick={state.handleSubmit}>{t("logout")} </button>
         </li>
       </div>
@@ -29,9 +26,8 @@ function MyComponent(state) {
             {state.initials}
           </NavLink>
         </li>
-
         <li>
-          <NavLink to="/" />
+          <NavLink to="/query">{t("lisProducts")} </NavLink>
         </li>
       </div>
     </div>

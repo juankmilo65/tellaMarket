@@ -77,7 +77,6 @@ class Navbar extends Component {
         ) : (
           <div className="search">
             <div className="container-tella">
-
               <div className="dropdown">
                 <button
                   className="btn-submenu dropdown-toggle"
