@@ -26,9 +26,6 @@ function MyComponent(state) {
             {state.initials}
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/query">{t("lisProducts")} </NavLink>
-        </li>
       </div>
     </div>
   );

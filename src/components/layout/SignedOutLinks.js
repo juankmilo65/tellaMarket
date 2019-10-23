@@ -18,9 +18,6 @@ function MyComponent(state) {
           {t("authentication.title")}
         </button>
       </li>
-      <li>
-        <NavLink to="/query">{t("lisProducts")} </NavLink>
-      </li>
     </div>
   );
 }
