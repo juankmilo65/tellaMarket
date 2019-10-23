@@ -29,12 +29,17 @@ function MyComponent(state) {
       </div>
       <div className="price">
         <label className="title-filter">Precios</label>
-        <div>
+        {/* <div>
           <label>{state.filters.prices.minimun}</label>
         </div>
-        *Rango de precio
         <div>
           <label>{state.filters.prices.maximun}</label>
+        </div> */}
+        <div className="inputs-price">
+          <input type="text" placeholder="Minimo"/>
+          <span>-</span>
+          <input type="text"  placeholder="Máximo"/>
+          <a href=""><i className="material-icons">chevron_right</i></a>
         </div>
       </div>
       <div className="year">
@@ -47,7 +52,6 @@ function MyComponent(state) {
               </div>
             );
           })}
-        <div className="item-all"><a href="#">Ver todos</a></div>
         <div className="d-flex mt-2">
           <select className="select-tella" name="select">
             <option value="value1" selected>Desde</option> 

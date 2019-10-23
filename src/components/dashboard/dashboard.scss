@@ -60,6 +60,14 @@
     display: none;
 }
 
+.first-slider{
+    .img-first--slider{
+        max-height: 500px;
+        min-height: 500px;
+        margin: 0 auto;
+    }
+}
+
 .banner-small {
     .item-first-banner{
         display: none;

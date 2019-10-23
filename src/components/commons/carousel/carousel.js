@@ -30,7 +30,7 @@ class carousel extends Component {
             return (
               <Carousel.Item key={image.id}>
                 <img
-                  className="d-block w-100 img-small"
+                  className="d-block img-first--slider"
                   src={image.image}
                   alt="First slide"
                 />
