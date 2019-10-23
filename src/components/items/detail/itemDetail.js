@@ -15,13 +15,7 @@ function MyComponent(state) {
   }
 
   return (
-    <div className="container">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    <div className="container pd-top--130px">
       <div className="info-product">
         <div className="d-flex">
           <div className="img-info--product col-7">

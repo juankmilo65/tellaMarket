@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import english from "../../layout/img/english.svg"
+import spanish from "../../layout/img/spanish.svg"
+import "../select/select.scss"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -33,7 +36,7 @@ export default function ControlledOpenSelect() {
   };
 
   return (
-    <form autoComplete="off">
+    <form autoComplete="off" className="select-tella">
       <FormControl className={classes.formControl}>
         <Select
           open={open}
@@ -46,14 +49,13 @@ export default function ControlledOpenSelect() {
             id: "demo-controlled-open-select"
           }}
         >
-          <MenuItem value="">
-            <em>None</em>
+          <MenuItem value="s">
+            <em>Idioma</em>
           </MenuItem>
           <MenuItem value={10}>
-            <span>hola</span>Ten
+            <img src={spanish}/>Español
           </MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={20}><img src={english}/>Ingles</MenuItem>
         </Select>
       </FormControl>
     </form>

@@ -7,13 +7,7 @@ class Query extends Component {
   render() {
     return (
       <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div className="container">
+        <div className="container pd-top--130px">
           <div className="title-product">
             <h2>Producto y Categorías</h2>
             <label>Listado de productos</label>

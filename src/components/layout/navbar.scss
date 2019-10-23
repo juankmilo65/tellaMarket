@@ -133,3 +133,9 @@ ul{
         border:none;
     }
 }
+
+.dropdown-menu{
+    max-height: 600px;
+    overflow: auto;
+    top: 110px;
+}

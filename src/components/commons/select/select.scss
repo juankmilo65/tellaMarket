@@ -1,0 +1,51 @@
+@import "../../variables.scss";
+
+*{
+  font-family: "Open Sans",sans-serif !important;
+}
+
+.MuiPopover-root{
+  font-size: 14px;
+  li{
+    img{
+      height: 20px;
+      padding-right: 15px;
+    }
+  }
+}
+.MuiPaper-root{
+  top: 50px !important;
+}
+
+.select-tella{
+  font-size: 14px;
+
+  .MuiSelect-root{
+    padding-left:15px !important;
+    background-color: white !important;
+    border: 1px solid $yellow !important;
+    color: $blue !important;
+    border-radius: 50px !important;
+    img{
+      height: 20px;
+      padding-right: 15px;
+    }
+  }
+  
+  .MuiInputBase-root{
+    &::before{
+      border-bottom: none !important;
+    }
+  }
+  
+  .MuiInput-underline:before{
+    transition: none !important;
+  }
+  
+  .MuiInput-underline:after{
+    transition: none !important;
+    border-bottom: none !important;
+  }
+  
+  
+}
