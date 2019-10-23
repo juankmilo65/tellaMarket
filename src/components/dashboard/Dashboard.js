@@ -15,6 +15,7 @@ import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
+import banner1 from "../commons/carousel/img/banner1.jpeg";
 import "./dashboard.scss";
 
 function MyComponent(state) {
@@ -223,8 +224,7 @@ class Dashboard extends Component {
           "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
       }
     ];
-    obj["image"] =
-      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8";
+    obj["image"] = banner1;
     obj["id"] = 1;
     obj["year"] = "2019-10-03";
     imagesMainBar.push(obj);
@@ -239,8 +239,7 @@ class Dashboard extends Component {
       "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
     obj["email"] = "asdfgh@sdfghj.com";
     obj["phone"] = "22222222";
-    obj["image"] =
-      "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg";
+    obj["image"] = banner1;
     obj["id"] = 2;
     obj["images"] = [
       {
