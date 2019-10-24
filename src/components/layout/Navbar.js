@@ -4,20 +4,12 @@ import { Redirect } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
-import Select from "react-select";
 import { hideHeader } from "../layout/actions/navarActions";
-import { setLanguage } from "./actions/navarActions";
 import { getDocuments } from "../commons/data/actions/dataActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 import Autocomplete from "../commons/autocomplete/Autocomplete";
 import ControlledOpenSelect from "../commons/select/select";
-
-const options = [
-  { label: "EN", value: "en" },
-  { label: "ES", value: "es" },
-  { label: "PT", value: "pt" }
-];
 
 class Navbar extends Component {
   state = {
@@ -25,10 +17,6 @@ class Navbar extends Component {
     idCategory: ""
   };
   handleChange = e => {};
-
-  handleLanguage = e => {
-    this.props.setLanguage(e);
-  };
 
   setRedirect = idCategory => {
     this.setState({
@@ -109,19 +97,6 @@ class Navbar extends Component {
 
             <div className="nav-right">
               {auth.isLoaded && links}
-
-              <Select
-                className="lenguage"
-                styles={{
-                  control: () => ({
-                    // none of react-select's styles are passed to <Control />
-                  })
-                }}
-                onChange={this.handleLanguage}
-                options={options}
-                value=""
-                images={images}
-              />
               <ControlledOpenSelect></ControlledOpenSelect>
             </div>
           </div>
@@ -192,5 +167,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setLanguage, hideHeader, getDocuments }
+  { hideHeader, getDocuments }
 )(Navbar);

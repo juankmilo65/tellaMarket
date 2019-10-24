@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 import Steps from "../steps/steps";
 import Categories from "../category/categories";
 import ProductInformation from "../productInformation/productInformation";
@@ -11,9 +12,9 @@ import "./createItem.scss";
 
 class CreateItem extends Component {
   render() {
-    const { auth, fileUpload, step } = this.props;
+    const { auth, step } = this.props;
 
-    // if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div className="container pd-top--130px pb-4">
         <div className="title-product">
@@ -41,7 +42,6 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    fileUpload: state.fileUpload,
     step: state.step.step
   };
 };

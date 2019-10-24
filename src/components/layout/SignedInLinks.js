@@ -5,6 +5,7 @@ import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
 import { useTranslation } from "react-i18next";
+import MenuSelect from "../commons/select/menuLogin";
 import "./navbar.scss";
 
 function MyComponent(state) {
@@ -15,18 +16,7 @@ function MyComponent(state) {
 
   return (
     <div>
-      <div>
-        <li>
-          <button onClick={state.handleSubmit}>{t("logout")} </button>
-        </li>
-      </div>
-      <div className="user">
-        <li>
-          <NavLink to="/" className="">
-            {state.initials}
-          </NavLink>
-        </li>
-      </div>
+      <MenuSelect initials={state.initials}></MenuSelect>
     </div>
   );
 }
