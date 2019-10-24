@@ -226,6 +226,7 @@ class Plans extends Component {
     obj["productInformation"] = {
       userId: "xxxx",
       planId: id,
+      imagenBannerPromo: "",
       subcategory,
       productInformation,
       creationDate: new Date(),

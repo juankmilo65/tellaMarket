@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import english from "../../layout/img/english.svg"
-import spanish from "../../layout/img/spanish.svg"
-import "../select/select.scss"
+import { setLanguage } from "../../layout/actions/navarActions";
+import english from "../../layout/img/english.svg";
+import spanish from "../../layout/img/spanish.svg";
+import "../select/select.scss";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -18,13 +21,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ControlledOpenSelect() {
+export default connect(
+  null,
+  { setLanguage }
+)(function ControlledOpenSelect(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
+  const [lang, setlang] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
+  if (lang === "") {
+    setlang("en");
+  }
+
   const handleChange = event => {
-    setAge(event.target.value);
+    setlang(event.target.value);
+    props.setLanguage({
+      label: event.target.value === "es" ? "ES" : "EN",
+      value: event.target.value
+    });
   };
 
   const handleClose = () => {
@@ -42,22 +56,23 @@ export default function ControlledOpenSelect() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={lang}
           onChange={handleChange}
           inputProps={{
-            name: "age",
+            name: "lang",
             id: "demo-controlled-open-select"
           }}
         >
-          <MenuItem value="s">
-            <em>Idioma</em>
+          <MenuItem value="en">
+            <img src={english} />
+            {lang === "es" ? "Ingles" : "English"}
           </MenuItem>
-          <MenuItem value={10}>
-            <img src={spanish}/>Español
+          <MenuItem value="es">
+            <img src={spanish} />
+            {lang === "es" ? "Español" : "Spanish"}
           </MenuItem>
-          <MenuItem value={20}><img src={english}/>Ingles</MenuItem>
         </Select>
       </FormControl>
     </form>
   );
-}
+});
