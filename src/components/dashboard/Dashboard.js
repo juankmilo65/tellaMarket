@@ -206,79 +206,58 @@ class Dashboard extends Component {
     const imagesMainBar = [];
     const imagesMultiBar = [];
 
-    var obj = new Object();
-    obj["titlecategory"] = "Titulo Categoria";
-    obj["titleproduct"] = "Titulo Producto";
-    obj["valueprice"] = "$2000";
-    obj["description"] =
-      "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    obj["email"] = "asdfgh@sdfghj.com";
-    obj["phone"] = "33333333";
-    obj["images"] = [
-      {
-        imageUrl:
-          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-      },
-      {
-        imageUrl:
-          "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
-      }
-    ];
-    obj["image"] = banner1;
-    obj["id"] = 1;
-    obj["year"] = "2019-10-03";
-    imagesMainBar.push(obj);
-    imagesMultiBar.push(obj);
+    // var obj = new Object();
+    // obj["titlecategory"] = "Titulo Categoria";
+    // obj["titleproduct"] = "Titulo Producto";
+    // obj["valueprice"] = "$2000";
+    // obj["description"] =
+    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
+    // obj["email"] = "asdfgh@sdfghj.com";
+    // obj["phone"] = "33333333";
+    // obj["images"] = [
+    //   {
+    //     imageUrl:
+    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+    //   },
+    //   {
+    //     imageUrl:
+    //       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
+    //   }
+    // ];
+    // obj["image"] = banner1;
+    // obj["id"] = 1;
+    // obj["year"] = "2019-10-03";
+    // imagesMainBar.push(obj);
+    // imagesMultiBar.push(obj);
 
-    var obj = new Object();
-    obj["titlecategory"] = "Titulo Categoria";
-    obj["titleproduct"] = "Titulo Producto";
-    obj["valueprice"] = "$1000";
-    obj["year"] = "2019-10-03";
-    obj["description"] =
-      "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    obj["email"] = "asdfgh@sdfghj.com";
-    obj["phone"] = "22222222";
-    obj["image"] = banner1;
-    obj["id"] = 2;
-    obj["images"] = [
-      {
-        imageUrl:
-          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-      },
-      {
-        imageUrl:
-          "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-      }
-    ];
-    imagesMainBar.push(obj);
-    imagesMultiBar.push(obj);
+    // var obj = new Object();
+    // obj["titlecategory"] = "Titulo Categoria";
+    // obj["titleproduct"] = "Titulo Producto";
+    // obj["valueprice"] = "$1000";
+    // obj["year"] = "2019-10-03";
+    // obj["description"] =
+    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
+    // obj["email"] = "asdfgh@sdfghj.com";
+    // obj["phone"] = "22222222";
+    // obj["image"] = banner1;
+    // obj["id"] = 2;
+    // obj["images"] = [
+    //   {
+    //     imageUrl:
+    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+    //   },
+    //   {
+    //     imageUrl:
+    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
+    //   }
+    // ];
+    // imagesMainBar.push(obj);
+    // imagesMultiBar.push(obj);
 
-    //     if (itemsPremium.length === 0) {
-    //       getDashboardProductsPlanPremium(firebase);
-    //     } else {
-    //       itemsPremium.map(item => {
-    //         var obj = new Object();
-    //         obj["titlecategory"] =
-    //           lang === "en"
-    //             ? item.data.subcategory.subcategoryName
-    //             : item.data.subcategory.subcategoryName;
-    //         obj["titleproduct"] = item.data.productInformation.brand;
-    //         obj["valueprice"] = item.data.productInformation.price;
-    //         obj["description"] = item.data.productInformation.description;
-    //         obj["email"] = item.data.productInformation.email;
-    //         obj["phone"] = item.data.productInformation.phone;
-    //         obj["image"] = item.data.images[0].imageUrl1;
-    //         obj["id"] = item.id;
-    //         obj["year"] = item.data.productInformation.year;
-    //         imagesMainBar.push(obj);
-    //       });
-    //     }
-
-    // if (itemsPlus.length === 0) {
-    //   getDashboardProductsPlanPlus(firebase);
+    // if (itemsPremium.length === 0) {
+    //   getDashboardProductsPlanPremium(firebase);
     // } else {
-    //   itemsPlus.map(item => {
+    //   itemsPremium.map(item => {
     //     var obj = new Object();
     //     obj["titlecategory"] =
     //       lang === "en"
@@ -289,19 +268,42 @@ class Dashboard extends Component {
     //     obj["description"] = item.data.productInformation.description;
     //     obj["email"] = item.data.productInformation.email;
     //     obj["phone"] = item.data.productInformation.phone;
-    //     obj["images"] = item.data.images;
+    //     obj["image"] = item.data.images[0].imageUrl1;
     //     obj["id"] = item.id;
     //     obj["year"] = item.data.productInformation.year;
-    //     imagesMultiBar.push(obj);
+    //     imagesMainBar.push(obj);
     //   });
-
-    //   {
-    //     imagesMainBar &&
-    //       imagesMainBar.map(item => {
-    //         imagesMultiBar.push(item);
-    //       });
-    //   }
     // }
+
+    if (itemsPlus.length === 0) {
+      getDashboardProductsPlanPlus(firebase);
+    } else {
+      itemsPlus.map(item => {
+        var obj = new Object();
+        obj["titlecategory"] =
+          lang === "en"
+            ? item.data.subcategory.subcategoryName
+            : item.data.subcategory.subcategoryName;
+        obj["titleproduct"] = item.data.productInformation.brand;
+        obj["valueprice"] = item.data.productInformation.price;
+        obj["description"] = item.data.productInformation.description;
+        obj["email"] = item.data.productInformation.email;
+        obj["phone"] = item.data.productInformation.phone;
+        obj["images"] = item.data.images;
+        obj["id"] = item.id;
+        obj["year"] = item.data.productInformation.year;
+        obj["image"] = banner1;
+        imagesMainBar.push(obj);
+        imagesMultiBar.push(obj);
+      });
+
+      // {
+      //   imagesMainBar &&
+      //     imagesMainBar.map(item => {
+      //       imagesMultiBar.push(item);
+      //     });
+      // }
+    }
 
     return (
       <MyComponent

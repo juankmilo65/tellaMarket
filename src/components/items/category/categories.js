@@ -176,7 +176,7 @@ class Categories extends Component {
 
     const { columnOne, columnTwo } = this.state;
 
-    if (auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to="/" />;
     return (
       <div>
         {columnOne.length === 0 ? (

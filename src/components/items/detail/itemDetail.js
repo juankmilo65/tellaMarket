@@ -59,9 +59,29 @@ function MyComponent(state) {
               </ul>
             </div>
             <div className="button-icon">
-              <button className="btns btn-go">{t("itemDetal.contact")}</button>
+              <button
+                className={
+                  state.auth.uid != undefined ? "btns btn-go" : "disable"
+                }
+                onClick={state.handleDetails}
+              >
+                {t("itemDetal.contact")}
+              </button>
               {/* <i className="material-icons unlike">favorite_border</i>*/}
               <i className="material-icons like">favorite</i>
+
+              {state.showDetails && (
+                <div className="detail-product">
+                  <div>
+                    <label>Phone:</label>
+                    <span className="cl-green">{state.itemtemObjet.phone}</span>
+                  </div>
+                  <div>
+                    <label>Email:</label>
+                    <span className="cl-green">{state.itemtemObjet.email}</span>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="detail-product">
               <div>
@@ -74,7 +94,7 @@ function MyComponent(state) {
               </div>
               <div>
                 <label>{t("itemDetal.year")}:</label>
-                <span>{state.itemtemObjet.valueprice}</span>
+                <span>{state.itemtemObjet.year}</span>
               </div>
             </div>
           </div>
@@ -195,10 +215,26 @@ function MyComponent(state) {
 }
 
 class ItemDetail extends Component {
+  state = {
+    showDetails: false
+  };
+
+  handleDetails = () => {
+    this.setState({ showDetails: true });
+  };
+
   render() {
-    const { lang } = this.props;
+    const { lang, auth } = this.props;
     const { itemtemObjet } = this.props.location.state;
-    return <MyComponent lang={lang} itemtemObjet={itemtemObjet}></MyComponent>;
+    return (
+      <MyComponent
+        lang={lang}
+        itemtemObjet={itemtemObjet}
+        handleDetails={this.handleDetails}
+        showDetails={this.state.showDetails}
+        auth={auth}
+      ></MyComponent>
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -34,8 +34,9 @@ class SignedInLinks extends Component {
   };
 
   render() {
-    const { lang } = this.props;
+    const { lang, auth } = this.props;
 
+    if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <ul className="right">
         <MyComponent
@@ -50,7 +51,8 @@ class SignedInLinks extends Component {
 
 const mapStateToProps = state => {
   return {
-    lang: state.navar.lang
+    lang: state.navar.lang,
+    auth: state.firebase.auth
   };
 };
 

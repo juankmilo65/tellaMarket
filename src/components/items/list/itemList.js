@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "./itemList.scss";
-import producto1 from "../../commons/carousel/img/producto1.png";
-import producto2 from "../../commons/carousel/img/producto2.png";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -35,7 +33,10 @@ function MyComponent(state) {
                   <div className="price-list">
                     {item.data.productInformation.price} USD
                   </div>
-                  <button className="btns btn-go" onClick={state.setRedirect}>
+                  <button
+                    className="btns btn-go"
+                    onClick={() => state.setRedirect(item.data)}
+                  >
                     Ver mas
                   </button>
                 </div>
@@ -50,17 +51,46 @@ function MyComponent(state) {
 
 class ItemList extends Component {
   state = {
-    redirect: false
+    redirect: false,
+    selectedItem: {}
   };
-  setRedirect = () => {
+  setRedirect = item => {
     this.setState({
       redirect: true
+    });
+    this.setState({
+      selectedItem: item
     });
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to="/itemDetail" />;
+      const { lang } = this.props;
+      var obj = new Object();
+      obj["titlecategory"] =
+        lang === "en"
+          ? this.state.selectedItem.subcategory.subcategoryName
+          : this.state.selectedItem.subcategory.subcategoryName;
+      obj["titleproduct"] = this.state.selectedItem.productInformation.brand;
+      obj["valueprice"] = this.state.selectedItem.productInformation.price;
+      obj[
+        "description"
+      ] = this.state.selectedItem.productInformation.description;
+      obj["email"] = this.state.selectedItem.productInformation.email;
+      obj["phone"] = this.state.selectedItem.productInformation.phone;
+      obj["images"] = this.state.selectedItem.images;
+      obj["year"] = this.state.selectedItem.productInformation.year;
+
+      return (
+        <Redirect
+          to={{
+            pathname: "/itemDetail",
+            state: {
+              itemtemObjet: obj
+            }
+          }}
+        />
+      );
     }
   };
 
