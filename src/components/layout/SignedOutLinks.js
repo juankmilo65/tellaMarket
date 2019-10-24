@@ -40,7 +40,7 @@ class SignedOutLinks extends Component {
     const { lang, header } = this.props;
 
     return (
-      <div>
+      <div className="d-flex align-items-center">
         {this.state.redirect && header.hideHeader ? (
           <Redirect to={"/signin"} />
         ) : header.hideHeader ? (

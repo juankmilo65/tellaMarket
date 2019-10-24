@@ -82,6 +82,11 @@
   border:none;
   background-color: white;
   cursor: pointer;
+  &.disable{
+    cursor:no-drop;
+    background-color: $gray-text !important;
+    opacity: 0.3;
+  }
 }
 
 .btn-go {

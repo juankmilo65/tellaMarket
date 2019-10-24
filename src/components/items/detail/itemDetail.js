@@ -18,7 +18,7 @@ function MyComponent(state) {
     <div className="container pd-top--130px">
       <div className="info-product">
         <div className="d-flex">
-          <div className="img-info--product col-7">
+          <div className="img-info--product col-6">
             <img
               className="img-big"
               src={state.itemtemObjet.images[0].imageUrl}
@@ -58,17 +58,19 @@ function MyComponent(state) {
                 </li> */}
               </ul>
             </div>
-            <div className="button-icon">
-              <button
-                className={
-                  state.auth.uid != undefined ? "btns btn-go" : "disable"
-                }
-                onClick={state.handleDetails}
-              >
-                {t("itemDetal.contact")}
-              </button>
-              {/* <i className="material-icons unlike">favorite_border</i>*/}
-              <i className="material-icons like">favorite</i>
+            <div className="contact-seller">
+              <div className="button-icon">
+                <button
+                  className={
+                    state.auth.uid != undefined ? "btns btn-go" : "btns btn-go disable"
+                  }
+                  onClick={state.handleDetails}
+                >
+                  {t("itemDetal.contact")}
+                </button>
+                {/* <i className="material-icons unlike">favorite_border</i>*/}
+                <i className="material-icons like">favorite</i>
+              </div>
 
               {state.showDetails && (
                 <div className="detail-product">

@@ -10,7 +10,7 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import { signOut } from "../../auth/signout/actions/signoutActions";
 import { setOptionMenu } from "../select/actions/selectActions";
-import english from "../../layout/img/english.svg";
+import login from "../../layout/img/login.png";
 import "../select/select.scss";
 
 const useStyles = makeStyles(theme => ({
@@ -92,7 +92,7 @@ export default withRouter(
             }}
           >
             <MenuItem value="user">
-              <img src={english} />
+              <img src={login} />
               {props.initials}
             </MenuItem>
             <MenuItem value="createItem">
