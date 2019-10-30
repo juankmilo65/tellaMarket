@@ -6,6 +6,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
+import CarouselImage from "../commons/carousel/carouselImage";
 import {
   getDashboardProductsPlanPremium,
   getDashboardProductsPlanPlus,
@@ -16,6 +17,7 @@ import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
 import banner1 from "../commons/carousel/img/banner1.png";
+import promo1 from "../commons/carousel/img/TellaNeedles.jpg";
 import "./dashboard.scss";
 
 function MyComponent(state) {
@@ -35,6 +37,11 @@ function MyComponent(state) {
         </div>
         <CarouselMultiple items={state.imagesMultiBar} />
       </div>
+
+      <div className="banner-small container">
+        <CarouselImage images={state.imagesPromotion} />
+      </div>
+
       <div className="provider">
         <div className="container">
           <div className="title-item--product">
@@ -205,6 +212,12 @@ class Dashboard extends Component {
     const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
     const imagesMainBar = [];
     const imagesMultiBar = [];
+    const imagesPromotion = [
+      {
+        imageUrl: promo1,
+        redirectUrl: "http://www.tellaneedles.com"
+      }
+    ];
 
     // var obj = new Object();
     // obj["titlecategory"] = "Titulo Categoria";
@@ -310,6 +323,7 @@ class Dashboard extends Component {
         lang={lang}
         imagesMainBar={imagesMainBar}
         imagesMultiBar={imagesMultiBar}
+        imagesPromotion={imagesPromotion}
         notifications={notifications}
         logoWhite={logoWhite}
       />

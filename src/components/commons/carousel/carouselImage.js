@@ -29,7 +29,13 @@ class carouselImage extends Component {
           images.map(image => {
             return (
               <Carousel.Item key={image.id}>
-                <img className="" src={image.imageUrl} alt="" />
+                {image.redirectUrl != undefined ? (
+                  <a href={image.redirectUrl} target="_blank">
+                    <img className="" src={image.imageUrl} alt=""></img>
+                  </a>
+                ) : (
+                  <img src={image.imageUrl}></img>
+                )}
               </Carousel.Item>
             );
           })}
