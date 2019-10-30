@@ -29,11 +29,7 @@ class carouselImage extends Component {
           images.map(image => {
             return (
               <Carousel.Item key={image.id}>
-                <img
-                  className=""
-                  src={image.imageUrl}
-                  alt=""
-                />
+                <img className="" src={image.imageUrl} alt="" />
               </Carousel.Item>
             );
           })}

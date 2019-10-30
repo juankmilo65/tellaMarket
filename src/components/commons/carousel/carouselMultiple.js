@@ -1,7 +1,44 @@
 import React, { Component } from "react";
 import CarouselImage from "../carousel/carouselImage";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import "./carousel.scss";
+
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
+  }
+  return (
+    <div>
+      <div className="row">
+        {state.items &&
+          state.items.map(item => {
+            return (
+              <div key={item.id} className="col-md-3">
+                <div className="carrusel-small">
+                  <CarouselImage images={item.images} item={item} />
+                  <button
+                    className="remove"
+                    onClick={() => state.setRedirect(item)}
+                  >
+                    {t("dashboard.quickLook")}
+                  </button>
+                  <div className="item-banner-xs">
+                    <div className="title-product">{item.titleproduct}</div>
+                    {/* <div className="title-category">{item.titlecategory}</div> */}
+                    <div className="value--price">{item.valueprice}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+      {state.renderRedirect()}
+    </div>
+  );
+}
 
 class carouselMultiple extends Component {
   state = {
@@ -33,36 +70,25 @@ class carouselMultiple extends Component {
     }
   };
   render() {
-    const { items } = this.props;
+    const { items, lang } = this.props;
     return (
       <div>
-        <div className="row">
-          {items &&
-            items.map(item => {
-              return (
-                <div key={item.id} className="col-md-3">
-                  <div className="carrusel-small">
-                    <CarouselImage images={item.images} />
-                    <div className="item-banner-xs">
-                      <div className="title-product">{item.titleproduct}</div>
-                      <div className="title-category">{item.titlecategory}</div>
-                      <div className="value--price">{item.valueprice}</div>
-                      <button
-                        className="btns btn-go"
-                        onClick={() => this.setRedirect(item)}
-                      >
-                        Ver mas
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        {this.renderRedirect()}
+        <MyComponent
+          items={items}
+          lang={lang}
+          renderRedirect={this.renderRedirect}
+          setRedirect={this.setRedirect}
+        ></MyComponent>
       </div>
     );
   }
 }
 
-export default carouselMultiple;
+const mapStateToProps = state => ({
+  lang: state.navar.lang
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(carouselMultiple);

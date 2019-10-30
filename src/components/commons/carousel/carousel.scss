@@ -47,20 +47,40 @@
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
     margin-bottom: 30px;
     border-radius: 8px;
-    .carousel-item{
+    .carousel-item {
       height: 220px;
       width: 255px;
       padding: 1px;
-      img{
+      img {
         height: 100%;
         width: 100%;
-        object-fit:cover;
+        object-fit: cover;
         object-position: center center;
-        border-radius:8px;
+        border-radius: 8px;
       }
     }
-    .carousel-item.active{
+    .carousel-item.active {
       display: flex;
+    }
+    .remove {
+      display: none;
+    }
+    &:hover {
+      .remove {
+        position: absolute;
+        background: white;
+        display: flex;
+        padding: 5px;
+        border: 1px solid $gray-border;
+        border-radius: 50px;
+        color: $yellow;
+        z-index: 1;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+        cursor: pointer;
+      }
+      img {
+        opacity: 0.5;
+      }
     }
   }
 
