@@ -55,15 +55,28 @@ class Navbar extends Component {
     } = this.props;
     let list = [];
     const images = [logo];
+    let isDiferent = false;
     const hideHeaderLocal =
       header.isFomSignin && window.location.pathname === "/signin"
         ? false
         : !header.isFomSignin && window.location.pathname !== "/signin"
         ? header.hideHeader
+        : header.isFomSignin && window.location.pathname === "/"
+        ? false
         : true;
 
+    Object.keys(header).map(obj => {
+      if (obj == "hideHeader") {
+        if (header[obj] != hideHeaderLocal) {
+          isDiferent = true;
+        }
+      }
+    });
+
     header.hideHeader = hideHeaderLocal;
-    hideHeader(header);
+    if (isDiferent) {
+      hideHeader(header);
+    }
 
     if (lang.value === "es") {
       if (documentsEs.length === 0) {
