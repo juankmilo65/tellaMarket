@@ -119,7 +119,7 @@ class Navbar extends Component {
         ) : (
           <div className="search">
             <div className="container-tella">
-              <div className="dropdown">
+              {/* <div className="dropdown">
                 <button
                   className="btn-submenu dropdown-toggle"
                   type="button"
@@ -152,7 +152,9 @@ class Navbar extends Component {
                       );
                     })}
                 </div>
-              </div>
+              </div> */}
+              
+              <ControlledOpenSelect></ControlledOpenSelect>
               <div className="input-search">
                 <Autocomplete idInput="search" onChange={this.handleChange} />
 
