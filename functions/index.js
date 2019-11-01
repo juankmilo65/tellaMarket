@@ -9,8 +9,8 @@ const fs = require("fs");
 const axios = require("axios");
 const { Storage } = require("@google-cloud/storage");
 const algoliasearch = require("algoliasearch");
-const APP_ID = functions.config().algolia.app;
-const ADMIN_KEY = functions.config().algolia.key;
+const APP_ID = functions.config().algolia.appid;
+const ADMIN_KEY = functions.config().algolia.apikey;
 const client = algoliasearch(APP_ID, ADMIN_KEY);
 const index = client.initIndex("dev_tellamarket");
 

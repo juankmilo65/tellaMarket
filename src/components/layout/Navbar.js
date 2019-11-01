@@ -10,6 +10,13 @@ import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 import Autocomplete from "../commons/autocomplete/Autocomplete";
 import ControlledOpenSelect from "../commons/select/select";
+import { InstantSearch } from "react-instantsearch-dom";
+import algoliasearch from "algoliasearch/lite";
+
+const searchClient = algoliasearch(
+  "LOYYIQWO7O",
+  "1ba2b0f2147ae9c9553f63c594e0feca"
+);
 
 class Navbar extends Component {
   state = {
@@ -154,8 +161,12 @@ class Navbar extends Component {
                 </div>
               </div>
               <div className="input-search">
-                <Autocomplete idInput="search" onChange={this.handleChange} />
-
+                <InstantSearch
+                  searchClient={searchClient}
+                  indexName="dev_tellamarket"
+                >
+                  <Autocomplete idInput="search" onChange={this.handleChange} />
+                </InstantSearch>
                 {/* <input type="text" placeholder="Buscar" /> */}
                 <i className="material-icons">search</i>
               </div>
