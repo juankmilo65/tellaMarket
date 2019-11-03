@@ -8,15 +8,64 @@ import { hideHeader } from "../layout/actions/navarActions";
 import { getDocuments } from "../commons/data/actions/dataActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
-import Autocomplete from "../commons/autocomplete/Autocomplete";
-import ControlledOpenSelect from "../commons/select/select";
-import { InstantSearch } from "react-instantsearch-dom";
+// import AutoComplete from "../commons/autocomplete/Autocomplete";
 import algoliasearch from "algoliasearch/lite";
-
+import ControlledOpenSelect from "../commons/select/select";
+import {
+  InstantSearch,
+  Configure,
+  Highlight,
+  connectAutoComplete
+} from "react-instantsearch-dom";
+import Autosuggest from "react-autosuggest";
 const searchClient = algoliasearch(
   "LOYYIQWO7O",
   "1ba2b0f2147ae9c9553f63c594e0feca"
 );
+
+class Hits extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "", hits: [] };
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ hits: props.hits });
+  }
+  render() {
+    const { hits, currentRefinement, refine } = this.props;
+    return (
+      <Autosuggest
+        suggestions={this.state.hits}
+        multiSection={false}
+        onSuggestionSelected={(event, { suggestion, suggestionValue }) => {
+          console.log("Suggestion:", suggestion);
+          console.log("Suggestion value:", suggestionValue);
+        }}
+        onSuggestionsFetchRequested={({ value }) => refine(value)}
+        onSuggestionsClearRequested={() => this.setState({ hits: [] })}
+        getSuggestionValue={hit => hit.subcategory.subcategoryName}
+        renderSuggestion={hit => (
+          <div className="hit">
+            <Highlight attribute="productInformation.productName" hit={hit} />
+            <h3>{hit.subcategory.subcategoryName}</h3>
+          </div>
+        )}
+        inputProps={{
+          placeholder: "Type a product",
+          value: this.state.value,
+          onChange: (event, { newValue, method }) => {
+            this.setState({ value: newValue });
+          }
+        }}
+        renderSectionTitle={section => section.index}
+        getSectionSuggestions={section => section.hits}
+      />
+    );
+  }
+}
+
+const AutoComplete = connectAutoComplete(Hits);
 
 class Navbar extends Component {
   state = {
@@ -165,10 +214,10 @@ class Navbar extends Component {
                   searchClient={searchClient}
                   indexName="dev_tellamarket"
                 >
-                  <Autocomplete idInput="search" onChange={this.handleChange} />
+                  <AutoComplete />
+                  <Configure hitsPerPage={10} />
                 </InstantSearch>
                 {/* <input type="text" placeholder="Buscar" /> */}
-                <i className="material-icons">search</i>
               </div>
             </div>
           </div>
