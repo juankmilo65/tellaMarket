@@ -20,10 +20,10 @@ function MyComponent(state) {
                 <div className="carrusel-small">
                   <CarouselImage images={item.images} item={item} />
                   <button
-                    className="remove"
+                    className="look"
                     onClick={() => state.setRedirect(item)}
-                  >
-                    {t("dashboard.quickLook")}
+                  ><i class="material-icons">visibility</i>
+                    {/*t("dashboard.quickLook")*/}
                   </button>
                   <div className="item-banner-xs">
                     <div className="title-product">{item.titleproduct}</div>
