@@ -22,8 +22,8 @@ function MyComponent(state) {
                   <button
                     className="look"
                     onClick={() => state.setRedirect(item)}
-                  ><i class="material-icons">visibility</i>
-                    {/*t("dashboard.quickLook")*/}
+                  >
+                    <i className="material-icons">visibility</i>
                   </button>
                   <div className="item-banner-xs">
                     <div className="title-product">{item.titleproduct}</div>

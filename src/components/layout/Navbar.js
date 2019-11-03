@@ -8,7 +8,6 @@ import { hideHeader } from "../layout/actions/navarActions";
 import { getDocuments } from "../commons/data/actions/dataActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
-// import AutoComplete from "../commons/autocomplete/Autocomplete";
 import algoliasearch from "algoliasearch/lite";
 import ControlledOpenSelect from "../commons/select/select";
 import {
@@ -33,7 +32,7 @@ class Hits extends React.Component {
     this.setState({ hits: props.hits });
   }
   render() {
-    const { hits, currentRefinement, refine } = this.props;
+    const { hits, currentRefinement, refine, lang } = this.props;
     return (
       <Autosuggest
         suggestions={this.state.hits}
@@ -47,12 +46,21 @@ class Hits extends React.Component {
         getSuggestionValue={hit => hit.subcategory.subcategoryName}
         renderSuggestion={hit => (
           <div className="hit">
-            <Highlight attribute="productInformation.productName" hit={hit} />
-            <h3>{hit.subcategory.subcategoryName}</h3>
+            <p>
+              <span>
+                <Highlight
+                  attribute="productInformation.productName"
+                  hit={hit}
+                />
+              </span>
+              <span>
+                <h3>{hit.subcategory.subcategoryName}</h3>
+              </span>
+            </p>
           </div>
         )}
         inputProps={{
-          placeholder: "Type a product",
+          placeholder: lang.value === "es" ? "Buscar" : "Search",
           value: this.state.value,
           onChange: (event, { newValue, method }) => {
             this.setState({ value: newValue });
@@ -64,8 +72,6 @@ class Hits extends React.Component {
     );
   }
 }
-
-const AutoComplete = connectAutoComplete(Hits);
 
 class Navbar extends Component {
   state = {
@@ -175,7 +181,7 @@ class Navbar extends Component {
         ) : (
           <div className="search">
             <div className="container-tella">
-              {/* <div className="dropdown">
+              <div className="dropdown">
                 <button
                   className="btn-submenu dropdown-toggle"
                   type="button"
@@ -184,7 +190,7 @@ class Navbar extends Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Categorias
+                  {lang.value === "es" ? "Categorias" : "Categories"}
                 </button>
                 <div
                   className="dropdown-menu"
@@ -208,9 +214,9 @@ class Navbar extends Component {
                       );
                     })}
                 </div>
-              </div> */}
-              
-              <ControlledOpenSelect></ControlledOpenSelect>
+              </div>
+
+              {/* <ControlledOpenSelect></ControlledOpenSelect> */}
               <div className="input-search">
                 <InstantSearch
                   searchClient={searchClient}
@@ -239,6 +245,11 @@ const mapStateToProps = state => {
     documentsEs: state.data.documentsEs
   };
 };
+
+const AutoComplete = connect(
+  mapStateToProps,
+  null
+)(connectAutoComplete(Hits));
 
 export default connect(
   mapStateToProps,
