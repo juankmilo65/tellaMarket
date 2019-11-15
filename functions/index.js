@@ -6,7 +6,13 @@ const spawn = require("child-process-promise").spawn;
 const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 const fs = require("fs");
+const axios = require("axios");
 const { Storage } = require("@google-cloud/storage");
+const algoliasearch = require("algoliasearch");
+const APP_ID = functions.config().algolia.appid;
+const ADMIN_KEY = functions.config().algolia.apikey;
+const client = algoliasearch(APP_ID, ADMIN_KEY);
+const index = client.initIndex("dev_tellamarket");
 
 const gcconfig = {
   projectId: "tellamachines",
@@ -91,9 +97,15 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
             }
           }
         })
-        .then(() => {
-          res.status(200).json({
-            message: "File Upload"
+        .then(data => {
+          getScpecificInfo(data[0].id).then(response => {
+            res.status(200).json({
+              downloadURL:
+                "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/" +
+                data[0].id +
+                "?alt=media&token=" +
+                response
+            });
           });
         })
         .catch(err => {
@@ -103,3 +115,38 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
     busboy.end(req.rawBody);
   });
 });
+
+exports.addToIndex = functions.firestore
+  .document("items/{itemId}")
+
+  .onCreate(snapshot => {
+    const data = snapshot.data();
+    const objectID = snapshot.id;
+
+    return index.addObject({ ...data, objectID });
+  });
+
+exports.updateIndex = functions.firestore
+  .document("items/{itemId}")
+
+  .onUpdate(change => {
+    const newData = change.after.data();
+    const objectID = change.after.id;
+    return index.saveObject({ ...newData, objectID });
+  });
+
+exports.deleteFromIndex = functions.firestore
+  .document("items/{itemId}")
+
+  .onDelete(snapshot => index.deleteObject(snapshot.id));
+
+async function getScpecificInfo(id) {
+  return await axios
+    .get(
+      "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/" +
+        id
+    )
+    .then(data2 => {
+      return data2.data.downloadTokens;
+    });
+}

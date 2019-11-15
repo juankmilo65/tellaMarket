@@ -1,0 +1,104 @@
+@import "../../variables.scss";
+
+.filter{
+    margin-right:30px ;
+}
+.order{
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px; ;
+    .css-yk16xz-control, .css-1pahdxg-control{
+        color: $blue !important;
+        border-color:transparent;
+        font-size: 14px;
+        font-weight: normal;
+        color: $gray-text;
+        box-shadow: none;
+        padding-left:0 ;
+        &:hover,:hover{
+            border-color:transparent ;
+            box-shadow: none;
+        }
+        .css-1wa3eu0-placeholder{
+            color: $blue;
+        }
+        .css-1hwfws3{
+            padding-left:0 ;
+        }
+    }
+    .css-1okebmr-indicatorSeparator{
+        display: none;
+    }
+    .css-tlfecz-indicatorContainer svg{
+        fill:$gray-text ;
+    }
+  
+    *{
+        font-size: 14px !important;
+        font-weight: normal;
+        color: $gray-text;
+    }
+
+} 
+
+.category,.price{
+    margin-top:20px;
+    color: $gray-text;
+}
+
+label.title-filter{
+    margin-bottom:10px ;
+    font-size: 18px !important;
+    font-weight: 600;
+    color: $blue;
+}
+
+
+.item-category,.item-year{
+    span{
+        margin-left: 10px;
+        color: $yellow;
+    }
+}
+
+.year{
+    color: $gray-text;
+    .item-all a{
+        color: $blue;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+
+.select-tella{
+    border: none;
+    margin-right: 5px;
+    color: $gray-text;
+}
+.price{
+    padding-bottom: 30px;
+}
+
+.inputs-price{
+    display: flex;
+    align-items: center;
+    input{
+        border-radius: 8px;
+        border:1px solid $gray-border;
+        padding: 3px 10px;
+        max-width: 90px;
+        font-size:14px ;
+        color: $gray-text;
+        &::placeholder{
+            font-size: 12px;
+        }
+    }
+    span{
+        padding:0 10px;
+    }
+    a{
+        display: inline-flex;
+        color:$blue ;
+    }
+}

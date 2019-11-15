@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
 import { useTranslation } from "react-i18next";
+import MenuSelect from "../commons/select/menuLogin";
 import "./navbar.scss";
 
 function MyComponent(state) {
@@ -15,25 +16,7 @@ function MyComponent(state) {
 
   return (
     <div>
-      <div>
-        <li>
-          <NavLink to="/createItem">{t("newItem")} </NavLink>
-        </li>
-        <li>
-          <button onClick={state.handleSubmit}>{t("logout")} </button>
-        </li>
-      </div>
-      <div className="user">
-        <li>
-          <NavLink to="/" className="">
-            {state.initials}
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/" />
-        </li>
-      </div>
+      <MenuSelect initials={state.initials}></MenuSelect>
     </div>
   );
 }
@@ -51,8 +34,9 @@ class SignedInLinks extends Component {
   };
 
   render() {
-    const { lang } = this.props;
+    const { lang, auth } = this.props;
 
+    if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <ul className="right">
         <MyComponent
@@ -67,7 +51,8 @@ class SignedInLinks extends Component {
 
 const mapStateToProps = state => {
   return {
-    lang: state.navar.lang
+    lang: state.navar.lang,
+    auth: state.firebase.auth
   };
 };
 

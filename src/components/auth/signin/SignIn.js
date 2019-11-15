@@ -9,7 +9,7 @@ import {
 } from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { hideHeader } from "../../layout/actions/navarActions";
 import "./signin.scss";
 import google from "../../../images/google.svg";
 import facebook from "../../../images/facebook.svg";
@@ -20,7 +20,7 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
   return (
-    <div  className="container-login pd-top--0">
+    <div className="container-login pd-top--0">
       <form onSubmit={state.handleSubmit} className="login-form">
         <div className="item-login--form m-0">
           <label htmlFor="email">{t("authentication.login.email")}</label>
@@ -42,9 +42,7 @@ function MyComponent(state) {
         </div>
         <div className="item-login--btn">
           <a href="/">¿Olvidaste tu contraseña?</a>
-          <button className="btns btn-go">
-            Iniciar sesión
-          </button>
+          <button className="btns btn-go">Iniciar sesión</button>
         </div>
       </form>
       <div className="type-login">
@@ -118,8 +116,18 @@ class SignIn extends Component {
   };
 
   render() {
-    const { authMessage, auth, lang } = this.props;
+    const { authMessage, auth, lang, header, hideHeader } = this.props;
     const images = [facebook, google];
+
+    if (auth.uid && header.isFomSignin === false) {
+      const header = {
+        isFomSignin: true,
+        hideHeader: false
+      };
+
+      hideHeader(header);
+    }
+
     if (auth.uid) return <Redirect to="/" />;
     return (
       <MyComponent
@@ -141,13 +149,14 @@ const mapStateToProps = state => ({
     state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
   type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
   auth: state.firebase.auth,
-  lang: state.navar.lang
+  lang: state.navar.lang,
+  header: state.navar.header
 });
 
 export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { signInWithEmailAndPassword, singinGmail, singinFacebook }
+    { signInWithEmailAndPassword, singinGmail, singinFacebook, hideHeader }
   )
 )(SignIn);

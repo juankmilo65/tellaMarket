@@ -12,6 +12,8 @@ import CreateItem from "./items/create/createItem";
 import PhoneAuthentication from "./auth/phoneAuthentication/PhoneAuthentication";
 import PrivacyPolicy from "./footer/privacyPolicy";
 import CreateMenu from "./administration/menu/createMenu";
+import Query from "./items/queryResult/queryResult";
+import ItemDetail from "./items/detail/itemDetail";
 import "bootstrap-4-react";
 
 class App extends Component {
@@ -29,6 +31,8 @@ class App extends Component {
               <Route path="/signup" component={SignUp} />
               <Route path="/createItem" component={CreateItem} />
               <Route path="/createMenu" component={CreateMenu} />
+              <Route path="/query" component={Query} />
+              <Route path="/itemDetail" component={ItemDetail} />
               <Route
                 exact
                 path="/phoneAuthentication"

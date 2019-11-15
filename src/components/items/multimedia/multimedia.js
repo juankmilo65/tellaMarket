@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { useTranslation } from "react-i18next";
-import { DateTimePicker } from "react-widgets";
-import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
+import { setMultimedia } from "../controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
-import axios from "axios";
+import Popup from "reactjs-popup";
+import warning from "../../../images/triangle.svg";
 import "./multimedia.scss";
 
 function MyComponent(state) {
@@ -24,69 +23,88 @@ function MyComponent(state) {
           <button className="btns btn-se mr-3" onClick={state.handleBack}>
             {t("buttons.back")}
           </button>
-          <button className="btns btn-go" onClick={state.handleSubmit}>
+          <button className="btns btn-go" onClick={state.handleNext}>
             {t("buttons.next")}
           </button>
         </div>
       </div>
       <div className="upload-image">
         <div className="box-group">
-          <label class="box active custom-file-upload">
-              <input type="file" onChange={state.handleUpload}/>
+          <label className="box active custom-file-upload">
+              <input type="file" onChange={state.handleUpload} />
               <i className="material-icons">add_photo_alternate</i>
               <span>{t("multimedia.uploadFiles")}</span>
           </label>
-
+        </div>
+        <div className="box-group">
+          
           {state.selectedFiles != null &&
             state.selectedFiles.map(file => {
               return (
+            
                 <div key={file.id} className="box">
-                  <span>
+                  <button
+                    className="remove"
+                    onClick={() => state.handleRemoveImage(file.id)}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                  <span className="img-preview">
                     <img src={file.preview}></img>
                   </span>
                 </div>
+        
               );
             })}
-
-          {/* <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div>
-          <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div>
-          <div className="box">
-            <i className="material-icons">add_photo_alternate</i>
-            <span>{t("multimedia.uploadFiles")}</span>
-          </div> */}
-        </div>
-        <div className="box-upload">
-          <span>{t("multimedia.drag&drop")}</span>
-        </div>
+        </div> 
       </div>
+      <div className="box-upload">
+          <span>{t("multimedia.drag&drop")}</span>
+      </div>
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
+        <img src={warning} className="img-alert" />
+        <h3>¡Error!</h3>
+        <span className="text-alert">{t("errors.numberOfPhotos")}</span>
+        <button className="btns btn-go" onClick={state.handleOkError}>
+          {t("errors.ok")}
+        </button>
+      </Popup>
     </div>
   );
 }
 
 class Multimedia extends Component {
   state = {
+    showModal: false,
+    columnOne: [],
     uploadValue: 0,
     picture: "",
     selectedFiles: [],
     previews: []
   };
-  handleSubmit = () => {
-    const fd = new FormData();
-    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-    axios
-      .post(
-        "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-        fd
-      )
-      .then(res => {
-        console.log(res);
+  handleNext = e => {
+    const { selectedFiles } = this.state;
+    const { setStep, setMultimedia } = this.props;
+
+    if (selectedFiles.length < 4) {
+      this.setState({
+        ["showModal"]: true
       });
+    } else {
+      setMultimedia(this.state.selectedFiles);
+      setStep(4);
+    }
+  };
+
+  handleOkError = e => {
+    this.setState({
+      ["showModal"]: false
+    });
   };
 
   handleUpload = e => {
@@ -127,24 +145,38 @@ class Multimedia extends Component {
     setStep(2);
   };
 
-  handleNext = e => {
-    const { setStep } = this.props;
-    setStep(4);
+  handleRemoveImage = id => {
+    const { selectedFiles } = this.state;
+    const newImageList = this.remove(selectedFiles, id);
+    this.setState({ ["selectedFiles"]: newImageList });
   };
 
+  remove(array, id) {
+    return array.filter(el => el.id !== id);
+  }
   render() {
-    const { auth, lang } = this.props;
+    const { auth, lang, multimedia } = this.props;
+    if (
+      this.state["selectedFiles"].length === 0 &&
+      multimedia.length !== undefined
+    ) {
+      this.setState({ ["selectedFiles"]: multimedia });
+    }
+
     return (
       <MyComponent
         lang={lang}
         countries={this.countries}
         handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
+        handleNext={this.handleNext}
         handleBack={this.handleBack}
         uploadValue={this.state.uploadValue}
         picture={this.state.picture}
         handleUpload={this.handleUpload}
         selectedFiles={this.state.selectedFiles}
+        handleOkError={this.handleOkError}
+        showModal={this.state.showModal}
+        handleRemoveImage={this.handleRemoveImage}
       ></MyComponent>
     );
   }
@@ -152,13 +184,14 @@ class Multimedia extends Component {
 
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
-  lang: state.navar.lang
+  lang: state.navar.lang,
+  multimedia: state.dataItem.multimedia
 });
 
 export default compose(
   firebaseConnect(),
   connect(
     mapStateToProps,
-    { setProductInformation, setStep }
+    { setMultimedia, setStep }
   )
 )(Multimedia);

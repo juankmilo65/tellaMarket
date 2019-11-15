@@ -1,15 +1,16 @@
 @import "../../variables.scss";
 
 .title-product {
-  padding-top: 30px;
+  padding-top: 25px;
+  line-height: 1;
   h2 {
-    font-size: 42px;
+    font-size: 36px;
     font-weight: bold;
     color: $blue;
   }
   label {
     color: $yellow;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
   }
 }

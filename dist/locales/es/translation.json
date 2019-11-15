@@ -1,5 +1,6 @@
 {
   "newItem": "Nuevo Articulo",
+  "lisProducts": "Listar todos los productos",
   "logout": "Salir",
   "signup": {
     "title": "Registro",
@@ -21,5 +22,130 @@
       "code": "Código",
       "login": "Entrar"
     }
+  },
+  "step": {
+    "categories": "Categorías",
+    "description": "Descripción",
+    "photos": "Fotos",
+    "confirmation": "Confirmación"
+  },
+  "category": {
+    "selectCategory": "Seleccione una Categoría",
+    "next": "Siguiente"
+  },
+  "productInformation": {
+    "back": "Regresar",
+    "next": "Siguiente",
+    "title": "Información del producto",
+    "productName": "Nombre del producto",
+    "machineNamePlaceHolder": "Nombre de la maquina",
+    "brand": "Marca",
+    "referencePlaceHolder": "Referencia de la maquina",
+    "model": "Modelo",
+    "modelPlaceHolder": "Modelo de la maquina",
+    "year": "Año",
+    "conservationState": "Estado de conservación",
+    "location": "Localización",
+    "description": "Descripción",
+    "descriptionPlaceHolder": "Descripción detallada",
+    "price": "Precio",
+    "pricePlaceHolder": "Dolares americanos",
+    "phonePlaceholder": "Telefono de contacto",
+    "emailPlaceholder": "Correo electronico",
+    "phone": "Celular",
+    "email": "Correo electronico"
+  },
+  "multimedia": {
+    "title": "Cargar Archivos Multimedia",
+    "uploadFiles": "Subir Archivos",
+    "drag&drop": "Arrastre su foto aqui"
+  },
+  "plan": {
+    "title": "Seleccione plan",
+    "planOne": {
+      "id": "0",
+      "name": "Gratuito",
+      "description": "Plan A",
+      "price": "0",
+      "features": {
+        "featureA": "Piblicación de 5 productos",
+        "featureB": "Tus productos apareceran en las consultas genericas",
+        "featureC": "Tus productos apareceran en las consultas"
+      }
+    },
+    "planTwo": {
+      "id": "1",
+      "name": "Basico",
+      "description": "Plan B, Plan Basico, especialmente para ti, si apenas esás iniciando con tu negocio y necesitas ayuda",
+      "price": "20",
+      "features": {
+        "featureA": "Publicación de 5 Productos",
+        "featureB": "Tus productos apareceran en las consultas genericas",
+        "featureC": "Podras aparecer durante un mes en nuestra sección grandes ofertas",
+        "featureD": "Siempre apareceras en nuestras consultas."
+      }
+    },
+    "planThree": {
+      "id": "2",
+      "name": "Plus",
+      "description": "Plan C, Plan plus, Muchas mas caracteristicas",
+      "price": "35",
+      "features": {
+        "featureA": "Publicación de 15 productos",
+        "featureB": "Tus productos podran aparecer en las cunsultas genericas",
+        "featureC": "Podras aparecer durante un mes en nuestra sección grandes ofertas",
+        "featureD": "Apareceras en notificaciones",
+        "featureE": "Apareceras en nuestras busquedas"
+      }
+    },
+    "planFour": {
+      "id": "3",
+      "name": "Premium",
+      "description": "Plan D, Plan Premium ",
+      "price": "100",
+      "features": {
+        "featureA": "Publicación de 20 Productos",
+        "featureB": "Apareceras en las consultas genericas",
+        "featureC": "Un mes en banner principal",
+        "featureD": "Apareceras en notificaciones",
+        "featureE": "Apareceras en nuestras busquedas"
+      }
+    }
+  },
+  "buttons": {
+    "back": "Regresar",
+    "next": "Siguiente",
+    "SelectPlan": "Seleccione"
+  },
+  "errors": {
+    "requiredField": "Campo Obligatorio",
+    "requeredCategory": "Porfavor seleccione una categoria.",
+    "ok": "Aceptar",
+    "numberOfPhotos": "El mínimo de fotos para realizar la creación del producto deben ser 4"
+  },
+  "messages": {
+    "createItem": "Producto creado satisfactoriamente",
+    "ok": "Ok",
+    "congratulation": "Felicitaciones",
+    "soon": "Próximamente"
+  },
+  "dashboard": {
+    "bigOffers": "Grandes ofertas",
+    "new": "Nuevos",
+    "suppliers": "proveedores",
+    "contact": "Contacto",
+    "categories": "Categorias",
+    "support": "Soporte",
+    "copyright": "Todos los derechos reservados Tella Market",
+    "notifications": "Notificaciones",
+    "checkNow": "Consultar ahora",
+    "quickLook": "Vista rapida"
+  },
+  "itemDetal": {
+    "availability": "Disponibilidad",
+    "categories": "Categorias",
+    "year": "Años",
+    "contact": "Contactar al vendedor",
+    "stok": "En stock"
   }
 }

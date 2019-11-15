@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "./actions/navarActions";
 import { Redirect } from "react-router-dom";
@@ -14,12 +13,9 @@ function MyComponent(state) {
   return (
     <div>
       <li>
-        <button  className="user" onClick={state.handleSignin}>
+        <button className="user" onClick={state.handleSignin}>
           {t("authentication.title")}
         </button>
-      </li>
-      <li>
-        <NavLink to="/" />
       </li>
     </div>
   );
@@ -44,7 +40,7 @@ class SignedOutLinks extends Component {
     const { lang, header } = this.props;
 
     return (
-      <div>
+      <div className="d-flex align-items-center">
         {this.state.redirect && header.hideHeader ? (
           <Redirect to={"/signin"} />
         ) : header.hideHeader ? (

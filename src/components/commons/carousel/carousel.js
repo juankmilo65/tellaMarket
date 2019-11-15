@@ -1,36 +1,27 @@
 import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
+import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import "./carousel.scss";
 
-class carousel extends Component {
-  state = {
-    index: 0,
-    setIndex: 0,
-    direction: null,
-    setDirection: null
-  };
-  handleSelect = (selectedIndex, e) => {
-    this.setState({
-      setIndex: selectedIndex,
-      index: selectedIndex,
-      direction: e.direction,
-      setDirection: e.direction
-    });
-  };
-  render() {
-    const { images } = this.props;
-    return (
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
+  }
+  return (
+    <div>
       <Carousel
-        activeIndex={this.state.index}
-        direction={this.state.direction}
-        onSelect={this.handleSelect}
+        activeIndex={state.state.index}
+        direction={state.state.direction}
+        onSelect={state.handleSelect}
       >
-        {images &&
-          images.map(image => {
+        {state.images &&
+          state.images.map(image => {
             return (
               <Carousel.Item key={image.id}>
                 <img
-                  className="d-block w-100 img-small"
+                  className="d-block img-first--slider"
                   src={image.image}
                   alt="First slide"
                 />
@@ -39,16 +30,13 @@ class carousel extends Component {
                     <div className="title-category">{image.titlecategory}</div>
                     <div className="product">{image.titleproduct}</div>
                     <div>
-                      <span id={image.id} className="title-category">
-                        {image.price}
-                      </span>
                       <span id={image.id} className="value-price">
-                        {image.valueprice}
+                        {image.valueprice} USD
                       </span>
                     </div>
                   </div>
                   <a href="/" className="btns btn-go">
-                    {image.textbtn}
+                    {t("dashboard.checkNow")}
                   </a>
                 </div>
                 <div className="item-banner-xs">
@@ -61,8 +49,47 @@ class carousel extends Component {
             );
           })}
       </Carousel>
+    </div>
+  );
+}
+
+class carousel extends Component {
+  state = {
+    index: 0,
+    setIndex: 0,
+    direction: null,
+    setDirection: null
+  };
+
+  handleSelect = (selectedIndex, e) => {
+    this.setState({
+      setIndex: selectedIndex,
+      index: selectedIndex,
+      direction: e.direction,
+      setDirection: e.direction
+    });
+  };
+  render() {
+    const { images, lang } = this.props;
+
+    return (
+      <div>
+        <MyComponent
+          images={images}
+          state={this.state}
+          handleSelect={this.handleSelect}
+          lang={lang}
+        ></MyComponent>
+      </div>
     );
   }
 }
 
-export default carousel;
+const mapStateToProps = state => ({
+  lang: state.navar.lang
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(carousel);

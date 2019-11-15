@@ -5,7 +5,6 @@ import { firebaseReducer } from "react-redux-firebase";
 import signinReducer from "../components/auth/signin/reducers/signinReducers";
 import signoutReducer from "../components/auth/signout/reducers/signoutReducers";
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
-import createItemReducers from "../components/items/create/reducers/createItemReducers";
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
 import navarReducer from "../components/layout/reducers/navarReducers";
 import phoneAuthenticationReducer from "../components/auth/phoneAuthentication/reducers/phoneAuthenticationReducers";
@@ -15,7 +14,9 @@ import createmenuReducers from "../components/administration/menu/reducers/Creat
 import dataReducers from "../components/commons/data/reducers/dataReducers";
 import stepReducer from "../components/items/steps/reducer/stepsReducers";
 import controlDataItemReducers from "../components/items/controlDataItem/reducer/controlDataItemReducers";
-import createItemEpics from "../components/items/create/epics/createItemEpics";
+import dashboardReducers from "../components/dashboard/reducers/dashboardReducers";
+import queryResultReducers from "../components/items/queryResult/reducers/queryResultReducers";
+import selectReducers from "../components/commons/select/reducers/selectReducers";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
@@ -27,11 +28,13 @@ import createMenuEpics from "../components/administration/menu/epics/createMenuE
 import dataEpics from "../components/commons/data/epics/dataEpics";
 import stepEpics from "../components/items/steps/epics/stepsEpics";
 import controlDataItemEpics from "../components/items/controlDataItem/epics/controlDataItemEpics";
+import dashboardEpics from "../components/dashboard/epics/dashboardEpics";
+import queryResultEpics from "../components/items/queryResult/epics/queryResultEpics";
+import selectEpics from "../components/commons/select/epics/selectEpics";
 import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
   const rootEpic = combineEpics(
-    createItemEpics,
     signinEpics,
     signoutEpics,
     signupEpics,
@@ -42,7 +45,10 @@ export function configureStore() {
     createMenuEpics,
     dataEpics,
     stepEpics,
-    controlDataItemEpics
+    controlDataItemEpics,
+    dashboardEpics,
+    queryResultEpics,
+    selectEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -50,7 +56,6 @@ export function configureStore() {
     signin: signinReducer,
     signout: signoutReducer,
     signup: signupReducer,
-    createItem: createItemReducers,
     listItems: listItemReducer,
     navar: navarReducer,
     phoneAuthentication: phoneAuthenticationReducer,
@@ -61,7 +66,10 @@ export function configureStore() {
     createmenu: createmenuReducers,
     data: dataReducers,
     step: stepReducer,
-    dataItem: controlDataItemReducers
+    dataItem: controlDataItemReducers,
+    dashboard: dashboardReducers,
+    queryResult: queryResultReducers,
+    select: selectReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

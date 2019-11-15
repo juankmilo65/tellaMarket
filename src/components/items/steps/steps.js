@@ -32,12 +32,12 @@ function MyComponent(state) {
           </span>
           <label>{t("step.photos")}</label>
         </div>
-        {/* <div className="steps-items">
+        <div className="steps-items">
           <span className={state.step === 4 ? "number active" : "number"}>
             4
           </span>
           <label>{t("step.confirmation")}</label>
-        </div> */}
+        </div>
       </div>
     </div>
   );

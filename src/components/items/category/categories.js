@@ -72,10 +72,18 @@ function MyComponent(state) {
         </div>
       </div>
 
-      <Popup modal open={state.showModal} className="modal-alert">
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
         <img src={warning} className="img-alert" />
         <h3>¡Error!</h3>
-        <span className="text-alert">Seleccione una subcategoria</span>
+        <span className="text-alert">{t("errors.requeredCategory")}</span>
+        <button className="btns btn-go" onClick={state.handleOkError}>
+          {t("errors.ok")}
+        </button>
       </Popup>
     </div>
   );
@@ -86,6 +94,12 @@ class Categories extends Component {
     showModal: false,
     columnOne: [],
     columnTwo: []
+  };
+
+  handleOkError = e => {
+    this.setState({
+      ["showModal"]: false
+    });
   };
 
   handleSelectCheck = e => {
@@ -110,9 +124,9 @@ class Categories extends Component {
     }
   };
 
-  generateLists(list) {
-    let categories = [];
+  handleList(list) {
     let columnOne = [];
+    let categories = [];
 
     if (list.length > 0) {
       list.forEach(doc => {
@@ -126,10 +140,9 @@ class Categories extends Component {
       });
       var pos = Math.ceil(list.length / 2) - 1;
       var quantity = list.length - pos + 1;
+      columnOne = list.length >= 0 ? list.splice(pos, quantity) : list;
 
-      this.setState({
-        ["columnOne"]: list.length >= 0 ? list.splice(pos, quantity) : list
-      });
+      this.setState({ ["columnOne"]: columnOne });
 
       if (columnOne.length !== list.length) {
         this.setState({ ["columnTwo"]: list.splice(0, pos) });
@@ -151,18 +164,19 @@ class Categories extends Component {
       if (documentsEs.length === 0) {
         this.props.getDocuments({ firebase, language: "es" });
       }
-      this.generateLists(documentsEs);
+
+      this.handleList(documentsEs);
     } else if (lang.value === "en") {
       if (documentsEn.length === 0) {
         this.props.getDocuments({ firebase, language: "en" });
       }
 
-      this.generateLists(documentsEn);
+      this.handleList(documentsEn);
     }
 
     const { columnOne, columnTwo } = this.state;
 
-    if (auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to="/" />;
     return (
       <div>
         {columnOne.length === 0 ? (
@@ -176,6 +190,7 @@ class Categories extends Component {
             handleSubmit={this.handleSubmit}
             showModal={this.state.showModal}
             subcategory={subcategory}
+            handleOkError={this.handleOkError}
           ></MyComponent>
         )}
       </div>
