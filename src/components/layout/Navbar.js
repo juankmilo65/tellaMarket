@@ -43,20 +43,18 @@ class Hits extends React.Component {
         }}
         onSuggestionsFetchRequested={({ value }) => refine(value)}
         onSuggestionsClearRequested={() => this.setState({ hits: [] })}
-        getSuggestionValue={hit => hit.subcategory.subcategoryName}
+        getSuggestionValue={hit => hit.productInformation.productName}
         renderSuggestion={hit => (
           <div className="hit">
-            <p>
+            <div>
               <span>
                 <Highlight
                   attribute="productInformation.productName"
                   hit={hit}
                 />
-              </span>
-              <span>
                 <h3>{hit.subcategory.subcategoryName}</h3>
               </span>
-            </p>
+            </div>
           </div>
         )}
         inputProps={{
@@ -246,12 +244,6 @@ const mapStateToProps = state => {
   };
 };
 
-const AutoComplete = connect(
-  mapStateToProps,
-  null
-)(connectAutoComplete(Hits));
+const AutoComplete = connect(mapStateToProps, null)(connectAutoComplete(Hits));
 
-export default connect(
-  mapStateToProps,
-  { hideHeader, getDocuments }
-)(Navbar);
+export default connect(mapStateToProps, { hideHeader, getDocuments })(Navbar);

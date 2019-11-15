@@ -11,8 +11,20 @@ class Query extends Component {
     const { idCategory } = this.props.location.state;
     const { getProductsByCategory, items } = this.props;
 
-    if (items.length == 0) {
-      getProductsByCategory(idCategory);
+    if (
+      (items.length == 0 && this.state === null) ||
+      (this.state !== null &&
+        this.state.idCat !== null &&
+        this.state.idCat !== idCategory)
+    ) {
+      this.setState(
+        {
+          idCat: idCategory
+        },
+        () => {
+          getProductsByCategory(idCategory);
+        }
+      );
     }
 
     return (
@@ -38,9 +50,6 @@ const mapStateToProps = state => ({
   items: state.queryResult.items
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    getProductsByCategory
-  }
-)(Query);
+export default connect(mapStateToProps, {
+  getProductsByCategory
+})(Query);

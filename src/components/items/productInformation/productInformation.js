@@ -249,6 +249,7 @@ function MyComponent(state) {
 
 class ProductInformation extends Component {
   state = {
+    comeback: false,
     productName: "",
     brand: "",
     year: "",
@@ -594,6 +595,7 @@ class ProductInformation extends Component {
     obj["email"] = email;
 
     setProductInformation(obj);
+    this.setState({ comeback: true });
   };
 
   handleChangeTest = e => {
@@ -621,13 +623,25 @@ class ProductInformation extends Component {
   };
 
   render() {
-    const { auth, lang, firebase, productInformation } = this.props;
+    const { comeback } = this.state;
+    const {
+      auth,
+      lang,
+      firebase,
+      productInformation,
+      setProductInformation
+    } = this.props;
 
     Object.keys(productInformation).map(info => {
       if (this.state[info] !== productInformation[info]) {
         this.setState({ [info]: productInformation[info] });
       }
     });
+
+    if (Object.keys(productInformation).length > 0) {
+      var obj = new Object();
+      setProductInformation(obj);
+    }
 
     return (
       <MyComponent
@@ -650,7 +664,6 @@ const mapStateToProps = state => ({
   productInformation: state.dataItem.productInformation
 });
 
-export default connect(
-  mapStateToProps,
-  { setProductInformation, setStep }
-)(ProductInformation);
+export default connect(mapStateToProps, { setProductInformation, setStep })(
+  ProductInformation
+);

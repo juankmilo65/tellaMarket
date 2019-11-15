@@ -19,6 +19,7 @@ class carouselImage extends Component {
   };
   render() {
     const { images } = this.props;
+    let count = 0;
     return (
       <Carousel
         activeIndex={this.state.index}
@@ -27,8 +28,9 @@ class carouselImage extends Component {
       >
         {images &&
           images.map(image => {
+            count = ++count;
             return (
-              <Carousel.Item key={image.id}>
+              <Carousel.Item key={count}>
                 {image.redirectUrl != undefined ? (
                   <a href={image.redirectUrl} target="_blank">
                     <img className="" src={image.imageUrl} alt=""></img>

@@ -22,7 +22,8 @@ function MyComponent(state) {
           state.filters.categories.map(item => {
             return (
               <div className="item-category" key={item.id}>
-                <label>{item.category}</label><span>(5)</span>
+                <label>{item.category}</label>
+                <span>(5)</span>
               </div>
             );
           })}
@@ -36,30 +37,37 @@ function MyComponent(state) {
           <label>{state.filters.prices.maximun}</label>
         </div> */}
         <div className="inputs-price">
-          <input type="text" placeholder="Minimo"/>
+          <input type="text" placeholder="Minimo" />
           <span>-</span>
-          <input type="text"  placeholder="Máximo"/>
-          <a href=""><i className="material-icons">chevron_right</i></a>
+          <input type="text" placeholder="Máximo" />
+          <a href="">
+            <i className="material-icons">chevron_right</i>
+          </a>
         </div>
       </div>
       <div className="year">
-        <label  className="title-filter">Año</label>
+        <label className="title-filter">Año</label>
         {state.filters.years != null &&
           state.filters.years.map(item => {
             return (
               <div key={item.id} className="item-year">
-                <label>{item.year}</label><span>(5)</span>
+                <label>{item.year}</label>
+                <span>(5)</span>
               </div>
             );
           })}
         <div className="d-flex mt-2">
           <select className="select-tella" name="select">
-            <option value="value1" selected>Desde</option> 
+            <option value="value1" defaultValue>
+              Desde
+            </option>
             <option value="value2">2000</option>
             <option value="value3">2001</option>
           </select>
           <select className="select-tella" name="select">
-            <option value="value1" selected>Hasta</option> 
+            <option value="value1" defaultValue>
+              Hasta
+            </option>
             <option value="value2">2018</option>
             <option value="value3">2019</option>
           </select>
@@ -67,10 +75,8 @@ function MyComponent(state) {
 
         {/* <label>{state.filters.yearRange.lastYear}</label>
         <label>{state.filters.yearRange.newYear}</label> */}
-
       </div>
     </div>
- 
   );
 }
 
@@ -85,8 +91,8 @@ class Filter extends Component {
       ],
       categories: [
         { id: 1, category: "category 1" },
-        { id: 1, category: "category 1" },
-        { id: 1, category: "category 1" }
+        { id: 2, category: "category 2" },
+        { id: 3, category: "category 3" }
       ],
       prices: {
         minimun: "200",
@@ -94,7 +100,7 @@ class Filter extends Component {
       },
       years: [
         { id: 1, year: "1988" },
-        { id: 3, year: "2002" },
+        { id: 2, year: "2002" },
         { id: 3, year: "2009" }
       ],
       yearRange: {

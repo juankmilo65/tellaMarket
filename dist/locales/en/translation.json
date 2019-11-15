@@ -137,7 +137,9 @@
     "categories": "Categories",
     "support": "Support",
     "copyright": "Copyright: All the reserved rights on texts and images",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "checkNow": "Check Now",
+    "quickLook": "Quick look"
   },
   "itemDetal": {
     "availability": "Availability",

@@ -17,6 +17,8 @@ import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
 import banner1 from "../commons/carousel/img/banner1.png";
+import banner2 from "../commons/carousel/img/banner2.png";
+import banner3 from "../commons/carousel/img/banner3.png";
 import promo1 from "../commons/carousel/img/TellaNeedles.jpg";
 import "./dashboard.scss";
 
@@ -209,6 +211,7 @@ class Dashboard extends Component {
       firebase,
       lang
     } = this.props;
+    let count = 1;
     const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
     const imagesMainBar = [];
     const imagesMultiBar = [];
@@ -305,9 +308,11 @@ class Dashboard extends Component {
         obj["images"] = item.data.images;
         obj["id"] = item.id;
         obj["year"] = item.data.productInformation.year;
-        obj["image"] = banner1;
+        obj["image"] = count == 1 ? banner1 : count == 2 ? banner2 : banner3;
         imagesMainBar.push(obj);
         imagesMultiBar.push(obj);
+
+        count = count + 1;
       });
 
       // {
@@ -345,14 +350,11 @@ const mapStateToProps = state => {
 };
 
 export default compose(
-  connect(
-    mapStateToProps,
-    {
-      getDashboardProductsPlanPremium,
-      getDashboardProductsPlanPlus,
-      getDashboardProductsPlanBasic
-    }
-  ),
+  connect(mapStateToProps, {
+    getDashboardProductsPlanPremium,
+    getDashboardProductsPlanPlus,
+    getDashboardProductsPlanBasic
+  }),
   firestoreConnect([
     { collection: "items", orderBy: ["createAt", "desc"] },
     { collection: "notifications", limit: 3, orderBy: ["time", "desc"] }

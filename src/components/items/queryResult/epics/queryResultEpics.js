@@ -15,6 +15,7 @@ export default function queryResultEpics(action$) {
     ofType(GET_PRODUCTS_BY_CATEGORY),
     switchMap(action => {
       if (action.type === GET_PRODUCTS_BY_CATEGORY) {
+        let itemList = [];
         return concat(
           of(setStatus("pending")),
           getFS
@@ -22,7 +23,6 @@ export default function queryResultEpics(action$) {
             .where("subcategory.categorySelectedId", "==", action.payload)
             .get()
             .then(snapshot => {
-              let itemList = [];
               snapshot.forEach(doc => {
                 var obj = {
                   id: doc.id,
