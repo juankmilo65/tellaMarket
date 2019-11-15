@@ -5,6 +5,11 @@ import { useTranslation } from "react-i18next";
 import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
 import { default as NumberFormat } from "react-number-format";
 import { setStep } from "../../items/steps/actions/stepsActions";
+import $ from "jquery";
+import "bootstrap-datepicker/dist/js/bootstrap-datepicker.js";
+import "bootstrap-datepicker/dist/css/bootstrap-datepicker.css";
+import "bootstrap/dist/js/bootstrap.js";
+import "bootstrap/dist/css/bootstrap.css";
 import "./productInformation.scss";
 
 function MyComponent(state) {
@@ -111,11 +116,13 @@ function MyComponent(state) {
               {t("productInformation.year")}
             </label>
             <input
-              type="date"
+              type="text"
               id="year"
               className="form-control"
-              onChange={state.handleChangeTest}
-              value={state.state.year}
+              //onChangeCapture={state.handleChangeTest}
+              // onChange={state.handleChangeTest}
+              defaultValue={state.state.year}
+              autoComplete="off"
             />
             {/* <i className="material-icons icon-calendar">today</i> */}
             {state.state.errors.year === true ? (
@@ -621,6 +628,26 @@ class ProductInformation extends Component {
       });
     }
   };
+
+  componentDidMount() {
+    var _ = this;
+    $("#year")
+      .datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years",
+        autoclose: true,
+        maxDate: "+1M +10D"
+      })
+      .on("change", function() {
+        var obj = {
+          target: { id: "year" }
+        };
+
+        _.handleChangeTest(obj);
+        //console.log("Got change event from field");
+      });
+  }
 
   render() {
     const { comeback } = this.state;

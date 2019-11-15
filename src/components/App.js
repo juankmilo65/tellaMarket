@@ -15,7 +15,6 @@ import CreateMenu from "./administration/menu/createMenu";
 import Query from "./items/queryResult/queryResult";
 import ItemDetail from "./items/detail/itemDetail";
 import "bootstrap-4-react";
-
 class App extends Component {
   render() {
     const { auth } = this.props;
@@ -52,7 +51,4 @@ const mapStateToProps = state => ({
   auth: state.firebase.auth
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(mapStateToProps)
-)(App);
+export default compose(firebaseConnect(), connect(mapStateToProps))(App);

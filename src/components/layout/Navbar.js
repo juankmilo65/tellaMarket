@@ -10,6 +10,7 @@ import "./navbar.scss";
 import logo from "../../images/Logo.svg";
 import algoliasearch from "algoliasearch/lite";
 import ControlledOpenSelect from "../commons/select/select";
+import Categories from "../commons/select/categoriesMenu";
 import {
   InstantSearch,
   Configure,
@@ -180,41 +181,8 @@ class Navbar extends Component {
           <div className="search">
             <div className="container-tella">
               <div className="dropdown">
-                <button
-                  className="btn-submenu dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  {lang.value === "es" ? "Categorias" : "Categories"}
-                </button>
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton"
-                >
-                  {list &&
-                    list.map(category => {
-                      return (
-                        <div key={category.id}>
-                          <a
-                            className="dropdown-item"
-                            onClick={() => this.setRedirect(category.id)}
-                          >
-                            {
-                              Object.keys(
-                                category.data[Object.keys(category.data)[0]]
-                              )[0]
-                            }
-                          </a>
-                        </div>
-                      );
-                    })}
-                </div>
+                <Categories categories={list}></Categories>
               </div>
-
-              {/* <ControlledOpenSelect></ControlledOpenSelect> */}
               <div className="input-search">
                 <InstantSearch
                   searchClient={searchClient}
