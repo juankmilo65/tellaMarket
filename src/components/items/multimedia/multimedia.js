@@ -91,7 +91,7 @@ class Multimedia extends Component {
     const { selectedFiles } = this.state;
     const { setStep, setMultimedia } = this.props;
 
-    if (selectedFiles.length < 4) {
+    if (selectedFiles.length < 1) {
       this.setState({
         ["showModal"]: true
       });

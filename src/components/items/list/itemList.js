@@ -113,7 +113,4 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(ItemList);
+export default connect(mapStateToProps, null)(ItemList);
