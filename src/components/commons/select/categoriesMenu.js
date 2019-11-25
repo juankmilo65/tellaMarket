@@ -78,7 +78,7 @@ export default withRouter(
     let { categories, lang } = props;
 
     return (
-      <form autoComplete="off" className="select-tella">
+      <form autoComplete="off" className="select-tella select-category">
         <FormControl className={classes.formControl}>
           <Select
             open={open}

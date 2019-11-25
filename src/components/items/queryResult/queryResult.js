@@ -14,7 +14,6 @@ import {
 } from "react-instantsearch-dom";
 import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
-import "./App.css";
 
 const searchClient = algoliasearch(
   "LOYYIQWO7O",
