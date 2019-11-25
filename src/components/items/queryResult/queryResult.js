@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Filter from "../filter/filter";
-import ItemList from "../list/itemList";
+import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
 import {
   InstantSearch,
   Hits,
-  SearchBox,
   Pagination,
-  Highlight,
   ClearRefinements,
   RefinementList,
   Configure
@@ -24,6 +20,74 @@ const searchClient = algoliasearch(
   "LOYYIQWO7O",
   "1ba2b0f2147ae9c9553f63c594e0feca"
 );
+
+function MyComponent(state) {
+  const { t, i18n } = useTranslation();
+  if (i18n.language !== state.lang.value) {
+    i18n.changeLanguage(state.lang.value);
+  }
+  return (
+    <div>
+      <div className="container pd-top--130px">
+        <div className="title-product">
+          <h2>Producto y Categorías</h2>
+          <label>Listado de productos</label>
+        </div>
+        <div className="ais-InstantSearch">
+          <InstantSearch
+            indexName="dev_tellamarket"
+            searchClient={state.searchClient}
+          >
+            <div className="list-product">
+              <div className="filter">
+                <ClearRefinements
+                  translations={{
+                    reset: t("query.clean")
+                  }}
+                />
+                <div className="order">
+                  <label className="title-filter">{t("query.sort")}</label>
+                  <RefinementList attribute="productInformation.conservationState" />
+                  <Configure hitsPerPage={8} />
+                </div>
+                <div className="category">
+                  <label className="title-filter">{t("query.category")}</label>
+                  <RefinementList attribute="subcategory.subcategoryName" />
+                  <Configure hitsPerPage={8} />
+                </div>
+                <div className="price">
+                  <label className="title-filter">{t("query.brand")}</label>
+                  <RefinementList attribute="productInformation.brand" />
+                  <Configure hitsPerPage={8} />
+                </div>
+                <div className="year">
+                  <label className="title-filter">Localización</label>
+                  <RefinementList attribute="productInformation.location" />
+                  <Configure hitsPerPage={8} />
+                </div>
+              </div>
+              <div className="list-products">
+                <div className="refineQueryList">
+                  <RefinementList
+                    attribute="subcategory.categorySelectedId"
+                    defaultRefinement={[state.idCategory]}
+                  />
+                </div>
+                <Hits
+                  hitComponent={hit => (
+                    <Hit hit={hit} setRedirect={state.setRedirect} />
+                  )}
+                />
+              </div>
+            </div>
+            <Pagination />
+          </InstantSearch>
+        </div>
+      </div>
+      {state.renderRedirect()}
+    </div>
+  );
+}
 
 class Query extends Component {
   state = {
@@ -71,7 +135,7 @@ class Query extends Component {
 
   render() {
     const { idCategory } = this.props.location.state;
-    const { getProductsByCategory, items } = this.props;
+    const { getProductsByCategory, items, lang } = this.props;
 
     if (
       (items.length == 0 && this.state === null) ||
@@ -91,53 +155,13 @@ class Query extends Component {
 
     return (
       <div>
-        <div className="container pd-top--130px">
-          <div className="title-product">
-            <h2>Producto y Categorías</h2>
-            <label>Listado de productos</label>
-          </div>
-          <div className="ais-InstantSearch">
-            <InstantSearch
-              indexName="dev_tellamarket"
-              searchClient={searchClient}
-            >
-              <div className="list-product">
-                <div className="filter">
-                  <ClearRefinements />
-                  <div className="order">
-                    <label className="title-filter">Ordernar por</label>
-                    <RefinementList attribute="productInformation.model" />
-                    <Configure hitsPerPage={8} />
-                  </div>
-                  <div className="category">
-                    <label className="title-filter">Categoria</label>
-                    <RefinementList attribute="productInformation.model" />
-                    <Configure hitsPerPage={8} />
-                  </div>
-                  <div className="price">
-                    <label className="title-filter">Precios</label>
-                    <RefinementList attribute="productInformation.model" />
-                    <Configure hitsPerPage={8} />
-                  </div>
-                  <div className="year">
-                    <label className="title-filter">Año</label>
-                    <RefinementList attribute="productInformation.model" />
-                    <Configure hitsPerPage={8} />
-                  </div>
-                </div>
-                <div className="list-products">
-                  <Hits
-                    hitComponent={hit => (
-                      <Hit hit={hit} setRedirect={this.setRedirect} />
-                    )}
-                  />
-                </div>
-              </div>
-              <Pagination />
-            </InstantSearch>
-          </div>
-        </div>
-        {this.renderRedirect()}
+        <MyComponent
+          lang={lang}
+          searchClient={searchClient}
+          idCategory={idCategory}
+          setRedirect={this.setRedirect}
+          renderRedirect={this.renderRedirect}
+        ></MyComponent>
       </div>
     );
   }
@@ -155,13 +179,13 @@ function Hit(hit) {
         />
       </div>
       <div className="info-product--list">
-        <label class="title-product--list">
+        <label className="title-product--list">
           {props.hit.productInformation.brand}
         </label>
-        <div class="category-list">
+        <div className="category-list">
           {props.hit.productInformation.description}
         </div>
-        <div class="price-button--list">
+        <div className="price-button--list">
           <div className="price-list">{props.hit.productInformation.price}</div>
           <button
             className="btns btn-go"
@@ -174,21 +198,6 @@ function Hit(hit) {
     </div>
   );
 }
-
-// function Hit(props) {
-//   return (
-//     <div>
-//       <img src={props.hit.image} align="left" alt={props.hit.name} />
-//       <div className="hit-name">
-//         <Highlight attribute="name" hit={props.hit} />
-//       </div>
-//       <div className="hit-description">
-//         <Highlight attribute="description" hit={props.hit} />
-//       </div>
-//       <div className="hit-price">${props.hit.price}</div>
-//     </div>
-//   );
-// }
 
 Hit.propTypes = {
   hit: PropTypes.object.isRequired

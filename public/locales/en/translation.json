@@ -121,7 +121,7 @@
     "requiredField": "Required field",
     "requeredCategory": "Please select one category.",
     "ok": "Ok",
-    "numberOfPhotos": "The minimum number of photos to create the product must be 4."
+    "numberOfPhotos": "The minimum number of photos to create the product must be 1."
   },
   "messages": {
     "createItem": "Product successfully created",
@@ -147,5 +147,12 @@
     "year": "Year",
     "contact": "Contact the seller",
     "stok": "In stock"
+  },
+  "query": {
+    "clean": "Clean filters",
+    "sort": "Sort by:",
+    "category": "Category:",
+    "brand": "Brand:",
+    "location": "Location:"
   }
 }

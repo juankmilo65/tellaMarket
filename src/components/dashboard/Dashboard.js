@@ -308,7 +308,7 @@ class Dashboard extends Component {
         obj["images"] = item.data.images;
         obj["id"] = item.id;
         obj["year"] = item.data.productInformation.year;
-        obj["image"] = count == 1 ? banner1 : count == 2 ? banner2 : banner3;
+        obj["image"] = count === 1 ? banner1 : count === 2 ? banner2 : banner3;
         imagesMainBar.push(obj);
         imagesMultiBar.push(obj);
 

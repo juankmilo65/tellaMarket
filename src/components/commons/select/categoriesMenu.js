@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
 
 const mapStateToProps = state => {
   return {
-    category: state.categories.category
+    category: state.categories.category,
+    lang: state.navar.lang
   };
 };
 
@@ -32,6 +33,10 @@ export default withRouter(
     const classes = useStyles();
     const [menu, setMenu] = React.useState("");
     const [open, setOpen] = React.useState(false);
+
+    if (menu === "" || menu !== "-1") {
+      setMenu("-1");
+    }
 
     if (props.category !== undefined && props.category !== "") {
       props.setOptionCategory("");
@@ -48,17 +53,19 @@ export default withRouter(
     }
 
     const handleChange = event => {
-      setMenu(event.target.value);
-      props.setOptionCategory({
-        label: Object.keys(
-          props.categories.find(x => x.id === event.target.value).data[
-            Object.keys(
-              props.categories.find(x => x.id === event.target.value).data
-            )[0]
-          ]
-        )[0],
-        value: event.target.value
-      });
+      if (event.target.value !== "-1") {
+        setMenu(event.target.value);
+        props.setOptionCategory({
+          label: Object.keys(
+            props.categories.find(x => x.id === event.target.value).data[
+              Object.keys(
+                props.categories.find(x => x.id === event.target.value).data
+              )[0]
+            ]
+          )[0],
+          value: event.target.value
+        });
+      }
     };
 
     const handleClose = () => {
@@ -68,7 +75,8 @@ export default withRouter(
     const handleOpen = () => {
       setOpen(true);
     };
-    const { categories } = props;
+    let { categories, lang } = props;
+
     return (
       <form autoComplete="off" className="select-tella">
         <FormControl className={classes.formControl}>
@@ -83,10 +91,13 @@ export default withRouter(
               id: "demo-controlled-open-select"
             }}
           >
+            <MenuItem value="-1">
+              {lang.value === "es" ? "Seleccione Categoria" : "Select Category"}
+            </MenuItem>
             {categories.length > 0 &&
               categories.map(category => {
                 return (
-                  <MenuItem value={category.id}>
+                  <MenuItem key={category.id} value={category.id}>
                     {
                       Object.keys(
                         category.data[Object.keys(category.data)[0]]
