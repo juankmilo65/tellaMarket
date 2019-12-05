@@ -153,6 +153,8 @@
     "sort": "Ordenar por:",
     "category": "Categoria:",
     "brand": "Marca:",
-    "location": "Localización:"
+    "location": "Localización:",
+    "products&categories": " Productos y Categorias",
+    "productList": "Listado de productos"
   }
 }

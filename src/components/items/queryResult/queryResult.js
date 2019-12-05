@@ -10,7 +10,8 @@ import {
   Pagination,
   ClearRefinements,
   RefinementList,
-  Configure
+  Configure,
+  SortBy
 } from "react-instantsearch-dom";
 import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
@@ -29,8 +30,8 @@ function MyComponent(state) {
     <div>
       <div className="container pd-top--130px">
         <div className="title-product">
-          <h2>Producto y Categorías</h2>
-          <label>Listado de productos</label>
+          <h2>{t("query.products&categories")}</h2>
+          <label>{t("query.productList")}</label>
         </div>
         <div className="ais-InstantSearch">
           <InstantSearch
@@ -46,7 +47,23 @@ function MyComponent(state) {
                 />
                 <div className="order">
                   <label className="title-filter">{t("query.sort")}</label>
-                  <RefinementList attribute="productInformation.conservationState" />
+                  <SortBy
+                    defaultRefinement="dev_tellamarket"
+                    items={[
+                      {
+                        value: "dev_tellamarket",
+                        label: "Default"
+                      },
+                      {
+                        value: "dev_tellamarket_asc",
+                        label: "Price Asc"
+                      },
+                      {
+                        value: "dev_tellamarket_desc",
+                        label: "Price Des"
+                      }
+                    ]}
+                  />
                   <Configure hitsPerPage={8} />
                 </div>
                 <div className="category">
@@ -79,7 +96,11 @@ function MyComponent(state) {
                 />
               </div>
             </div>
-            <Pagination />
+            <div className="center">
+              <div className="pagination">
+                <Pagination totalPages={5} />
+              </div>
+            </div>
           </InstantSearch>
         </div>
       </div>
@@ -185,7 +206,9 @@ function Hit(hit) {
           {props.hit.productInformation.description}
         </div>
         <div className="price-button--list">
-          <div className="price-list">{props.hit.productInformation.price}</div>
+          <div className="price-list">
+            ${props.hit.productInformation.price}
+          </div>
           <button
             className="btns btn-go"
             onClick={() => hit.setRedirect(props.hit)}

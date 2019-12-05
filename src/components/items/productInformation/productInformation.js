@@ -597,7 +597,10 @@ class ProductInformation extends Component {
     obj["location"] = location;
     obj["locationId"] = locationId;
     obj["description"] = description;
-    obj["price"] = document.getElementById("price").value;
+    obj["price"] = document
+      .getElementById("price")
+      .value.slice(1)
+      .replace(",", "");
     obj["phone"] = phone;
     obj["email"] = email;
 

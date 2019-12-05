@@ -153,6 +153,8 @@
     "sort": "Sort by:",
     "category": "Category:",
     "brand": "Brand:",
-    "location": "Location:"
+    "location": "Location:",
+    "products&categories": "Products & Categories",
+    "productList": "Product list"
   }
 }
