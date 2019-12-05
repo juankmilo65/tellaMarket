@@ -11,6 +11,7 @@ import "bootstrap-datepicker/dist/css/bootstrap-datepicker.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "./productInformation.scss";
+var googleTranslate = require("google-translate")("");
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -587,24 +588,37 @@ class ProductInformation extends Component {
       phone,
       email
     } = this.state;
-
-    var obj = new Object();
-    obj["productName"] = productName;
-    obj["brand"] = brand;
-    obj["year"] = year;
-    obj["model"] = model;
-    obj["conservationState"] = conservationState;
-    obj["location"] = location;
-    obj["locationId"] = locationId;
-    obj["description"] = description;
-    obj["price"] = document
+    let spanishDescription = "";
+    let englishDescription = "";
+    let price = document
       .getElementById("price")
       .value.slice(1)
       .replace(",", "");
-    obj["phone"] = phone;
-    obj["email"] = email;
 
-    setProductInformation(obj);
+    googleTranslate.translate(description, "es", function(err, translation) {
+      spanishDescription = translation.translatedText;
+      googleTranslate.translate(description, "en", function(err, translation) {
+        englishDescription = translation.translatedText;
+
+        var obj = new Object();
+        obj["productName"] = productName;
+        obj["brand"] = brand;
+        obj["year"] = year;
+        obj["model"] = model;
+        obj["conservationState"] = conservationState;
+        obj["location"] = location;
+        obj["locationId"] = locationId;
+        obj["spanishDescription"] = spanishDescription;
+        obj["englishDescription"] = englishDescription;
+        obj["description"] = description;
+        obj["price"] = price;
+        obj["phone"] = phone;
+        obj["email"] = email;
+
+        setProductInformation(obj);
+        // =>  Mi nombre es Brandon
+      });
+    });
     this.setState({ comeback: true });
   };
 

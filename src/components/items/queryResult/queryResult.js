@@ -91,7 +91,11 @@ function MyComponent(state) {
                 </div>
                 <Hits
                   hitComponent={hit => (
-                    <Hit hit={hit} setRedirect={state.setRedirect} />
+                    <Hit
+                      hit={hit}
+                      lang={state.lang.value}
+                      setRedirect={state.setRedirect}
+                    />
                   )}
                 />
               </div>
@@ -203,7 +207,9 @@ function Hit(hit) {
           {props.hit.productInformation.brand}
         </label>
         <div className="category-list">
-          {props.hit.productInformation.description}
+          {hit.lang === "es"
+            ? props.hit.productInformation.spanishDescription
+            : props.hit.productInformation.englishDescription}
         </div>
         <div className="price-button--list">
           <div className="price-list">
