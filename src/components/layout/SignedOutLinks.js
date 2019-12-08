@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "./actions/navarActions";
 import { Redirect } from "react-router-dom";
+import CurrencySelect from "../commons/select/currency";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -12,6 +13,7 @@ function MyComponent(state) {
 
   return (
     <div>
+      <CurrencySelect></CurrencySelect>
       <li>
         <button className="user" onClick={state.handleSignin}>
           {t("authentication.title")}
@@ -62,7 +64,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { hideHeader }
-)(SignedOutLinks);
+export default connect(mapStateToProps, { hideHeader })(SignedOutLinks);

@@ -39,7 +39,8 @@
     "redux-firestore": "^0.8.0",
     "redux-observable": "^1.1.0",
     "rxjs": "^6.5.2",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.2",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
