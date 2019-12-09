@@ -31,7 +31,7 @@ function MyComponent(state) {
                     <div className="product">{image.titleproduct}</div>
                     <div>
                       <span id={image.id} className="value-price">
-                        {image.valueprice} USD
+                        {image.valueprice}
                       </span>
                     </div>
                   </div>
@@ -89,7 +89,4 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(carousel);
+export default connect(mapStateToProps, null)(carousel);

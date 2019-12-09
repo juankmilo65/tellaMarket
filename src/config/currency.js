@@ -19,9 +19,15 @@ export const Currency = [
   },
   {
     symbol: "Դ",
-    currency: "AFN",
+    currency: "AMD",
     en: "Armenian Dram",
     es: "Dram Armenio"
+  },
+  {
+    symbol: "ƒ",
+    currency: "ANG",
+    en: "Netherlands Antillean guilde",
+    es: "Florín antillano neerlandés"
   },
   {
     symbol: "Kz",
@@ -120,6 +126,12 @@ export const Currency = [
     es: "Dólar de las Bahamas"
   },
   {
+    symbol: "₿",
+    currency: "BTC",
+    en: "Bitcoin",
+    es: "Bitcoin"
+  },
+  {
     symbol: "Nu",
     currency: "BTN",
     en: "Ngultrum",
@@ -160,6 +172,12 @@ export const Currency = [
     currency: "CHF",
     en: "Swiss Franc",
     es: "Franco suizo"
+  },
+  {
+    symbol: "UF",
+    currency: "CLF",
+    en: "Unidad de fomento",
+    es: "Unidad de fomento"
   },
   {
     symbol: "$",
@@ -357,7 +375,7 @@ export const Currency = [
     symbol: "₹",
     currency: "INR",
     en: "Indian Rupee",
-    en: "Rupia India"
+    es: "Rupia India"
   },
   {
     symbol: "ع.د",
@@ -482,7 +500,8 @@ export const Currency = [
   {
     symbol: "د.م.",
     currency: "MAD",
-    en: "Moroccan Dirham"
+    en: "Moroccan Dirham",
+    es: "Dirham Marroquí"
   },
   {
     symbol: "L",
@@ -631,7 +650,8 @@ export const Currency = [
   {
     symbol: "₨",
     currency: "PKR",
-    en: "Pakistan Rupee"
+    en: "Pakistan Rupee",
+    es: "Rupia de Pakistán"
   },
   {
     symbol: "zł",
@@ -643,7 +663,8 @@ export const Currency = [
   {
     symbol: "₲",
     currency: "PYG",
-    en: "Guarani"
+    en: "Guarani",
+    es: "Guarani"
   },
   {
     symbol: "ر.ق",

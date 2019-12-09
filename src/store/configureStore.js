@@ -18,6 +18,8 @@ import dashboardReducers from "../components/dashboard/reducers/dashboardReducer
 import queryResultReducers from "../components/items/queryResult/reducers/queryResultReducers";
 import selectReducers from "../components/commons/select/reducers/selectReducers";
 import categoriesReducers from "../components/commons/select/reducers/categoriesReducers";
+import currencyReducers from "../components/commons/select/reducers/currencyReducers";
+import ratesReducers from "../components/commons/select/reducers/ratesReducers";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
@@ -33,6 +35,8 @@ import dashboardEpics from "../components/dashboard/epics/dashboardEpics";
 import queryResultEpics from "../components/items/queryResult/epics/queryResultEpics";
 import selectEpics from "../components/commons/select/epics/selectEpics";
 import categoriesEpics from "../components/commons/select/epics/categoriesEpics";
+import currencyEpics from "../components/commons/select/epics/currencyEpics";
+import rateEpics from "../components/commons/select/epics/ratesEpics";
 import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
@@ -51,7 +55,9 @@ export function configureStore() {
     dashboardEpics,
     queryResultEpics,
     selectEpics,
-    categoriesEpics
+    categoriesEpics,
+    currencyEpics,
+    rateEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -73,7 +79,9 @@ export function configureStore() {
     dashboard: dashboardReducers,
     queryResult: queryResultReducers,
     select: selectReducers,
-    categories: categoriesReducers
+    categories: categoriesReducers,
+    currency: currencyReducers,
+    rate: ratesReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -11,7 +11,11 @@ import "bootstrap-datepicker/dist/css/bootstrap-datepicker.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "./productInformation.scss";
-var googleTranslate = require("google-translate")("");
+import { Currency } from "../../../config/currency";
+import { getRates } from "../../commons/select/actions/ratesActions";
+var googleTranslate = require("google-translate")(
+  "AIzaSyA9kORN1D9oL16BJMRgiBeDm8uJesIWTl4"
+);
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -92,6 +96,34 @@ function MyComponent(state) {
             )}
           </div>
           <div className="form-group input-tella">
+            <label htmlFor="currency" className="is-required">
+              {t("productInformation.currency")}
+            </label>
+            <select
+              className="form-control"
+              id="currency"
+              onChange={state.handleChangeTest}
+              value={state.state.currencyId}
+            >
+              <option key="-" value="-1">
+                -
+              </option>
+              {state.currencies.map(currency => {
+                return (
+                  <option key={currency.currency} value={currency.currency}>
+                    {currency.symbol} {currency[state.lang.value]}
+                  </option>
+                );
+              })}
+            </select>
+            {state.state.errors.currency === true ? (
+              <p className="text-required">{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
+          </div>
+
+          <div className="form-group input-tella">
             <label htmlFor="price" className="is-required">
               {t("productInformation.price")}
             </label>
@@ -99,7 +131,6 @@ function MyComponent(state) {
               className="form-control"
               id="price"
               thousandSeparator={true}
-              prefix={"$"}
               value={state.state.price}
               onChange={state.handleChangeTest}
             />
@@ -257,6 +288,7 @@ function MyComponent(state) {
 
 class ProductInformation extends Component {
   state = {
+    rates: null,
     comeback: false,
     productName: "",
     brand: "",
@@ -267,6 +299,8 @@ class ProductInformation extends Component {
     locationId: "",
     description: "",
     price: "",
+    currency: "",
+    currencyId: "",
     phone: "",
     email: "",
     errors: {
@@ -276,6 +310,8 @@ class ProductInformation extends Component {
       model: false,
       conservationState: false,
       location: false,
+      currency: false,
+      price: false,
       description: false,
       phone: false,
       email: false
@@ -291,6 +327,7 @@ class ProductInformation extends Component {
       conservationState,
       location,
       description,
+      currency,
       price,
       phone,
       email
@@ -303,6 +340,7 @@ class ProductInformation extends Component {
       conservationState: false,
       location: false,
       description: false,
+      currency: false,
       price: false,
       phone: false,
       email: false
@@ -338,6 +376,10 @@ class ProductInformation extends Component {
     if (location === "-" || location === "") {
       error.location = true;
     }
+    if (currency === "-" || currency === "") {
+      error.currency = true;
+    }
+
     this.setState({ ["errors"]: error }, function() {
       const { errors } = this.state;
 
@@ -349,6 +391,7 @@ class ProductInformation extends Component {
         errors.conservationState === false &&
         errors.location === false &&
         errors.description === false &&
+        errors.currency === false &&
         errors.price === false &&
         errors.phone === false &&
         errors.email === false
@@ -563,6 +606,7 @@ class ProductInformation extends Component {
     { id: 200, country: "Zambia" },
     { id: 201, country: "Zimbabue" }
   ];
+
   handleBack = e => {
     const { setStep } = this.props;
     this.handleSetProductInformation();
@@ -575,7 +619,7 @@ class ProductInformation extends Component {
   };
 
   handleSetProductInformation = () => {
-    const { setProductInformation } = this.props;
+    const { setProductInformation, rates } = this.props;
     const {
       productName,
       brand,
@@ -584,16 +628,27 @@ class ProductInformation extends Component {
       conservationState,
       location,
       locationId,
+      currencyId,
       description,
+      currency,
       phone,
       email
     } = this.state;
     let spanishDescription = "";
     let englishDescription = "";
-    let price = document
+
+    let currentCurrencyInDollars = rates[currencyId];
+    const currentValue = document
       .getElementById("price")
-      .value.slice(1)
-      .replace(",", "");
+      .value.replace(",", "");
+    const currentValueInDollars = currentValue / currentCurrencyInDollars;
+    var prices = new Object();
+
+    Object.keys(rates).map(rate => {
+      let value = rates[rate];
+
+      prices[rate] = currentValueInDollars * value;
+    });
 
     googleTranslate.translate(description, "es", function(err, translation) {
       spanishDescription = translation.translatedText;
@@ -608,10 +663,13 @@ class ProductInformation extends Component {
         obj["conservationState"] = conservationState;
         obj["location"] = location;
         obj["locationId"] = locationId;
+        obj["currencyId"] = currencyId;
         obj["spanishDescription"] = spanishDescription;
         obj["englishDescription"] = englishDescription;
         obj["description"] = description;
-        obj["price"] = price;
+        obj["currency"] = currency;
+        obj["price"] = currentValue;
+        obj["internationalPrices"] = prices;
         obj["phone"] = phone;
         obj["email"] = email;
 
@@ -623,6 +681,7 @@ class ProductInformation extends Component {
   };
 
   handleChangeTest = e => {
+    const { lang } = this.props;
     if (document.getElementById(e.target.id).value !== "") {
       const { errors } = this.state;
       errors[e.target.id] = false;
@@ -631,7 +690,27 @@ class ProductInformation extends Component {
 
     if (
       e.target.labels !== undefined &&
-      e.target.labels[0].innerHTML === "Location"
+      (e.target.labels[0].innerHTML === "Local currency" ||
+        e.target.labels[0].innerHTML === "Moneda local")
+    ) {
+      if (e.target.value === "-1") {
+        this.setState({ [e.target.id]: "-" });
+        this.setState({ ["currencyId"]: "-1" });
+      } else {
+        let symbol = Currency.find(
+          c => c.currency.toString() === e.target.value
+        ).symbol;
+        let currencyName = Currency.find(
+          c => c.currency.toString() === e.target.value
+        )[lang.value];
+        this.setState({ [e.target.id]: symbol + " " + currencyName });
+        this.setState({ ["currencyId"]: e.target.value });
+      }
+    }
+    if (
+      e.target.labels !== undefined &&
+      (e.target.labels[0].innerHTML === "Location" ||
+        e.target.labels[0].innerHTML === "Localización")
     ) {
       let text = this.countries.find(c => c.id.toString() === e.target.value)
         .country;
@@ -662,8 +741,13 @@ class ProductInformation extends Component {
         };
 
         _.handleChangeTest(obj);
-        //console.log("Got change event from field");
       });
+
+    const { getRates, rates } = _.props;
+
+    if (rates === null) {
+      getRates();
+    }
   }
 
   render() {
@@ -689,6 +773,7 @@ class ProductInformation extends Component {
 
     return (
       <MyComponent
+        currencies={Currency}
         lang={lang}
         countries={this.countries}
         handleChange={this.handleChange}
@@ -705,9 +790,12 @@ class ProductInformation extends Component {
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
   lang: state.navar.lang,
-  productInformation: state.dataItem.productInformation
+  productInformation: state.dataItem.productInformation,
+  rates: state.rate.rates
 });
 
-export default connect(mapStateToProps, { setProductInformation, setStep })(
-  ProductInformation
-);
+export default connect(mapStateToProps, {
+  setProductInformation,
+  setStep,
+  getRates
+})(ProductInformation);

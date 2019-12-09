@@ -209,10 +209,14 @@ class Dashboard extends Component {
       getDashboardProductsPlanPremium,
       getDashboardProductsPlanPlus,
       firebase,
-      lang
+      lang,
+      notifications,
+      itemsPremium,
+      itemsPlus,
+      itemsBasic,
+      currency
     } = this.props;
     let count = 1;
-    const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
     const imagesMainBar = [];
     const imagesMultiBar = [];
     const imagesPromotion = [
@@ -301,7 +305,10 @@ class Dashboard extends Component {
             ? item.data.subcategory.subcategoryName
             : item.data.subcategory.subcategoryName;
         obj["titleproduct"] = item.data.productInformation.brand;
-        obj["valueprice"] = item.data.productInformation.price;
+        obj["valueprice"] =
+          currency +
+          " " +
+          item.data.productInformation.internationalPrices[currency];
         obj["description"] = item.data.productInformation.description;
         obj["email"] = item.data.productInformation.email;
         obj["phone"] = item.data.productInformation.phone;
@@ -345,7 +352,8 @@ const mapStateToProps = state => {
     profile: state.firebase.profile,
     itemsPremium: state.dashboard.itemsPremium,
     itemsPlus: state.dashboard.itemsPlus,
-    itemsBasic: state.dashboard.itemsBasic
+    itemsBasic: state.dashboard.itemsBasic,
+    currency: state.currency.currency
   };
 };
 
