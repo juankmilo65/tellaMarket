@@ -11,6 +11,7 @@ import logo from "../../images/Logo.svg";
 import algoliasearch from "algoliasearch/lite";
 import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
+import { hamburgerMenu } from "./scripts/scripts";
 import {
   InstantSearch,
   Configure,
@@ -27,6 +28,9 @@ class Hits extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "", hits: [] };
+  }
+  componentDidMount() {
+    hamburgerMenu();
   }
 
   componentWillReceiveProps(props) {
@@ -169,9 +173,12 @@ class Navbar extends Component {
               </Link>
             )}
 
-            <div className="nav-right">
+            <div className="nav-right" id="myTopnav">
               {auth.isLoaded && links}
               <ControlledOpenSelect></ControlledOpenSelect>
+              <a className="icon" onClick={() => hamburgerMenu()}>
+                <i className="fa fa-bars"></i>
+              </a>
             </div>
           </div>
         </nav>

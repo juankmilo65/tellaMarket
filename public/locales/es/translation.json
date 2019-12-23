@@ -128,7 +128,8 @@
     "createItem": "Producto creado satisfactoriamente",
     "ok": "Ok",
     "congratulation": "Felicitaciones",
-    "soon": "Próximamente"
+    "soon": "Próximamente",
+    "createAccount": "Para revisar los detalles, te sugerimos unirte a nuestra web"
   },
   "dashboard": {
     "bigOffers": "Grandes ofertas",

@@ -14,7 +14,7 @@ import "./productInformation.scss";
 import { Currency } from "../../../config/currency";
 import { getRates } from "../../commons/select/actions/ratesActions";
 var googleTranslate = require("google-translate")(
-  "AIzaSyA9kORN1D9oL16BJMRgiBeDm8uJesIWTl4"
+  "AIzaSyBLQ7yg3CE2qXEnRXK5AXavwcRN7hiTo7M"
 );
 
 function MyComponent(state) {
@@ -640,8 +640,11 @@ class ProductInformation extends Component {
     let currentCurrencyInDollars = rates[currencyId];
     const currentValue = document
       .getElementById("price")
-      .value.replace(",", "");
-    const currentValueInDollars = currentValue / currentCurrencyInDollars;
+      .value.split(",")
+      .join("");
+    const currentValueInDollars = Math.round(
+      currentValue / currentCurrencyInDollars
+    );
     var prices = new Object();
 
     Object.keys(rates).map(rate => {

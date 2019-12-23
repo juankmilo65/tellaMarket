@@ -20,6 +20,7 @@ import selectReducers from "../components/commons/select/reducers/selectReducers
 import categoriesReducers from "../components/commons/select/reducers/categoriesReducers";
 import currencyReducers from "../components/commons/select/reducers/currencyReducers";
 import ratesReducers from "../components/commons/select/reducers/ratesReducers";
+import itemDetailReducers from "../components/items/detail/reducers/itemDetailReducers";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
@@ -37,6 +38,7 @@ import selectEpics from "../components/commons/select/epics/selectEpics";
 import categoriesEpics from "../components/commons/select/epics/categoriesEpics";
 import currencyEpics from "../components/commons/select/epics/currencyEpics";
 import rateEpics from "../components/commons/select/epics/ratesEpics";
+import itemDetailsEpics from "../components/items/detail/epics/itemDetailEpics";
 import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
@@ -57,7 +59,8 @@ export function configureStore() {
     selectEpics,
     categoriesEpics,
     currencyEpics,
-    rateEpics
+    rateEpics,
+    itemDetailsEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -81,7 +84,8 @@ export function configureStore() {
     select: selectReducers,
     categories: categoriesReducers,
     currency: currencyReducers,
-    rate: ratesReducers
+    rate: ratesReducers,
+    itemDetail: itemDetailReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

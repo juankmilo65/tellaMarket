@@ -31,7 +31,7 @@ class App extends Component {
               <Route path="/createItem" component={CreateItem} />
               <Route path="/createMenu" component={CreateMenu} />
               <Route path="/query" component={Query} />
-              <Route path="/itemDetail" component={ItemDetail} />
+              <Route path="/itemDetail/:itemId" component={ItemDetail} />
               <Route
                 exact
                 path="/phoneAuthentication"

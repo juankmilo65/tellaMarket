@@ -309,7 +309,10 @@ class Dashboard extends Component {
           currency +
           " " +
           item.data.productInformation.internationalPrices[currency];
-        obj["description"] = item.data.productInformation.description;
+        obj["description"] =
+          lang.value === "es"
+            ? item.data.productInformation.spanishDescription
+            : item.data.productInformation.englishDescription;
         obj["email"] = item.data.productInformation.email;
         obj["phone"] = item.data.productInformation.phone;
         obj["images"] = item.data.images;
