@@ -1,41 +1,80 @@
-import { getFirestore } from "redux-firestore";
 import {
   CREATE_MENU,
   EDIT_MENU,
+  GET_SUBCATEGORIES,
+  GET_CATALOG,
   setStatus,
+  getSubcategoresSuccess,
+  getSubcategoresFailed,
+  getCatalogSuccess,
+  getCatalogFailed,
   editMenuSuccess,
   editMenuFailed,
   createMenuSuccess,
   createMenuFailed
 } from "../actions/createMenuActions";
-import { switchMap } from "rxjs/operators";
+import { switchMap, map } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
 
 export default function createMenuEpics(action$) {
-  const getFS = getFirestore();
   return action$.pipe(
-    ofType(CREATE_MENU, EDIT_MENU),
+    ofType(CREATE_MENU, EDIT_MENU, GET_SUBCATEGORIES, GET_CATALOG),
     switchMap(action => {
       if (action.type === CREATE_MENU) {
         return concat(
           of(setStatus("pending")),
-          getFS
-            .collection(action.payload.language + "_" + "MachinesAndEquipment")
-            .add(action.payload.myCatalog)
-            .then(() => createMenuSuccess("Ok"))
-            .catch(err => createMenuFailed(err))
+          fetch("/api/hello")
+            .then((req, res) => {
+              res.json();
+            })
+            .then(data => {
+              return data;
+            })
         );
-      } else if(action.type === EDIT_MENU)
-      {
+      } else if (action.type === GET_SUBCATEGORIES) {
         return concat(
           of(setStatus("pending")),
-          getFS
-            .collection(action.payload.language + "_" + "MachinesAndEquipment")
-            .doc(action.payload.fsId)
-            .updateRef(action.payload.myCatalog)
-            .then(() => editMenuSuccess("Ok"))
-            .catch(err => editMenuFailed(err))
+          fetch("http://localhost:3000/api/getAllSubcategories", {
+            mode: "cors",
+            method: "GET",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return getSubcategoresFailed("Failed");
+              }
+            })
+            .then(data => {
+              return getSubcategoresSuccess(data);
+            })
+        );
+      } else if (action.type === GET_CATALOG) {
+        return concat(
+          of(setStatus("pending")),
+          fetch("http://localhost:3000/api/getAllCatalogs", {
+            mode: "cors",
+            method: "GET",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return getCatalogFailed("Failed");
+              }
+            })
+            .then(data => {
+              return getCatalogSuccess(data);
+            })
         );
       }
     })

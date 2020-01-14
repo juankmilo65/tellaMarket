@@ -1,6 +1,12 @@
 import {
   SET_FILE,
+  UPLOAD_IMAGE,
+  UPLOAD_IMAGE_ITEM,
   setStatus,
+  uploadImageSuccess,
+  uploadImageError,
+  uploadImageItemSuccess,
+  uploadImageItemError,
   setFileSuccess
 } from "../actions/fileUploadActions";
 import { switchMap } from "rxjs/operators";
@@ -9,12 +15,68 @@ import { concat, of } from "rxjs";
 
 export default function fileUploadEpics(action$) {
   return action$.pipe(
-    ofType(SET_FILE),
+    ofType(SET_FILE, UPLOAD_IMAGE, UPLOAD_IMAGE_ITEM),
     switchMap(action => {
       if (action.type === SET_FILE) {
         return concat(
           of(setStatus("pending")),
           of(setFileSuccess(action.payload))
+        );
+      } else if (action.type === UPLOAD_IMAGE) {
+        return concat(
+          of(setStatus("pending")),
+          fetch("http://localhost:3000/api/CreateImages", {
+            mode: "cors",
+            method: "POST",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            }),
+            body: JSON.stringify({
+              StartDate: action.payload.StartDate,
+              Image: action.payload.Image,
+              TableName: action.payload.TableName,
+              EndDate: action.payload.EndDate,
+              IdPlan: action.payload.IdPlan,
+              IdItem: action.payload.IdItem
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return uploadImageError("Failed");
+              }
+            })
+            .then(data => {
+              return uploadImageSuccess(data);
+            })
+        );
+      } else if (action.type === UPLOAD_IMAGE_ITEM) {
+        return concat(
+          of(setStatus("pending")),
+          fetch("http://localhost:3000/api/createImagesItems", {
+            mode: "cors",
+            method: "POST",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            }),
+            body: JSON.stringify({
+              Image: action.payload.Image,
+              IdItem: action.payload.IdItem
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return uploadImageItemError("Failed");
+              }
+            })
+            .then(data => {
+              return uploadImageItemSuccess(data);
+            })
         );
       }
     })

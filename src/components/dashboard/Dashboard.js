@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import Notifications from "./Notification";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
+import FileUpload from "../commons/fileUpload/fileUpload";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
 import CarouselImage from "../commons/carousel/carouselImage";
 import {
-  getDashboardProductsPlanPremium,
-  getDashboardProductsPlanPlus,
-  getDashboardProductsPlanBasic
+  getPromoDashboard,
+  getPremiumHeaderImage
 } from "../dashboard/actions/dashboardActions";
 import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
@@ -36,6 +34,7 @@ function MyComponent(state) {
       <div className="banner-small container">
         <div className="item-title">
           <span>{t("dashboard.bigOffers")}</span>
+          <FileUpload></FileUpload>
         </div>
         <CarouselMultiple items={state.imagesMultiBar} />
       </div>
@@ -204,28 +203,53 @@ function MyComponent(state) {
 }
 
 class Dashboard extends Component {
+  componentDidMount() {
+    const { getPromoDashboard, getPremiumHeaderImage } = this.props;
+    getPromoDashboard("promotionimages");
+    getPremiumHeaderImage("promotionheaders");
+  }
+
   render() {
     const {
-      getDashboardProductsPlanPremium,
-      getDashboardProductsPlanPlus,
-      firebase,
       lang,
       notifications,
-      itemsPremium,
-      itemsPlus,
-      itemsBasic,
-      currency
+      currency,
+      imagesPromo,
+      imagesHeader
     } = this.props;
     let count = 1;
     const imagesMainBar = [];
     const imagesMultiBar = [];
-    const imagesPromotion = [
-      {
-        imageUrl: promo1,
-        redirectUrl: "http://www.tellaneedles.com"
-      }
-    ];
+    const imagesPromotion = [];
+    var imageURL = "";
+    var base64Flag = "data:image/jpeg;base64,";
 
+    if (imagesHeader != undefined && imagesHeader.length > 0) {
+      imagesHeader.map(image => {
+        imagesMainBar.push({
+          //--
+          titlecategory: "Dummy",
+          titleproduct: "Tittle dummy",
+          valueprice: "222",
+          description: "Dummy description",
+          email: "juan@ww.com",
+          phone: "222",
+          images: [],
+          id: "itemId",
+          year: "2020",
+          image: base64Flag + image.image
+        });
+      });
+    }
+
+    if (imagesPromo != undefined && imagesPromo.length > 0) {
+      imagesPromo.map(image => {
+        imagesPromotion.push({
+          imageUrl: base64Flag + image.image,
+          redirectUrl: "http://www.tellaneedles.com"
+        });
+      });
+    }
     // var obj = new Object();
     // obj["titlecategory"] = "Titulo Categoria";
     // obj["titleproduct"] = "Titulo Producto";
@@ -295,43 +319,44 @@ class Dashboard extends Component {
     //   });
     // }
 
-    if (itemsPlus.length === 0) {
-      getDashboardProductsPlanPlus(firebase);
-    } else {
-      itemsPlus.map(item => {
-        var obj = new Object();
-        obj["titlecategory"] =
-          lang === "en"
-            ? item.data.subcategory.subcategoryName
-            : item.data.subcategory.subcategoryName;
-        obj["titleproduct"] = item.data.productInformation.brand;
-        obj["valueprice"] =
-          currency +
-          " " +
-          item.data.productInformation.internationalPrices[currency];
-        obj["description"] =
-          lang.value === "es"
-            ? item.data.productInformation.spanishDescription
-            : item.data.productInformation.englishDescription;
-        obj["email"] = item.data.productInformation.email;
-        obj["phone"] = item.data.productInformation.phone;
-        obj["images"] = item.data.images;
-        obj["id"] = item.id;
-        obj["year"] = item.data.productInformation.year;
-        obj["image"] = count === 1 ? banner1 : count === 2 ? banner2 : banner3;
-        imagesMainBar.push(obj);
-        imagesMultiBar.push(obj);
+    //Este es que se va a migrar
+    // if (itemsPlus.length === 0) {
+    //   getDashboardProductsPlanPlus(firebase);
+    // } else {
+    //   itemsPlus.map(item => {
+    //     var obj = new Object();
+    //     obj["titlecategory"] =
+    //       lang === "en"
+    //         ? item.data.subcategory.subcategoryName
+    //         : item.data.subcategory.subcategoryName;
+    //     obj["titleproduct"] = item.data.productInformation.brand;
+    //     obj["valueprice"] =
+    //       currency +
+    //       " " +
+    //       item.data.productInformation.internationalPrices[currency];
+    //     obj["description"] =
+    //       lang.value === "es"
+    //         ? item.data.productInformation.spanishDescription
+    //         : item.data.productInformation.englishDescription;
+    //     obj["email"] = item.data.productInformation.email;
+    //     obj["phone"] = item.data.productInformation.phone;
+    //     obj["images"] = item.data.images;
+    //     obj["id"] = item.id;
+    //     obj["year"] = item.data.productInformation.year;
+    //     obj["image"] = count === 1 ? banner1 : count === 2 ? banner2 : banner3;
+    //     imagesMainBar.push(obj);
+    //     imagesMultiBar.push(obj);
 
-        count = count + 1;
-      });
+    //     count = count + 1;
+    //   });
 
-      // {
-      //   imagesMainBar &&
-      //     imagesMainBar.map(item => {
-      //       imagesMultiBar.push(item);
-      //     });
-      // }
-    }
+    //   // {
+    //   //   imagesMainBar &&
+    //   //     imagesMainBar.map(item => {
+    //   //       imagesMultiBar.push(item);
+    //   //     });
+    //   // }
+    // }
 
     return (
       <MyComponent
@@ -348,26 +373,17 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.firestore.ordered.items,
-    auth: state.firebase.auth,
     lang: state.navar.lang,
-    notifications: state.firestore.ordered.notifications,
-    profile: state.firebase.profile,
     itemsPremium: state.dashboard.itemsPremium,
     itemsPlus: state.dashboard.itemsPlus,
     itemsBasic: state.dashboard.itemsBasic,
-    currency: state.currency.currency
+    currency: state.currency.currency,
+    imagesPromo: state.dashboard.imagesPromo,
+    imagesHeader: state.dashboard.imagesHeader
   };
 };
 
-export default compose(
-  connect(mapStateToProps, {
-    getDashboardProductsPlanPremium,
-    getDashboardProductsPlanPlus,
-    getDashboardProductsPlanBasic
-  }),
-  firestoreConnect([
-    { collection: "items", orderBy: ["createAt", "desc"] },
-    { collection: "notifications", limit: 3, orderBy: ["time", "desc"] }
-  ])
-)(Dashboard);
+export default connect(mapStateToProps, {
+  getPromoDashboard,
+  getPremiumHeaderImage
+})(Dashboard);

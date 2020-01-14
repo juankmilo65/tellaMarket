@@ -13,13 +13,13 @@ import {
   Configure,
   SortBy
 } from "react-instantsearch-dom";
-import algoliasearch from "algoliasearch/lite";
+//import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
 
-const searchClient = algoliasearch(
-  "LOYYIQWO7O",
-  "1ba2b0f2147ae9c9553f63c594e0feca"
-);
+// const searchClient = algoliasearch(
+//   "LOYYIQWO7O",
+//   "1ba2b0f2147ae9c9553f63c594e0feca"
+// );
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -33,80 +33,80 @@ function MyComponent(state) {
           <h2>{t("query.products&categories")}</h2>
           <label>{t("query.productList")}</label>
         </div>
-        <div className="ais-InstantSearch">
+        {/* <div className="ais-InstantSearch">
           <InstantSearch
             indexName="dev_tellamarket"
             searchClient={state.searchClient}
-          >
-            <div className="list-product">
-              <div className="filter">
-                <ClearRefinements
-                  translations={{
-                    reset: t("query.clean")
-                  }}
-                />
-                <div className="order">
-                  <label className="title-filter">{t("query.sort")}</label>
-                  <SortBy
-                    defaultRefinement="dev_tellamarket"
-                    items={[
-                      {
-                        value: "dev_tellamarket",
-                        label: "Default"
-                      },
-                      {
-                        value: "dev_tellamarket_asc",
-                        label: "Price Asc"
-                      },
-                      {
-                        value: "dev_tellamarket_desc",
-                        label: "Price Des"
-                      }
-                    ]}
-                  />
-                  <Configure hitsPerPage={8} />
-                </div>
-                <div className="category">
-                  <label className="title-filter">{t("query.category")}</label>
-                  <RefinementList attribute="subcategory.subcategoryName" />
-                  <Configure hitsPerPage={8} />
-                </div>
-                <div className="price">
-                  <label className="title-filter">{t("query.brand")}</label>
-                  <RefinementList attribute="productInformation.brand" />
-                  <Configure hitsPerPage={8} />
-                </div>
-                <div className="year">
-                  <label className="title-filter">Localización</label>
-                  <RefinementList attribute="productInformation.location" />
-                  <Configure hitsPerPage={8} />
-                </div>
-              </div>
-              <div className="list-products">
-                <div className="refineQueryList">
-                  <RefinementList
-                    attribute="subcategory.categorySelectedId"
-                    defaultRefinement={[state.idCategory]}
-                  />
-                </div>
-                <Hits
-                  hitComponent={hit => (
-                    <Hit
-                      hit={hit}
-                      lang={state.lang.value}
-                      setRedirect={state.setRedirect}
-                    />
-                  )}
-                />
-              </div>
+          > */}
+        <div className="list-product">
+          <div className="filter">
+            <ClearRefinements
+              translations={{
+                reset: t("query.clean")
+              }}
+            />
+            <div className="order">
+              <label className="title-filter">{t("query.sort")}</label>
+              <SortBy
+                defaultRefinement="dev_tellamarket"
+                items={[
+                  {
+                    value: "dev_tellamarket",
+                    label: "Default"
+                  },
+                  {
+                    value: "dev_tellamarket_asc",
+                    label: "Price Asc"
+                  },
+                  {
+                    value: "dev_tellamarket_desc",
+                    label: "Price Des"
+                  }
+                ]}
+              />
+              <Configure hitsPerPage={8} />
             </div>
-            <div className="center">
-              <div className="pagination">
-                <Pagination totalPages={5} />
-              </div>
+            <div className="category">
+              <label className="title-filter">{t("query.category")}</label>
+              <RefinementList attribute="subcategory.subcategoryName" />
+              <Configure hitsPerPage={8} />
             </div>
-          </InstantSearch>
+            <div className="price">
+              <label className="title-filter">{t("query.brand")}</label>
+              <RefinementList attribute="productInformation.brand" />
+              <Configure hitsPerPage={8} />
+            </div>
+            <div className="year">
+              <label className="title-filter">Localización</label>
+              <RefinementList attribute="productInformation.location" />
+              <Configure hitsPerPage={8} />
+            </div>
+          </div>
+          <div className="list-products">
+            <div className="refineQueryList">
+              <RefinementList
+                attribute="subcategory.categorySelectedId"
+                defaultRefinement={[state.idCategory]}
+              />
+            </div>
+            <Hits
+              hitComponent={hit => (
+                <Hit
+                  hit={hit}
+                  lang={state.lang.value}
+                  setRedirect={state.setRedirect}
+                />
+              )}
+            />
+          </div>
         </div>
+        <div className="center">
+          <div className="pagination">
+            <Pagination totalPages={5} />
+          </div>
+        </div>
+        {/* </InstantSearch> 
+        </div>*/}
       </div>
       {state.renderRedirect()}
     </div>
@@ -181,7 +181,7 @@ class Query extends Component {
       <div>
         <MyComponent
           lang={lang}
-          searchClient={searchClient}
+          //searchClient={searchClient}
           idCategory={idCategory}
           setRedirect={this.setRedirect}
           renderRedirect={this.renderRedirect}

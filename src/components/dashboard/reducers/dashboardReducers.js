@@ -1,15 +1,19 @@
 import {
   SET_STATUS,
-  GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS,
-  GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS,
-  GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS
+  GET_PREMIUM_HEADER_IMAGES_SUCCESS,
+  GET_PREMIUM_HEADER_IMAGES_ERROR,
+  GET_PROMO_DASHBOARD_SUCCESS,
+  GET_PROMO_DASHBOARD_ERROR
 } from "../actions/dashboardActions";
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
   itemsPremium: [],
   itemsPlus: [],
-  itemsBasic: []
+  itemsBasic: [],
+  imagesPromo: [],
+  imagesHeader: [],
+  errorMessage: ""
 };
 
 const dashboardReducers = (state = initState, action) => {
@@ -20,19 +24,26 @@ const dashboardReducers = (state = initState, action) => {
         status: action.payload
       };
     }
-    case GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS: {
+    case GET_PROMO_DASHBOARD_SUCCESS: {
       return {
-        itemsPremium: action.payload
+        ...state,
+        imagesPromo: action.payload
       };
     }
-    case GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS: {
+    case GET_PROMO_DASHBOARD_ERROR: {
       return {
-        itemsPlus: action.payload
+        errorMessage: action.payload
       };
     }
-    case GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS: {
+    case GET_PREMIUM_HEADER_IMAGES_SUCCESS: {
       return {
-        itemsBasic: action.payload
+        ...state,
+        imagesHeader: action.payload
+      };
+    }
+    case GET_PREMIUM_HEADER_IMAGES_ERROR: {
+      return {
+        errorMessage: action.payload
       };
     }
     default:

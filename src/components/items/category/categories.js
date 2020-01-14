@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { getDocuments } from "../../commons/data/actions/dataActions";
 import { setSubcategory } from "../../items/controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import Popup from "reactjs-popup";
@@ -41,7 +40,7 @@ function MyComponent(state) {
                     checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
-                    {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
+                    {item.SubCategory}
                   </label>
                 </div>
               );
@@ -64,7 +63,7 @@ function MyComponent(state) {
                     checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
-                    {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
+                    {item.SubCategory}
                   </label>
                 </div>
               );
@@ -126,27 +125,15 @@ class Categories extends Component {
 
   handleList(list) {
     let columnOne = [];
-    let categories = [];
 
-    if (list.length > 0) {
-      list.forEach(doc => {
-        if (
-          !categories.includes(
-            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
-          )
-        ) {
-          categories.push(Object.keys(doc.data[Object.keys(doc.data)[0]])[0]);
-        }
-      });
-      var pos = Math.ceil(list.length / 2) - 1;
-      var quantity = list.length - pos + 1;
-      columnOne = list.length >= 0 ? list.splice(pos, quantity) : list;
+    var pos = Math.ceil(list.length / 2) - 1;
+    var quantity = list.length - pos + 1;
+    columnOne = list.length >= 0 ? list.splice(pos, quantity) : list;
 
-      this.setState({ ["columnOne"]: columnOne });
+    this.setState({ ["columnOne"]: columnOne });
 
-      if (columnOne.length !== list.length) {
-        this.setState({ ["columnTwo"]: list.splice(0, pos) });
-      }
+    if (columnOne.length !== list.length) {
+      this.setState({ ["columnTwo"]: list.splice(0, pos) });
     }
   }
 
@@ -156,22 +143,15 @@ class Categories extends Component {
       lang,
       documentsEn,
       documentsEs,
-      firebase,
-      subcategory
+      subcategory,
+      getSubcategores,
+      subcategories
     } = this.props;
 
-    if (lang.value === "es") {
-      if (documentsEs.length === 0) {
-        this.props.getDocuments({ firebase, language: "es" });
-      }
-
-      this.handleList(documentsEs);
-    } else if (lang.value === "en") {
-      if (documentsEn.length === 0) {
-        this.props.getDocuments({ firebase, language: "en" });
-      }
-
-      this.handleList(documentsEn);
+    if (subcategories.length === 0) {
+      getSubcategores();
+    } else {
+      this.handleList(subcategories);
     }
 
     const { columnOne, columnTwo } = this.state;
@@ -201,16 +181,10 @@ class Categories extends Component {
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
   lang: state.navar.lang,
-  documentsEn: state.data.documentsEn,
-  documentsEs: state.data.documentsEs,
-  subcategory: state.dataItem.subcategory
+  subcategories: state.createmenu.subcategories
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    getDocuments,
-    setSubcategory,
-    setStep
-  }
-)(Categories);
+export default connect(mapStateToProps, {
+  setSubcategory,
+  setStep
+})(Categories);

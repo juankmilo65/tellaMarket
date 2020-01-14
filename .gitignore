@@ -29,3 +29,4 @@ dist
 dist/asset-manifest.json
 dist/index.html
 dist/static/css
+src/server/config

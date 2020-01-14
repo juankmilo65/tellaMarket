@@ -98,11 +98,7 @@ export default withRouter(
               categories.map(category => {
                 return (
                   <MenuItem key={category.id} value={category.id}>
-                    {
-                      Object.keys(
-                        category.data[Object.keys(category.data)[0]]
-                      )[0]
-                    }
+                    {category.Category}
                   </MenuItem>
                 );
               })}

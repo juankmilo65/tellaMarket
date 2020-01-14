@@ -1,8 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { reduxFirestore, firestoreReducer } from "redux-firestore";
-import { firebaseReducer } from "react-redux-firebase";
-import signinReducer from "../components/auth/signin/reducers/signinReducers";
+//import signinReducer from "../components/auth/signin/reducers/signinReducers";
 import signoutReducer from "../components/auth/signout/reducers/signoutReducers";
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
@@ -21,7 +19,7 @@ import categoriesReducers from "../components/commons/select/reducers/categories
 import currencyReducers from "../components/commons/select/reducers/currencyReducers";
 import ratesReducers from "../components/commons/select/reducers/ratesReducers";
 import itemDetailReducers from "../components/items/detail/reducers/itemDetailReducers";
-import signinEpics from "../components/auth/signin/epics/signinEpics";
+//import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
 import navarEpics from "../components/layout/epics/navarEpics";
@@ -43,7 +41,7 @@ import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
   const rootEpic = combineEpics(
-    signinEpics,
+    // signinEpics,
     signoutEpics,
     signupEpics,
     navarEpics,
@@ -65,14 +63,12 @@ export function configureStore() {
 
   const epicMiddleware = createEpicMiddleware();
   const rootReducer = combineReducers({
-    signin: signinReducer,
+    //signin: signinReducer,
     signout: signoutReducer,
     signup: signupReducer,
     listItems: listItemReducer,
     navar: navarReducer,
     phoneAuthentication: phoneAuthenticationReducer,
-    firestore: firestoreReducer,
-    firebase: firebaseReducer,
     fileUpload: fileUploadReducers,
     frame: frameReducers,
     createmenu: createmenuReducers,
@@ -92,10 +88,7 @@ export function configureStore() {
 
   const store = createStore(
     rootReducer,
-    composeEnhancers(
-      applyMiddleware(epicMiddleware),
-      reduxFirestore(FirebaseConfig)
-    )
+    composeEnhancers(applyMiddleware(epicMiddleware))
   );
 
   epicMiddleware.run(rootEpic);

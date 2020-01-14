@@ -13,7 +13,7 @@ function MyComponent(state) {
 
   return (
     <div>
-      <CurrencySelect></CurrencySelect>
+      {/* <CurrencySelect></CurrencySelect> */}
       <li>
         <button className="user" onClick={state.handleSignin}>
           {t("authentication.title")}

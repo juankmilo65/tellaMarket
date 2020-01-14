@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
 import { useTranslation } from "react-i18next";
 import MenuSelect from "../commons/select/menuLogin";
@@ -53,12 +51,8 @@ class SignedInLinks extends Component {
 
 const mapStateToProps = state => {
   return {
-    lang: state.navar.lang,
-    auth: state.firebase.auth
+    lang: state.navar.lang
   };
 };
 
-export default compose(
-  firebaseConnect(),
-  connect(mapStateToProps, { signOut })
-)(SignedInLinks);
+export default connect(mapStateToProps, { signOut })(SignedInLinks);

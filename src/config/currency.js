@@ -126,12 +126,6 @@ export const Currency = [
     es: "Dólar de las Bahamas"
   },
   {
-    symbol: "₿",
-    currency: "BTC",
-    en: "Bitcoin",
-    es: "Bitcoin"
-  },
-  {
     symbol: "Nu",
     currency: "BTN",
     en: "Ngultrum",

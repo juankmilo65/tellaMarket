@@ -15,8 +15,8 @@ class CurrencySelect extends Component {
   };
 
   componentDidMount() {
-    const { updateRates } = this.props;
-    updateRates();
+    // const { updateRates } = this.props;
+    // updateRates();
   }
 
   render() {

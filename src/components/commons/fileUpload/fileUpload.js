@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setFile } from "./actions/fileUploadActions";
+import {
+  setFile,
+  uploadImage,
+  uploadImageItem
+} from "./actions/fileUploadActions";
 
 class FileUpload extends Component {
   state = {
@@ -9,40 +13,74 @@ class FileUpload extends Component {
     error: ""
   };
 
-  // handleUpload = e => {
-  //   const { props, state } = this;
-  //   const { firebase, files } = props;
-  //   //const fileUpload = { ...state };
+  b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
 
-  //   if (
-  //     files.length > 0 &&
-  //     files.filter(e => e.name === e.target.files[0].name)
-  //   ) {
-  //     this.setState({ error: "archivo ya existe con el mismo nombre" });
-  //   } else {
-  //     files.push(e.target.files[0]);
-  //   }
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
 
-  //   props.setFile(files);
-  //};
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  };
+
+  handleUpload = async e => {
+    const { uploadImage, uploadImageItem } = this.props;
+
+    var _URL = window.URL || window.webkitURL,
+      file = e.target.files[0],
+      image = new Image();
+    image.src = _URL.createObjectURL(file);
+    var type = file.type;
+
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = function() {
+      var endDate = new Date();
+      endDate.setFullYear(endDate.getFullYear() + 5);
+      var base64data = reader.result.replace(/^data:.+;base64,/, "");
+      var obj = new Object();
+      // obj["StartDate"] = new Date();
+      // obj["EndDate"] = endDate;
+      obj["Image"] = base64data;
+      // obj["IdPlan"] = 1;
+      obj["IdItem"] = 1;
+      //obj["TableName"] = "itemimages";
+      // uploadImage(obj);
+      uploadImageItem(obj);
+    };
+  };
 
   render() {
-    // const { auth, profile, fileUpload } = this.props;
     return (
-      <div>{/* <input type="file" onChange={this.handleUpload} /> */}</div>
+      <div>
+        <label className="box active custom-file-upload">
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={this.handleUpload}
+          />
+        </label>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
-    files: state.fileUpload.files
-  };
+  return {};
 };
 
-export default connect(
-  mapStateToProps,
-  { setFile }
-)(FileUpload);
+export default connect(mapStateToProps, {
+  setFile,
+  uploadImage,
+  uploadImageItem
+})(FileUpload);

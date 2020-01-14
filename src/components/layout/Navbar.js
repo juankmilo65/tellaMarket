@@ -5,10 +5,10 @@ import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
 import { hideHeader } from "../layout/actions/navarActions";
-import { getDocuments } from "../commons/data/actions/dataActions";
+import { getCatalog } from "../administration/menu/actions/createMenuActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
-import algoliasearch from "algoliasearch/lite";
+//import algoliasearch from "algoliasearch/lite";
 import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
 import { hamburgerMenu } from "./scripts/scripts";
@@ -19,10 +19,10 @@ import {
   connectAutoComplete
 } from "react-instantsearch-dom";
 import Autosuggest from "react-autosuggest";
-const searchClient = algoliasearch(
-  "LOYYIQWO7O",
-  "1ba2b0f2147ae9c9553f63c594e0feca"
-);
+// const searchClient = algoliasearch(
+//   "LOYYIQWO7O",
+//   "1ba2b0f2147ae9c9553f63c594e0feca"
+// );
 
 class Hits extends React.Component {
   constructor(props) {
@@ -39,39 +39,40 @@ class Hits extends React.Component {
   render() {
     const { hits, currentRefinement, refine, lang } = this.props;
     return (
-      <Autosuggest
-        suggestions={this.state.hits}
-        multiSection={false}
-        onSuggestionSelected={(event, { suggestion, suggestionValue }) => {
-          console.log("Suggestion:", suggestion);
-          console.log("Suggestion value:", suggestionValue);
-        }}
-        onSuggestionsFetchRequested={({ value }) => refine(value)}
-        onSuggestionsClearRequested={() => this.setState({ hits: [] })}
-        getSuggestionValue={hit => hit.productInformation.productName}
-        renderSuggestion={hit => (
-          <div className="hit">
-            <div>
-              <span>
-                <Highlight
-                  attribute="productInformation.productName"
-                  hit={hit}
-                />
-                <h3>{hit.subcategory.subcategoryName}</h3>
-              </span>
-            </div>
-          </div>
-        )}
-        inputProps={{
-          placeholder: lang.value === "es" ? "Buscar" : "Search",
-          value: this.state.value,
-          onChange: (event, { newValue, method }) => {
-            this.setState({ value: newValue });
-          }
-        }}
-        renderSectionTitle={section => section.index}
-        getSectionSuggestions={section => section.hits}
-      />
+      // <Autosuggest
+      //   suggestions={this.state.hits}
+      //   multiSection={false}
+      //   onSuggestionSelected={(event, { suggestion, suggestionValue }) => {
+      //     console.log("Suggestion:", suggestion);
+      //     console.log("Suggestion value:", suggestionValue);
+      //   }}
+      //   onSuggestionsFetchRequested={({ value }) => refine(value)}
+      //   onSuggestionsClearRequested={() => this.setState({ hits: [] })}
+      //   getSuggestionValue={hit => hit.productInformation.productName}
+      //   renderSuggestion={hit => (
+      //     <div className="hit">
+      //       <div>
+      //         <span>
+      //           <Highlight
+      //             attribute="productInformation.productName"
+      //             hit={hit}
+      //           />
+      //           <h3>{hit.subcategory.subcategoryName}</h3>
+      //         </span>
+      //       </div>
+      //     </div>
+      //   )}
+      //   inputProps={{
+      //     placeholder: lang.value === "es" ? "Buscar" : "Search",
+      //     value: this.state.value,
+      //     onChange: (event, { newValue, method }) => {
+      //       this.setState({ value: newValue });
+      //     }
+      //   }}
+      //   renderSectionTitle={section => section.index}
+      //   getSectionSuggestions={section => section.hits}
+      // />
+      <div></div>
     );
   }
 }
@@ -107,17 +108,14 @@ class Navbar extends Component {
     }
   };
 
+  componentDidMount() {
+    const { catalogs, getCatalog } = this.props;
+    if (catalogs.length === 0) {
+      getCatalog();
+    }
+  }
   render() {
-    const {
-      auth,
-      lang,
-      profile,
-      header,
-      hideHeader,
-      documentsEn,
-      documentsEs,
-      firebase
-    } = this.props;
+    const { lang, header, hideHeader, catalogs } = this.props;
     let list = [];
     const images = [logo];
     let isDiferent = false;
@@ -143,23 +141,31 @@ class Navbar extends Component {
       hideHeader(header);
     }
 
-    if (lang.value === "es") {
-      if (documentsEs.length === 0) {
-        this.props.getDocuments({ firebase, language: "es" });
-      }
-    } else if (lang.value === "en") {
-      if (documentsEn.length === 0) {
-        this.props.getDocuments({ firebase, language: "en" });
-      }
+    if (lang.value === "en") {
+      catalogs.map(catalog => {
+        var obj = new Object();
+        obj["id"] = catalog.Id;
+        obj["Category"] = catalog.Catalog.split("|")[0];
+        list.push(obj);
+      });
     }
 
-    list = lang.value === "en" ? documentsEn : documentsEs;
+    if (lang.value === "es") {
+      catalogs.map(catalog => {
+        var obj = new Object();
+        obj["id"] = catalog.Id;
+        obj["Category"] = catalog.Catalog.split("|")[1];
+        list.push(obj);
+      });
+    }
 
-    const links = auth.uid ? (
-      <SignedInLinks profile={profile} />
-    ) : (
-      <SignedOutLinks />
-    );
+    //const links = auth.uid ? (
+    //<SignedInLinks profile={profile} />
+    //) : (
+    //<SignedOutLinks />;
+    //);
+
+    const links = <SignedOutLinks />;
 
     return (
       <div className="menu-tella">
@@ -174,7 +180,8 @@ class Navbar extends Component {
             )}
 
             <div className="nav-right" id="myTopnav">
-              {auth.isLoaded && links}
+              {/* {auth.isLoaded && links} */}
+              {/* {links} */}
               <ControlledOpenSelect></ControlledOpenSelect>
               <a className="icon" onClick={() => hamburgerMenu()}>
                 <i className="fa fa-bars"></i>
@@ -190,7 +197,7 @@ class Navbar extends Component {
               <div className="dropdown">
                 <Categories categories={list}></Categories>
               </div>
-              <div className="input-search">
+              {/* <div className="input-search">
                 <InstantSearch
                   searchClient={searchClient}
                   indexName="dev_tellamarket"
@@ -198,8 +205,8 @@ class Navbar extends Component {
                   <AutoComplete />
                   <Configure hitsPerPage={10} />
                 </InstantSearch>
-                {/* <input type="text" placeholder="Buscar" /> */}
-              </div>
+            
+              </div> */}
             </div>
           </div>
         )}
@@ -210,15 +217,12 @@ class Navbar extends Component {
 }
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
     lang: state.navar.lang,
     header: state.navar.header,
-    documentsEn: state.data.documentsEn,
-    documentsEs: state.data.documentsEs
+    catalogs: state.createmenu.catalogs
   };
 };
 
-const AutoComplete = connect(mapStateToProps, null)(connectAutoComplete(Hits));
+// const AutoComplete = connect(mapStateToProps, null)(connectAutoComplete(Hits));
 
-export default connect(mapStateToProps, { hideHeader, getDocuments })(Navbar);
+export default connect(mapStateToProps, { hideHeader, getCatalog })(Navbar);
