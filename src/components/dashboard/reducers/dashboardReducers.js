@@ -8,9 +8,6 @@ import {
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
-  itemsPremium: [],
-  itemsPlus: [],
-  itemsBasic: [],
   imagesPromo: [],
   imagesHeader: [],
   errorMessage: ""

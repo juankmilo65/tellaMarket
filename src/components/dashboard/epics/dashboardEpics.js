@@ -7,7 +7,7 @@ import {
   GET_PREMIUM_HEADER_IMAGES,
   GET_PROMO_DASHBOARD
 } from "../actions/dashboardActions";
-import { map, mergeAll, concatMap, switchMap, mergeMap } from "rxjs/operators";
+import { concatMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
 

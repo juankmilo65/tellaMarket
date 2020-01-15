@@ -1,6 +1,9 @@
 import {
   setStatus,
   getProductsByCategorySuccess,
+  getProductsByPlanSuccess,
+  getProductsByPlanError,
+  GET_PRODUCTS_BY_PLAN,
   GET_PRODUCTS_BY_CATEGORY
 } from "../actions/queryResultActions";
 
@@ -10,7 +13,7 @@ import { concat, of } from "rxjs";
 
 export default function queryResultEpics(action$) {
   return action$.pipe(
-    ofType(GET_PRODUCTS_BY_CATEGORY),
+    ofType(GET_PRODUCTS_BY_CATEGORY, GET_PRODUCTS_BY_PLAN),
     switchMap(action => {
       if (action.type === GET_PRODUCTS_BY_CATEGORY) {
         let itemList = [];
@@ -30,6 +33,32 @@ export default function queryResultEpics(action$) {
           //       });
           //       return getProductsByCategorySuccess(itemList);
           //     })
+        );
+      } else if (action.type === GET_PRODUCTS_BY_PLAN) {
+        return concat(
+          of(setStatus("pending")),
+          fetch(
+            "http://localhost:3000/api/getItemdsByIdPlan?idPlan=" +
+              action.payload,
+            {
+              mode: "cors",
+              method: "GET",
+              headers: new Headers({
+                Accept: "application/json",
+                "Content-Type": "application/json; charset=UTF-8"
+              })
+            }
+          )
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return getProductsByPlanError("Failed");
+              }
+            })
+            .then(data => {
+              return getProductsByPlanSuccess(data);
+            })
         );
       }
     })

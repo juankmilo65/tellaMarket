@@ -10,14 +10,13 @@ import {
   getPromoDashboard,
   getPremiumHeaderImage
 } from "../dashboard/actions/dashboardActions";
+import { getProductsByPlan } from "../items/queryResult/actions/queryResultActions";
 import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
-import banner1 from "../commons/carousel/img/banner1.png";
-import banner2 from "../commons/carousel/img/banner2.png";
-import banner3 from "../commons/carousel/img/banner3.png";
-import promo1 from "../commons/carousel/img/TellaNeedles.jpg";
+import cloneDeep from "clone-deep";
+
 import "./dashboard.scss";
 
 function MyComponent(state) {
@@ -204,9 +203,27 @@ function MyComponent(state) {
 
 class Dashboard extends Component {
   componentDidMount() {
-    const { getPromoDashboard, getPremiumHeaderImage } = this.props;
+    const {
+      getPromoDashboard,
+      getPremiumHeaderImage,
+      getProductsByPlan
+    } = this.props;
     getPromoDashboard("promotionimages");
     getPremiumHeaderImage("promotionheaders");
+    getProductsByPlan(3);
+  }
+
+  createList(listItems, itemsPlan, finalListItems) {
+    const listCloned = cloneDeep(listItems);
+    listCloned.map(item => {
+      itemsPlan.push(item);
+    });
+
+    if (finalListItems.length === 0) {
+      itemsPlan.map(item => {
+        finalListItems.push(item);
+      });
+    }
   }
 
   render() {
@@ -215,31 +232,132 @@ class Dashboard extends Component {
       notifications,
       currency,
       imagesPromo,
-      imagesHeader
+      imagesHeader,
+      itemsByPlan
     } = this.props;
-    let count = 1;
     const imagesMainBar = [];
     const imagesMultiBar = [];
     const imagesPromotion = [];
-    var imageURL = "";
+    const itemsPremiumPlan = [];
+    const itemsPlusPlan = [];
+    const itemsFreePlan = [];
+    const finalListItems = [];
     var base64Flag = "data:image/jpeg;base64,";
 
-    if (imagesHeader != undefined && imagesHeader.length > 0) {
-      imagesHeader.map(image => {
-        imagesMainBar.push({
-          //--
-          titlecategory: "Dummy",
-          titleproduct: "Tittle dummy",
-          valueprice: "222",
-          description: "Dummy description",
-          email: "juan@ww.com",
-          phone: "222",
-          images: [],
-          id: "itemId",
-          year: "2020",
-          image: base64Flag + image.image
+    //Premiun plan
+    if (
+      itemsPremiumPlan.length === 0 &&
+      itemsByPlan.length > 0 &&
+      itemsByPlan[0].Idplan === 3
+    ) {
+      this.createList(itemsByPlan, itemsPremiumPlan, finalListItems);
+    }
+    //plus plan
+    if (
+      itemsPlusPlan.length === 0 &&
+      itemsByPlan.length > 0 &&
+      itemsByPlan[0].Idplan === 2
+    ) {
+      this.createList(itemsByPlan, itemsPlusPlan, finalListItems);
+    }
+
+    //free plan
+    if (
+      itemsFreePlan.length === 0 &&
+      itemsByPlan.length > 0 &&
+      itemsByPlan[0].Idplan === 1
+    ) {
+      this.createList(itemsByPlan, itemsFreePlan, finalListItems);
+    }
+
+    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 1)) {
+      itemsFreePlan.map(item => {
+        finalListItems.push(item);
+      });
+    }
+    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 2)) {
+      itemsPlusPlan.map(item => {
+        finalListItems.push(item);
+      });
+    }
+    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 3)) {
+      itemsPremiumPlan.map(item => {
+        finalListItems.push(item);
+      });
+    }
+
+    if (finalListItems.length > 0) {
+      finalListItems.map(item => {
+        var listImagesPerItem = [];
+        item.Images.map(image => {
+          listImagesPerItem.push({
+            imageUrl: base64Flag + image.Image
+          });
+        });
+        imagesMultiBar.push({
+          titlecategory:
+            lang.value === "en"
+              ? item.Titlecategory.split("|")[0]
+              : item.Titlecategory.split("|")[1],
+          titleproduct: item.Titleproduct,
+          valueprice: "USD " + item.Valueprice,
+          description:
+            lang.value === "en"
+              ? item.Description.split("|")[0]
+              : item.Description.split("|")[1],
+          email: item.Email,
+          phone: item.Phone,
+          year: item.Year,
+          id: item.Id,
+          idPlan: item.Idplan,
+          images: listImagesPerItem
         });
       });
+    }
+
+    var itemBasicInformation = [];
+    itemsPremiumPlan.map(premium => {
+      imagesHeader.map(image => {
+        if (premium.Id === image.idItem) {
+          premium["Image"] = image.image;
+          itemBasicInformation.push(premium);
+        }
+      });
+    });
+
+    if (itemsPremiumPlan != undefined && itemsPremiumPlan.length > 0) {
+      if (imagesHeader != undefined && imagesHeader.length > 0) {
+        itemBasicInformation.map(item => {
+          var listImagesPerItem = [];
+          item.Images.map(image => {
+            listImagesPerItem.push({
+              imageUrl: base64Flag + image.Image
+            });
+          });
+
+          imagesMainBar.push({
+            titlecategory:
+              lang.value === "en"
+                ? item.Titlecategory.split("|")[0]
+                : item.Titlecategory.split("|")[1],
+            titleproduct:
+              lang.value === "en"
+                ? item.Titleproduct.split("|")[0]
+                : item.Titleproduct.split("|")[1],
+            valueprice: item.Valueprice,
+            description:
+              lang.value === "en"
+                ? item.Description.split("|")[0]
+                : item.Description.split("|")[1],
+            email: item.Email,
+            phone: item.Phone,
+            images: listImagesPerItem,
+            id: item.Id,
+            year: item.Year,
+            image: base64Flag + item.Image
+          });
+        });
+      }
     }
 
     if (imagesPromo != undefined && imagesPromo.length > 0) {
@@ -250,113 +368,6 @@ class Dashboard extends Component {
         });
       });
     }
-    // var obj = new Object();
-    // obj["titlecategory"] = "Titulo Categoria";
-    // obj["titleproduct"] = "Titulo Producto";
-    // obj["valueprice"] = "$2000";
-    // obj["description"] =
-    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    // obj["email"] = "asdfgh@sdfghj.com";
-    // obj["phone"] = "33333333";
-    // obj["images"] = [
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   },
-    //   {
-    //     imageUrl:
-    //       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
-    //   }
-    // ];
-    // obj["image"] = banner1;
-    // obj["id"] = 1;
-    // obj["year"] = "2019-10-03";
-    // imagesMainBar.push(obj);
-    // imagesMultiBar.push(obj);
-
-    // var obj = new Object();
-    // obj["titlecategory"] = "Titulo Categoria";
-    // obj["titleproduct"] = "Titulo Producto";
-    // obj["valueprice"] = "$1000";
-    // obj["year"] = "2019-10-03";
-    // obj["description"] =
-    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    // obj["email"] = "asdfgh@sdfghj.com";
-    // obj["phone"] = "22222222";
-    // obj["image"] = banner1;
-    // obj["id"] = 2;
-    // obj["images"] = [
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   },
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   }
-    // ];
-    // imagesMainBar.push(obj);
-    // imagesMultiBar.push(obj);
-
-    // if (itemsPremium.length === 0) {
-    //   getDashboardProductsPlanPremium(firebase);
-    // } else {
-    //   itemsPremium.map(item => {
-    //     var obj = new Object();
-    //     obj["titlecategory"] =
-    //       lang === "en"
-    //         ? item.data.subcategory.subcategoryName
-    //         : item.data.subcategory.subcategoryName;
-    //     obj["titleproduct"] = item.data.productInformation.brand;
-    //     obj["valueprice"] = item.data.productInformation.price;
-    //     obj["description"] = item.data.productInformation.description;
-    //     obj["email"] = item.data.productInformation.email;
-    //     obj["phone"] = item.data.productInformation.phone;
-    //     obj["image"] = item.data.images[0].imageUrl1;
-    //     obj["id"] = item.id;
-    //     obj["year"] = item.data.productInformation.year;
-    //     imagesMainBar.push(obj);
-    //   });
-    // }
-
-    //Este es que se va a migrar
-    // if (itemsPlus.length === 0) {
-    //   getDashboardProductsPlanPlus(firebase);
-    // } else {
-    //   itemsPlus.map(item => {
-    //     var obj = new Object();
-    //     obj["titlecategory"] =
-    //       lang === "en"
-    //         ? item.data.subcategory.subcategoryName
-    //         : item.data.subcategory.subcategoryName;
-    //     obj["titleproduct"] = item.data.productInformation.brand;
-    //     obj["valueprice"] =
-    //       currency +
-    //       " " +
-    //       item.data.productInformation.internationalPrices[currency];
-    //     obj["description"] =
-    //       lang.value === "es"
-    //         ? item.data.productInformation.spanishDescription
-    //         : item.data.productInformation.englishDescription;
-    //     obj["email"] = item.data.productInformation.email;
-    //     obj["phone"] = item.data.productInformation.phone;
-    //     obj["images"] = item.data.images;
-    //     obj["id"] = item.id;
-    //     obj["year"] = item.data.productInformation.year;
-    //     obj["image"] = count === 1 ? banner1 : count === 2 ? banner2 : banner3;
-    //     imagesMainBar.push(obj);
-    //     imagesMultiBar.push(obj);
-
-    //     count = count + 1;
-    //   });
-
-    //   // {
-    //   //   imagesMainBar &&
-    //   //     imagesMainBar.map(item => {
-    //   //       imagesMultiBar.push(item);
-    //   //     });
-    //   // }
-    // }
 
     return (
       <MyComponent
@@ -374,16 +385,15 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     lang: state.navar.lang,
-    itemsPremium: state.dashboard.itemsPremium,
-    itemsPlus: state.dashboard.itemsPlus,
-    itemsBasic: state.dashboard.itemsBasic,
     currency: state.currency.currency,
     imagesPromo: state.dashboard.imagesPromo,
-    imagesHeader: state.dashboard.imagesHeader
+    imagesHeader: state.dashboard.imagesHeader,
+    itemsByPlan: state.queryResult.itemsByPlan
   };
 };
 
 export default connect(mapStateToProps, {
   getPromoDashboard,
-  getPremiumHeaderImage
+  getPremiumHeaderImage,
+  getProductsByPlan
 })(Dashboard);
