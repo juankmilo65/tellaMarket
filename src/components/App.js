@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Dashboard from "./dashboard/Dashboard";
@@ -14,7 +13,14 @@ import CreateMenu from "./administration/menu/createMenu";
 import Query from "./items/queryResult/queryResult";
 import ItemDetail from "./items/detail/itemDetail";
 import "bootstrap-4-react";
+import { getCurrentLocation } from "./layout/actions/navarActions";
+
 class App extends Component {
+  componentDidMount() {
+    var { getCurrentLocation } = this.props;
+    getCurrentLocation();
+  }
+
   render() {
     // const { auth } = this.props;
     //if (auth.isLoaded) {
@@ -46,8 +52,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  //auth: state.firebase.auth
-});
-
-export default connect(mapStateToProps)(App);
+export default connect(null, { getCurrentLocation })(App);

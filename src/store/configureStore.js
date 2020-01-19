@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-//import signinReducer from "../components/auth/signin/reducers/signinReducers";
+import signinReducer from "../components/auth/signin/reducers/signinReducers";
 import signoutReducer from "../components/auth/signout/reducers/signoutReducers";
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
 import listItemReducer from "../components/items/list/reducers/listItemReducers";
@@ -19,7 +19,7 @@ import categoriesReducers from "../components/commons/select/reducers/categories
 import currencyReducers from "../components/commons/select/reducers/currencyReducers";
 import ratesReducers from "../components/commons/select/reducers/ratesReducers";
 import itemDetailReducers from "../components/items/detail/reducers/itemDetailReducers";
-//import signinEpics from "../components/auth/signin/epics/signinEpics";
+import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
 import navarEpics from "../components/layout/epics/navarEpics";
@@ -37,11 +37,10 @@ import categoriesEpics from "../components/commons/select/epics/categoriesEpics"
 import currencyEpics from "../components/commons/select/epics/currencyEpics";
 import rateEpics from "../components/commons/select/epics/ratesEpics";
 import itemDetailsEpics from "../components/items/detail/epics/itemDetailEpics";
-import FirebaseConfig from "./../config/FirebaseConfig";
 
 export function configureStore() {
   const rootEpic = combineEpics(
-    // signinEpics,
+    signinEpics,
     signoutEpics,
     signupEpics,
     navarEpics,
@@ -63,7 +62,7 @@ export function configureStore() {
 
   const epicMiddleware = createEpicMiddleware();
   const rootReducer = combineReducers({
-    //signin: signinReducer,
+    signin: signinReducer,
     signout: signoutReducer,
     signup: signupReducer,
     listItems: listItemReducer,

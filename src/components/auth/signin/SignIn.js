@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
+import google from "../../../images/google.svg";
+import facebook from "../../../images/facebook.svg";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import {
-  signInWithEmailAndPassword,
-  singinGmail,
-  singinFacebook
-} from "./actions/signinActions";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "../../layout/actions/navarActions";
+import {
+  signInWithEmailAndPassword,
+  singinSocial
+} from "./actions/signinActions";
+import { socialAuth } from "../../../config/constants";
+
 import "./signin.scss";
-import google from "../../../images/google.svg";
-import facebook from "../../../images/facebook.svg";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -46,16 +47,8 @@ function MyComponent(state) {
         </div>
       </form>
       <div className="type-login">
-        <button
-          className="btn-networks facebook"
-          onClick={state.handleFacebook}
-        >
-          <img src={state.images[0]} alt="Tella Market" />
-          <span>Facebook</span>
-        </button>
-        <button className="btn-networks google" onClick={state.handleGmail}>
-          <img src={state.images[1]} alt="Tella Market" /> <span>Google</span>
-        </button>
+        {state.fbContent}
+        {state.googleConnect}
         <button className="btn-networks phone" onClick={state.handlePhone}>
           <i className="material-icons">phone_iphone</i>
           {t("authentication.phoneTitle")}
@@ -71,8 +64,16 @@ function MyComponent(state) {
 class SignIn extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    user: {},
+    disabled: "",
+    isLoggedIn: false,
+    userID: "",
+    name: "",
+    email: "",
+    picture: ""
   };
+
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value
@@ -101,25 +102,104 @@ class SignIn extends Component {
     props.singinGmail(authData);
   };
 
-  handleFacebook = e => {
-    const { props } = this;
-    e.preventDefault();
-    const { firebase } = props;
-    const authData = {
-      firebase
-    };
-    props.singinFacebook(authData);
-  };
+  handleFacebook = e => {};
 
   handlePhone = () => {
     this.props.history.push("/phoneAuthentication");
   };
 
+  componentClicked = () => {
+    console.log("clicked");
+  };
+
+  responseFacebook = response => {
+    if (response.status != "unknown") {
+      const { singinSocial, country } = this.props;
+      var profile = {
+        Name: response.name,
+        Provider: "Facebook",
+        ProviderId: response.id,
+        Photo: response.picture.data.url,
+        LastLogin: new Date(),
+        Country: country,
+        Email: response.email,
+        User: response.userID,
+        AccessToken: response.accessToken,
+        Password: "N/A"
+      };
+      singinSocial(profile);
+    }
+  };
+
+  responseGoogle = response => {
+    const { singinSocial, country } = this.props;
+    var profile = {
+      Name: response.profileObj.name,
+      Provider: "Google",
+      ProviderId: response.profileObj.googleId,
+      Photo: response.profileObj.imageUrl,
+      LastLogin: new Date(),
+      Country: country,
+      Email: response.profileObj.email,
+      User: response.El,
+      AccessToken: response.accessToken,
+      Password: "N/A"
+    };
+    singinSocial(profile);
+  };
+
   render() {
     const { authMessage, auth, lang, header, hideHeader } = this.props;
     const images = [facebook, google];
+    let fbContent;
+    let googleConnect;
 
-    if (auth.uid && header.isFomSignin === false) {
+    fbContent = (
+      // <FacebookLogin
+      //   appId={socialAuth.facebookApplicationId}
+      //   autoLoad={false}
+      //   fields="name,email,picture"
+      //   onClick={this.componentClicked}
+      //   callback={this.responseFacebook}
+      //   render={renderProps => (
+      //     <button
+      //       className="btn-networks facebook"
+      //       onClick={renderProps.onClick}
+      //     >
+      //       <img src={images[0]} alt="Tella Market" />
+      //       <span>Facebook</span>
+      //     </button>
+      //   )}
+      // />
+      <FacebookLogin
+        appId={socialAuth.facebookApplicationId}
+        autoLoad={false}
+        callback={this.responseFacebook}
+        cssClass="btn-networks facebook"
+        icon="fa-facebook-official"
+        textButton=".  Facebook"
+      />
+    );
+    googleConnect = (
+      <GoogleLogin
+        clientId={socialAuth.googleApplicationId}
+        render={renderProps => (
+          <button
+            className="btn-networks google"
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            <img src={images[1]} alt="Tella Market" /> <span>Google</span>
+          </button>
+        )}
+        buttonText="Login"
+        onSuccess={this.responseGoogle}
+        onFailure={this.responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+    );
+
+    if (auth != null && auth.User && header.isFomSignin === false) {
       const header = {
         isFomSignin: true,
         hideHeader: false
@@ -128,7 +208,7 @@ class SignIn extends Component {
       hideHeader(header);
     }
 
-    if (auth.uid) return <Redirect to="/" />;
+    if (auth != null && auth.User) return <Redirect to="/" />;
     return (
       <MyComponent
         handleSubmit={this.handleSubmit}
@@ -138,7 +218,8 @@ class SignIn extends Component {
         handleFacebook={this.handleFacebook}
         authMessage={authMessage}
         lang={lang}
-        images={images}
+        fbContent={fbContent}
+        googleConnect={googleConnect}
       />
     );
   }
@@ -148,15 +229,14 @@ const mapStateToProps = state => ({
   authMessage:
     state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
   type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
-  auth: state.firebase.auth,
   lang: state.navar.lang,
-  header: state.navar.header
+  header: state.navar.header,
+  auth: state.signin.auth,
+  country: state.navar.country
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { signInWithEmailAndPassword, singinGmail, singinFacebook, hideHeader }
-  )
-)(SignIn);
+export default connect(mapStateToProps, {
+  signInWithEmailAndPassword,
+  singinSocial,
+  hideHeader
+})(SignIn);

@@ -10,6 +10,7 @@ import {
 import { concatMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../config/constants";
 
 export default function dashboardEpics(action$) {
   return action$.pipe(
@@ -19,8 +20,7 @@ export default function dashboardEpics(action$) {
         return concat(
           of(setStatus("pending")),
           fetch(
-            "http://localhost:3000/api/getAllPromotionImages?tableName=" +
-              action.payload,
+            apiServices + "/getAllPromotionImages?tableName=" + action.payload,
             {
               mode: "cors",
               method: "GET",
@@ -45,8 +45,7 @@ export default function dashboardEpics(action$) {
         return concat(
           of(setStatus("pending")),
           fetch(
-            "http://localhost:3000/api/getPremiumHeaderImages?tableName=" +
-              action.payload,
+            apiServices + "/getPremiumHeaderImages?tableName=" + action.payload,
             {
               mode: "cors",
               method: "GET",

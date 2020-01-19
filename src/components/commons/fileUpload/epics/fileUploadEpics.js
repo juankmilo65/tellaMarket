@@ -12,6 +12,7 @@ import {
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../../config/constants";
 
 export default function fileUploadEpics(action$) {
   return action$.pipe(
@@ -25,7 +26,7 @@ export default function fileUploadEpics(action$) {
       } else if (action.type === UPLOAD_IMAGE) {
         return concat(
           of(setStatus("pending")),
-          fetch("http://localhost:3000/api/CreateImages", {
+          fetch(apiServices + "/CreateImages", {
             mode: "cors",
             method: "POST",
             headers: new Headers({
@@ -55,7 +56,7 @@ export default function fileUploadEpics(action$) {
       } else if (action.type === UPLOAD_IMAGE_ITEM) {
         return concat(
           of(setStatus("pending")),
-          fetch("http://localhost:3000/api/createImagesItems", {
+          fetch(apiServices + "/createImagesItems", {
             mode: "cors",
             method: "POST",
             headers: new Headers({

@@ -16,6 +16,7 @@ import {
 import { switchMap, map } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../../config/constants";
 
 export default function createMenuEpics(action$) {
   return action$.pipe(
@@ -35,7 +36,7 @@ export default function createMenuEpics(action$) {
       } else if (action.type === GET_SUBCATEGORIES) {
         return concat(
           of(setStatus("pending")),
-          fetch("http://localhost:3000/api/getAllSubcategories", {
+          fetch(apiServices + "/getAllSubcategories", {
             mode: "cors",
             method: "GET",
             headers: new Headers({
@@ -57,7 +58,7 @@ export default function createMenuEpics(action$) {
       } else if (action.type === GET_CATALOG) {
         return concat(
           of(setStatus("pending")),
-          fetch("http://localhost:3000/api/getAllCatalogs", {
+          fetch(apiServices + "/getAllCatalogs", {
             mode: "cors",
             method: "GET",
             headers: new Headers({

@@ -10,6 +10,7 @@ import {
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../../config/constants";
 
 export default function queryResultEpics(action$) {
   return action$.pipe(
@@ -37,18 +38,14 @@ export default function queryResultEpics(action$) {
       } else if (action.type === GET_PRODUCTS_BY_PLAN) {
         return concat(
           of(setStatus("pending")),
-          fetch(
-            "http://localhost:3000/api/getItemdsByIdPlan?idPlan=" +
-              action.payload,
-            {
-              mode: "cors",
-              method: "GET",
-              headers: new Headers({
-                Accept: "application/json",
-                "Content-Type": "application/json; charset=UTF-8"
-              })
-            }
-          )
+          fetch(apiServices + "/getItemdsByIdPlan?idPlan=" + action.payload, {
+            mode: "cors",
+            method: "GET",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            })
+          })
             .then(response => {
               if (response.ok) {
                 return response.json();

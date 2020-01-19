@@ -115,7 +115,7 @@ class Navbar extends Component {
     }
   }
   render() {
-    const { lang, header, hideHeader, catalogs } = this.props;
+    const { auth, lang, header, hideHeader, catalogs } = this.props;
     let list = [];
     const images = [logo];
     let isDiferent = false;
@@ -159,13 +159,12 @@ class Navbar extends Component {
       });
     }
 
-    //const links = auth.uid ? (
-    //<SignedInLinks profile={profile} />
-    //) : (
-    //<SignedOutLinks />;
-    //);
-
-    const links = <SignedOutLinks />;
+    const links =
+      auth != null && auth.uid ? (
+        <SignedInLinks profile={{}} /> // enviar variable profile
+      ) : (
+        <SignedOutLinks />
+      );
 
     return (
       <div className="menu-tella">
@@ -181,7 +180,7 @@ class Navbar extends Component {
 
             <div className="nav-right" id="myTopnav">
               {/* {auth.isLoaded && links} */}
-              {/* {links} */}
+              {links}
               <ControlledOpenSelect></ControlledOpenSelect>
               <a className="icon" onClick={() => hamburgerMenu()}>
                 <i className="fa fa-bars"></i>
@@ -217,6 +216,7 @@ class Navbar extends Component {
 }
 const mapStateToProps = state => {
   return {
+    auth: state.signin.auth,
     lang: state.navar.lang,
     header: state.navar.header,
     catalogs: state.createmenu.catalogs
