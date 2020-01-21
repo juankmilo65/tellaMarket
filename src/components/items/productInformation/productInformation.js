@@ -638,8 +638,6 @@ class ProductInformation extends Component {
 
     let spanishDescription = "";
     let englishDescription = "";
-    let spanishCategory = "";
-    let englishCategory = "";
     //let currentCurrencyInDollars = rates[currencyId];
     const currentValue = document
       .getElementById("price")

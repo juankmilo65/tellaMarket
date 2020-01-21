@@ -12,6 +12,8 @@ export const CREATE_ITEM_SUCCES = "CREATE_ITEM_SUCCES";
 export const CREATE_ITEM_ERROR = "CREATE_ITEM_ERROR";
 export const TRANSLATION = "TRANSLATION";
 export const TRANSLATION_SUCCESS = "TRANSLATION_SUCCESS";
+export const CLEAN_ITEM_OBJECTS = "CLEAN_ITEM_OBJECTS";
+export const CLEAN_ITEM_OBJECTS_SUCCESS = "CLEAN_ITEM_OBJECTS_SUCCESS";
 
 export function setStatus(status) {
   return {
@@ -107,5 +109,17 @@ export function translationSuccess(text) {
   return {
     type: TRANSLATION_SUCCESS,
     payload: text
+  };
+}
+
+export function cleanItems() {
+  return {
+    type: CLEAN_ITEM_OBJECTS
+  };
+}
+
+export function cleanItemsSuccess() {
+  return {
+    type: CLEAN_ITEM_OBJECTS_SUCCESS
   };
 }

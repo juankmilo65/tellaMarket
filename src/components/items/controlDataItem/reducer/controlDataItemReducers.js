@@ -5,7 +5,8 @@ import {
   SET_MULTIMEDIA_SUCCES,
   CREATE_ITEM_SUCCES,
   CREATE_ITEM_ERROR,
-  TRANSLATION_SUCCESS
+  TRANSLATION_SUCCESS,
+  CLEAN_ITEM_OBJECTS_SUCCESS
 } from "../actions/controlDataItemActions";
 
 const initState = {
@@ -70,6 +71,16 @@ const controlDataItemReducers = (state = initState, action) => {
         ...state,
         status: "success",
         translation: action.payload
+      };
+    }
+    case CLEAN_ITEM_OBJECTS_SUCCESS: {
+      return {
+        ...state,
+        status: "success",
+        subcategory: { categorySelectedId: -1 },
+        productInformation: {},
+        multimedia: {},
+        result: {}
       };
     }
     default:

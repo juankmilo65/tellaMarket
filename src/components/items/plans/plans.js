@@ -217,8 +217,13 @@ function MyComponent(state) {
 class Plans extends Component {
   state = { showModal: false, redirect: false };
   handleSave = id => {
-    const { subcategory, productInformation, multimedia, auth } = this.props;
-    const { createItem } = this.props;
+    const {
+      subcategory,
+      productInformation,
+      multimedia,
+      auth,
+      createItem
+    } = this.props;
 
     var obj = new Object();
     obj["productInformation"] = {

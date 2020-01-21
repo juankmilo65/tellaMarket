@@ -61,12 +61,12 @@ function MyComponent(state) {
               <div className="button-icon">
                 <button
                   className={
-                    state.auth.uid != undefined
+                    state.auth.User != undefined
                       ? "btns btn-go"
                       : "btns btn-go disable"
                   }
                   onClick={
-                    state.auth.uid != undefined
+                    state.auth.User != undefined
                       ? state.handleDetails
                       : state.handleShowMessage
                   }
@@ -325,7 +325,7 @@ class ItemDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
   item: state.itemDetail.item,
   currency: state.currency.currency

@@ -10,6 +10,8 @@ import {
   getPromoDashboard,
   getPremiumHeaderImage
 } from "../dashboard/actions/dashboardActions";
+import { cleanItems } from "../items/controlDataItem/actions/controlDataItemActions";
+import { setStep } from "../items/steps/actions/stepsActions";
 import { getProductsByPlan } from "../items/queryResult/actions/queryResultActions";
 import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
@@ -206,11 +208,16 @@ class Dashboard extends Component {
     const {
       getPromoDashboard,
       getPremiumHeaderImage,
-      getProductsByPlan
+      getProductsByPlan,
+      cleanItems,
+      setStep
     } = this.props;
+
     getPromoDashboard("promotionimages");
     getPremiumHeaderImage("promotionheaders");
     getProductsByPlan([1, 2, 3]);
+    cleanItems();
+    setStep(1);
   }
 
   createList(listItems, itemsPlan, finalListItems) {
@@ -219,11 +226,9 @@ class Dashboard extends Component {
       itemsPlan.push(item);
     });
 
-    //if (finalListItems.length === 0) {
     itemsPlan.map(item => {
       finalListItems.push(item);
     });
-    //}
   }
 
   render() {
@@ -269,22 +274,6 @@ class Dashboard extends Component {
         finalListItems
       );
     }
-
-    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 1)) {
-    //   itemsFreePlan.map(item => {
-    //     finalListItems.push(item);
-    //   });
-    // }
-    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 2)) {
-    //   itemsPlusPlan.map(item => {
-    //     finalListItems.push(item);
-    //   });
-    // }
-    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 3)) {
-    //   itemsPremiumPlan.map(item => {
-    //     finalListItems.push(item);
-    //   });
-    // }
 
     if (finalListItems.length > 0) {
       finalListItems.map(item => {
@@ -395,5 +384,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getPromoDashboard,
   getPremiumHeaderImage,
-  getProductsByPlan
+  getProductsByPlan,
+  cleanItems,
+  setStep
 })(Dashboard);

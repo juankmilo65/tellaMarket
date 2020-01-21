@@ -232,7 +232,6 @@ Hit.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
   lang: state.navar.lang,
   items: state.queryResult.items
 });

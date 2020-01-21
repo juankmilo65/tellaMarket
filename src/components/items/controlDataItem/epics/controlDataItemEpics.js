@@ -7,12 +7,14 @@ import {
   translationSuccess,
   createItemSuccess,
   createItemError,
+  cleanItemsSuccess,
   SET_SUBCATEGORY,
   SET_PRODUCT_INFORMATION,
   SET_MULTIMEDIA,
   SET_PLAN,
   TRANSLATION,
-  CREATE_ITEM
+  CREATE_ITEM,
+  CLEAN_ITEM_OBJECTS
 } from "../actions/controlDataItemActions";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
@@ -27,10 +29,16 @@ export default function controlDataItemEpics(action$) {
       SET_MULTIMEDIA,
       CREATE_ITEM,
       SET_PLAN,
-      TRANSLATION
+      TRANSLATION,
+      CLEAN_ITEM_OBJECTS
     ),
     switchMap(action => {
-      if (action.type === SET_SUBCATEGORY) {
+      if (action.type === CLEAN_ITEM_OBJECTS) {
+        return concat(
+          of(setStatus("pending")),
+          of(cleanItemsSuccess(action.payload))
+        );
+      } else if (action.type === SET_SUBCATEGORY) {
         return concat(
           of(setStatus("pending")),
           of(setSubcategorySuccess(action.payload)),
