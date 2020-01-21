@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
-import { hideHeader } from "../layout/actions/navarActions";
+import { hideHeader, setCategories } from "../layout/actions/navarActions";
 import { getCatalog } from "../administration/menu/actions/createMenuActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
@@ -109,13 +109,20 @@ class Navbar extends Component {
   };
 
   componentDidMount() {
-    const { catalogs, getCatalog } = this.props;
+    const { catalogs, getCatalog, setCategories } = this.props;
     if (catalogs.length === 0) {
       getCatalog();
     }
   }
   render() {
-    const { auth, lang, header, hideHeader, catalogs } = this.props;
+    const {
+      auth,
+      lang,
+      header,
+      hideHeader,
+      catalogs,
+      setCategories
+    } = this.props;
     let list = [];
     const images = [logo];
     let isDiferent = false;
@@ -148,6 +155,7 @@ class Navbar extends Component {
         obj["Category"] = catalog.Catalog.split("|")[0];
         list.push(obj);
       });
+      setCategories(list);
     }
 
     if (lang.value === "es") {
@@ -157,11 +165,12 @@ class Navbar extends Component {
         obj["Category"] = catalog.Catalog.split("|")[1];
         list.push(obj);
       });
+      setCategories(list);
     }
 
     const links =
-      auth != null && auth.uid ? (
-        <SignedInLinks profile={{}} /> // enviar variable profile
+      auth != null && auth.User ? (
+        <SignedInLinks profile={auth} />
       ) : (
         <SignedOutLinks />
       );
@@ -219,10 +228,15 @@ const mapStateToProps = state => {
     auth: state.signin.auth,
     lang: state.navar.lang,
     header: state.navar.header,
-    catalogs: state.createmenu.catalogs
+    catalogs: state.createmenu.catalogs,
+    auth: state.signin.auth
   };
 };
 
 // const AutoComplete = connect(mapStateToProps, null)(connectAutoComplete(Hits));
 
-export default connect(mapStateToProps, { hideHeader, getCatalog })(Navbar);
+export default connect(mapStateToProps, {
+  hideHeader,
+  getCatalog,
+  setCategories
+})(Navbar);

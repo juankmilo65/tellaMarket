@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import {
   phoneAuthentication,
@@ -129,10 +128,7 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { phoneAuthentication, codeAuthentication }
-  )
-)(PhoneAuthentication);
+export default connect(mapStateToProps, {
+  phoneAuthentication,
+  codeAuthentication
+})(PhoneAuthentication);

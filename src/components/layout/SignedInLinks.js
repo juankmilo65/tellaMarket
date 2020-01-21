@@ -15,8 +15,8 @@ function MyComponent(state) {
 
   return (
     <div>
-      <CurrencySelect></CurrencySelect>
-      <MenuSelect initials={state.initials}></MenuSelect>
+      {/* <CurrencySelect></CurrencySelect> */}
+      <MenuSelect profile={state.profile}></MenuSelect>
     </div>
   );
 }
@@ -34,14 +34,12 @@ class SignedInLinks extends Component {
   };
 
   render() {
-    const { lang, auth } = this.props;
-
-    if (!auth.uid) return <Redirect to="/signin" />;
+    const { lang } = this.props;
     return (
       <ul className="right">
         <MyComponent
           handleSubmit={this.handleSubmit}
-          initials={this.props.profile.initials}
+          profile={this.props.profile}
           lang={lang}
         />
       </ul>

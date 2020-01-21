@@ -162,7 +162,7 @@ class Query extends Component {
     const { getProductsByCategory, items, lang } = this.props;
 
     if (
-      (items.length == 0 && this.state === null) ||
+      (items.length === 0 && this.state === null) ||
       (this.state !== null &&
         this.state.idCat !== null &&
         this.state.idCat !== idCategory)

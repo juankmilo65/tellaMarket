@@ -92,20 +92,8 @@ class SignIn extends Component {
     props.signInWithEmailAndPassword(authData);
   };
 
-  handleGmail = e => {
-    const { props } = this;
-    e.preventDefault();
-    const { firebase } = props;
-    const authData = {
-      firebase
-    };
-    props.singinGmail(authData);
-  };
-
-  handleFacebook = e => {};
-
   handlePhone = () => {
-    this.props.history.push("/phoneAuthentication");
+    //    this.props.history.push("/phoneAuthentication");
   };
 
   componentClicked = () => {
@@ -113,7 +101,7 @@ class SignIn extends Component {
   };
 
   responseFacebook = response => {
-    if (response.status != "unknown") {
+    if (response.status != undefined || response.status != "unknown") {
       const { singinSocial, country } = this.props;
       var profile = {
         Name: response.name,
@@ -125,7 +113,10 @@ class SignIn extends Component {
         Email: response.email,
         User: response.userID,
         AccessToken: response.accessToken,
-        Password: "N/A"
+        Password: "N/A",
+        Initials:
+          response.name.split(" ")[0].charAt(0) +
+          response.name.split(" ")[1].charAt(0)
       };
       singinSocial(profile);
     }
@@ -143,7 +134,10 @@ class SignIn extends Component {
       Email: response.profileObj.email,
       User: response.El,
       AccessToken: response.accessToken,
-      Password: "N/A"
+      Password: "N/A",
+      Initials:
+        response.profileObj.name.split(" ")[0].charAt(0) +
+        response.profileObj.name.split(" ")[1].charAt(0)
     };
     singinSocial(profile);
   };
@@ -155,26 +149,11 @@ class SignIn extends Component {
     let googleConnect;
 
     fbContent = (
-      // <FacebookLogin
-      //   appId={socialAuth.facebookApplicationId}
-      //   autoLoad={false}
-      //   fields="name,email,picture"
-      //   onClick={this.componentClicked}
-      //   callback={this.responseFacebook}
-      //   render={renderProps => (
-      //     <button
-      //       className="btn-networks facebook"
-      //       onClick={renderProps.onClick}
-      //     >
-      //       <img src={images[0]} alt="Tella Market" />
-      //       <span>Facebook</span>
-      //     </button>
-      //   )}
-      // />
       <FacebookLogin
         appId={socialAuth.facebookApplicationId}
         autoLoad={false}
         callback={this.responseFacebook}
+        fields="name,email,picture"
         cssClass="btn-networks facebook"
         icon="fa-facebook-official"
         textButton=".  Facebook"

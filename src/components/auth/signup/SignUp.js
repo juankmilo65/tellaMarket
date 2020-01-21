@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { signUpWithEmailAndPassword } from "./actions/signupActions";
 import { useTranslation } from "react-i18next";
 import "./singup.scss";
@@ -14,49 +12,51 @@ function MyComponent(state) {
   }
 
   return (
-      <div className="container-login mb-3">
-        <form onSubmit={state.handleSubmit} className="login-form">
-          {/* <h5 className="grey-text text-darken-3">{t("signup.title")}</h5> */}
+    <div className="container-login mb-3">
+      <form onSubmit={state.handleSubmit} className="login-form">
+        {/* <h5 className="grey-text text-darken-3">{t("signup.title")}</h5> */}
 
-          <div className="item-login--form m-0">
-            <label htmlFor="email">{t("signup.email")}</label>
-            <div className="input-text input-icon">
-              <i className="material-icons">person</i>
-              <input type="email" id="email" onChange={state.handleChange} />
-            </div>
+        <div className="item-login--form m-0">
+          <label htmlFor="email">{t("signup.email")}</label>
+          <div className="input-text input-icon">
+            <i className="material-icons">person</i>
+            <input type="email" id="email" onChange={state.handleChange} />
           </div>
-          <div className="item-login--form">
-            <label htmlFor="password">{t("signup.password")}</label>
-            <div className="input-text input-icon">
-              <i className="material-icons">vpn_key</i>
-              <input type="password" id="password" onChange={state.handleChange}/>
-            </div>
+        </div>
+        <div className="item-login--form">
+          <label htmlFor="password">{t("signup.password")}</label>
+          <div className="input-text input-icon">
+            <i className="material-icons">vpn_key</i>
+            <input
+              type="password"
+              id="password"
+              onChange={state.handleChange}
+            />
           </div>
+        </div>
 
-          <div className="item-login--form">
-            <label htmlFor="firstName">{t("signup.firstName")}</label>
-            <div className="input-text input-icon">
-              <i className="material-icons">person</i>
-              <input type="text" id="firstName" onChange={state.handleChange} />
-            </div>
+        <div className="item-login--form">
+          <label htmlFor="firstName">{t("signup.firstName")}</label>
+          <div className="input-text input-icon">
+            <i className="material-icons">person</i>
+            <input type="text" id="firstName" onChange={state.handleChange} />
           </div>
-          <div className="item-login--form">
-           <label htmlFor="lastName">{t("signup.lastName")}</label>
-            <div className="input-text input-icon">
-              <i className="material-icons">person</i>
-              <input type="text" id="lastName" onChange={state.handleChange} />
-            </div>
+        </div>
+        <div className="item-login--form">
+          <label htmlFor="lastName">{t("signup.lastName")}</label>
+          <div className="input-text input-icon">
+            <i className="material-icons">person</i>
+            <input type="text" id="lastName" onChange={state.handleChange} />
           </div>
-          <div className="item-login--btn justify-content-end">
-            <button className="btns btn-go">
-                {t("signup.title")}
-              </button>
-              <div className="red-text center">
-                {state.authMessage ? <p>{state.authMessage}</p> : null}
-              </div>
+        </div>
+        <div className="item-login--btn justify-content-end">
+          <button className="btns btn-go">{t("signup.title")}</button>
+          <div className="red-text center">
+            {state.authMessage ? <p>{state.authMessage}</p> : null}
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -105,10 +105,4 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { signUpWithEmailAndPassword }
-  )
-)(SignUp);
+export default connect(mapStateToProps, { signUpWithEmailAndPassword })(SignUp);

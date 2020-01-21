@@ -4,18 +4,20 @@ import {
   setProductInformationSuccess,
   setMultimediaSuccess,
   setPlanSuccess,
+  translationSuccess,
   createItemSuccess,
   createItemError,
   SET_SUBCATEGORY,
   SET_PRODUCT_INFORMATION,
   SET_MULTIMEDIA,
   SET_PLAN,
+  TRANSLATION,
   CREATE_ITEM
 } from "../actions/controlDataItemActions";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
-import axios from "axios";
+import { apiServices } from "../../../../config/constants";
 
 export default function controlDataItemEpics(action$) {
   return action$.pipe(
@@ -24,7 +26,8 @@ export default function controlDataItemEpics(action$) {
       SET_PRODUCT_INFORMATION,
       SET_MULTIMEDIA,
       CREATE_ITEM,
-      SET_PLAN
+      SET_PLAN,
+      TRANSLATION
     ),
     switchMap(action => {
       if (action.type === SET_SUBCATEGORY) {
@@ -53,39 +56,27 @@ export default function controlDataItemEpics(action$) {
         );
       } else if (action.type === CREATE_ITEM) {
         return concat(
-          of(setStatus("pending"))
-          // getFS
-          //   .collection("items")
-          //   .add(action.payload.productInformation)
-          //   .then(doc => {
-          //     let count = 1;
-          //     var obj = new Object();
-          //     obj["images"] = [];
-          //     action.payload.multimedia.map(file => {
-          //       const fd = new FormData();
-          //       fd.append("image", file.image, file.image.name);
-          //       axios
-          //         .post(
-          //           "https://us-central1-tellamachines.cloudfunctions.net/uploadFile",
-          //           fd,
-          //           { headers: { folderName: doc.id } }
-          //         )
-          //         .then(result => {
-          //           var objImage = new Object();
-          //           objImage["imageUrl"] = result.data.downloadURL;
-          //           obj.images.push(objImage);
-          //           if (action.payload.multimedia.length === count) {
-          //             getFS
-          //               .collection("items")
-          //               .doc(doc.id)
-          //               .update(obj);
-          //           }
-          //           count = count + 1;
-          //         });
-          //     });
-          //     return setPlanSuccess("Ok");
-          //   })
-          //   .catch(err => createItemError(err))
+          of(setStatus("pending")),
+          fetch(apiServices + "/createItem", {
+            mode: "cors",
+            method: "POST",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            }),
+            body: JSON.stringify(action.payload)
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return createItemError("Failed");
+              }
+            })
+            .then(data => {
+              console.log(data);
+              return createItemSuccess("Ok");
+            })
         );
       }
     })

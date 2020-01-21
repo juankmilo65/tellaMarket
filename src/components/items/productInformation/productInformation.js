@@ -2,7 +2,11 @@ import React, { Component, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
+import {
+  setProductInformation,
+  translation
+} from "../controlDataItem/actions/controlDataItemActions";
+import { apiServices } from "../../../config/constants";
 import { default as NumberFormat } from "react-number-format";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import $ from "jquery";
@@ -13,9 +17,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./productInformation.scss";
 import { Currency } from "../../../config/currency";
 import { getRates } from "../../commons/select/actions/ratesActions";
-var googleTranslate = require("google-translate")(
-  "AIzaSyBLQ7yg3CE2qXEnRXK5AXavwcRN7hiTo7M"
-);
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -618,8 +619,8 @@ class ProductInformation extends Component {
     this.validateError();
   };
 
-  handleSetProductInformation = () => {
-    const { setProductInformation, rates } = this.props;
+  handleSetProductInformation = async () => {
+    const { setProductInformation, translation, rates } = this.props;
     const {
       productName,
       brand,
@@ -634,52 +635,51 @@ class ProductInformation extends Component {
       phone,
       email
     } = this.state;
+
     let spanishDescription = "";
     let englishDescription = "";
-
-    let currentCurrencyInDollars = rates[currencyId];
+    let spanishCategory = "";
+    let englishCategory = "";
+    //let currentCurrencyInDollars = rates[currencyId];
     const currentValue = document
       .getElementById("price")
       .value.split(",")
       .join("");
-    const currentValueInDollars = Math.round(
-      currentValue / currentCurrencyInDollars
-    );
-    var prices = new Object();
+    // const currentValueInDollars = Math.round(
+    //   currentValue / currentCurrencyInDollars
+    // );
+    // var prices = new Object();
 
-    Object.keys(rates).map(rate => {
-      let value = rates[rate];
+    // Object.keys(rates).map(rate => {
+    //   let value = rates[rate];
 
-      prices[rate] = currentValueInDollars * value;
-    });
+    //   prices[rate] = currentValueInDollars * value;
+    // });
 
-    googleTranslate.translate(description, "es", function(err, translation) {
-      spanishDescription = translation.translatedText;
-      googleTranslate.translate(description, "en", function(err, translation) {
-        englishDescription = translation.translatedText;
+    englishDescription = await this.handleTranslate("es", "en", description);
+    spanishDescription = await this.handleTranslate("en", "es", description);
 
-        var obj = new Object();
-        obj["productName"] = productName;
-        obj["brand"] = brand;
-        obj["year"] = year;
-        obj["model"] = model;
-        obj["conservationState"] = conservationState;
-        obj["location"] = location;
-        obj["locationId"] = locationId;
-        obj["currencyId"] = currencyId;
-        obj["spanishDescription"] = spanishDescription;
-        obj["englishDescription"] = englishDescription;
-        obj["description"] = description;
-        obj["currency"] = currency;
-        obj["price"] = currentValue;
-        obj["internationalPrices"] = prices;
-        obj["phone"] = phone;
-        obj["email"] = email;
+    var obj = new Object();
+    obj["productName"] = productName;
+    obj["brand"] = brand;
+    obj["year"] = year;
+    obj["model"] = model;
+    obj["conservationState"] = conservationState;
+    obj["location"] = location;
+    obj["locationId"] = locationId;
+    obj["currencyId"] = currencyId;
+    obj["spanishDescription"] = spanishDescription;
+    obj["englishDescription"] = englishDescription;
+    obj["description"] = englishDescription + "|" + spanishDescription;
+    obj["currency"] = currency;
+    obj["price"] = currentValue;
+    obj["internationalPrices"] = currentValue;
+    //obj["internationalPrices"] = prices;
+    obj["phone"] = phone;
+    obj["email"] = email;
 
-        setProductInformation(obj);
-        // =>  Mi nombre es Brandon
-      });
-    });
+    setProductInformation(obj);
+
     this.setState({ comeback: true });
   };
 
@@ -728,6 +728,34 @@ class ProductInformation extends Component {
     }
   };
 
+  async handleTranslate(originalLanguaje, newLanguaje, text) {
+    return await fetch(
+      apiServices +
+        "/trastalion?originalLanguaje=" +
+        originalLanguaje +
+        "&newLanguaje=" +
+        newLanguaje +
+        "&texto=" +
+        text,
+      {
+        mode: "cors",
+        method: "GET",
+        headers: new Headers({
+          Accept: "application/json",
+          "Content-Type": "application/json; charset=UTF-8"
+        })
+      }
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(data => {
+        return data;
+      });
+  }
+
   componentDidMount() {
     var _ = this;
     $("#year")
@@ -758,7 +786,6 @@ class ProductInformation extends Component {
     const {
       auth,
       lang,
-      firebase,
       productInformation,
       setProductInformation
     } = this.props;
@@ -791,14 +818,16 @@ class ProductInformation extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
   productInformation: state.dataItem.productInformation,
-  rates: state.rate.rates
+  //rates: state.rate.rates,
+  translation: state.dataItem.translation
 });
 
 export default connect(mapStateToProps, {
   setProductInformation,
+  translation,
   setStep,
   getRates
 })(ProductInformation);

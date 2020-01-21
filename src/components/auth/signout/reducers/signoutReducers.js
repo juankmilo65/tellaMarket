@@ -1,8 +1,4 @@
-import {
-  SET_STATUS,
-  SIGNOUT_FAILED,
-  SIGNOUT_SUCCESS
-} from "../actions/signoutActions";
+import { SET_STATUS, SIGNOUT_SUCCESS } from "../actions/signoutActions";
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
@@ -25,18 +21,6 @@ const signoutReducer = (state = initState, action) => {
         messages: [
           {
             type: "ok",
-            text: action.payload
-          }
-        ]
-      };
-    }
-    case SIGNOUT_FAILED: {
-      return {
-        ...state,
-        status: "failure",
-        messages: [
-          {
-            type: "error",
             text: action.payload
           }
         ]

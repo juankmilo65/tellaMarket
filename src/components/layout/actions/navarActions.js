@@ -5,6 +5,8 @@ export const SELECT_LANGUAGE_SUCCESS = "SELECT_LANGUAGE_SUCCESS";
 export const HIDE_HEADER_SUCCESS = "HIDE_HEADER_SUCCESS";
 export const GET_CURRENT_LOCATION = "GET_CURRENT_LOCATION";
 export const GET_CURRENT_LOCATION_SUCCESS = "GET_CURRENT_LOCATION_SUCCESS";
+export const SET_CATEGORIES = "SET_CATEGORIES";
+export const SET_CATEGORIES_SUCCESS = "SET_CATEGORIES_SUCCESS";
 
 export function setStatus(status) {
   return {
@@ -19,11 +21,23 @@ export function setLanguage(language) {
     payload: language
   };
 }
-
 export function setLanguageSuccess(newLanguage) {
   return {
     type: SELECT_LANGUAGE_SUCCESS,
     payload: newLanguage
+  };
+}
+export function setCategories(categories) {
+  return {
+    type: SET_CATEGORIES,
+    payload: categories
+  };
+}
+
+export function setCategoriesSuccess(newCategories) {
+  return {
+    type: SET_CATEGORIES_SUCCESS,
+    payload: newCategories
   };
 }
 

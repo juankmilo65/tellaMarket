@@ -5,12 +5,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { withRouter } from "react-router";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import { signOut } from "../../auth/signout/actions/signoutActions";
+import { singinSocial } from "../../auth/signin/actions/signinActions";
 import { setOptionMenu } from "../select/actions/selectActions";
-import login from "../../layout/img/login.png";
 import "../select/select.scss";
 
 const useStyles = makeStyles(theme => ({
@@ -32,13 +29,9 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(
-  compose(
-    firebaseConnect(),
-    connect(
-      mapStateToProps,
-      { signOut, setOptionMenu }
-    )
-  )(function MenuSelect(props) {
+  connect(mapStateToProps, { singinSocial, setOptionMenu })(function MenuSelect(
+    props
+  ) {
     const classes = useStyles();
     const [menu, setMenu] = React.useState("");
     const [open, setOpen] = React.useState(false);
@@ -54,11 +47,8 @@ export default withRouter(
     }
 
     const handleSubmit = () => {
-      const { firebase, signOut } = props;
-      const fireBase = {
-        firebase
-      };
-      signOut(fireBase);
+      const { singinSocial } = props;
+      singinSocial({});
     };
 
     const handleChange = event => {
@@ -92,8 +82,8 @@ export default withRouter(
             }}
           >
             <MenuItem value="user">
-              <img src={login} />
-              {props.initials}
+              <img src={props.profile.Photo} />
+              {props.profile.Initials}
             </MenuItem>
             <MenuItem value="createItem">
               {props.lang === "es" ? "Crear producto" : "Create product"}
