@@ -210,7 +210,7 @@ class Dashboard extends Component {
     } = this.props;
     getPromoDashboard("promotionimages");
     getPremiumHeaderImage("promotionheaders");
-    getProductsByPlan(3);
+    getProductsByPlan([1, 2, 3]);
   }
 
   createList(listItems, itemsPlan, finalListItems) {
@@ -219,11 +219,11 @@ class Dashboard extends Component {
       itemsPlan.push(item);
     });
 
-    if (finalListItems.length === 0) {
-      itemsPlan.map(item => {
-        finalListItems.push(item);
-      });
-    }
+    //if (finalListItems.length === 0) {
+    itemsPlan.map(item => {
+      finalListItems.push(item);
+    });
+    //}
   }
 
   render() {
@@ -245,46 +245,46 @@ class Dashboard extends Component {
     var base64Flag = "data:image/jpeg;base64,";
 
     //Premiun plan
-    if (
-      itemsPremiumPlan.length === 0 &&
-      itemsByPlan.length > 0 &&
-      itemsByPlan[0].Idplan === 3
-    ) {
-      this.createList(itemsByPlan, itemsPremiumPlan, finalListItems);
+    if (itemsPremiumPlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 3),
+        itemsPremiumPlan,
+        finalListItems
+      );
     }
     //plus plan
-    if (
-      itemsPlusPlan.length === 0 &&
-      itemsByPlan.length > 0 &&
-      itemsByPlan[0].Idplan === 2
-    ) {
-      this.createList(itemsByPlan, itemsPlusPlan, finalListItems);
+    if (itemsPlusPlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 2),
+        itemsPlusPlan,
+        finalListItems
+      );
     }
 
     //free plan
-    if (
-      itemsFreePlan.length === 0 &&
-      itemsByPlan.length > 0 &&
-      itemsByPlan[0].Idplan === 1
-    ) {
-      this.createList(itemsByPlan, itemsFreePlan, finalListItems);
+    if (itemsFreePlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 1),
+        itemsFreePlan,
+        finalListItems
+      );
     }
 
-    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 1)) {
-      itemsFreePlan.map(item => {
-        finalListItems.push(item);
-      });
-    }
-    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 2)) {
-      itemsPlusPlan.map(item => {
-        finalListItems.push(item);
-      });
-    }
-    if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 3)) {
-      itemsPremiumPlan.map(item => {
-        finalListItems.push(item);
-      });
-    }
+    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 1)) {
+    //   itemsFreePlan.map(item => {
+    //     finalListItems.push(item);
+    //   });
+    // }
+    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 2)) {
+    //   itemsPlusPlan.map(item => {
+    //     finalListItems.push(item);
+    //   });
+    // }
+    // if (finalListItems.length > 0 && finalListItems.some(v => v.Idplan != 3)) {
+    //   itemsPremiumPlan.map(item => {
+    //     finalListItems.push(item);
+    //   });
+    // }
 
     if (finalListItems.length > 0) {
       finalListItems.map(item => {

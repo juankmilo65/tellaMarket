@@ -38,7 +38,7 @@ export default function queryResultEpics(action$) {
       } else if (action.type === GET_PRODUCTS_BY_PLAN) {
         return concat(
           of(setStatus("pending")),
-          fetch(apiServices + "/getItemdsByIdPlan?idPlan=" + action.payload, {
+          fetch(apiServices + "/getItemdsByIdPlan?idsPlan=" + action.payload, {
             mode: "cors",
             method: "GET",
             headers: new Headers({
