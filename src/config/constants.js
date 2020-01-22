@@ -1,6 +1,6 @@
 export const apiServices =
   process.env.NODE_ENV === "production"
-    ? "https://react-auth-twitter.herokuapp.com"
+    ? "http://services.tellamarket.com/api"
     : "http://localhost:3000/api";
 export const socialAuth = {
   facebookApplicationId: "2107786579515025",
