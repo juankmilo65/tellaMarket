@@ -6,6 +6,7 @@ import {
 import { ofType } from "redux-observable";
 import { switchMap } from "rxjs/operators";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../../config/constants";
 
 export default function itemDetailEpics(action$) {
   return action$.pipe(
@@ -13,18 +14,42 @@ export default function itemDetailEpics(action$) {
     switchMap(action => {
       if (action.type === GET_ITEM) {
         return concat(
-          of(setStatus("pending"))
-          // getFS
-          //   .collection("items")
-          //   .doc(action.payload)
-          //   .get()
-          //   .then(doc => {
-          //     return getItemSuccess(doc.data());
-          //   })
-          //   .catch(error => ({
-          //     errorCode: error.code,
-          //     errorMessage: error.message
-          //   }))
+          of(setStatus("pending")),
+          fetch(apiServices + "/getItemdsByIdItem?idItem=" + action.payload, {
+            mode: "cors",
+            method: "GET",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              }
+            })
+            .then(dataItem => {
+              return fetch(
+                apiServices + "/getImagesByIdItem?idItem=" + action.payload,
+                {
+                  mode: "cors",
+                  method: "GET",
+                  headers: new Headers({
+                    Accept: "application/json",
+                    "Content-Type": "application/json; charset=UTF-8"
+                  })
+                }
+              )
+                .then(images => {
+                  if (images.ok) {
+                    return images.json();
+                  }
+                })
+                .then(data => {
+                  dataItem[0].Images = data;
+                  return getItemSuccess(dataItem[0]);
+                });
+            })
         );
       }
     })

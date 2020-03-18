@@ -277,26 +277,31 @@ class ItemDetail extends Component {
         getItem(match.params.itemId);
       } else {
         {
+          var listImages = [];
+
+          item.Images.map(imge => {
+            listImages.push({
+              imageUrl: "data:image/jpeg;base64," + imge.Image
+            });
+          });
+
           itemtemObjet = {
             images: item.images,
             titlecategory:
               lang === "en"
-                ? item.subcategory.subcategoryName
-                : item.subcategory.subcategoryName,
-            titleproduct: item.productInformation.brand,
-            valueprice:
-              currency +
-              " " +
-              item.productInformation.internationalPrices[currency],
+                ? item.subcategoryName.split(",")[0]
+                : item.subcategoryName.split(",")[1],
+            titleproduct: item.titleproduct,
+            valueprice: currency + " " + item.valueprice,
             description:
-              lang.value === "es"
-                ? item.productInformation.spanishDescription
-                : item.productInformation.englishDescription,
-            email: item.productInformation.email,
-            phone: item.productInformation.phone,
-            images: item.images,
-            id: match.params.itemId,
-            year: item.productInformation.year
+              lang.value === "en"
+                ? item.description.split("|")[0]
+                : item.description.split("|")[1],
+            email: item.email,
+            phone: item.Phone,
+            images: listImages,
+            id: match.IdItem,
+            year: item.Year
           };
         }
       }
