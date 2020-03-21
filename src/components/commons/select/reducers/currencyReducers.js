@@ -3,7 +3,7 @@ import { Currency } from "../../../../config/currency";
 
 const initState = {
   status: "idle", // "idle" | "logout" | "pending" | "login" | "success" | "failure";
-  currency: "USD",
+  currency: "€",
   curencyList: Currency
 };
 

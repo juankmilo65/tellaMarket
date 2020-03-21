@@ -31,7 +31,7 @@ function MyComponent(state) {
                 </div>
                 <div className="price-button--list">
                   <div className="price-list">
-                    {item.data.productInformation.price} USD
+                    € {item.data.productInformation.price} 
                   </div>
                   <button
                     className="btns btn-go"

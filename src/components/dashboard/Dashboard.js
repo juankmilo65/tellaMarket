@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Notifications from "./Notification";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import Spinner from "../commons/spinner/Spinner";
 import FileUpload from "../commons/fileUpload/fileUpload";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
@@ -29,6 +30,8 @@ function MyComponent(state) {
 
   return (
     <div className="pd-top--130px">
+      {state.loading ? <Spinner /> : null}
+
       <div className="first-slider">
         <Carousel images={state.imagesMainBar} />
       </div>
@@ -204,6 +207,10 @@ function MyComponent(state) {
 }
 
 class Dashboard extends Component {
+  state = {
+    loading: true
+  };
+
   componentDidMount() {
     const {
       getPromoDashboard,
@@ -232,6 +239,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { loading } = this.state;
     const {
       lang,
       notifications,
@@ -289,7 +297,7 @@ class Dashboard extends Component {
               ? item.Titlecategory.split("|")[0]
               : item.Titlecategory.split("|")[1],
           titleproduct: item.Titleproduct,
-          valueprice: "USD " + item.Valueprice,
+          valueprice: "€ " + item.Valueprice,
           description:
             lang.value === "en"
               ? item.Description.split("|")[0]
@@ -358,6 +366,12 @@ class Dashboard extends Component {
       });
     }
 
+    if (finalListItems.length > 0 && itemBasicInformation.length > 0) {
+      if (loading) {
+        this.setState({ loading: false });
+      }
+    }
+
     return (
       <MyComponent
         lang={lang}
@@ -366,6 +380,7 @@ class Dashboard extends Component {
         imagesPromotion={imagesPromotion}
         notifications={notifications}
         logoWhite={logoWhite}
+        loading={loading}
       />
     );
   }

@@ -4,9 +4,11 @@ import {
   signUpFailed,
   SIGNUP_EMAIL_PASSWORD
 } from "../actions/signupActions";
+import { signInSuccess } from "../../signin/actions/signinActions";
 import { switchMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../../config/constants";
 
 export default function signupEpics(action$) {
   return action$.pipe(
@@ -14,27 +16,27 @@ export default function signupEpics(action$) {
     switchMap(action => {
       if (action.type === SIGNUP_EMAIL_PASSWORD) {
         return concat(
-          of(setStatus("pending"))
-          // action.payload.firebase
-          //   .auth()
-          //   .createUserWithEmailAndPassword(
-          //     action.payload.newUser.email,
-          //     action.payload.newUser.password
-          //   )
-          //   .then(resp => {
-          //     return getFS
-          //       .collection("users")
-          //       .doc(resp.user.uid)
-          //       .set({
-          //         firstName: action.payload.newUser.firstName,
-          //         lastName: action.payload.newUser.lastName,
-          //         initials:
-          //           action.payload.newUser.firstName[0] +
-          //           action.payload.newUser.lastName[0]
-          //       });
-          //   })
-          //   .then(() => signUpSuccess("User created"))
-          //   .catch(err => signUpFailed(err.message))
+          of(setStatus("pending")),
+          fetch(apiServices + "/createUserEmail", {
+            mode: "cors",
+            method: "POST",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            }),
+            body: JSON.stringify(action.payload)
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return signUpFailed("Failed");
+              }
+            })
+            .then(() => {
+              signInSuccess(action.payload);
+              return signUpSuccess();
+            })
         );
       }
     })

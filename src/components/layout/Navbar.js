@@ -228,8 +228,7 @@ const mapStateToProps = state => {
     auth: state.signin.auth,
     lang: state.navar.lang,
     header: state.navar.header,
-    catalogs: state.createmenu.catalogs,
-    auth: state.signin.auth
+    catalogs: state.createmenu.catalogs
   };
 };
 

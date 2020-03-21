@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUpWithEmailAndPassword } from "./actions/signupActions";
+import {
+  signUpWithEmailAndPassword,
+  setNullUserCreatedValue
+} from "./actions/signupActions";
+import Spinner from "../../commons/spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import "./singup.scss";
 
@@ -13,6 +17,7 @@ function MyComponent(state) {
 
   return (
     <div className="container-login mb-3">
+      {state.loading ? <Spinner /> : null}
       <form onSubmit={state.handleSubmit} className="login-form">
         {/* <h5 className="grey-text text-darken-3">{t("signup.title")}</h5> */}
 
@@ -65,7 +70,8 @@ class SignUp extends Component {
     email: "",
     password: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    loading: false
   };
   handleChange = e => {
     this.setState({
@@ -76,23 +82,50 @@ class SignUp extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { props, state } = this;
-    const { firebase } = props;
-    const newUser = { ...state };
-    const newUserData = {
-      firebase,
-      newUser
-    };
-    props.signUpWithEmailAndPassword(newUserData);
+    const { country } = props;
+    const { loading } = state;
+    if (loading === false) {
+      this.setState({ loading: true });
+      const newUserData = {
+        Name: state.firstName + " " + state.lastName,
+        Provider: "email",
+        ProviderId: 0,
+        Photo: "-",
+        LastLogin: new Date(),
+        Country: country,
+        Email: state.email,
+        User: "N/A",
+        AccessToken: "N/A",
+        Password: state.password,
+        Initials:
+          state.firstName.split(" ")[0].charAt(0) +
+          state.lastName.split(" ")[0].charAt(0)
+      };
+
+      props.signUpWithEmailAndPassword(newUserData);
+    }
   };
   render() {
-    const { auth, authMessage, lang } = this.props;
-    if (auth.uid) return <Redirect to="/" />;
+    const {
+      userCreated,
+      authMessage,
+      lang,
+      setNullUserCreatedValue
+    } = this.props;
+    const { loading } = this.state;
+
+    if (userCreated) {
+      setNullUserCreatedValue();
+      return <Redirect to="/" />;
+    }
+
     return (
       <MyComponent
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         authMessage={authMessage}
         lang={lang}
+        loading={loading}
       />
     );
   }
@@ -101,8 +134,12 @@ class SignUp extends Component {
 const mapStateToProps = state => ({
   authMessage:
     state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
-  auth: state.firebase.auth,
-  lang: state.navar.lang
+  userCreated: state.signup.userCreated,
+  lang: state.navar.lang,
+  country: state.navar.country
 });
 
-export default connect(mapStateToProps, { signUpWithEmailAndPassword })(SignUp);
+export default connect(mapStateToProps, {
+  signUpWithEmailAndPassword,
+  setNullUserCreatedValue
+})(SignUp);
