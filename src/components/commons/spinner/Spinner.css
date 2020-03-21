@@ -10,15 +10,15 @@
   display: block;
 }
 
-@-webkit-keyframes spin {
+/* @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
   }
   to {
     -webkit-transform: rotate(360deg);
   }
-}
-
+} */
+/* 
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -26,9 +26,9 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
-#cover-spin::after {
+/* #cover-spin::after {
   content: "";
   display: block;
   position: absolute;
@@ -43,4 +43,4 @@
   border-radius: 50%;
   -webkit-animation: spin 0.8s linear infinite;
   animation: spin 0.8s linear infinite;
-}
+} */

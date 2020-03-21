@@ -34,9 +34,9 @@ export default function signupEpics(action$) {
               }
             })
             .then(data => {
-              signInSuccess(action.payload);
               return signUpSuccess(data);
-            })
+            }),
+          of(signInSuccess(action.payload))
         );
       }
     })

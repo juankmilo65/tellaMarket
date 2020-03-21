@@ -10,6 +10,7 @@ import Spinner from "../../commons/spinner/Spinner";
 import success from "../../../images/success.svg";
 import error from "../../../images/error.svg";
 import { useTranslation } from "react-i18next";
+import { hideHeader } from "../../layout/actions/navarActions";
 import "./singup.scss";
 
 function MyComponent(state) {
@@ -71,8 +72,18 @@ function MyComponent(state) {
         className="modal-alert"
       >
         <img src={state.iconModal} className="img-alert" />
-        <h3>{t("messages.congratulation")}</h3>
-        <span className="text-alert">{t("messages.userCreated")}</span>
+
+        {state.redirectButton ? (
+          <div>
+            <h3>{t("messages.congratulation")}</h3>
+            <span className="text-alert">{t("messages.userCreated")}</span>
+          </div>
+        ) : (
+          <div>
+            <h3>{t("messages.error")}</h3>
+            <span className="text-alert">{t("messages.userExist")}</span>
+          </div>
+        )}
 
         {state.redirectButton ? (
           <button className="btns btn-go" onClick={state.handleOk}>
@@ -139,6 +150,13 @@ class SignUp extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
+      const { hideHeader } = this.props;
+      const header = {
+        isFomSignin: true,
+        hideHeader: false
+      };
+
+      hideHeader(header);
       return <Redirect to="/" />;
     }
   };
@@ -156,7 +174,7 @@ class SignUp extends Component {
     } = this.props;
     const { loading } = this.state;
 
-    if (userCreated === "Ok") {
+    if (userCreated === "Created") {
       setNullUserCreatedValue();
       this.setState({
         showModal: true,
@@ -205,5 +223,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   signUpWithEmailAndPassword,
-  setNullUserCreatedValue
+  setNullUserCreatedValue,
+  hideHeader
 })(SignUp);

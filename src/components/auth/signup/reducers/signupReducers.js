@@ -9,7 +9,7 @@ const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
   messages: [],
   userCreated: null,
-  auth: null
+  auth: {}
 };
 
 const signupReducer = (state = initState, action) => {

@@ -22,7 +22,7 @@ const signinReducer = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        auth: "OK"
+        auth: action.payload
       };
     }
     case SIGNIN_FAILED: {

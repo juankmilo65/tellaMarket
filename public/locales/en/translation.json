@@ -128,9 +128,11 @@
     "createItem": "Product successfully created",
     "ok": "Ok",
     "congratulation": "Congratulations",
+    "error": "Error",
     "soon": "Coming soon",
     "createAccount": "To review the details, we suggest you join our website",
-    "userCreated": "User created successfully"
+    "userCreated": "User created successfully",
+    "userExist": "Registered email already exists."
   },
   "dashboard": {
     "bigOffers": "Big offers",

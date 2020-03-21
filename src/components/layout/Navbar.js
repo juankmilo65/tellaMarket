@@ -169,7 +169,7 @@ class Navbar extends Component {
     }
 
     const links =
-      auth != null && auth.User ? (
+      auth != null && auth.User && window.location.pathname !== "/signin" ? (
         <SignedInLinks profile={auth} />
       ) : (
         <SignedOutLinks />
