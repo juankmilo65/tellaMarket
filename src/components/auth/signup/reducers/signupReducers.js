@@ -31,7 +31,7 @@ const signupReducer = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        userCreated: "OK"
+        userCreated: action.payload
       };
     }
     case SIGNUP_FAILED: {

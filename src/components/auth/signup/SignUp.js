@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import Popup from "reactjs-popup";
 import {
   signUpWithEmailAndPassword,
   setNullUserCreatedValue
 } from "./actions/signupActions";
 import Spinner from "../../commons/spinner/Spinner";
+import success from "../../../images/success.svg";
+import error from "../../../images/error.svg";
 import { useTranslation } from "react-i18next";
 import "./singup.scss";
 
@@ -61,6 +64,27 @@ function MyComponent(state) {
           </div>
         </div>
       </form>
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
+        <img src={state.iconModal} className="img-alert" />
+        <h3>{t("messages.congratulation")}</h3>
+        <span className="text-alert">{t("messages.userCreated")}</span>
+
+        {state.redirectButton ? (
+          <button className="btns btn-go" onClick={state.handleOk}>
+            {t("messages.ok")}
+          </button>
+        ) : (
+          <button className="btns btn-go" onClick={state.hideModal}>
+            {t("messages.ok")}
+          </button>
+        )}
+      </Popup>
+      {state.renderRedirect()}
     </div>
   );
 }
@@ -71,12 +95,20 @@ class SignUp extends Component {
     password: "",
     firstName: "",
     lastName: "",
-    loading: false
+    loading: false,
+    showModal: false,
+    messageModal: "",
+    iconModal: "",
+    redirectButton: null
   };
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
+  };
+
+  hideModal = e => {
+    this.setState({ showModal: false });
   };
 
   handleSubmit = e => {
@@ -101,10 +133,20 @@ class SignUp extends Component {
           state.firstName.split(" ")[0].charAt(0) +
           state.lastName.split(" ")[0].charAt(0)
       };
-
       props.signUpWithEmailAndPassword(newUserData);
     }
   };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+  };
+
+  handleOk = () => {
+    this.setState({ redirect: true });
+  };
+
   render() {
     const {
       userCreated,
@@ -114,9 +156,24 @@ class SignUp extends Component {
     } = this.props;
     const { loading } = this.state;
 
-    if (userCreated) {
+    if (userCreated === "Ok") {
       setNullUserCreatedValue();
-      return <Redirect to="/" />;
+      this.setState({
+        showModal: true,
+        loading: false,
+        messageModal: "Ok",
+        iconModal: success,
+        redirectButton: true
+      });
+    } else if (userCreated === "Exist") {
+      setNullUserCreatedValue();
+      this.setState({
+        showModal: true,
+        loading: false,
+        messageModal: "Error",
+        iconModal: error,
+        redirectButton: false
+      });
     }
 
     return (
@@ -126,6 +183,13 @@ class SignUp extends Component {
         authMessage={authMessage}
         lang={lang}
         loading={loading}
+        showModal={this.state.showModal}
+        renderRedirect={this.renderRedirect}
+        hideModal={this.hideModal}
+        handleOk={this.handleOk}
+        messageModal={this.state.messageModal}
+        iconModal={this.state.iconModal}
+        redirectButton={this.state.redirectButton}
       />
     );
   }

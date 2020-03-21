@@ -129,7 +129,8 @@
     "ok": "Ok",
     "congratulation": "Felicitaciones",
     "soon": "Próximamente",
-    "createAccount": "Para revisar los detalles, te sugerimos unirte a nuestra web"
+    "createAccount": "Para revisar los detalles, te sugerimos unirte a nuestra web",
+    "userCreated": "Usuario creado satisfactoriamente"
   },
   "dashboard": {
     "bigOffers": "Grandes ofertas",
