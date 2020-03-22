@@ -297,7 +297,12 @@ class Dashboard extends Component {
               ? item.Titlecategory.split("|")[0]
               : item.Titlecategory.split("|")[1],
           titleproduct: item.Titleproduct,
-          valueprice: "€ " + item.Valueprice,
+          valueprice:
+            item.Valueprice == 0
+              ? lang.value === "en"
+                ? "Consult"
+                : "A Consultar"
+              : "€ " + item.Valueprice,
           description:
             lang.value === "en"
               ? item.Description.split("|")[0]

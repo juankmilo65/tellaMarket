@@ -8,7 +8,7 @@ import {
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: [],
+  message: "",
   confirmResult: null
 };
 

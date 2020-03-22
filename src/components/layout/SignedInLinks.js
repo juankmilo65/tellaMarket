@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
+import { signInSuccess } from "../../components/auth/signin/actions/signinActions";
 import { useTranslation } from "react-i18next";
 import MenuSelect from "../commons/select/menuLogin";
 import CurrencySelect from "../commons/select/currency";
@@ -22,26 +23,11 @@ function MyComponent(state) {
 }
 
 class SignedInLinks extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    const { props } = this;
-    const { firebase } = props;
-    const fireBase = {
-      firebase
-    };
-
-    props.signOut(fireBase);
-  };
-
   render() {
     const { lang } = this.props;
     return (
       <ul className="right">
-        <MyComponent
-          handleSubmit={this.handleSubmit}
-          profile={this.props.profile}
-          lang={lang}
-        />
+        <MyComponent profile={this.props.profile} lang={lang} />
       </ul>
     );
   }
@@ -53,4 +39,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { signOut })(SignedInLinks);
+export default connect(mapStateToProps, { signOut, signInSuccess })(
+  SignedInLinks
+);

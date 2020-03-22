@@ -7,7 +7,7 @@ import {
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: [],
+  message: "",
   userCreated: null,
   auth: {}
 };
@@ -38,12 +38,7 @@ const signupReducer = (state = initState, action) => {
       return {
         ...state,
         status: "failure",
-        messages: [
-          {
-            type: "error",
-            text: action.payload
-          }
-        ]
+        messages: action.payload
       };
     }
     default:

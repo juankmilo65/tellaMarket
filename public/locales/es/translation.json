@@ -132,7 +132,8 @@
     "soon": "Próximamente",
     "createAccount": "Para revisar los detalles, te sugerimos unirte a nuestra web",
     "userCreated": "Usuario creado satisfactoriamente",
-    "userExist": "El correo electrónico registrado ya existe."
+    "userExist": "El correo electrónico ya existe.",
+    "errorLogin": "El correo electrónico o la contraseña son incorrectos."
   },
   "dashboard": {
     "bigOffers": "Grandes ofertas",
@@ -151,7 +152,8 @@
     "categories": "Categorias",
     "year": "Años",
     "contact": "Contactar al vendedor",
-    "stok": "En stock"
+    "stok": "En stock",
+    "valueMessage": "A consultar"
   },
   "query": {
     "clean": "Limpiar filtros",

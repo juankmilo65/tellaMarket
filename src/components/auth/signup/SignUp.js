@@ -11,6 +11,7 @@ import success from "../../../images/success.svg";
 import error from "../../../images/error.svg";
 import { useTranslation } from "react-i18next";
 import { hideHeader } from "../../layout/actions/navarActions";
+import { selectTab } from "../frame/actions/frameActions";
 import "./singup.scss";
 
 function MyComponent(state) {
@@ -150,12 +151,12 @@ class SignUp extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      const { hideHeader } = this.props;
+      const { hideHeader, selectTab } = this.props;
       const header = {
         isFomSignin: true,
         hideHeader: false
       };
-
+      selectTab(true);
       hideHeader(header);
       return <Redirect to="/" />;
     }
@@ -214,8 +215,7 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
-  authMessage:
-    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
+  authMessage: state.signin.message,
   userCreated: state.signup.userCreated,
   lang: state.navar.lang,
   country: state.navar.country
@@ -224,5 +224,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   signUpWithEmailAndPassword,
   setNullUserCreatedValue,
-  hideHeader
+  hideHeader,
+  selectTab
 })(SignUp);

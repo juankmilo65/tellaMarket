@@ -2,7 +2,7 @@ import { SET_STATUS, SIGNOUT_SUCCESS } from "../actions/signoutActions";
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: []
+  message: ""
 };
 
 const signoutReducer = (state = initState, action) => {
@@ -18,12 +18,7 @@ const signoutReducer = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        messages: [
-          {
-            type: "ok",
-            text: action.payload
-          }
-        ]
+        message: ""
       };
     }
 

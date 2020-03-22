@@ -29,6 +29,11 @@ function MyComponent(state) {
             <i className="material-icons">person</i>
             <input type="email" id="email" onChange={state.handleChange} />
           </div>
+          <div className="error">
+            {state.authMessage === "" ? null : (
+              <p>{t("messages.errorLogin")}</p>
+            )}
+          </div>
         </div>
         <div className="item-login--form">
           <label htmlFor="password">{t("authentication.login.password")}</label>
@@ -42,20 +47,17 @@ function MyComponent(state) {
           </div>
         </div>
         <div className="item-login--btn">
-          <a href="/">¿Olvidaste tu contraseña?</a>
-          <button className="btns btn-go">Iniciar sesión</button>
+          {/*   <a href="/">¿Olvidaste tu contraseña?</a>*/}
+          <button className="btns btn-go">{t("authentication.title")}</button>
         </div>
       </form>
       <div className="type-login">
         {state.fbContent}
         {state.googleConnect}
-        <button className="btn-networks phone" onClick={state.handlePhone}>
+        {/* <button className="btn-networks phone" onClick={state.handlePhone}>
           <i className="material-icons">phone_iphone</i>
           {t("authentication.phoneTitle")}
-        </button>
-        {/* <div className="">
-              {state.authMessage === "" ? null : <p>{state.authMessage}</p>}
-          </div> */}
+        </button> */}
       </div>
     </div>
   );
@@ -83,13 +85,12 @@ class SignIn extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { props, state } = this;
-    const { firebase } = props;
-    const credentials = { ...state };
-    const authData = {
-      firebase,
-      credentials
+    var user = {
+      Email: this.state.email,
+      Password: this.state.password
     };
-    props.signInWithEmailAndPassword(authData);
+
+    props.signInWithEmailAndPassword(user);
   };
 
   handlePhone = () => {
@@ -205,9 +206,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  authMessage:
-    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
-  type: state.signin.messages.length === 0 ? "" : state.signin.messages[0].type,
+  authMessage: state.signin.message,
   lang: state.navar.lang,
   header: state.navar.header,
   auth: state.signin.auth,

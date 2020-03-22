@@ -7,7 +7,7 @@ import {
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
   auth: {},
-  messages: []
+  message: ""
 };
 
 const signinReducer = (state = initState, action) => {
@@ -29,12 +29,8 @@ const signinReducer = (state = initState, action) => {
       return {
         ...state,
         status: "failure",
-        messages: [
-          {
-            type: "error",
-            text: action.payload
-          }
-        ]
+        auth: null,
+        message: action.payload
       };
     }
     default:

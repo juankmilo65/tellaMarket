@@ -16,15 +16,30 @@ export default function signinEpics(action$) {
     switchMap(action => {
       if (action.type === SIGNIN_EMAIL_PASSWORD) {
         return concat(
-          of(setStatus("pending"))
-          // action.payload.firebase
-          //   .auth()
-          //   .signInWithEmailAndPassword(
-          //     action.payload.credentials.email,
-          //     action.payload.credentials.password
-          //   )
-          //   .then(() => signInSuccess("Loging Success"))
-          //   .catch(err => signInFailed(err.message))
+          of(setStatus("pending")),
+          fetch(apiServices + "/singinEmail", {
+            mode: "cors",
+            method: "POST",
+            headers: new Headers({
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8"
+            }),
+            body: JSON.stringify(action.payload)
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return signInFailed("Failed");
+              }
+            })
+            .then(data => {
+              if (data === "PasswordError" || data === "UserDoesNotExist") {
+                return signInFailed(data);
+              } else {
+                return signInSuccess(data[0]);
+              }
+            })
         );
       } else if (action.type === SIGNIN_SOCIAL) {
         return concat(

@@ -18,10 +18,10 @@ export function signInWithEmailAndPassword(credentials) {
   };
 }
 
-export function signInSuccess(message) {
+export function signInSuccess(user) {
   return {
     type: SIGNIN_SUCCESS,
-    payload: message
+    payload: user
   };
 }
 

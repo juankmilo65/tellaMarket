@@ -6,6 +6,8 @@ import { getItem } from "./actions/itemDetailActions";
 import Popup from "reactjs-popup";
 import warning from "../../../images/triangle.svg";
 import { Redirect } from "react-router-dom";
+import { hideHeader } from "../../layout/actions/navarActions";
+import Spinner from "../../commons/spinner/Spinner";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -229,7 +231,7 @@ function MyComponent(state) {
           {t("messages.ok")}
         </button>
       </Popup>
-      {/* {state.renderRedirect()} */}
+      {state.renderRedirect()}
     </div>
   );
 }
@@ -252,12 +254,18 @@ class ItemDetail extends Component {
   };
 
   handleOk = () => {
-    // this.setState({ redirect: true });
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, redirect: true });
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
+      const { hideHeader } = this.props;
+      const header = {
+        isFomSignin: false,
+        hideHeader: true
+      };
+
+      hideHeader(header);
       return <Redirect to="/signin" />;
     }
   };
@@ -276,41 +284,49 @@ class ItemDetail extends Component {
       if (item === null) {
         getItem(match.params.itemId);
       } else {
-        {
-          var listImages = [];
+        var listImages = [];
 
-          item.Images.map(imge => {
-            listImages.push({
-              imageUrl: "data:image/jpeg;base64," + imge.Image
-            });
+        item.Images.map(imge => {
+          listImages.push({
+            imageUrl: "data:image/jpeg;base64," + imge.Image
           });
+        });
 
-          itemtemObjet = {
-            images: item.images,
-            titlecategory:
-              lang === "en"
-                ? item.subcategoryName.split(",")[0]
-                : item.subcategoryName.split(",")[1],
-            titleproduct: item.titleproduct,
-            valueprice: currency + " " + item.valueprice,
-            description:
-              lang.value === "en"
-                ? item.description.split("|")[0]
-                : item.description.split("|")[1],
-            email: item.email,
-            phone: item.Phone,
-            images: listImages,
-            id: match.IdItem,
-            year: item.Year
-          };
-        }
+        itemtemObjet = {
+          images: item.images,
+          titlecategory:
+            lang.value === "en"
+              ? item.subcategoryName.split(",")[0]
+              : item.subcategoryName.split(",")[1],
+          titleproduct:
+            lang.value === "en"
+              ? item.titleproduct.split("|")[0]
+              : item.titleproduct.split("|")[1],
+          valueprice:
+            item.valueprice == 0
+              ? lang.value === "en"
+                ? "Consult"
+                : "A consultar"
+              : currency + " " + item.valueprice,
+          description:
+            lang.value === "en"
+              ? item.description.split("|")[0]
+              : item.description.split("|")[1],
+          email: item.email,
+          phone: item.Phone,
+          images: listImages,
+          id: match.IdItem,
+          year: item.Year
+        };
       }
     }
 
     return (
       <div>
         {itemtemObjet === null ? (
-          <div />
+          <div>
+            <Spinner />
+          </div>
         ) : (
           <MyComponent
             lang={lang}
@@ -336,4 +352,4 @@ const mapStateToProps = state => ({
   currency: state.currency.currency
 });
 
-export default connect(mapStateToProps, { getItem })(ItemDetail);
+export default connect(mapStateToProps, { getItem, hideHeader })(ItemDetail);
