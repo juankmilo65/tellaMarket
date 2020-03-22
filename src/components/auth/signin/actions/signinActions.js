@@ -3,6 +3,7 @@ export const SIGNIN_EMAIL_PASSWORD = "SIGNIN_EMAIL_PASSWORD";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_FAILED = "SIGNIN_FAILED";
 export const SIGNIN_SOCIAL = "SIGNIN_SOCIAL";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export function setStatus(status) {
   return {
@@ -22,6 +23,12 @@ export function signInSuccess(user) {
   return {
     type: SIGNIN_SUCCESS,
     payload: user
+  };
+}
+
+export function cleanMessage() {
+  return {
+    type: CLEAR_MESSAGE
   };
 }
 

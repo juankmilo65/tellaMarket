@@ -12,7 +12,7 @@ class CreateItem extends Component {
   render() {
     const { auth, step } = this.props;
 
-    if (!auth.User) return <Redirect to="/signin" />;
+    if (!auth.User) return <Redirect to="/" />;
     return (
       <div className="container pd-top--130px pb-4">
         <div className="title-product">

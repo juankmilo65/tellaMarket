@@ -2,6 +2,7 @@ import {
   setStatus,
   signInSuccess,
   signInFailed,
+  cleanMessage,
   SIGNIN_EMAIL_PASSWORD,
   SIGNIN_SOCIAL
 } from "../actions/signinActions";
@@ -37,7 +38,22 @@ export default function signinEpics(action$) {
               if (data === "PasswordError" || data === "UserDoesNotExist") {
                 return signInFailed(data);
               } else {
-                return signInSuccess(data[0]);
+                var profile = {
+                  Name: data[0].Name,
+                  Provider: "E-Mail",
+                  ProviderId: data[0].ProviderId,
+                  Photo: data[0].Photo,
+                  LastLogin: data[0].LastLogin,
+                  Country: data[0].Country,
+                  Email: data[0].Email,
+                  User: data[0].User,
+                  AccessToken: data[0].AccessToken,
+                  Id: data[0].Id,
+                  Initials:
+                    data[0].Name.split(" ")[0].charAt(0) +
+                    data[0].Name.split(" ")[1].charAt(0)
+                };
+                return signInSuccess(profile);
               }
             })
         );
@@ -60,8 +76,24 @@ export default function signinEpics(action$) {
                 return signInFailed("Failed");
               }
             })
-            .then(() => {
-              return signInSuccess(action.payload);
+            .then(data => {
+              var profile = {
+                Name: data[0].Name,
+                Provider: data[0].Provider,
+                ProviderId: data[0].ProviderId,
+                Photo: data[0].Photo,
+                LastLogin: data[0].LastLogin,
+                Country: data[0].Country,
+                Email: data[0].Email,
+                User: data[0].User,
+                AccessToken: data[0].AccessToken,
+                Id: data[0].Id,
+                Initials:
+                  data[0].Name.split(" ")[0].charAt(0) +
+                  data[0].Name.split(" ")[1].charAt(0)
+              };
+
+              return signInSuccess(profile);
             })
 
           // of(signInSuccess(action.payload))

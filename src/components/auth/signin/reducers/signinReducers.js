@@ -1,7 +1,8 @@
 import {
   SET_STATUS,
   SIGNIN_SUCCESS,
-  SIGNIN_FAILED
+  SIGNIN_FAILED,
+  CLEAR_MESSAGE
 } from "../actions/signinActions";
 
 const initState = {
@@ -12,6 +13,12 @@ const initState = {
 
 const signinReducer = (state = initState, action) => {
   switch (action.type) {
+    case CLEAR_MESSAGE: {
+      return {
+        ...state,
+        message: ""
+      };
+    }
     case SET_STATUS: {
       return {
         ...state,

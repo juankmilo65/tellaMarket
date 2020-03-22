@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
+import Spinner from "../../commons/spinner/Spinner";
 import google from "../../../images/google.svg";
 import facebook from "../../../images/facebook.svg";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 import { hideHeader } from "../../layout/actions/navarActions";
 import {
   signInWithEmailAndPassword,
-  singinSocial
+  singinSocial,
+  cleanMessage
 } from "./actions/signinActions";
 import { socialAuth } from "../../../config/constants";
 
@@ -22,6 +25,7 @@ function MyComponent(state) {
   }
   return (
     <div className="container-login pd-top--0">
+      {state.loading ? <Spinner /> : null}
       <form onSubmit={state.handleSubmit} className="login-form">
         <div className="item-login--form m-0">
           <label htmlFor="email">{t("authentication.login.email")}</label>
@@ -73,7 +77,8 @@ class SignIn extends Component {
     userID: "",
     name: "",
     email: "",
-    picture: ""
+    picture: "",
+    loading: false
   };
 
   handleChange = e => {
@@ -83,13 +88,14 @@ class SignIn extends Component {
   };
 
   handleSubmit = e => {
+    this.setState({ loading: true });
     e.preventDefault();
     const { props, state } = this;
     var user = {
       Email: this.state.email,
-      Password: this.state.password
+      Password: this.state.password,
+      LastLogin: new Date()
     };
-
     props.signInWithEmailAndPassword(user);
   };
 
@@ -102,6 +108,7 @@ class SignIn extends Component {
   };
 
   responseFacebook = response => {
+    this.setState({ loading: true });
     if (response.status != undefined || response.status != "unknown") {
       const { singinSocial, country } = this.props;
       var profile = {
@@ -124,6 +131,7 @@ class SignIn extends Component {
   };
 
   responseGoogle = response => {
+    this.setState({ loading: true });
     const { singinSocial, country } = this.props;
     var profile = {
       Name: response.profileObj.name,
@@ -133,7 +141,7 @@ class SignIn extends Component {
       LastLogin: new Date(),
       Country: country,
       Email: response.profileObj.email,
-      User: response.El,
+      User: response.googleId,
       AccessToken: response.accessToken,
       Password: "N/A",
       Initials:
@@ -144,7 +152,15 @@ class SignIn extends Component {
   };
 
   render() {
-    const { authMessage, auth, lang, header, hideHeader } = this.props;
+    const { loading } = this.state;
+    const {
+      authMessage,
+      auth,
+      lang,
+      header,
+      hideHeader,
+      cleanMessage
+    } = this.props;
     const images = [facebook, google];
     let fbContent;
     let googleConnect;
@@ -184,8 +200,11 @@ class SignIn extends Component {
         isFomSignin: true,
         hideHeader: false
       };
-
+      this.setState({ loading: false });
+      cleanMessage();
       hideHeader(header);
+    } else if (loading) {
+      this.setState({ loading: false });
     }
 
     if (auth != null && auth.User) return <Redirect to="/" />;
@@ -200,6 +219,7 @@ class SignIn extends Component {
         lang={lang}
         fbContent={fbContent}
         googleConnect={googleConnect}
+        loading={loading}
       />
     );
   }
@@ -216,5 +236,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   signInWithEmailAndPassword,
   singinSocial,
-  hideHeader
+  hideHeader,
+  cleanMessage
 })(SignIn);

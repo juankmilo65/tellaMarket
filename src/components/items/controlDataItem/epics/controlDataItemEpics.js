@@ -64,7 +64,7 @@ export default function controlDataItemEpics(action$) {
         );
       } else if (action.type === CREATE_ITEM) {
         return concat(
-          of(setStatus("pending")),
+          of(setStatus("pending2")),
           fetch(apiServices + "/createItem", {
             mode: "cors",
             method: "POST",

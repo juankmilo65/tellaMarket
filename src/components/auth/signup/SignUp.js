@@ -132,7 +132,7 @@ class SignUp extends Component {
       this.setState({ loading: true });
       const newUserData = {
         Name: state.firstName + " " + state.lastName,
-        Provider: "email",
+        Provider: "Email",
         ProviderId: 0,
         Photo: "-",
         LastLogin: new Date(),

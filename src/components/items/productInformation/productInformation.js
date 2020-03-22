@@ -675,6 +675,7 @@ class ProductInformation extends Component {
     //obj["internationalPrices"] = prices;
     obj["phone"] = phone;
     obj["email"] = email;
+    obj["active"] = 1;
 
     setProductInformation(obj);
 

@@ -54,9 +54,9 @@ function MyComponent(state) {
             })}
         </div>
       </div>
-      <div className="box-upload">
+      {/* <div className="box-upload">
         <span>{t("multimedia.drag&drop")}</span>
-      </div>
+      </div> */}
       <Popup
         modal
         open={state.showModal}

@@ -227,7 +227,7 @@ class Plans extends Component {
 
     var obj = new Object();
     obj["productInformation"] = {
-      userId: auth.User,
+      userId: auth.Id,
       planId: id,
       imagenBannerPromo: "",
       subcategory,
@@ -286,8 +286,7 @@ const mapStateToProps = state => ({
   subcategory: state.dataItem.subcategory,
   productInformation: state.dataItem.productInformation,
   multimedia: state.dataItem.multimedia,
-  authMessage:
-    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
+  authMessage: state.signin.message,
   result: state.dataItem.result
 });
 
