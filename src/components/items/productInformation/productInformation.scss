@@ -44,16 +44,29 @@ form {
   }
 }
 
-
-.is-required{
+.is-required {
   &:before {
     content: "* ";
     color: $red;
   }
 }
 
-.text-required{
-  color:$red;
+.text-required {
+  color: $red;
   font-size: 12px;
   padding-left: 5px;
+}
+
+.spanSymbol {
+  color: #032b3f;
+  font-size: 14px;
+  font-weight: bold;
+  direction: ltr;
+}
+
+.spanCurrency {
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 12px;
+  //   color: #032b3f;
 }

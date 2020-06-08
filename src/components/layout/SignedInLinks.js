@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { signOut } from "../auth/signout/actions/signoutActions";
+import { signInSuccess } from "../../components/auth/signin/actions/signinActions";
 import { useTranslation } from "react-i18next";
 import MenuSelect from "../commons/select/menuLogin";
+import CurrencySelect from "../commons/select/currency";
 import "./navbar.scss";
 
 function MyComponent(state) {
@@ -16,34 +16,18 @@ function MyComponent(state) {
 
   return (
     <div>
-      <MenuSelect initials={state.initials}></MenuSelect>
+      {/* <CurrencySelect></CurrencySelect> */}
+      <MenuSelect profile={state.profile}></MenuSelect>
     </div>
   );
 }
 
 class SignedInLinks extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    const { props } = this;
-    const { firebase } = props;
-    const fireBase = {
-      firebase
-    };
-
-    props.signOut(fireBase);
-  };
-
   render() {
-    const { lang, auth } = this.props;
-
-    if (!auth.uid) return <Redirect to="/signin" />;
+    const { lang } = this.props;
     return (
       <ul className="right">
-        <MyComponent
-          handleSubmit={this.handleSubmit}
-          initials={this.props.profile.initials}
-          lang={lang}
-        />
+        <MyComponent profile={this.props.profile} lang={lang} />
       </ul>
     );
   }
@@ -51,15 +35,10 @@ class SignedInLinks extends Component {
 
 const mapStateToProps = state => {
   return {
-    lang: state.navar.lang,
-    auth: state.firebase.auth
+    lang: state.navar.lang
   };
 };
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { signOut }
-  )
-)(SignedInLinks);
+export default connect(mapStateToProps, { signOut, signInSuccess })(
+  SignedInLinks
+);

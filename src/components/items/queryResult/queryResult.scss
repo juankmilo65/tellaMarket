@@ -1,4 +1,193 @@
-.list-product{
-    display: flex;
-    padding: 25px 0;
+@import "../../variables.scss";
+
+.list-product {
+  display: flex;
+  padding: 25px 0;
+}
+
+.refineQueryList {
+  display: none;
+}
+
+.list-products {
+  background-color: $gray-bg;
+  width: 100%;
+  padding: 25px 30px;
+  border-radius: 8px;
+}
+
+.ais-Hits-item {
+  width: 100% !important;
+}
+
+.item-product--list {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.img-list img {
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.info-product--list {
+  padding: 20px;
+  width: 100%;
+  display: block;
+}
+
+.title-product--list {
+  font-size: 20px;
+  font-weight: bold;
+  color: $blue;
+  margin: 0;
+}
+
+.category-list {
+  color: $gray-text;
+  font-size: 12px;
+}
+
+.price-button--list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.price-list {
+  color: $yellow;
+  font-size: 32px;
+  padding-top: 10px;
+}
+
+.info-product--description {
+  font-size: 14px;
+  color: $blue;
+  ul {
+    padding: 20px 0 20px 40px;
+    li {
+      list-style-type: disc;
+      color: $yellow;
+      span {
+        color: $gray-text;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.ais-ClearRefinements-button {
+  width: 208px;
+  height: 45px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  &.disable {
+    cursor: no-drop;
+    background-color: $gray-text !important;
+    opacity: 0.3;
+  }
+
+  background: $yellow !important;
+  color: white !important;
+}
+
+label.title-filter {
+  margin-bottom: 10px;
+  font-size: 18px !important;
+  font-weight: 600;
+  color: $blue;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  .css-yk16xz-control,
+  .css-1pahdxg-control {
+    color: $blue !important;
+    border-color: transparent;
+    font-size: 14px;
+    font-weight: normal;
+    color: $gray-text;
+    box-shadow: none;
+    padding-left: 0;
+    &:hover,
+    :hover {
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .css-1wa3eu0-placeholder {
+      color: $blue;
+    }
+    .css-1hwfws3 {
+      padding-left: 0;
+    }
+  }
+  .css-1okebmr-indicatorSeparator {
+    display: none;
+  }
+  .css-tlfecz-indicatorContainer svg {
+    fill: $gray-text;
+  }
+
+  * {
+    font-size: 14px !important;
+    font-weight: normal;
+    color: $gray-text;
+  }
+}
+
+.ais-RefinementList {
+  padding-left: 0;
+  span {
+    margin-left: 10px;
+    color: $yellow;
+  }
+}
+
+.ais-RefinementList-count {
+  color: $blue !important;
+}
+
+.pagination {
+  display: inline-block !important;
+}
+
+.pagination li {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination li.active {
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid #4caf50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.center {
+  text-align: center;
 }

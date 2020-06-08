@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { useTranslation } from "react-i18next";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import { createItem } from "../../items/controlDataItem/actions/controlDataItemActions";
@@ -219,12 +217,17 @@ function MyComponent(state) {
 class Plans extends Component {
   state = { showModal: false, redirect: false };
   handleSave = id => {
-    const { subcategory, productInformation, multimedia } = this.props;
-    const { createItem } = this.props;
+    const {
+      subcategory,
+      productInformation,
+      multimedia,
+      auth,
+      createItem
+    } = this.props;
 
     var obj = new Object();
     obj["productInformation"] = {
-      userId: "xxxx",
+      userId: auth.Id,
       planId: id,
       imagenBannerPromo: "",
       subcategory,
@@ -255,7 +258,7 @@ class Plans extends Component {
   };
 
   render() {
-    const { auth, lang, authMessage, result } = this.props;
+    const { lang, result } = this.props;
     const { showModal } = this.state;
 
     if (result === "Ok" && showModal === false) {
@@ -278,20 +281,13 @@ class Plans extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
   subcategory: state.dataItem.subcategory,
   productInformation: state.dataItem.productInformation,
   multimedia: state.dataItem.multimedia,
-  authMessage:
-    state.signin.messages.length === 0 ? "" : state.signin.messages[0].text,
+  authMessage: state.signin.message,
   result: state.dataItem.result
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { setStep, createItem }
-  )
-)(Plans);
+export default connect(mapStateToProps, { setStep, createItem })(Plans);

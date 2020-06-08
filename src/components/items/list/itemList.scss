@@ -1,68 +1,81 @@
 @import "../../variables.scss";
 
-.list-products{
-    background-color: $gray-bg;
-    width: 100%;
-    padding: 25px 30px;
-    border-radius: 8px;
+.search-item-query {
+  margin: -1em 0;
+  position: relative;
+  width: 0px;
 }
 
-.item-product--list{
-    display: flex;
-    background-color: white;
-    width: 100%;
-    margin-bottom:20px;
-    border-radius: 8px;
-    padding:20px;
+.list-products {
+  background-color: $gray-bg;
+  width: 100%;
+  padding: 25px 30px;
+  border-radius: 8px;
+  //   position: relative;
+  //   bottom: -75px;
 }
 
-.img-list img{
-    max-height: 200px;
-    max-width: 200px;
+.ais-Hits-item {
+  width: 100% !important;
 }
 
-.info-product--list{
-    padding: 20px;
-    width: 100%;
+.item-product--list {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 20px;
 }
 
-.title-product--list{
-    font-size: 20px;
-    font-weight: bold;
-    color: $blue;
-    margin: 0;
+.img-list img {
+  max-height: 200px;
+  max-width: 200px;
 }
 
-.category-list{
-    color: $gray-text;
-    font-size: 12px;
+.info-product--list {
+  padding: 20px;
+  width: 100%;
+  display: block;
 }
 
-.price-button--list{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 40px;
+.title-product--list {
+  font-size: 20px;
+  font-weight: bold;
+  color: $blue;
+  margin: 0;
 }
 
-.price-list{
-    color: $yellow;
-    font-size: 32px;
-    padding-top:10px ;
+.category-list {
+  color: $gray-text;
+  font-size: 12px;
 }
 
-.info-product--description{
-    font-size: 14px;
-    color:$blue;
-    ul{
-        padding: 20px 0 20px 40px;
-        li{
-            list-style-type: disc;
-            color:$yellow;
-            span{
-                color: $gray-text;
-                font-size: 12px;
-            }
-        }
+.price-button--list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.price-list {
+  color: $yellow;
+  font-size: 32px;
+  padding-top: 10px;
+}
+
+.info-product--description {
+  font-size: 14px;
+  color: $blue;
+  ul {
+    padding: 20px 0 20px 40px;
+    li {
+      list-style-type: disc;
+      color: $yellow;
+      span {
+        color: $gray-text;
+        font-size: 12px;
+      }
     }
+  }
 }

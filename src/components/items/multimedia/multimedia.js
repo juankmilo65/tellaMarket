@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { useTranslation } from "react-i18next";
 import { setMultimedia } from "../controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import Popup from "reactjs-popup";
+import cloneDeep from "clone-deep";
 import warning from "../../../images/triangle.svg";
 import "./multimedia.scss";
 
@@ -31,17 +30,15 @@ function MyComponent(state) {
       <div className="upload-image">
         <div className="box-group">
           <label className="box active custom-file-upload">
-              <input type="file" onChange={state.handleUpload} />
-              <i className="material-icons">add_photo_alternate</i>
-              <span>{t("multimedia.uploadFiles")}</span>
+            <input type="file" onChange={state.handleUpload} />
+            <i className="material-icons">add_photo_alternate</i>
+            <span>{t("multimedia.uploadFiles")}</span>
           </label>
         </div>
         <div className="box-group">
-          
           {state.selectedFiles != null &&
             state.selectedFiles.map(file => {
               return (
-            
                 <div key={file.id} className="box">
                   <button
                     className="remove"
@@ -53,14 +50,13 @@ function MyComponent(state) {
                     <img src={file.preview}></img>
                   </span>
                 </div>
-        
               );
             })}
-        </div> 
+        </div>
       </div>
-      <div className="box-upload">
-          <span>{t("multimedia.drag&drop")}</span>
-      </div>
+      {/* <div className="box-upload">
+        <span>{t("multimedia.drag&drop")}</span>
+      </div> */}
       <Popup
         modal
         open={state.showModal}
@@ -91,7 +87,7 @@ class Multimedia extends Component {
     const { selectedFiles } = this.state;
     const { setStep, setMultimedia } = this.props;
 
-    if (selectedFiles.length < 4) {
+    if (selectedFiles.length < 1) {
       this.setState({
         ["showModal"]: true
       });
@@ -110,6 +106,7 @@ class Multimedia extends Component {
   handleUpload = e => {
     e.preventDefault();
     let images = [];
+    let image = "";
 
     let objImage = {
       id: 0,
@@ -119,25 +116,34 @@ class Multimedia extends Component {
 
     const { selectedFiles } = this.state;
 
-    if (selectedFiles.length === 0) {
-      objImage.id = images.length === 0 ? 0 : images[images.length - 1].id + 1;
-      objImage.image = e.target.files[0];
-      objImage.preview = URL.createObjectURL(e.target.files[0]);
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = function() {
+      var base64data = reader.result.replace(/^data:.+;base64,/, "");
+      image = base64data;
 
-      images.push(objImage);
-    } else {
-      selectedFiles.map(image => {
-        images.push(image);
-      });
+      if (selectedFiles.length === 0) {
+        objImage.id =
+          images.length === 0 ? 0 : images[images.length - 1].id + 1;
+        objImage.image = image;
+        objImage.preview = reader.result; //URL.createObjectURL(e.target.files[0]);
 
-      objImage.id = images.length === 0 ? 0 : images[images.length - 1].id + 1;
-      objImage.image = e.target.files[0];
-      objImage.preview = URL.createObjectURL(e.target.files[0]);
+        images.push(objImage);
+      } else {
+        selectedFiles.map(image => {
+          images.push(image);
+        });
 
-      images.push(objImage);
-    }
+        objImage.id =
+          images.length === 0 ? 0 : images[images.length - 1].id + 1;
+        objImage.image = image;
+        objImage.preview = reader.result; // URL.createObjectURL(e.target.files[0]);
 
-    this.setState({ selectedFiles: images });
+        images.push(objImage);
+      }
+
+      this.setState({ selectedFiles: images });
+    }.bind(this);
   };
 
   handleBack = e => {
@@ -183,15 +189,9 @@ class Multimedia extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
   multimedia: state.dataItem.multimedia
 });
 
-export default compose(
-  firebaseConnect(),
-  connect(
-    mapStateToProps,
-    { setMultimedia, setStep }
-  )
-)(Multimedia);
+export default connect(mapStateToProps, { setMultimedia, setStep })(Multimedia);

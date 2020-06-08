@@ -60,7 +60,7 @@ class carouselMultiple extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/itemDetail",
+            pathname: "/itemDetail/" + this.state.selectedItem.id,
             state: {
               itemtemObjet: this.state.selectedItem
             }
@@ -88,7 +88,4 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(carouselMultiple);
+export default connect(mapStateToProps, null)(carouselMultiple);

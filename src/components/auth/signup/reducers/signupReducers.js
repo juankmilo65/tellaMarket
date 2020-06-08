@@ -1,16 +1,25 @@
 import {
   SET_STATUS,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILED
+  SIGNUP_FAILED,
+  SET_NULL_USER_CREATED
 } from "../actions/signupActions";
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: []
+  message: "",
+  userCreated: null,
+  auth: {}
 };
 
 const signupReducer = (state = initState, action) => {
   switch (action.type) {
+    case SET_NULL_USER_CREATED: {
+      return {
+        ...state,
+        userCreated: null
+      };
+    }
     case SET_STATUS: {
       return {
         ...state,
@@ -22,24 +31,14 @@ const signupReducer = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        messages: [
-          {
-            type: "ok",
-            text: action.payload
-          }
-        ]
+        userCreated: action.payload
       };
     }
     case SIGNUP_FAILED: {
       return {
         ...state,
         status: "failure",
-        messages: [
-          {
-            type: "error",
-            text: action.payload
-          }
-        ]
+        messages: action.payload
       };
     }
     default:

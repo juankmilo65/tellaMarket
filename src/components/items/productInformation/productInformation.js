@@ -2,10 +2,21 @@ import React, { Component, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setProductInformation } from "../controlDataItem/actions/controlDataItemActions";
+import {
+  setProductInformation,
+  translation
+} from "../controlDataItem/actions/controlDataItemActions";
+import { apiServices } from "../../../config/constants";
 import { default as NumberFormat } from "react-number-format";
 import { setStep } from "../../items/steps/actions/stepsActions";
+import $ from "jquery";
+import "bootstrap-datepicker/dist/js/bootstrap-datepicker.js";
+import "bootstrap-datepicker/dist/css/bootstrap-datepicker.css";
+import "bootstrap/dist/js/bootstrap.js";
+import "bootstrap/dist/css/bootstrap.css";
 import "./productInformation.scss";
+import { Currency } from "../../../config/currency";
+import { getRates } from "../../commons/select/actions/ratesActions";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -86,6 +97,34 @@ function MyComponent(state) {
             )}
           </div>
           <div className="form-group input-tella">
+            <label htmlFor="currency" className="is-required">
+              {t("productInformation.currency")}
+            </label>
+            <select
+              className="form-control"
+              id="currency"
+              onChange={state.handleChangeTest}
+              value={state.state.currencyId}
+            >
+              <option key="-" value="-1">
+                -
+              </option>
+              {state.currencies.map(currency => {
+                return (
+                  <option key={currency.currency} value={currency.currency}>
+                    {currency.symbol} {currency[state.lang.value]}
+                  </option>
+                );
+              })}
+            </select>
+            {state.state.errors.currency === true ? (
+              <p className="text-required">{t("errors.requiredField")}</p>
+            ) : (
+              <p></p>
+            )}
+          </div>
+
+          <div className="form-group input-tella">
             <label htmlFor="price" className="is-required">
               {t("productInformation.price")}
             </label>
@@ -93,7 +132,6 @@ function MyComponent(state) {
               className="form-control"
               id="price"
               thousandSeparator={true}
-              prefix={"$"}
               value={state.state.price}
               onChange={state.handleChangeTest}
             />
@@ -111,11 +149,13 @@ function MyComponent(state) {
               {t("productInformation.year")}
             </label>
             <input
-              type="date"
+              type="text"
               id="year"
               className="form-control"
-              onChange={state.handleChangeTest}
-              value={state.state.year}
+              //onChangeCapture={state.handleChangeTest}
+              // onChange={state.handleChangeTest}
+              defaultValue={state.state.year}
+              autoComplete="off"
             />
             {/* <i className="material-icons icon-calendar">today</i> */}
             {state.state.errors.year === true ? (
@@ -249,6 +289,7 @@ function MyComponent(state) {
 
 class ProductInformation extends Component {
   state = {
+    rates: null,
     comeback: false,
     productName: "",
     brand: "",
@@ -259,6 +300,8 @@ class ProductInformation extends Component {
     locationId: "",
     description: "",
     price: "",
+    currency: "",
+    currencyId: "",
     phone: "",
     email: "",
     errors: {
@@ -268,6 +311,8 @@ class ProductInformation extends Component {
       model: false,
       conservationState: false,
       location: false,
+      currency: false,
+      price: false,
       description: false,
       phone: false,
       email: false
@@ -283,6 +328,7 @@ class ProductInformation extends Component {
       conservationState,
       location,
       description,
+      currency,
       price,
       phone,
       email
@@ -295,6 +341,7 @@ class ProductInformation extends Component {
       conservationState: false,
       location: false,
       description: false,
+      currency: false,
       price: false,
       phone: false,
       email: false
@@ -330,6 +377,10 @@ class ProductInformation extends Component {
     if (location === "-" || location === "") {
       error.location = true;
     }
+    if (currency === "-" || currency === "") {
+      error.currency = true;
+    }
+
     this.setState({ ["errors"]: error }, function() {
       const { errors } = this.state;
 
@@ -341,6 +392,7 @@ class ProductInformation extends Component {
         errors.conservationState === false &&
         errors.location === false &&
         errors.description === false &&
+        errors.currency === false &&
         errors.price === false &&
         errors.phone === false &&
         errors.email === false
@@ -555,6 +607,7 @@ class ProductInformation extends Component {
     { id: 200, country: "Zambia" },
     { id: 201, country: "Zimbabue" }
   ];
+
   handleBack = e => {
     const { setStep } = this.props;
     this.handleSetProductInformation();
@@ -566,8 +619,8 @@ class ProductInformation extends Component {
     this.validateError();
   };
 
-  handleSetProductInformation = () => {
-    const { setProductInformation } = this.props;
+  handleSetProductInformation = async () => {
+    const { setProductInformation, translation, rates } = this.props;
     const {
       productName,
       brand,
@@ -576,10 +629,33 @@ class ProductInformation extends Component {
       conservationState,
       location,
       locationId,
+      currencyId,
       description,
+      currency,
       phone,
       email
     } = this.state;
+
+    let spanishDescription = "";
+    let englishDescription = "";
+    //let currentCurrencyInDollars = rates[currencyId];
+    const currentValue = document
+      .getElementById("price")
+      .value.split(",")
+      .join("");
+    // const currentValueInDollars = Math.round(
+    //   currentValue / currentCurrencyInDollars
+    // );
+    // var prices = new Object();
+
+    // Object.keys(rates).map(rate => {
+    //   let value = rates[rate];
+
+    //   prices[rate] = currentValueInDollars * value;
+    // });
+
+    englishDescription = await this.handleTranslate("es", "en", description);
+    spanishDescription = await this.handleTranslate("en", "es", description);
 
     var obj = new Object();
     obj["productName"] = productName;
@@ -589,16 +665,25 @@ class ProductInformation extends Component {
     obj["conservationState"] = conservationState;
     obj["location"] = location;
     obj["locationId"] = locationId;
-    obj["description"] = description;
-    obj["price"] = document.getElementById("price").value;
+    obj["currencyId"] = currencyId;
+    obj["spanishDescription"] = spanishDescription;
+    obj["englishDescription"] = englishDescription;
+    obj["description"] = englishDescription + "|" + spanishDescription;
+    obj["currency"] = currency;
+    obj["price"] = currentValue;
+    obj["internationalPrices"] = currentValue;
+    //obj["internationalPrices"] = prices;
     obj["phone"] = phone;
     obj["email"] = email;
+    obj["active"] = 1;
 
     setProductInformation(obj);
+
     this.setState({ comeback: true });
   };
 
   handleChangeTest = e => {
+    const { lang } = this.props;
     if (document.getElementById(e.target.id).value !== "") {
       const { errors } = this.state;
       errors[e.target.id] = false;
@@ -607,7 +692,27 @@ class ProductInformation extends Component {
 
     if (
       e.target.labels !== undefined &&
-      e.target.labels[0].innerHTML === "Location"
+      (e.target.labels[0].innerHTML === "Local currency" ||
+        e.target.labels[0].innerHTML === "Moneda local")
+    ) {
+      if (e.target.value === "-1") {
+        this.setState({ [e.target.id]: "-" });
+        this.setState({ ["currencyId"]: "-1" });
+      } else {
+        let symbol = Currency.find(
+          c => c.currency.toString() === e.target.value
+        ).symbol;
+        let currencyName = Currency.find(
+          c => c.currency.toString() === e.target.value
+        )[lang.value];
+        this.setState({ [e.target.id]: symbol + " " + currencyName });
+        this.setState({ ["currencyId"]: e.target.value });
+      }
+    }
+    if (
+      e.target.labels !== undefined &&
+      (e.target.labels[0].innerHTML === "Location" ||
+        e.target.labels[0].innerHTML === "Localización")
     ) {
       let text = this.countries.find(c => c.id.toString() === e.target.value)
         .country;
@@ -622,12 +727,64 @@ class ProductInformation extends Component {
     }
   };
 
+  async handleTranslate(originalLanguaje, newLanguaje, text) {
+    return await fetch(
+      apiServices +
+        "/trastalion?originalLanguaje=" +
+        originalLanguaje +
+        "&newLanguaje=" +
+        newLanguaje +
+        "&texto=" +
+        text,
+      {
+        mode: "cors",
+        method: "GET",
+        headers: new Headers({
+          Accept: "application/json",
+          "Content-Type": "application/json; charset=UTF-8"
+        })
+      }
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(data => {
+        return data;
+      });
+  }
+
+  componentDidMount() {
+    var _ = this;
+    $("#year")
+      .datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years",
+        autoclose: true,
+        maxDate: "+1M +10D"
+      })
+      .on("change", function() {
+        var obj = {
+          target: { id: "year" }
+        };
+
+        _.handleChangeTest(obj);
+      });
+
+    const { getRates, rates } = _.props;
+
+    if (rates === null) {
+      getRates();
+    }
+  }
+
   render() {
     const { comeback } = this.state;
     const {
       auth,
       lang,
-      firebase,
       productInformation,
       setProductInformation
     } = this.props;
@@ -645,6 +802,7 @@ class ProductInformation extends Component {
 
     return (
       <MyComponent
+        currencies={Currency}
         lang={lang}
         countries={this.countries}
         handleChange={this.handleChange}
@@ -659,11 +817,16 @@ class ProductInformation extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
-  productInformation: state.dataItem.productInformation
+  productInformation: state.dataItem.productInformation,
+  //rates: state.rate.rates,
+  translation: state.dataItem.translation
 });
 
-export default connect(mapStateToProps, { setProductInformation, setStep })(
-  ProductInformation
-);
+export default connect(mapStateToProps, {
+  setProductInformation,
+  translation,
+  setStep,
+  getRates
+})(ProductInformation);

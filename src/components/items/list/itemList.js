@@ -31,7 +31,7 @@ function MyComponent(state) {
                 </div>
                 <div className="price-button--list">
                   <div className="price-list">
-                    {item.data.productInformation.price} USD
+                    {item.data.productInformation.price}
                   </div>
                   <button
                     className="btns btn-go"
@@ -72,7 +72,12 @@ class ItemList extends Component {
           ? this.state.selectedItem.subcategory.subcategoryName
           : this.state.selectedItem.subcategory.subcategoryName;
       obj["titleproduct"] = this.state.selectedItem.productInformation.brand;
-      obj["valueprice"] = this.state.selectedItem.productInformation.price;
+      obj["valueprice"] =
+        this.state.selectedItem.productInformation.price == 0
+          ? lang === "en"
+            ? "Consult"
+            : "A Consultar"
+          : "€ " + this.state.selectedItem.productInformation.price;
       obj[
         "description"
       ] = this.state.selectedItem.productInformation.description;
@@ -113,7 +118,4 @@ const mapStateToProps = state => ({
   lang: state.navar.lang
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(ItemList);
+export default connect(mapStateToProps, null)(ItemList);

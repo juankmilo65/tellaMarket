@@ -46,3 +46,17 @@
   
   
 }
+
+.select-category{
+  .MuiSelect-root  {
+    background-color: $blue !important;
+    color: white !important;
+  }
+
+  .MuiSvgIcon-root {
+    path{
+      fill: white;
+    }
+  }
+  
+}

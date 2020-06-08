@@ -1,85 +1,69 @@
 import {
   setStatus,
-  getDashboardProductsPlanPremiumSuccess,
-  getDashboardProductsPlanPlusSuccess,
-  getDashboardProductsPlanBasicSuccess,
-  GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
-  GET_DASHBOARD_PRODUCTS_PLAN_PLUS,
-  GET_DASHBOARD_PRODUCTS_PLAN_BASIC
+  getPremiumHeaderImageSuccess,
+  getPremiumHeaderImageError,
+  getPromoDashboardSuccess,
+  getPromoDashboardErros,
+  GET_PREMIUM_HEADER_IMAGES,
+  GET_PROMO_DASHBOARD
 } from "../actions/dashboardActions";
-
-import { getFirestore } from "redux-firestore";
-import { switchMap } from "rxjs/operators";
+import { concatMap } from "rxjs/operators";
 import { ofType } from "redux-observable";
 import { concat, of } from "rxjs";
+import { apiServices } from "../../../config/constants";
 
 export default function dashboardEpics(action$) {
-  const getFS = getFirestore();
   return action$.pipe(
-    ofType(
-      GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
-      GET_DASHBOARD_PRODUCTS_PLAN_PLUS,
-      GET_DASHBOARD_PRODUCTS_PLAN_BASIC
-    ),
-    switchMap(action => {
-      if (action.type === GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM) {
+    ofType(GET_PREMIUM_HEADER_IMAGES, GET_PROMO_DASHBOARD),
+    concatMap(action => {
+      if (action.type === GET_PROMO_DASHBOARD) {
         return concat(
           of(setStatus("pending")),
-          getFS
-            .collection("items")
-            .where("planId", "==", 1)
-            .where("expirationDate", ">=", new Date())
-            .get()
-            .then(snapshot => {
-              let itemList = [];
-              snapshot.forEach(doc => {
-                var obj = {
-                  id: doc.id,
-                  data: doc.data()
-                };
-                itemList.push(obj);
-              });
-              return getDashboardProductsPlanPremiumSuccess(itemList);
+          fetch(
+            apiServices + "/getAllPromotionImages?tableName=" + action.payload,
+            {
+              mode: "cors",
+              method: "GET",
+              headers: new Headers({
+                Accept: "application/json",
+                "Content-Type": "application/json; charset=UTF-8"
+              })
+            }
+          )
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return getPromoDashboardErros("Failed");
+              }
+            })
+            .then(data => {
+              return getPromoDashboardSuccess(data);
             })
         );
-      } else if (action.type === GET_DASHBOARD_PRODUCTS_PLAN_PLUS) {
+      } else if (action.type === GET_PREMIUM_HEADER_IMAGES) {
         return concat(
           of(setStatus("pending")),
-          getFS
-            .collection("items")
-            .where("planId", "==", 1)
-            .where("expirationDate", ">=", new Date())
-            .get()
-            .then(snapshot => {
-              let itemList = [];
-              snapshot.forEach(doc => {
-                var obj = {
-                  id: doc.id,
-                  data: doc.data()
-                };
-                itemList.push(obj);
-              });
-              return getDashboardProductsPlanPlusSuccess(itemList);
+          fetch(
+            apiServices + "/getPremiumHeaderImages?tableName=" + action.payload,
+            {
+              mode: "cors",
+              method: "GET",
+              headers: new Headers({
+                Accept: "application/json",
+                "Content-Type": "application/json; charset=UTF-8"
+              })
+            }
+          )
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                return getPremiumHeaderImageError("Failed");
+              }
             })
-        );
-      } else if (action.type === GET_DASHBOARD_PRODUCTS_PLAN_BASIC) {
-        return concat(
-          of(setStatus("pending")),
-          getFS
-            .collection("items")
-            .where("planId", "==", 1)
-            .where("expirationDate", ">=", new Date())
-            .get()
-            .then(snapshot => {
-              let itemList = [];
-              snapshot.forEach(doc => {
-                var obj = {
-                  id: doc.id,
-                  data: doc.data()
-                };
-                itemList.push(obj);
-              });
-              return getDashboardProductsPlanBasicSuccess(itemList);
+            .then(data => {
+              return getPremiumHeaderImageSuccess(data);
             })
         );
       }

@@ -1,7 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { reduxFirestore, firestoreReducer } from "redux-firestore";
-import { firebaseReducer } from "react-redux-firebase";
 import signinReducer from "../components/auth/signin/reducers/signinReducers";
 import signoutReducer from "../components/auth/signout/reducers/signoutReducers";
 import signupReducer from "../components/auth/signup/reducers/signupReducers";
@@ -17,6 +15,10 @@ import controlDataItemReducers from "../components/items/controlDataItem/reducer
 import dashboardReducers from "../components/dashboard/reducers/dashboardReducers";
 import queryResultReducers from "../components/items/queryResult/reducers/queryResultReducers";
 import selectReducers from "../components/commons/select/reducers/selectReducers";
+import categoriesReducers from "../components/commons/select/reducers/categoriesReducers";
+import currencyReducers from "../components/commons/select/reducers/currencyReducers";
+import ratesReducers from "../components/commons/select/reducers/ratesReducers";
+import itemDetailReducers from "../components/items/detail/reducers/itemDetailReducers";
 import signinEpics from "../components/auth/signin/epics/signinEpics";
 import signoutEpics from "../components/auth/signout/epics/signoutEpics";
 import signupEpics from "../components/auth/signup/epics/signupEpics";
@@ -31,7 +33,10 @@ import controlDataItemEpics from "../components/items/controlDataItem/epics/cont
 import dashboardEpics from "../components/dashboard/epics/dashboardEpics";
 import queryResultEpics from "../components/items/queryResult/epics/queryResultEpics";
 import selectEpics from "../components/commons/select/epics/selectEpics";
-import FirebaseConfig from "./../config/FirebaseConfig";
+import categoriesEpics from "../components/commons/select/epics/categoriesEpics";
+import currencyEpics from "../components/commons/select/epics/currencyEpics";
+import rateEpics from "../components/commons/select/epics/ratesEpics";
+import itemDetailsEpics from "../components/items/detail/epics/itemDetailEpics";
 
 export function configureStore() {
   const rootEpic = combineEpics(
@@ -48,7 +53,11 @@ export function configureStore() {
     controlDataItemEpics,
     dashboardEpics,
     queryResultEpics,
-    selectEpics
+    selectEpics,
+    categoriesEpics,
+    currencyEpics,
+    rateEpics,
+    itemDetailsEpics
   );
 
   const epicMiddleware = createEpicMiddleware();
@@ -59,8 +68,6 @@ export function configureStore() {
     listItems: listItemReducer,
     navar: navarReducer,
     phoneAuthentication: phoneAuthenticationReducer,
-    firestore: firestoreReducer,
-    firebase: firebaseReducer,
     fileUpload: fileUploadReducers,
     frame: frameReducers,
     createmenu: createmenuReducers,
@@ -69,17 +76,18 @@ export function configureStore() {
     dataItem: controlDataItemReducers,
     dashboard: dashboardReducers,
     queryResult: queryResultReducers,
-    select: selectReducers
+    select: selectReducers,
+    categories: categoriesReducers,
+    currency: currencyReducers,
+    rate: ratesReducers,
+    itemDetail: itemDetailReducers
   });
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const store = createStore(
     rootReducer,
-    composeEnhancers(
-      applyMiddleware(epicMiddleware),
-      reduxFirestore(FirebaseConfig)
-    )
+    composeEnhancers(applyMiddleware(epicMiddleware))
   );
 
   epicMiddleware.run(rootEpic);

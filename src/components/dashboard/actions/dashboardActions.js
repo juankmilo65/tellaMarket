@@ -1,16 +1,12 @@
 export const SET_STATUS = "SET_STATUS";
-export const GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM =
-  "GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM";
-export const GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS =
-  "GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS";
-export const GET_DASHBOARD_PRODUCTS_PLAN_PLUS =
-  "GET_DASHBOARD_PRODUCTS_PLAN_PLUS";
-export const GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS =
-  "GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS";
-export const GET_DASHBOARD_PRODUCTS_PLAN_BASIC =
-  "GET_DASHBOARD_PRODUCTS_PLAN_BASIC";
-export const GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS =
-  "GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS";
+export const GET_PROMO_DASHBOARD = "GET_PROMO_DASHBOARD";
+export const GET_PROMO_DASHBOARD_SUCCESS = "GET_PROMO_DASHBOARD_SUCCESS";
+export const GET_PROMO_DASHBOARD_ERROR = "GET_PROMO_DASHBOARD_ERROR";
+export const GET_PREMIUM_HEADER_IMAGES = "GET_PREMIUM_HEADER_IMAGES";
+export const GET_PREMIUM_HEADER_IMAGES_SUCCESS =
+  "GET_PREMIUM_HEADER_IMAGES_SUCCESS";
+export const GET_PREMIUM_HEADER_IMAGES_ERROR =
+  "GET_PREMIUM_HEADER_IMAGES_ERROR";
 
 export function setStatus(status) {
   return {
@@ -19,44 +15,44 @@ export function setStatus(status) {
   };
 }
 
-export function getDashboardProductsPlanPremium(firebase) {
+export function getPremiumHeaderImage(tableName) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM,
-    payload: firebase
+    type: GET_PREMIUM_HEADER_IMAGES,
+    payload: tableName
   };
 }
 
-export function getDashboardProductsPlanPremiumSuccess(itemList) {
+export function getPremiumHeaderImageSuccess(images) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PREMIUM_SUCCESS,
-    payload: itemList
+    type: GET_PREMIUM_HEADER_IMAGES_SUCCESS,
+    payload: images
   };
 }
 
-export function getDashboardProductsPlanPlus(firebase) {
+export function getPremiumHeaderImageError(error) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PLUS,
-    payload: firebase
+    type: GET_PREMIUM_HEADER_IMAGES_ERROR,
+    payload: error
   };
 }
 
-export function getDashboardProductsPlanPlusSuccess(itemList) {
+export function getPromoDashboard(tableName) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_PLUS_SUCCESS,
-    payload: itemList
+    type: GET_PROMO_DASHBOARD,
+    payload: tableName
   };
 }
 
-export function getDashboardProductsPlanBasic(firebase) {
+export function getPromoDashboardSuccess(images) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_BASIC,
-    payload: firebase
+    type: GET_PROMO_DASHBOARD_SUCCESS,
+    payload: images
   };
 }
 
-export function getDashboardProductsPlanBasicSuccess(itemList) {
+export function getPromoDashboardErros(error) {
   return {
-    type: GET_DASHBOARD_PRODUCTS_PLAN_BASIC_SUCCESS,
-    payload: itemList
+    type: GET_PROMO_DASHBOARD_ERROR,
+    payload: error
   };
 }

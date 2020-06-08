@@ -48,6 +48,7 @@
     "location": "Location",
     "description": "Description",
     "descriptionPlaceHolder": "Full details",
+    "currency": "Local currency",
     "price": "Price",
     "pricePlaceHolder": "UDS Dollars",
     "phonePlaceholder": "Contact phone",
@@ -121,13 +122,18 @@
     "requiredField": "Required field",
     "requeredCategory": "Please select one category.",
     "ok": "Ok",
-    "numberOfPhotos": "The minimum number of photos to create the product must be 4."
+    "numberOfPhotos": "The minimum number of photos to create the product must be 1."
   },
   "messages": {
     "createItem": "Product successfully created",
     "ok": "Ok",
     "congratulation": "Congratulations",
-    "soon": "Coming soon"
+    "error": "Error",
+    "soon": "Coming soon",
+    "createAccount": "To review the details, we suggest you join our website",
+    "userCreated": "User created successfully",
+    "userExist": "Registered email already exists.",
+    "errorLogin": "The email or password is incorrect"
   },
   "dashboard": {
     "bigOffers": "Big offers",
@@ -146,6 +152,16 @@
     "categories": "Categories",
     "year": "Year",
     "contact": "Contact the seller",
-    "stok": "In stock"
+    "stok": "In stock",
+    "valueMessage": "Consult"
+  },
+  "query": {
+    "clean": "Clean filters",
+    "sort": "Sort by:",
+    "category": "Category:",
+    "brand": "Brand:",
+    "location": "Location:",
+    "products&categories": "Products & Categories",
+    "productList": "Product list"
   }
 }

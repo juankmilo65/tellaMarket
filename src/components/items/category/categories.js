@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import cloneDeep from "clone-deep";
 import { useTranslation } from "react-i18next";
-import { getDocuments } from "../../commons/data/actions/dataActions";
 import { setSubcategory } from "../../items/controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../../items/steps/actions/stepsActions";
 import Popup from "reactjs-popup";
@@ -41,7 +41,7 @@ function MyComponent(state) {
                     checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
-                    {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
+                    {item.Category}
                   </label>
                 </div>
               );
@@ -64,7 +64,7 @@ function MyComponent(state) {
                     checked={item.id === state.subcategory.categorySelectedId}
                   />
                   <label className="custom-control-label" htmlFor={item.id}>
-                    {Object.keys(item.data[Object.keys(item.data)[0]])[0]}
+                    {item.Category}
                   </label>
                 </div>
               );
@@ -105,7 +105,7 @@ class Categories extends Component {
   handleSelectCheck = e => {
     const { setSubcategory } = this.props;
     var obj = new Object();
-    obj["categorySelectedId"] = e.target.id;
+    obj["categorySelectedId"] = Number(e.target.id);
     obj["subcategoryName"] = e.target.labels[0].innerHTML;
     setSubcategory(obj);
   };
@@ -126,91 +126,63 @@ class Categories extends Component {
 
   handleList(list) {
     let columnOne = [];
-    let categories = [];
 
-    if (list.length > 0) {
-      list.forEach(doc => {
-        if (
-          !categories.includes(
-            Object.keys(doc.data[Object.keys(doc.data)[0]])[0]
-          )
-        ) {
-          categories.push(Object.keys(doc.data[Object.keys(doc.data)[0]])[0]);
-        }
-      });
-      var pos = Math.ceil(list.length / 2) - 1;
-      var quantity = list.length - pos + 1;
-      columnOne = list.length >= 0 ? list.splice(pos, quantity) : list;
+    var pos = Math.ceil(list.length / 2) - 1;
+    var quantity = list.length - pos + 1;
+    columnOne = list.length >= 0 ? list.splice(pos, quantity) : list;
 
-      this.setState({ ["columnOne"]: columnOne });
+    this.setState({ ["columnOne"]: columnOne });
 
-      if (columnOne.length !== list.length) {
-        this.setState({ ["columnTwo"]: list.splice(0, pos) });
-      }
+    if (columnOne.length !== list.length) {
+      this.setState({ ["columnTwo"]: list.splice(0, pos) });
+    }
+  }
+
+  componentDidMount() {
+    const { categories } = this.props;
+    if (categories.length > 0) {
+      const listCloned = cloneDeep(categories);
+      this.handleList(listCloned);
     }
   }
 
   render() {
-    const {
-      auth,
-      lang,
-      documentsEn,
-      documentsEs,
-      firebase,
-      subcategory
-    } = this.props;
-
-    if (lang.value === "es") {
-      if (documentsEs.length === 0) {
-        this.props.getDocuments({ firebase, language: "es" });
-      }
-
-      this.handleList(documentsEs);
-    } else if (lang.value === "en") {
-      if (documentsEn.length === 0) {
-        this.props.getDocuments({ firebase, language: "en" });
-      }
-
-      this.handleList(documentsEn);
-    }
-
+    const { auth, lang, subcategory } = this.props;
     const { columnOne, columnTwo } = this.state;
-
-    if (!auth.uid) return <Redirect to="/" />;
-    return (
-      <div>
-        {columnOne.length === 0 ? (
-          <div></div>
-        ) : (
-          <MyComponent
-            lang={lang}
-            columnOne={columnOne}
-            columnTwo={columnTwo}
-            handleSelectCheck={this.handleSelectCheck}
-            handleSubmit={this.handleSubmit}
-            showModal={this.state.showModal}
-            subcategory={subcategory}
-            handleOkError={this.handleOkError}
-          ></MyComponent>
-        )}
-      </div>
-    );
+    if (columnOne.length > 0) {
+      if (!auth.User) return <Redirect to="/" />;
+      return (
+        <div>
+          {columnOne.length === 0 ? (
+            <div></div>
+          ) : (
+            <MyComponent
+              lang={lang}
+              columnOne={columnOne}
+              columnTwo={columnTwo}
+              handleSelectCheck={this.handleSelectCheck}
+              handleSubmit={this.handleSubmit}
+              showModal={this.state.showModal}
+              handleOkError={this.handleOkError}
+              subcategory={subcategory}
+            ></MyComponent>
+          )}
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+  auth: state.signin.auth,
   lang: state.navar.lang,
-  documentsEn: state.data.documentsEn,
-  documentsEs: state.data.documentsEs,
+  categories: state.navar.categories,
   subcategory: state.dataItem.subcategory
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    getDocuments,
-    setSubcategory,
-    setStep
-  }
-)(Categories);
+export default connect(mapStateToProps, {
+  setSubcategory,
+  setStep
+})(Categories);

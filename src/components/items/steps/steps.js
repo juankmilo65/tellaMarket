@@ -45,19 +45,15 @@ function MyComponent(state) {
 
 class Steps extends Component {
   render() {
-    const { auth, lang, step } = this.props;
+    const { lang, step } = this.props;
     // if (auth.uid) return <Redirect to="/" />;
     return <MyComponent lang={lang} step={step}></MyComponent>;
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
   lang: state.navar.lang,
   step: state.step.step
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(Steps);
+export default connect(mapStateToProps, null)(Steps);

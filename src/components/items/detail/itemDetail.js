@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import "./itemDetail.scss";
-import info1 from "../../commons/carousel/img/img-info1.svg";
-import info2 from "../../commons/carousel/img/img-info2.svg";
-import info3 from "../../commons/carousel/img/img-info3.svg";
-import info4 from "../../commons/carousel/img/img-info4.svg";
-import info5 from "../../commons/carousel/img/img-info5.svg";
+import { getItem } from "./actions/itemDetailActions";
+import Popup from "reactjs-popup";
+import warning from "../../../images/triangle.svg";
+import { Redirect } from "react-router-dom";
+import { hideHeader } from "../../layout/actions/navarActions";
+import Spinner from "../../commons/spinner/Spinner";
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -62,9 +63,15 @@ function MyComponent(state) {
               <div className="button-icon">
                 <button
                   className={
-                    state.auth.uid != undefined ? "btns btn-go" : "btns btn-go disable"
+                    state.auth.User != undefined
+                      ? "btns btn-go"
+                      : "btns btn-go disable"
                   }
-                  onClick={state.handleDetails}
+                  onClick={
+                    state.auth.User != undefined
+                      ? state.handleDetails
+                      : state.handleShowMessage
+                  }
                 >
                   {t("itemDetal.contact")}
                 </button>
@@ -212,40 +219,137 @@ function MyComponent(state) {
           </div>
         </div> */}
       </div>
+      <Popup
+        modal
+        open={state.showModal}
+        closeOnDocumentClick={false}
+        className="modal-alert"
+      >
+        <img src={warning} className="img-alert" />
+        <h3>{t("messages.createAccount")}</h3>
+        <button className="btns btn-go" onClick={state.handleOk}>
+          {t("messages.ok")}
+        </button>
+      </Popup>
+      {state.renderRedirect()}
     </div>
   );
 }
 
 class ItemDetail extends Component {
   state = {
-    showDetails: false
+    showModal: false,
+    showDetails: false,
+    redirect: false
   };
 
   handleDetails = () => {
     this.setState({ showDetails: true });
   };
 
+  handleShowMessage = () => {
+    this.setState({
+      ["showModal"]: true
+    });
+  };
+
+  handleOk = () => {
+    this.setState({ showModal: false, redirect: true });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      const { hideHeader } = this.props;
+      const header = {
+        isFomSignin: false,
+        hideHeader: true
+      };
+
+      hideHeader(header);
+      return <Redirect to="/signin" />;
+    }
+  };
+
   render() {
-    const { lang, auth } = this.props;
-    const { itemtemObjet } = this.props.location.state;
+    const { lang, auth, match, item, currency } = this.props;
+    let itemtemObjet = null;
+    if (this.props.location.state !== undefined) {
+      itemtemObjet = this.props.location.state.itemtemObjet;
+    } else {
+      const {
+        match: { param },
+        getItem
+      } = this.props;
+
+      if (item === null) {
+        getItem(match.params.itemId);
+      } else {
+        var listImages = [];
+
+        item.Images.map(imge => {
+          listImages.push({
+            imageUrl: "data:image/jpeg;base64," + imge.Image
+          });
+        });
+
+        itemtemObjet = {
+          images: item.images,
+          titlecategory:
+            lang.value === "en"
+              ? item.subcategoryName.split(",")[0]
+              : item.subcategoryName.split(",")[1],
+          titleproduct:
+            lang.value === "en"
+              ? item.titleproduct.split("|")[0]
+              : item.titleproduct.split("|")[1],
+          valueprice:
+            item.valueprice == 0
+              ? lang.value === "en"
+                ? "Consult"
+                : "A consultar"
+              : currency + " " + item.valueprice,
+          description:
+            lang.value === "en"
+              ? item.description.split("|")[0]
+              : item.description.split("|")[1],
+          email: item.email,
+          phone: item.Phone,
+          images: listImages,
+          id: match.IdItem,
+          year: item.Year
+        };
+      }
+    }
+
     return (
-      <MyComponent
-        lang={lang}
-        itemtemObjet={itemtemObjet}
-        handleDetails={this.handleDetails}
-        showDetails={this.state.showDetails}
-        auth={auth}
-      ></MyComponent>
+      <div>
+        {itemtemObjet === null ? (
+          <div>
+            <Spinner />
+          </div>
+        ) : (
+          <MyComponent
+            lang={lang}
+            itemtemObjet={itemtemObjet}
+            handleDetails={this.handleDetails}
+            showDetails={this.state.showDetails}
+            handleShowMessage={this.handleShowMessage}
+            showModal={this.state.showModal}
+            auth={auth}
+            handleOk={this.handleOk}
+            renderRedirect={this.renderRedirect}
+          ></MyComponent>
+        )}
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
-  lang: state.navar.lang
+  auth: state.signin.auth,
+  lang: state.navar.lang,
+  item: state.itemDetail.item,
+  currency: state.currency.currency
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(ItemDetail);
+export default connect(mapStateToProps, { getItem, hideHeader })(ItemDetail);

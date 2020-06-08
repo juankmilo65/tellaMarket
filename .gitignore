@@ -25,3 +25,8 @@ src/components/dashboard/Dashboard_REMOTE_6648.js
 src/components/dashboard/Dashboard_LOCAL_6648.js
 src/components/dashboard/Dashboard_BASE_6648.js
 src/components/dashboard/Dashboard_BACKUP_6648.js
+dist
+dist/asset-manifest.json
+dist/index.html
+dist/static/css
+src/config

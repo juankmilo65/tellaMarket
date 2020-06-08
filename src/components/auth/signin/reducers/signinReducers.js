@@ -1,16 +1,24 @@
 import {
   SET_STATUS,
   SIGNIN_SUCCESS,
-  SIGNIN_FAILED
+  SIGNIN_FAILED,
+  CLEAR_MESSAGE
 } from "../actions/signinActions";
 
 const initState = {
   status: "idle", // "idle" |  "pending" | "login" | "success" | "failure";
-  messages: []
+  auth: {},
+  message: ""
 };
 
 const signinReducer = (state = initState, action) => {
   switch (action.type) {
+    case CLEAR_MESSAGE: {
+      return {
+        ...state,
+        message: ""
+      };
+    }
     case SET_STATUS: {
       return {
         ...state,
@@ -21,24 +29,15 @@ const signinReducer = (state = initState, action) => {
       return {
         ...state,
         status: "success",
-        messages: [
-          {
-            type: "ok",
-            text: action.payload
-          }
-        ]
+        auth: action.payload
       };
     }
     case SIGNIN_FAILED: {
       return {
         ...state,
         status: "failure",
-        messages: [
-          {
-            type: "error",
-            text: action.payload
-          }
-        ]
+        auth: null,
+        message: action.payload
       };
     }
     default:

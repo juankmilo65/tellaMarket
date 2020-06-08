@@ -2,24 +2,24 @@ import React, { Component } from "react";
 import Notifications from "./Notification";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
+import Spinner from "../commons/spinner/Spinner";
+import FileUpload from "../commons/fileUpload/fileUpload";
 import Carousel from "../commons/carousel/carousel";
 import CarouselMultiple from "../commons/carousel/carouselMultiple";
 import CarouselImage from "../commons/carousel/carouselImage";
 import {
-  getDashboardProductsPlanPremium,
-  getDashboardProductsPlanPlus,
-  getDashboardProductsPlanBasic
+  getPromoDashboard,
+  getPremiumHeaderImage
 } from "../dashboard/actions/dashboardActions";
+import { cleanItems } from "../items/controlDataItem/actions/controlDataItemActions";
+import { setStep } from "../items/steps/actions/stepsActions";
+import { getProductsByPlan } from "../items/queryResult/actions/queryResultActions";
 import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
-import banner1 from "../commons/carousel/img/banner1.png";
-import banner2 from "../commons/carousel/img/banner2.png";
-import banner3 from "../commons/carousel/img/banner3.png";
-import promo1 from "../commons/carousel/img/TellaNeedles.jpg";
+import cloneDeep from "clone-deep";
+
 import "./dashboard.scss";
 
 function MyComponent(state) {
@@ -30,12 +30,15 @@ function MyComponent(state) {
 
   return (
     <div className="pd-top--130px">
+      {state.loading ? <Spinner /> : null}
+
       <div className="first-slider">
         <Carousel images={state.imagesMainBar} />
       </div>
       <div className="banner-small container">
         <div className="item-title">
           <span>{t("dashboard.bigOffers")}</span>
+          <FileUpload></FileUpload>
         </div>
         <CarouselMultiple items={state.imagesMultiBar} />
       </div>
@@ -204,123 +207,174 @@ function MyComponent(state) {
 }
 
 class Dashboard extends Component {
-  render() {
+  state = {
+    loading: true
+  };
+
+  componentDidMount() {
     const {
-      getDashboardProductsPlanPremium,
-      getDashboardProductsPlanPlus,
-      firebase,
-      lang
+      getPromoDashboard,
+      getPremiumHeaderImage,
+      getProductsByPlan,
+      cleanItems,
+      setStep
     } = this.props;
-    let count = 1;
-    const { notifications, itemsPremium, itemsPlus, itemsBasic } = this.props;
+
+    getPromoDashboard("promotionimages");
+    getPremiumHeaderImage("promotionheaders");
+    getProductsByPlan([1, 2, 3]);
+    cleanItems();
+    setStep(1);
+  }
+
+  createList(listItems, itemsPlan, finalListItems) {
+    const listCloned = cloneDeep(listItems);
+    listCloned.map(item => {
+      itemsPlan.push(item);
+    });
+
+    itemsPlan.map(item => {
+      finalListItems.push(item);
+    });
+  }
+
+  render() {
+    const { loading } = this.state;
+    const {
+      lang,
+      notifications,
+      currency,
+      imagesPromo,
+      imagesHeader,
+      itemsByPlan
+    } = this.props;
     const imagesMainBar = [];
     const imagesMultiBar = [];
-    const imagesPromotion = [
-      {
-        imageUrl: promo1,
-        redirectUrl: "http://www.tellaneedles.com"
-      }
-    ];
+    const imagesPromotion = [];
+    const itemsPremiumPlan = [];
+    const itemsPlusPlan = [];
+    const itemsFreePlan = [];
+    const finalListItems = [];
+    var base64Flag = "data:image/jpeg;base64,";
 
-    // var obj = new Object();
-    // obj["titlecategory"] = "Titulo Categoria";
-    // obj["titleproduct"] = "Titulo Producto";
-    // obj["valueprice"] = "$2000";
-    // obj["description"] =
-    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    // obj["email"] = "asdfgh@sdfghj.com";
-    // obj["phone"] = "33333333";
-    // obj["images"] = [
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   },
-    //   {
-    //     imageUrl:
-    //       "https://firebasestorage.googleapis.com/v0/b/tellamachines.appspot.com/o/cepEmC7Y9g3pC744M8Le%2F755.jpg?alt=media&token=6d417912-67a3-4116-bf25-7072298128e8"
-    //   }
-    // ];
-    // obj["image"] = banner1;
-    // obj["id"] = 1;
-    // obj["year"] = "2019-10-03";
-    // imagesMainBar.push(obj);
-    // imagesMultiBar.push(obj);
+    //Premiun plan
+    if (itemsPremiumPlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 3),
+        itemsPremiumPlan,
+        finalListItems
+      );
+    }
+    //plus plan
+    if (itemsPlusPlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 2),
+        itemsPlusPlan,
+        finalListItems
+      );
+    }
 
-    // var obj = new Object();
-    // obj["titlecategory"] = "Titulo Categoria";
-    // obj["titleproduct"] = "Titulo Producto";
-    // obj["valueprice"] = "$1000";
-    // obj["year"] = "2019-10-03";
-    // obj["description"] =
-    //   "Description Test  Descripción del producto viverra at erat vel, mattis commodo magna. Vestibulum porta leo at augue hendrerit, nec consequat purus varius. Vivamus libero nunc, aliquet quis viverra.";
-    // obj["email"] = "asdfgh@sdfghj.com";
-    // obj["phone"] = "22222222";
-    // obj["image"] = banner1;
-    // obj["id"] = 2;
-    // obj["images"] = [
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   },
-    //   {
-    //     imageUrl:
-    //       "https://coserencasa.com/wp-content/uploads/2019/03/maquina-coser-industrial-mesa.jpg"
-    //   }
-    // ];
-    // imagesMainBar.push(obj);
-    // imagesMultiBar.push(obj);
+    //free plan
+    if (itemsFreePlan.length === 0 && itemsByPlan.length > 0) {
+      this.createList(
+        itemsByPlan.filter(x => x.Idplan === 1),
+        itemsFreePlan,
+        finalListItems
+      );
+    }
 
-    // if (itemsPremium.length === 0) {
-    //   getDashboardProductsPlanPremium(firebase);
-    // } else {
-    //   itemsPremium.map(item => {
-    //     var obj = new Object();
-    //     obj["titlecategory"] =
-    //       lang === "en"
-    //         ? item.data.subcategory.subcategoryName
-    //         : item.data.subcategory.subcategoryName;
-    //     obj["titleproduct"] = item.data.productInformation.brand;
-    //     obj["valueprice"] = item.data.productInformation.price;
-    //     obj["description"] = item.data.productInformation.description;
-    //     obj["email"] = item.data.productInformation.email;
-    //     obj["phone"] = item.data.productInformation.phone;
-    //     obj["image"] = item.data.images[0].imageUrl1;
-    //     obj["id"] = item.id;
-    //     obj["year"] = item.data.productInformation.year;
-    //     imagesMainBar.push(obj);
-    //   });
-    // }
-
-    if (itemsPlus.length === 0) {
-      getDashboardProductsPlanPlus(firebase);
-    } else {
-      itemsPlus.map(item => {
-        var obj = new Object();
-        obj["titlecategory"] =
-          lang === "en"
-            ? item.data.subcategory.subcategoryName
-            : item.data.subcategory.subcategoryName;
-        obj["titleproduct"] = item.data.productInformation.brand;
-        obj["valueprice"] = item.data.productInformation.price;
-        obj["description"] = item.data.productInformation.description;
-        obj["email"] = item.data.productInformation.email;
-        obj["phone"] = item.data.productInformation.phone;
-        obj["images"] = item.data.images;
-        obj["id"] = item.id;
-        obj["year"] = item.data.productInformation.year;
-        obj["image"] = count == 1 ? banner1 : count == 2 ? banner2 : banner3;
-        imagesMainBar.push(obj);
-        imagesMultiBar.push(obj);
-
-        count = count + 1;
+    if (finalListItems.length > 0) {
+      finalListItems.map(item => {
+        var listImagesPerItem = [];
+        item.Images.map(image => {
+          listImagesPerItem.push({
+            imageUrl: base64Flag + image.Image
+          });
+        });
+        imagesMultiBar.push({
+          titlecategory:
+            lang.value === "en"
+              ? item.Titlecategory.split("|")[0]
+              : item.Titlecategory.split("|")[1],
+          titleproduct: item.Titleproduct,
+          valueprice:
+            item.Valueprice == 0
+              ? lang.value === "en"
+                ? "Consult"
+                : "A Consultar"
+              : "€ " + item.Valueprice,
+          description:
+            lang.value === "en"
+              ? item.Description.split("|")[0]
+              : item.Description.split("|")[1],
+          email: item.Email,
+          phone: item.Phone,
+          year: item.Year,
+          id: item.Id,
+          idPlan: item.Idplan,
+          images: listImagesPerItem
+        });
       });
+    }
 
-      // {
-      //   imagesMainBar &&
-      //     imagesMainBar.map(item => {
-      //       imagesMultiBar.push(item);
-      //     });
-      // }
+    var itemBasicInformation = [];
+    itemsPremiumPlan.map(premium => {
+      imagesHeader.map(image => {
+        if (premium.Id === image.idItem) {
+          premium["Image"] = image.image;
+          itemBasicInformation.push(premium);
+        }
+      });
+    });
+
+    if (itemsPremiumPlan != undefined && itemsPremiumPlan.length > 0) {
+      if (imagesHeader != undefined && imagesHeader.length > 0) {
+        itemBasicInformation.map(item => {
+          var listImagesPerItem = [];
+          item.Images.map(image => {
+            listImagesPerItem.push({
+              imageUrl: base64Flag + image.Image
+            });
+          });
+
+          imagesMainBar.push({
+            titlecategory:
+              lang.value === "en"
+                ? item.Titlecategory.split("|")[0]
+                : item.Titlecategory.split("|")[1],
+            titleproduct:
+              lang.value === "en"
+                ? item.Titleproduct.split("|")[0]
+                : item.Titleproduct.split("|")[1],
+            valueprice: item.Valueprice,
+            description:
+              lang.value === "en"
+                ? item.Description.split("|")[0]
+                : item.Description.split("|")[1],
+            email: item.Email,
+            phone: item.Phone,
+            images: listImagesPerItem,
+            id: item.Id,
+            year: item.Year,
+            image: base64Flag + item.Image
+          });
+        });
+      }
+    }
+
+    if (imagesPromo != undefined && imagesPromo.length > 0) {
+      imagesPromo.map(image => {
+        imagesPromotion.push({
+          imageUrl: base64Flag + image.image,
+          redirectUrl: "http://www.tellaneedles.com"
+        });
+      });
+    }
+
+    if (finalListItems.length > 0 && itemBasicInformation.length > 0) {
+      if (loading) {
+        this.setState({ loading: false });
+      }
     }
 
     return (
@@ -331,6 +385,7 @@ class Dashboard extends Component {
         imagesPromotion={imagesPromotion}
         notifications={notifications}
         logoWhite={logoWhite}
+        loading={loading}
       />
     );
   }
@@ -338,25 +393,18 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.firestore.ordered.items,
-    auth: state.firebase.auth,
     lang: state.navar.lang,
-    notifications: state.firestore.ordered.notifications,
-    profile: state.firebase.profile,
-    itemsPremium: state.dashboard.itemsPremium,
-    itemsPlus: state.dashboard.itemsPlus,
-    itemsBasic: state.dashboard.itemsBasic
+    currency: state.currency.currency,
+    imagesPromo: state.dashboard.imagesPromo,
+    imagesHeader: state.dashboard.imagesHeader,
+    itemsByPlan: state.queryResult.itemsByPlan
   };
 };
 
-export default compose(
-  connect(mapStateToProps, {
-    getDashboardProductsPlanPremium,
-    getDashboardProductsPlanPlus,
-    getDashboardProductsPlanBasic
-  }),
-  firestoreConnect([
-    { collection: "items", orderBy: ["createAt", "desc"] },
-    { collection: "notifications", limit: 3, orderBy: ["time", "desc"] }
-  ])
-)(Dashboard);
+export default connect(mapStateToProps, {
+  getPromoDashboard,
+  getPremiumHeaderImage,
+  getProductsByPlan,
+  cleanItems,
+  setStep
+})(Dashboard);

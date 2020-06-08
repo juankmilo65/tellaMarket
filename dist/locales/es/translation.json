@@ -48,6 +48,7 @@
     "location": "Localización",
     "description": "Descripción",
     "descriptionPlaceHolder": "Descripción detallada",
+    "currency": "Moneda local",
     "price": "Precio",
     "pricePlaceHolder": "Dolares americanos",
     "phonePlaceholder": "Telefono de contacto",
@@ -121,13 +122,14 @@
     "requiredField": "Campo Obligatorio",
     "requeredCategory": "Porfavor seleccione una categoria.",
     "ok": "Aceptar",
-    "numberOfPhotos": "El mínimo de fotos para realizar la creación del producto deben ser 4"
+    "numberOfPhotos": "El mínimo de fotos para realizar la creación del producto deben ser 1"
   },
   "messages": {
     "createItem": "Producto creado satisfactoriamente",
     "ok": "Ok",
     "congratulation": "Felicitaciones",
-    "soon": "Próximamente"
+    "soon": "Próximamente",
+    "createAccount": "Para revisar los detalles, te sugerimos unirte a nuestra web"
   },
   "dashboard": {
     "bigOffers": "Grandes ofertas",
@@ -147,5 +149,14 @@
     "year": "Años",
     "contact": "Contactar al vendedor",
     "stok": "En stock"
+  },
+  "query": {
+    "clean": "Limpiar filtros",
+    "sort": "Ordenar por:",
+    "category": "Categoria:",
+    "brand": "Marca:",
+    "location": "Localización:",
+    "products&categories": " Productos y Categorias",
+    "productList": "Listado de productos"
   }
 }

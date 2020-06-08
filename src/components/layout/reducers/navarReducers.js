@@ -1,6 +1,8 @@
 import {
   SELECT_LANGUAGE_SUCCESS,
   HIDE_HEADER_SUCCESS,
+  GET_CURRENT_LOCATION_SUCCESS,
+  SET_CATEGORIES_SUCCESS,
   SET_STATUS
 } from "../actions/navarActions";
 
@@ -10,7 +12,9 @@ const initState = {
   header: {
     isFomSignin: false,
     hideHeader: false
-  }
+  },
+  country: "",
+  categories: []
 };
 
 const navarReducers = (state = initState, action) => {
@@ -33,6 +37,18 @@ const navarReducers = (state = initState, action) => {
         ...state,
         status: "success",
         header: action.payload
+      };
+    }
+    case GET_CURRENT_LOCATION_SUCCESS: {
+      return {
+        ...state,
+        country: action.payload
+      };
+    }
+    case SET_CATEGORIES_SUCCESS: {
+      return {
+        ...state,
+        categories: action.payload
       };
     }
     default:
