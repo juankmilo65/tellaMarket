@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import imageCompression from "browser-image-compression";
 import {
   setFile,
   uploadImage,
-  uploadImageItem
+  uploadImageItem,
 } from "./actions/fileUploadActions";
 
 class FileUpload extends Component {
   state = {
     image: null,
     url: "",
-    error: ""
+    error: "",
   };
 
   b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
@@ -33,31 +34,44 @@ class FileUpload extends Component {
     return blob;
   };
 
-  handleUpload = async e => {
+  handleUpload = async (e) => {
     const { uploadImage, uploadImageItem } = this.props;
 
     var _URL = window.URL || window.webkitURL,
-      file = e.target.files[0],
-      image = new Image();
-    image.src = _URL.createObjectURL(file);
-    var type = file.type;
+      file = e.target.files[0];
+    var obj = new Object();
+    obj["Image"] = file;
+    // obj["IdPlan"] = 1;
+    obj["IdItem"] = 1;
+    uploadImageItem(obj);
+    //image = new Image()
+    // image.src = _URL.createObjectURL(newImage);
+    // var type = file.type;
 
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onloadend = function() {
-      var endDate = new Date();
-      endDate.setFullYear(endDate.getFullYear() + 5);
-      var base64data = reader.result.replace(/^data:.+;base64,/, "");
-      var obj = new Object();
-      // obj["StartDate"] = new Date();
-      // obj["EndDate"] = endDate;
-      obj["Image"] = base64data;
-      // obj["IdPlan"] = 1;
-      obj["IdItem"] = 1;
-      //obj["TableName"] = "itemimages";
-      // uploadImage(obj);
-      uploadImageItem(obj);
-    };
+    // var options = {
+    //   maxSizeMB: 1,
+    //   maxWidthOrHeight: 700,
+    //   useWebWorker: true,
+    // };
+
+    // var newImage = await imageCompression(file, options);
+
+    // var reader = new FileReader();
+    // reader.readAsDataURL(newImage);
+    // reader.onloadend = function () {
+    //   var endDate = new Date();
+    //   endDate.setFullYear(endDate.getFullYear() + 5);
+    //   var base64data = reader.result.replace(/^data:.+;base64,/, "");
+    //   var obj = new Object();
+    //   // obj["StartDate"] = new Date();
+    //   // obj["EndDate"] = endDate;
+    //   obj["Image"] = base64data;
+    //   // obj["IdPlan"] = 1;
+    //   obj["IdItem"] = 1;
+    //   //obj["TableName"] = "itemimages";
+    //   // uploadImage(obj);
+    //   uploadImageItem(obj);
+    // };
   };
 
   render() {
@@ -75,12 +89,12 @@ class FileUpload extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
 export default connect(mapStateToProps, {
   setFile,
   uploadImage,
-  uploadImageItem
+  uploadImageItem,
 })(FileUpload);
