@@ -5,11 +5,11 @@ const PrivacyPolicy = () => {
     <div className="project-list selection">
       <p>
         PRIVACY Tella Market makes it possible to put Members (Sellers and
-        Buyers) in contact for the purchase and sell of used industrial machines
-        and equipment listed on Tella Market. To benefit from the services
-        offered by Tella Market, Members must communicate Personal Data that is
-        collected, processed and protected in accordance with the present
-        privacy policy. Tella Market attaches a great importance to the
+        Buyers) in con tact for the purchase and sell of used industrial
+        machines and equipment listed on Tella Market. To benefit from the
+        services offered by Tella Market, Members must communicate Personal Data
+        that is collected, processed and protected in accordance with the
+        present privacy policy. Tella Market attaches a great importance to the
         protection of Members’ privacy and Personal Data in compliance with the
         current regulations including General Data Protection Regulation (GDPR).
         Members Personal Data collected bu Tella Market and the reason of such

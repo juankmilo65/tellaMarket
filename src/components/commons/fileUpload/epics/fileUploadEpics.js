@@ -57,7 +57,7 @@ export default function fileUploadEpics(action$) {
       } else if (action.type === UPLOAD_IMAGE_ITEM) {
         const form = new FormData();
         form.append("file", action.payload.Image);
-        form.append("idItem", action.payload.IdItem);
+        form.append("file", action.payload.Miniature);
         const config = {
           headers: {
             "content-type": "multipart/form-data",
@@ -69,21 +69,9 @@ export default function fileUploadEpics(action$) {
           of(setStatus("pending")),
           axios
             .post(apiServices + "/createImagesItems", form, config)
-            // fetch(apiServices + "/createImagesItems", {
-            //   mode: "cors",
-            //   method: "POST",
-            //   headers: new Headers({
-            //     Accept: "application/json",
-            //     "Content-Type": "form-data",
-            //   }),
-            //   body: JSON.stringify({
-            //     Image: action.payload.Image,
-            //     IdItem: action.payload.IdItem,
-            //   }),
-            // })
             .then((response) => {
-              if (response.ok) {
-                return response.json();
+              if (response.data === "OK") {
+                return response.status;
               } else {
                 return uploadImageItemError("Failed");
               }

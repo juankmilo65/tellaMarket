@@ -5,16 +5,10 @@ import "./carousel.scss";
 class carouselImage extends Component {
   state = {
     index: 0,
-    setIndex: 0,
-    direction: null,
-    setDirection: null
   };
   handleSelect = (selectedIndex, e) => {
     this.setState({
-      setIndex: selectedIndex,
       index: selectedIndex,
-      direction: e.direction,
-      setDirection: e.direction
     });
   };
   render() {
@@ -27,7 +21,7 @@ class carouselImage extends Component {
         onSelect={this.handleSelect}
       >
         {images &&
-          images.map(image => {
+          images.map((image) => {
             count = ++count;
             return (
               <Carousel.Item key={count}>

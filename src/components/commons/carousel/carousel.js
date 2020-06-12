@@ -17,7 +17,7 @@ function MyComponent(state) {
         onSelect={state.handleSelect}
       >
         {state.images &&
-          state.images.map(image => {
+          state.images.map((image) => {
             return (
               <Carousel.Item key={image.id}>
                 <img
@@ -56,17 +56,11 @@ function MyComponent(state) {
 class carousel extends Component {
   state = {
     index: 0,
-    setIndex: 0,
-    direction: null,
-    setDirection: null
   };
 
   handleSelect = (selectedIndex, e) => {
     this.setState({
-      setIndex: selectedIndex,
       index: selectedIndex,
-      direction: e.direction,
-      setDirection: e.direction
     });
   };
   render() {
@@ -85,8 +79,8 @@ class carousel extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  lang: state.navar.lang
+const mapStateToProps = (state) => ({
+  lang: state.navar.lang,
 });
 
 export default connect(mapStateToProps, null)(carousel);

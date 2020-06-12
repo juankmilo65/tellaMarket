@@ -43,18 +43,23 @@ class FileUpload extends Component {
     obj["Image"] = file;
     // obj["IdPlan"] = 1;
     obj["IdItem"] = 1;
-    uploadImageItem(obj);
+
     //image = new Image()
     // image.src = _URL.createObjectURL(newImage);
     // var type = file.type;
 
-    // var options = {
-    //   maxSizeMB: 1,
-    //   maxWidthOrHeight: 700,
-    //   useWebWorker: true,
-    // };
+    var options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 400,
+      useWebWorker: true,
+    };
 
-    // var newImage = await imageCompression(file, options);
+    obj["Miniature"] = new File(
+      [await imageCompression(file, options)],
+      `miniature.${file.name.split(".")[1]}`
+    );
+    console.log(obj);
+    uploadImageItem(obj);
 
     // var reader = new FileReader();
     // reader.readAsDataURL(newImage);
