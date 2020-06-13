@@ -9,7 +9,7 @@ import CarouselMultiple from "../commons/carousel/carouselMultiple";
 import CarouselImage from "../commons/carousel/carouselImage";
 import {
   getPromoDashboard,
-  getPremiumHeaderImage
+  getPremiumHeaderImage,
 } from "../dashboard/actions/dashboardActions";
 import { cleanItems } from "../items/controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../items/steps/actions/stepsActions";
@@ -19,6 +19,7 @@ import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
 import cloneDeep from "clone-deep";
+import { miniaturePath } from "../../config/constants";
 
 import "./dashboard.scss";
 
@@ -208,7 +209,7 @@ function MyComponent(state) {
 
 class Dashboard extends Component {
   state = {
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
@@ -217,7 +218,7 @@ class Dashboard extends Component {
       getPremiumHeaderImage,
       getProductsByPlan,
       cleanItems,
-      setStep
+      setStep,
     } = this.props;
 
     getPromoDashboard("promotionimages");
@@ -225,15 +226,16 @@ class Dashboard extends Component {
     getProductsByPlan([1, 2, 3]);
     cleanItems();
     setStep(1);
+    console.log(miniaturePath);
   }
 
   createList(listItems, itemsPlan, finalListItems) {
     const listCloned = cloneDeep(listItems);
-    listCloned.map(item => {
+    listCloned.map((item) => {
       itemsPlan.push(item);
     });
 
-    itemsPlan.map(item => {
+    itemsPlan.map((item) => {
       finalListItems.push(item);
     });
   }
@@ -246,7 +248,7 @@ class Dashboard extends Component {
       currency,
       imagesPromo,
       imagesHeader,
-      itemsByPlan
+      itemsByPlan,
     } = this.props;
     const imagesMainBar = [];
     const imagesMultiBar = [];
@@ -255,12 +257,14 @@ class Dashboard extends Component {
     const itemsPlusPlan = [];
     const itemsFreePlan = [];
     const finalListItems = [];
-    var base64Flag = "data:image/jpeg;base64,";
+    //var base64Flag = "data:image/jpeg;base64,";
+
+    console.log(miniaturePath);
 
     //Premiun plan
     if (itemsPremiumPlan.length === 0 && itemsByPlan.length > 0) {
       this.createList(
-        itemsByPlan.filter(x => x.Idplan === 3),
+        itemsByPlan.filter((x) => x.Idplan === 3),
         itemsPremiumPlan,
         finalListItems
       );
@@ -268,7 +272,7 @@ class Dashboard extends Component {
     //plus plan
     if (itemsPlusPlan.length === 0 && itemsByPlan.length > 0) {
       this.createList(
-        itemsByPlan.filter(x => x.Idplan === 2),
+        itemsByPlan.filter((x) => x.Idplan === 2),
         itemsPlusPlan,
         finalListItems
       );
@@ -277,25 +281,27 @@ class Dashboard extends Component {
     //free plan
     if (itemsFreePlan.length === 0 && itemsByPlan.length > 0) {
       this.createList(
-        itemsByPlan.filter(x => x.Idplan === 1),
+        itemsByPlan.filter((x) => x.Idplan === 1),
         itemsFreePlan,
         finalListItems
       );
     }
 
     if (finalListItems.length > 0) {
-      finalListItems.map(item => {
+      finalListItems.map((item) => {
         var listImagesPerItem = [];
-        item.Images.map(image => {
-          listImagesPerItem.push({
-            imageUrl: base64Flag + image.Image
-          });
+        item.Images.split(",").map((image) => {
+          if (image !== "") {
+            listImagesPerItem.push({
+              imageUrl: miniaturePath + image,
+            });
+          }
         });
         imagesMultiBar.push({
-          titlecategory:
-            lang.value === "en"
-              ? item.Titlecategory.split("|")[0]
-              : item.Titlecategory.split("|")[1],
+          // titlecategory:
+          //   lang.value === "en"
+          //     ? item.Titlecategory.split("|")[0]
+          //     : item.Titlecategory.split("|")[1],
           titleproduct: item.Titleproduct,
           valueprice:
             item.Valueprice == 0
@@ -303,23 +309,23 @@ class Dashboard extends Component {
                 ? "Consult"
                 : "A Consultar"
               : "€ " + item.Valueprice,
-          description:
-            lang.value === "en"
-              ? item.Description.split("|")[0]
-              : item.Description.split("|")[1],
-          email: item.Email,
-          phone: item.Phone,
-          year: item.Year,
+          // description:
+          //   lang.value === "en"
+          //     ? item.Description.split("|")[0]
+          //     : item.Description.split("|")[1],
+          // email: item.Email,
+          // phone: item.Phone,
+          // year: item.Year,
           id: item.Id,
           idPlan: item.Idplan,
-          images: listImagesPerItem
+          images: listImagesPerItem,
         });
       });
     }
 
     var itemBasicInformation = [];
-    itemsPremiumPlan.map(premium => {
-      imagesHeader.map(image => {
+    itemsPremiumPlan.map((premium) => {
+      imagesHeader.map((image) => {
         if (premium.Id === image.idItem) {
           premium["Image"] = image.image;
           itemBasicInformation.push(premium);
@@ -329,46 +335,47 @@ class Dashboard extends Component {
 
     if (itemsPremiumPlan != undefined && itemsPremiumPlan.length > 0) {
       if (imagesHeader != undefined && imagesHeader.length > 0) {
-        itemBasicInformation.map(item => {
-          var listImagesPerItem = [];
-          item.Images.map(image => {
-            listImagesPerItem.push({
-              imageUrl: base64Flag + image.Image
-            });
-          });
-
-          imagesMainBar.push({
-            titlecategory:
-              lang.value === "en"
-                ? item.Titlecategory.split("|")[0]
-                : item.Titlecategory.split("|")[1],
-            titleproduct:
-              lang.value === "en"
-                ? item.Titleproduct.split("|")[0]
-                : item.Titleproduct.split("|")[1],
-            valueprice: item.Valueprice,
-            description:
-              lang.value === "en"
-                ? item.Description.split("|")[0]
-                : item.Description.split("|")[1],
-            email: item.Email,
-            phone: item.Phone,
-            images: listImagesPerItem,
-            id: item.Id,
-            year: item.Year,
-            image: base64Flag + item.Image
-          });
-        });
+        // itemBasicInformation.map((item) => {
+        //   var listImagesPerItem = [];
+        //   item.Images.split(",").map((image) => {
+        //     if (image !== "") {
+        //       listImagesPerItem.push({
+        //         imageUrl: miniaturePath + image.Image,
+        //       });
+        //     }
+        //   });
+        //   imagesMainBar.push({
+        //     titlecategory:
+        //       lang.value === "en"
+        //         ? item.Titlecategory.split("|")[0]
+        //         : item.Titlecategory.split("|")[1],
+        //     titleproduct:
+        //       lang.value === "en"
+        //         ? item.Titleproduct.split("|")[0]
+        //         : item.Titleproduct.split("|")[1],
+        //     valueprice: item.Valueprice,
+        //     description:
+        //       lang.value === "en"
+        //         ? item.Description.split("|")[0]
+        //         : item.Description.split("|")[1],
+        //     email: item.Email,
+        //     phone: item.Phone,
+        //     images: listImagesPerItem,
+        //     id: item.Id,
+        //     year: item.Year,
+        //     image: base64Flag + item.Image,
+        //   });
+        // });
       }
     }
 
     if (imagesPromo != undefined && imagesPromo.length > 0) {
-      imagesPromo.map(image => {
-        imagesPromotion.push({
-          imageUrl: base64Flag + image.image,
-          redirectUrl: "http://www.tellaneedles.com"
-        });
-      });
+      // imagesPromo.map((image) => {
+      //   imagesPromotion.push({
+      //     imageUrl: base64Flag + image.image,
+      //     redirectUrl: "http://www.tellaneedles.com",
+      //   });
+      // });
     }
 
     if (finalListItems.length > 0 && itemBasicInformation.length > 0) {
@@ -391,13 +398,13 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     lang: state.navar.lang,
     currency: state.currency.currency,
     imagesPromo: state.dashboard.imagesPromo,
     imagesHeader: state.dashboard.imagesHeader,
-    itemsByPlan: state.queryResult.itemsByPlan
+    itemsByPlan: state.queryResult.itemsByPlan,
   };
 };
 
@@ -406,5 +413,5 @@ export default connect(mapStateToProps, {
   getPremiumHeaderImage,
   getProductsByPlan,
   cleanItems,
-  setStep
+  setStep,
 })(Dashboard);
