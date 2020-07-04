@@ -10,6 +10,10 @@ export const imagesPath =
   process.env.NODE_ENV === "production"
     ? "https://services.tellamarket.com/itemsImages/"
     : "http://localhost:3000/itemsImages/";
+export const headersPath =
+  process.env.NODE_ENV === "production"
+    ? "https://services.tellamarket.com/headersImages/"
+    : "http://localhost:3000/headersImages/";
 export const socialAuth = {
   facebookApplicationId: "2107786579515025",
   googleApplicationId:

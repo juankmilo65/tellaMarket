@@ -6,7 +6,7 @@ class Spinner extends Component {
   render() {
     return (
       <div id="cover-spin">
-        <img src={loading} alt="Loading TellaMarket" />
+        <img id="img-gif" src={loading} alt="Loading TellaMarket" />
       </div>
     );
   }

@@ -19,7 +19,7 @@ import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
 import cloneDeep from "clone-deep";
-import { miniaturePath } from "../../config/constants";
+import { miniaturePath, headersPath } from "../../config/constants";
 
 import "./dashboard.scss";
 
@@ -327,7 +327,7 @@ class Dashboard extends Component {
     itemsPremiumPlan.map((premium) => {
       imagesHeader.map((image) => {
         if (premium.Id === image.idItem) {
-          premium["Image"] = image.image;
+          premium["Name"] = image.Name;
           itemBasicInformation.push(premium);
         }
       });
@@ -335,37 +335,29 @@ class Dashboard extends Component {
 
     if (itemsPremiumPlan != undefined && itemsPremiumPlan.length > 0) {
       if (imagesHeader != undefined && imagesHeader.length > 0) {
-        // itemBasicInformation.map((item) => {
-        //   var listImagesPerItem = [];
-        //   item.Images.split(",").map((image) => {
-        //     if (image !== "") {
-        //       listImagesPerItem.push({
-        //         imageUrl: miniaturePath + image.Image,
-        //       });
-        //     }
-        //   });
-        //   imagesMainBar.push({
-        //     titlecategory:
-        //       lang.value === "en"
-        //         ? item.Titlecategory.split("|")[0]
-        //         : item.Titlecategory.split("|")[1],
-        //     titleproduct:
-        //       lang.value === "en"
-        //         ? item.Titleproduct.split("|")[0]
-        //         : item.Titleproduct.split("|")[1],
-        //     valueprice: item.Valueprice,
-        //     description:
-        //       lang.value === "en"
-        //         ? item.Description.split("|")[0]
-        //         : item.Description.split("|")[1],
-        //     email: item.Email,
-        //     phone: item.Phone,
-        //     images: listImagesPerItem,
-        //     id: item.Id,
-        //     year: item.Year,
-        //     image: base64Flag + item.Image,
-        //   });
-        // });
+        itemBasicInformation.map((item) => {
+          var listImagesPerItem = [];
+          // item.Images.split(",").map((image) => {
+          //   if (image !== "") {
+          //     listImagesPerItem.push({
+          //       imageUrl: headersPath + item.Name,
+          //     });
+          //   }
+          // });
+          imagesMainBar.push({
+            titlecategory:
+              lang.value === "en"
+                ? item.Titlecategory.split("|")[0]
+                : item.Titlecategory.split("|")[1],
+            titleproduct:
+              lang.value === "en"
+                ? item.Titleproduct.split("|")[0]
+                : item.Titleproduct.split("|")[1],
+            valueprice: item.Valueprice,
+            id: item.Id,
+            image: headersPath + item.Name,
+          });
+        });
       }
     }
 
