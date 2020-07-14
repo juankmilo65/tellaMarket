@@ -128,8 +128,12 @@
     "createItem": "Product successfully created",
     "ok": "Ok",
     "congratulation": "Congratulations",
+    "error": "Error",
     "soon": "Coming soon",
-    "createAccount": "To review the details, we suggest you join our website"
+    "createAccount": "To review the details, we suggest you join our website",
+    "userCreated": "User created successfully",
+    "userExist": "Registered email already exists.",
+    "errorLogin": "The email or password is incorrect"
   },
   "dashboard": {
     "bigOffers": "Big offers",
@@ -148,7 +152,8 @@
     "categories": "Categories",
     "year": "Year",
     "contact": "Contact the seller",
-    "stok": "In stock"
+    "stok": "In stock",
+    "valueMessage": "Consult"
   },
   "query": {
     "clean": "Clean filters",

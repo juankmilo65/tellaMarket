@@ -8,21 +8,15 @@ import Popup from "reactjs-popup";
 import "./createMenu.scss";
 
 function MyComponent(state) {
-  const { t, i18n } = useTranslation();
-
-  if (i18n.language !== state.lang.value) {
-    i18n.changeLanguage(state.lang.value);
-  }
-
   let countNewItem = 0;
   let displayData = [];
   let displayDataFInish = [];
   let copyState = Object.assign({}, state);
 
   if (state.newItem.length > 0) {
-    state.newItem.map(function(item) {
+    state.newItem.map(function (item) {
       let countChild = 0;
-      item.props.children.map(function(itemChild) {
+      item.props.children.map(function (itemChild) {
         if (
           itemChild.props.children.props.children.type !== null &&
           itemChild.props.children.props.children.type !== "label" &&
@@ -40,53 +34,53 @@ function MyComponent(state) {
                 : this.state[
                     itemChild.props.children.props.children.props.children.props
                       .children.props.idInput
-                  ]
+                  ],
           };
 
           let childrenProperties = {
             ...itemChild.props.children.props.children.props.children.props
               .children,
-            ["props"]: newItemProp
+            ["props"]: newItemProp,
           };
 
           let childrenPropertiesChidren = {
             ...itemChild.props.children.props.children.props.children.props,
-            ["children"]: childrenProperties
+            ["children"]: childrenProperties,
           };
 
           let childrenPropertiesChidrenProperties = {
             ...itemChild.props.children.props.children.props.children,
-            ["props"]: childrenPropertiesChidren
+            ["props"]: childrenPropertiesChidren,
           };
 
           let childrenPropertiesChidrenPropertiesChildren = {
             ...itemChild.props.children.props.children.props,
-            ["children"]: childrenPropertiesChidrenProperties
+            ["children"]: childrenPropertiesChidrenProperties,
           };
 
           let childrenPropertiesChidrenPropertiesChildrenProperties = {
             ...itemChild.props.children.props.children,
-            ["props"]: childrenPropertiesChidrenPropertiesChildren
+            ["props"]: childrenPropertiesChidrenPropertiesChildren,
           };
 
           let childrenPropertiesChidrenPropertiesChildrenPropertiesClindren = {
             ...itemChild.props.children.prop,
-            ["children"]: childrenPropertiesChidrenPropertiesChildrenProperties
+            ["children"]: childrenPropertiesChidrenPropertiesChildrenProperties,
           };
 
           let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenProperties = {
             ...itemChild.props.children,
-            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindren
+            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindren,
           };
 
           let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildren = {
             ...itemChild.props,
-            ["children"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenProperties
+            ["children"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenProperties,
           };
 
           let childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildrenProperties = {
             ...itemChild,
-            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildren
+            ["props"]: childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildren,
           };
 
           var f = childrenPropertiesChidrenPropertiesChildrenPropertiesClindrenPropertiesChildrenProperties;
@@ -100,12 +94,12 @@ function MyComponent(state) {
 
       var newItemChildren = {
         ...item.props,
-        ["children"]: displayData
+        ["children"]: displayData,
       };
 
       displayDataFInish.push({
         ...item,
-        ["props"]: newItemChildren
+        ["props"]: newItemChildren,
       });
 
       countNewItem = countNewItem + 1;
@@ -114,7 +108,7 @@ function MyComponent(state) {
 
     if (JSON.stringify(state.newItem) !== JSON.stringify(displayDataFInish)) {
       state.this.setState({
-        ["newItem"]: displayDataFInish
+        ["newItem"]: displayDataFInish,
       });
     }
   }
@@ -267,7 +261,7 @@ function MyComponent(state) {
           </div>
 
           {state.newItem &&
-            state.newItem.map(item => {
+            state.newItem.map((item) => {
               return item;
             })}
 
@@ -316,10 +310,10 @@ class CreateMenu extends Component {
     ptSubcategory: "",
     ptItem1: "",
     loadGrid: true,
-    showModal: false
+    showModal: false,
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const { lang, cleanList } = this.props;
@@ -332,15 +326,15 @@ class CreateMenu extends Component {
 
     const stateProperties = Object.keys(this.state);
 
-    stateProperties.map(state => {
+    stateProperties.map((state) => {
       if (state === "catalogoEn") {
-        this.state.catalogoEn.map(item => {
+        this.state.catalogoEn.map((item) => {
           const englishProperties = Object.keys(item);
-          englishProperties.map(property => {
+          englishProperties.map((property) => {
             let count = 2;
             if (property.includes("Item")) {
               const itemPropertyName = Object.keys(this.state.catalogoEn[0]);
-              itemPropertyName.map(itemProperty => {
+              itemPropertyName.map((itemProperty) => {
                 if (
                   Object.keys(listItemEn).length === 0 &&
                   itemProperty.includes("Item")
@@ -372,18 +366,18 @@ class CreateMenu extends Component {
 
         const catalogo = {
           language: "en",
-          myCatalog
+          myCatalog,
         };
 
         this.props.createMenu(catalogo);
       } else if (state === "catalogoEs") {
-        this.state.catalogoEs.map(item => {
+        this.state.catalogoEs.map((item) => {
           const englishProperties = Object.keys(item);
-          englishProperties.map(property => {
+          englishProperties.map((property) => {
             let count = 2;
             if (property.includes("Item")) {
               const itemPropertyName = Object.keys(this.state.catalogoEs[0]);
-              itemPropertyName.map(itemProperty => {
+              itemPropertyName.map((itemProperty) => {
                 if (
                   Object.keys(listItemEs).length === 0 &&
                   itemProperty.includes("Item")
@@ -415,7 +409,7 @@ class CreateMenu extends Component {
 
         const catalogo = {
           language: "es",
-          myCatalog
+          myCatalog,
           //documents: documentsEs
         };
 
@@ -478,17 +472,17 @@ class CreateMenu extends Component {
     this.setState({ ["showModal"]: false });
   };
 
-  handleDeleteItem = e => {
+  handleDeleteItem = (e) => {
     this.displayData = [];
-    this.displayData = this.state.newItem.filter(item => {
+    this.displayData = this.state.newItem.filter((item) => {
       return item.key !== e.currentTarget.parentNode.parentNode.parentNode.id;
     });
     this.setState({
-      ["newItem"]: this.displayData
+      ["newItem"]: this.displayData,
     });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     if (e.target.id.includes("en")) {
       this.setStore(e, "catalogoEn");
     } else if (e.target.id.includes("es")) {
@@ -604,14 +598,14 @@ class CreateMenu extends Component {
       </div>
     );
     this.setState({
-      ["newItem"]: this.displayData
+      ["newItem"]: this.displayData,
     });
   };
 
   setStore(e, catalogoName) {
     if (this.propertiesEn.length > 0 && e.target.id.includes("en")) {
-      Object.values(this.propertiesEn).map(property => {
-        Object.keys(property).map(prop => {
+      Object.values(this.propertiesEn).map((property) => {
+        Object.keys(property).map((prop) => {
           property[e.target.id] = e.target.value;
         });
       });
@@ -620,8 +614,8 @@ class CreateMenu extends Component {
     }
 
     if (this.propertiesEs.length > 0 && e.target.id.includes("es")) {
-      Object.values(this.propertiesEs).map(property => {
-        Object.keys(property).map(prop => {
+      Object.values(this.propertiesEs).map((property) => {
+        Object.keys(property).map((prop) => {
           property[e.target.id] = e.target.value;
         });
       });
@@ -630,8 +624,8 @@ class CreateMenu extends Component {
     }
 
     if (this.propertiesPt.length > 0 && e.target.id.includes("pt")) {
-      Object.values(this.propertiesPt).map(property => {
-        Object.keys(property).map(prop => {
+      Object.values(this.propertiesPt).map((property) => {
+        Object.keys(property).map((prop) => {
           property[e.target.id] = e.target.value;
         });
       });
@@ -646,7 +640,7 @@ class CreateMenu extends Component {
           ? this.propertiesEn
           : catalogoName === "catalogoEs"
           ? this.propertiesEs
-          : this.propertiesPt
+          : this.propertiesPt,
     });
   }
 
@@ -656,7 +650,7 @@ class CreateMenu extends Component {
     let list = [];
 
     if (catalogs.length > 0) {
-      catalogs.forEach(catalog => {
+      catalogs.forEach((catalog) => {
         var obj = new Object();
 
         obj["id"] = catalog.Id;
@@ -699,9 +693,9 @@ class CreateMenu extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   lang: state.navar.lang,
-  catalogs: state.createmenu.catalogs
+  catalogs: state.createmenu.catalogs,
 });
 
 export default connect(mapStateToProps, { createMenu })(CreateMenu);

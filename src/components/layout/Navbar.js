@@ -8,88 +8,69 @@ import { hideHeader, setCategories } from "../layout/actions/navarActions";
 import { getCatalog } from "../administration/menu/actions/createMenuActions";
 import "./navbar.scss";
 import logo from "../../images/Logo.svg";
-//import algoliasearch from "algoliasearch/lite";
 import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
 import { hamburgerMenu } from "./scripts/scripts";
-import {
-  InstantSearch,
-  Configure,
-  Highlight,
-  connectAutoComplete
-} from "react-instantsearch-dom";
 import Autosuggest from "react-autosuggest";
-// const searchClient = algoliasearch(
-//   "LOYYIQWO7O",
-//   "1ba2b0f2147ae9c9553f63c594e0feca"
-// );
 
-class Hits extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "", hits: [] };
-  }
-  componentDidMount() {
-    hamburgerMenu();
-  }
+const languages = [
+  {
+    name: "C",
+    year: 1972,
+  },
+  {
+    name: "Elm",
+    year: 2012,
+  },
+];
 
-  componentWillReceiveProps(props) {
-    this.setState({ hits: props.hits });
-  }
-  render() {
-    const { hits, currentRefinement, refine, lang } = this.props;
-    return (
-      // <Autosuggest
-      //   suggestions={this.state.hits}
-      //   multiSection={false}
-      //   onSuggestionSelected={(event, { suggestion, suggestionValue }) => {
-      //     console.log("Suggestion:", suggestion);
-      //     console.log("Suggestion value:", suggestionValue);
-      //   }}
-      //   onSuggestionsFetchRequested={({ value }) => refine(value)}
-      //   onSuggestionsClearRequested={() => this.setState({ hits: [] })}
-      //   getSuggestionValue={hit => hit.productInformation.productName}
-      //   renderSuggestion={hit => (
-      //     <div className="hit">
-      //       <div>
-      //         <span>
-      //           <Highlight
-      //             attribute="productInformation.productName"
-      //             hit={hit}
-      //           />
-      //           <h3>{hit.subcategory.subcategoryName}</h3>
-      //         </span>
-      //       </div>
-      //     </div>
-      //   )}
-      //   inputProps={{
-      //     placeholder: lang.value === "es" ? "Buscar" : "Search",
-      //     value: this.state.value,
-      //     onChange: (event, { newValue, method }) => {
-      //       this.setState({ value: newValue });
-      //     }
-      //   }}
-      //   renderSectionTitle={section => section.index}
-      //   getSectionSuggestions={section => section.hits}
-      // />
-      <div></div>
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0
+    ? []
+    : languages.filter(
+      (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
     );
-  }
-}
+};
+
+const renderSuggestion = (suggestion) => <div>{suggestion.name}</div>;
+
+const getSuggestionValue = (suggestion) => suggestion.name;
 
 class Navbar extends Component {
   state = {
     redirect: false,
-    idCategory: ""
+    idCategory: "",
+    value: '',
+    suggestions: [],
   };
-  handleChange = e => {};
 
-  setRedirect = idCategory => {
+  onChange = (event, { newValue }) => {
     this.setState({
-      redirect: true
+      value: newValue,
+    });
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  setRedirect = (idCategory) => {
+    this.setState({
+      redirect: true,
     });
     this.setState({
-      idCategory: idCategory
+      idCategory: idCategory,
     });
   };
 
@@ -100,8 +81,8 @@ class Navbar extends Component {
           to={{
             pathname: "/query",
             state: {
-              idCategory: this.state.idCategory
-            }
+              idCategory: this.state.idCategory,
+            },
           }}
         />
       );
@@ -121,21 +102,27 @@ class Navbar extends Component {
       header,
       hideHeader,
       catalogs,
-      setCategories
+      setCategories,
     } = this.props;
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: lang.value === "es" ? "Buscar" : "Search",
+      value,
+      onChange: this.onChange,
+    };
     let list = [];
-    const images = [logo];
+
     let isDiferent = false;
     const hideHeaderLocal =
       header.isFomSignin && window.location.pathname === "/signin"
         ? false
         : !header.isFomSignin && window.location.pathname !== "/signin"
-        ? header.hideHeader
-        : header.isFomSignin && window.location.pathname === "/"
-        ? false
-        : true;
+          ? header.hideHeader
+          : header.isFomSignin && window.location.pathname === "/"
+            ? false
+            : true;
 
-    Object.keys(header).map(obj => {
+    Object.keys(header).map((obj) => {
       if (obj == "hideHeader") {
         if (header[obj] != hideHeaderLocal) {
           isDiferent = true;
@@ -149,7 +136,7 @@ class Navbar extends Component {
     }
 
     if (lang.value === "en") {
-      catalogs.map(catalog => {
+      catalogs.map((catalog) => {
         var obj = new Object();
         obj["id"] = catalog.Id;
         obj["Category"] = catalog.Catalog.split("|")[0];
@@ -159,7 +146,7 @@ class Navbar extends Component {
     }
 
     if (lang.value === "es") {
-      catalogs.map(catalog => {
+      catalogs.map((catalog) => {
         var obj = new Object();
         obj["id"] = catalog.Id;
         obj["Category"] = catalog.Catalog.split("|")[1];
@@ -172,8 +159,8 @@ class Navbar extends Component {
       auth != null && auth.User && window.location.pathname !== "/signin" ? (
         <SignedInLinks profile={auth} />
       ) : (
-        <SignedOutLinks />
-      );
+          <SignedOutLinks />
+        );
 
     return (
       <div className="menu-tella">
@@ -182,10 +169,10 @@ class Navbar extends Component {
             {hideHeaderLocal ? (
               <div />
             ) : (
-              <Link to="/" className="logo">
-                <img src={logo} alt="Tella Market" />
-              </Link>
-            )}
+                <Link to="/" className="logo">
+                  <img src={logo} alt="Tella Market" />
+                </Link>
+              )}
 
             <div className="nav-right" id="myTopnav">
               {/* {auth.isLoaded && links} */}
@@ -200,42 +187,40 @@ class Navbar extends Component {
         {hideHeaderLocal ? (
           <div />
         ) : (
-          <div className="search">
-            <div className="container-tella">
-              <div className="dropdown">
-                <Categories categories={list}></Categories>
+            <div className="search">
+              <div className="container-tella">
+                <div className="dropdown">
+                  <Categories categories={list}></Categories>
+                </div>
+                <div className="input-search">
+                  <Autosuggest
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={getSuggestionValue}
+                    renderSuggestion={renderSuggestion}
+                    inputProps={inputProps}
+                  />
+                </div>
               </div>
-              {/* <div className="input-search">
-                <InstantSearch
-                  searchClient={searchClient}
-                  indexName="dev_tellamarket"
-                >
-                  <AutoComplete />
-                  <Configure hitsPerPage={10} />
-                </InstantSearch>
-            
-              </div> */}
             </div>
-          </div>
-        )}
+          )}
         {this.renderRedirect()}
       </div>
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.signin.auth,
     lang: state.navar.lang,
     header: state.navar.header,
-    catalogs: state.createmenu.catalogs
+    catalogs: state.createmenu.catalogs,
   };
 };
-
-// const AutoComplete = connect(mapStateToProps, null)(connectAutoComplete(Hits));
 
 export default connect(mapStateToProps, {
   hideHeader,
   getCatalog,
-  setCategories
+  setCategories,
 })(Navbar);
