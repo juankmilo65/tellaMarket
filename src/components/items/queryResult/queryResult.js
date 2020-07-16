@@ -5,7 +5,6 @@ import "./queryResult.scss";
 import { connect } from "react-redux";
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
 import {
-  InstantSearch,
   Hits,
   Pagination,
   ClearRefinements,

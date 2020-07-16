@@ -12,32 +12,75 @@ import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
 import { hamburgerMenu } from "./scripts/scripts";
 import Autosuggest from "react-autosuggest";
+import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
+import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 
-const languages = [
+import UseAutocompleteField from "../commons/autocomplete/UseAutocompleteField"
+
+const people = [
   {
-    name: "C",
-    year: 1972,
+    first: 'Charlie',
+    last: 'Brown',
+    twitter: 'dancounsell'
   },
   {
-    name: "Elm",
-    year: 2012,
+    first: 'Charlotte',
+    last: 'White',
+    twitter: 'mtnmissy'
   },
+  {
+    first: 'Chloe',
+    last: 'Jones',
+    twitter: 'ladylexy'
+  },
+  {
+    first: 'Cooper',
+    last: 'King',
+    twitter: 'steveodom'
+  }
 ];
 
-const getSuggestions = (value) => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
+function escapeRegexCharacters(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
-  return inputLength === 0
-    ? []
-    : languages.filter(
-      (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-};
+function getSuggestions(value) {
+  const escapedValue = escapeRegexCharacters(value.trim());
 
-const renderSuggestion = (suggestion) => <div>{suggestion.name}</div>;
+  if (escapedValue === '') {
+    return [];
+  }
 
-const getSuggestionValue = (suggestion) => suggestion.name;
+  const regex = new RegExp('\\b' + escapedValue, 'i');
+
+  return people.filter(person => regex.test(getSuggestionValue(person)));
+}
+
+function getSuggestionValue(suggestion) {
+  return `${suggestion.first} ${suggestion.last}`;
+}
+
+function renderSuggestion(suggestion, { query }) {
+  const suggestionText = `${suggestion.first} ${suggestion.last}`;
+  const matches = AutosuggestHighlightMatch(suggestionText, query);
+  const parts = AutosuggestHighlightParse(suggestionText, matches);
+
+  return (
+    <span className={'suggestion-content ' + suggestion.twitter}>
+      <span className="name">
+        {
+          parts.map((part, index) => {
+            const className = part.highlight ? 'highlight' : null;
+
+            return (
+              <span className={className} key={index}>{part.text}</span>
+            );
+          })
+        }
+      </span>
+    </span>
+  );
+}
 
 class Navbar extends Component {
   state = {
@@ -199,9 +242,9 @@ class Navbar extends Component {
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     getSuggestionValue={getSuggestionValue}
                     renderSuggestion={renderSuggestion}
-                    inputProps={inputProps}
-                  />
+                    inputProps={inputProps} />
                 </div>
+                <UseAutocompleteField type="indexAutocomplete" url="http://localhost:3001/api" />
               </div>
             </div>
           )}

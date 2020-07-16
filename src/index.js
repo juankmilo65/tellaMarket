@@ -5,17 +5,21 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
-
+import { ApolloProvider } from '@apollo/client';
+import apolloClient from './config/ApolloSetup'
 import "./i18n";
 
 const storeConfigured = configureStore();
 
+
 ReactDOM.render(
-  <Provider store={storeConfigured}>
-    <Suspense fallback="loading">
-      <App />
-    </Suspense>
-  </Provider>,
+  <ApolloProvider client={apolloClient}>
+    <Provider store={storeConfigured}>
+      <Suspense fallback="loading">
+        <App />
+      </Suspense>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
