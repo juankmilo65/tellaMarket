@@ -4,14 +4,14 @@ import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
 import { connect } from "react-redux";
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
-import {
-  Hits,
-  Pagination,
-  ClearRefinements,
-  RefinementList,
-  Configure,
-  SortBy
-} from "react-instantsearch-dom";
+// import {
+//   Hits,
+//   Pagination,
+//   ClearRefinements,
+//   RefinementList,
+//   Configure,
+//   SortBy
+// } from "react-instantsearch-dom";
 //import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
 
@@ -39,14 +39,14 @@ function MyComponent(state) {
           > */}
         <div className="list-product">
           <div className="filter">
-            <ClearRefinements
+            {/* <ClearRefinements
               translations={{
                 reset: t("query.clean")
               }}
-            />
+            /> */}
             <div className="order">
               <label className="title-filter">{t("query.sort")}</label>
-              <SortBy
+              {/* <SortBy
                 defaultRefinement="dev_tellamarket"
                 items={[
                   {
@@ -63,32 +63,32 @@ function MyComponent(state) {
                   }
                 ]}
               />
-              <Configure hitsPerPage={8} />
+              <Configure hitsPerPage={8} /> */}
             </div>
             <div className="category">
               <label className="title-filter">{t("query.category")}</label>
-              <RefinementList attribute="subcategory.subcategoryName" />
-              <Configure hitsPerPage={8} />
+              {/* <RefinementList attribute="subcategory.subcategoryName" />
+              <Configure hitsPerPage={8} /> */}
             </div>
             <div className="price">
               <label className="title-filter">{t("query.brand")}</label>
-              <RefinementList attribute="productInformation.brand" />
-              <Configure hitsPerPage={8} />
+              {/* <RefinementList attribute="productInformation.brand" />
+              <Configure hitsPerPage={8} /> */}
             </div>
             <div className="year">
               <label className="title-filter">Localización</label>
-              <RefinementList attribute="productInformation.location" />
-              <Configure hitsPerPage={8} />
+              {/* <RefinementList attribute="productInformation.location" />
+              <Configure hitsPerPage={8} /> */}
             </div>
           </div>
           <div className="list-products">
             <div className="refineQueryList">
-              <RefinementList
+              {/* <RefinementList
                 attribute="subcategory.categorySelectedId"
                 defaultRefinement={[state.idCategory]}
-              />
+              /> */}
             </div>
-            <Hits
+            {/* <Hits
               hitComponent={hit => (
                 <Hit
                   hit={hit}
@@ -96,12 +96,12 @@ function MyComponent(state) {
                   setRedirect={state.setRedirect}
                 />
               )}
-            />
+            /> */}
           </div>
         </div>
         <div className="center">
           <div className="pagination">
-            <Pagination totalPages={5} />
+            {/* <Pagination totalPages={5} /> */}
           </div>
         </div>
         {/* </InstantSearch> 

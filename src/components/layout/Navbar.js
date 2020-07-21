@@ -11,101 +11,15 @@ import logo from "../../images/Logo.svg";
 import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
 import { hamburgerMenu } from "./scripts/scripts";
-import Autosuggest from "react-autosuggest";
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 
 import UseAutocompleteField from "../commons/autocomplete/UseAutocompleteField"
 
-const people = [
-  {
-    first: 'Charlie',
-    last: 'Brown',
-    twitter: 'dancounsell'
-  },
-  {
-    first: 'Charlotte',
-    last: 'White',
-    twitter: 'mtnmissy'
-  },
-  {
-    first: 'Chloe',
-    last: 'Jones',
-    twitter: 'ladylexy'
-  },
-  {
-    first: 'Cooper',
-    last: 'King',
-    twitter: 'steveodom'
-  }
-];
-
-function escapeRegexCharacters(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function getSuggestions(value) {
-  const escapedValue = escapeRegexCharacters(value.trim());
-
-  if (escapedValue === '') {
-    return [];
-  }
-
-  const regex = new RegExp('\\b' + escapedValue, 'i');
-
-  return people.filter(person => regex.test(getSuggestionValue(person)));
-}
-
-function getSuggestionValue(suggestion) {
-  return `${suggestion.first} ${suggestion.last}`;
-}
-
-function renderSuggestion(suggestion, { query }) {
-  const suggestionText = `${suggestion.first} ${suggestion.last}`;
-  const matches = AutosuggestHighlightMatch(suggestionText, query);
-  const parts = AutosuggestHighlightParse(suggestionText, matches);
-
-  return (
-    <span className={'suggestion-content ' + suggestion.twitter}>
-      <span className="name">
-        {
-          parts.map((part, index) => {
-            const className = part.highlight ? 'highlight' : null;
-
-            return (
-              <span className={className} key={index}>{part.text}</span>
-            );
-          })
-        }
-      </span>
-    </span>
-  );
-}
-
 class Navbar extends Component {
   state = {
     redirect: false,
     idCategory: "",
-    value: '',
-    suggestions: [],
-  };
-
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue,
-    });
-  };
-
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
-
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
   };
 
   setRedirect = (idCategory) => {
@@ -147,12 +61,6 @@ class Navbar extends Component {
       catalogs,
       setCategories,
     } = this.props;
-    const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: lang.value === "es" ? "Buscar" : "Search",
-      value,
-      onChange: this.onChange,
-    };
     let list = [];
 
     let isDiferent = false;
@@ -235,16 +143,7 @@ class Navbar extends Component {
                 <div className="dropdown">
                   <Categories categories={list}></Categories>
                 </div>
-                <div className="input-search">
-                  <Autosuggest
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                    getSuggestionValue={getSuggestionValue}
-                    renderSuggestion={renderSuggestion}
-                    inputProps={inputProps} />
-                </div>
-                <UseAutocompleteField type="indexAutocomplete" url="http://localhost:3001/api" />
+                <UseAutocompleteField type="autocompleteIndex" />
               </div>
             </div>
           )}

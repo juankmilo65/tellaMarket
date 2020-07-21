@@ -1,65 +1,105 @@
-import React, { useState, useEffect } from 'react'
-import "../../layout/navbar.scss";
+import React, { useState } from 'react'
+import { useQuery } from '@apollo/client';
 import "./Autocomplete.css"
+import searchImg from '../../../images/search.png';
 import Autosuggest from "react-autosuggest";
-import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
-import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-import useAutocomplete from '../../../hooks/useAutocomplete'
-import {
-    InstantSearch,
-    SearchBox,
-    Hits,
-    connectHighlight,
-    connectSearchBox
-} from "react-instantsearch-dom";
+import { GET_CATALOGS_STANDAR_PREMIUM_PLAN } from "../../../graphQL/Autocomplete/autocompleteQueries";
+import useAutocompleteIndex from '../../../hooks/useAutocomplete'
 
-function UseAutocompleteField({ url, type }) {
+function UseAutocompleteField({ type }) {
+    const query = type === 'autocompleteIndex' ? GET_CATALOGS_STANDAR_PREMIUM_PLAN : ""
 
-    const [keyword, setKeyword] = useState('');
-    const { suggestions, bind, renderSuggestion, renderSectionTitle, error } = useAutocomplete(url, type)
+    const [value, setValue] = useState('')
+    const [suggestions, setSuggestions] = useState([]);
+    const [skipQuery, setSkipQuery] = useState(true);
+    const { getSuggestions } = useAutocompleteIndex(type)
+    useQuery(query,
+        {
+            variables: { "keyword": value },
+            skip: skipQuery,
+            onCompleted: data => {
+                setSuggestions(getSuggestions(data, type))
+                setSkipQuery(true);
+            },
+        }
+    );
 
+    function getSuggestionValue(suggestion) {
+        return suggestion.title;
+    }
 
-    // function getSuggestionValue(suggestion) {
-    //     return `${suggestion.first} ${suggestion.last}`;
-    // }
+    function escapeRegexCharacters(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
 
-    function renderSuggestions() {
-
-        if (suggestions.length === 0) {
-            return null;
-        };
+    function renderSuggestion(suggestion) {
         return (
-            <ul>
-                {suggestions.map(item => (
-                    <li
-                    //key={item.id}
-                    //onClick={() => this.suggestionSelected(item.text, idInput)}
-                    >
-                        {/* {item.text} */}
-                    </li>
-                ))}
-            </ul>
+            <span>{suggestion.name}</span>
         );
     }
 
+    function getSectionSuggestions(section) {
+        return section.items;
+    }
+
+    function renderSuggestionsContainer({ containerProps, children, query }) {
+        return (
+            <div>
+                <div {...containerProps}>
+                    {<div className="footer">
+                        Press Enter to search <strong>{query}</strong>
+                    </div>
+                    }
+                    {children}
+                </div>
+            </div>
+        );
+    }
+
+    function renderSectionTitle(section) {
+        return (
+            <strong>{section.title}</strong>
+        );
+    }
+
+    const renderInputComponent = inputProps => (
+        <div className="inputContainer">
+            <img className="icon" src={searchImg} />
+            <input {...inputProps} />
+        </div>
+    );
+
+    const bind = {
+        placeholder: "Buscar",
+        autoComplete: "off",
+        value,
+        onChange: e => {
+            if (e.target.outerText !== "") {
+                setValue(e.target.outerText)
+            } else {
+                const escapedValue = escapeRegexCharacters(e.target.value);
+                if (escapedValue !== "") {
+                    setSkipQuery(false)
+                }
+                setValue(escapedValue)
+            }
+        }
+    }
+
     return (
-        // <div className="input-search">
-        //     <Autosuggest
-        //         suggestions={suggestions}
-        //         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-        //         onSuggestionsClearRequested={null}
-        //         getSuggestionValue={getSuggestionValue}
-        //         renderSuggestion={renderSuggestion}
-        //         renderSectionTitle={renderSectionTitle}
-        //         inputProps={bind} />
-        // </div>
-        <div className="AutocompleteText">
-            <input
-                id="autoComplete"
-                type="text"
-                {...bind}
-            ></input>
-            {/* {renderSuggestions} */}
+        <div className="input-search">
+            <Autosuggest
+                multiSection={true}
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={() => { }}
+                onSuggestionsClearRequested={() => { }}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                renderSectionTitle={renderSectionTitle}
+                getSectionSuggestions={getSectionSuggestions}
+                renderSuggestionsContainer={renderSuggestionsContainer}
+                renderInputComponent={renderInputComponent}
+                inputProps={bind} />
         </div>
     )
 }

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./Autocomplete.css";
 
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  connectHighlight,
-  connectSearchBox
-} from "react-instantsearch-dom";
+// import {
+//   InstantSearch,
+//   SearchBox,
+//   Hits,
+//   connectHighlight,
+//   connectSearchBox
+// } from "react-instantsearch-dom";
 
 const Hit = ({ hit }) => (
   <p>
@@ -113,8 +113,8 @@ class Autocomplete extends Component {
           required
           placeholder="Buscar"
         ></input> */}
-        <SearchBox />
-        {this.renderSuggestions()}
+        {/* <SearchBox />
+        {this.renderSuggestions()} */}
       </div>
     );
   }

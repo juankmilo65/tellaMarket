@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { createMenu } from "../menu/actions/createMenuActions";
-import Autocomplete from "../../commons/autocomplete/Autocomplete";
+//import Autocomplete from "../../commons/autocomplete/Autocomplete";
 import Table from "../../commons/table/Table";
 import Popup from "reactjs-popup";
 import "./createMenu.scss";
@@ -32,9 +32,9 @@ function MyComponent(state) {
               ] === undefined
                 ? ""
                 : this.state[
-                    itemChild.props.children.props.children.props.children.props
-                      .children.props.idInput
-                  ],
+                itemChild.props.children.props.children.props.children.props
+                  .children.props.idInput
+                ],
           };
 
           let childrenProperties = {
@@ -151,33 +151,33 @@ function MyComponent(state) {
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="enCategory"
                       onChange={state.handleChange}
                       value={state.state["enCategory"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="enSubcategory"
                       onChange={state.handleChange}
                       value={state.state["enSubcategory"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="enItem1"
                       onChange={state.handleChange}
                       value={state.state["enItem1"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -189,33 +189,33 @@ function MyComponent(state) {
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="esCategory"
                       onChange={state.handleChange}
                       value={state.state["esCategory"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="esSubcategory"
                       onChange={state.handleChange}
                       value={state.state["esSubcategory"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
               <div className="input-group">
                 <div className="App-Component">
                   <div className="App-Component">
-                    <Autocomplete
+                    {/* <Autocomplete
                       idInput="esItem1"
                       onChange={state.handleChange}
                       value={state.state["esItem1"]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -288,8 +288,8 @@ function MyComponent(state) {
         {state.catalogList.length === 0 ? (
           <div />
         ) : (
-          <Table catalogList={state.catalogList} />
-        )}
+            <Table catalogList={state.catalogList} />
+          )}
       </div>
     </div>
   );
@@ -555,11 +555,11 @@ class CreateMenu extends Component {
           <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
-                <Autocomplete
+                {/* <Autocomplete
                   idInput={idEn}
                   onChange={this.handleChange}
                   value={this.state[idEn]}
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -568,11 +568,11 @@ class CreateMenu extends Component {
           <div className="input-group">
             <div className="App-Component">
               <div className="App-Component">
-                <Autocomplete
+                {/* <Autocomplete
                   idInput={idEs}
                   onChange={this.handleChange}
                   value={this.state[idEs]}
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -639,8 +639,8 @@ class CreateMenu extends Component {
         catalogoName === "catalogoEn"
           ? this.propertiesEn
           : catalogoName === "catalogoEs"
-          ? this.propertiesEs
-          : this.propertiesPt,
+            ? this.propertiesEs
+            : this.propertiesPt,
     });
   }
 

@@ -1,73 +1,34 @@
-import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
-import { useQuery } from '@apollo/client';
-import { GET_CATALOGS_STANDAR_PREMIUM_PLAN } from "../graphQL/Autocomplete/autocompleteQueries";
 
-function useAutocomplete(url, type) {
-    const [value, setValue] = useState('')
-    const [error, setError] = useState('');
-    const [skipQuery, setSkipQuery] = useState(true);
-    const [suggestions, setSuggestions] = useState([]);
+function useAutocompleteIndex(type) {
+
     const lang = useSelector(state => state.navar.lang);
-    let { loading } = useQuery(GET_CATALOGS_STANDAR_PREMIUM_PLAN,
-        {
-            variables: { "keyword": value },
-            skip: skipQuery,
-            onCompleted: data => {
-                setSuggestions(getSuggestions(data, type))
-                setSkipQuery(true);
-            },
-        }
-    );
 
-    function getSuggestions(data, type) {
+    function getSuggestions(data) {
+        if (type === "autocompleteIndex") {
+            var listItems = [];
+            var response = data.getCatalogsStandardPremimItemPlan.map(result => {
 
-        if (type === "indexAutocomplete") {
-            return data.getCatalogsStandardPremimItemPlan.map(result => {
-                return {
-                    catalog: result.__typename === 'Catalog' ? result.name : "",
-                    items: result.__typename === 'Catalog' ? result.filteredItems : [],
-                    item: result.__typename === 'Item' ? result.name : ""
+                if (result.__typename === 'Item') {
+                    listItems.push(result)
                 }
-            })
-        }
 
+                return {
+                    title: result.__typename === 'Catalog' ? result.name : "",
+                    items: result.__typename === 'Catalog' ? result.filteredItems : []
+                }
+            }).filter(section => section.items.length > 0);
+
+            response.push({
+                title: "",
+                items: listItems
+            })
+            return response;
+        }
         return [];
     }
 
-    function renderSuggestion(suggestion) {
-        return (
-            <span>{suggestion.catalog}</span>
-        );
-    }
-
-    function renderSectionTitle(section) {
-        return (
-            <strong>{section.item}</strong>
-        );
-    }
-
-    function escapeRegexCharacters(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    const bind = {
-        placeholder: "Buscar",
-        autoComplete: "off",
-        value,
-        onChange: e => {
-            const escapedValue = escapeRegexCharacters(e.target.value.trim());
-            if (escapedValue !== "") {
-                setValue(escapedValue)
-                setSkipQuery(false)
-            }
-        }
-    }
-
-    if (loading) return { suggestions, bind, renderSuggestion, renderSectionTitle, error };
-
-    return { suggestions, bind, renderSuggestion, renderSectionTitle, error }
+    return { getSuggestions }
 }
 
-
-export default useAutocomplete
+export default useAutocompleteIndex
