@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useQuery } from '@apollo/client';
 import "./Autocomplete.css"
 import searchImg from '../../../images/search.png';
@@ -8,14 +10,15 @@ import useAutocompleteIndex from '../../../hooks/useAutocomplete'
 
 function UseAutocompleteField({ type }) {
     const query = type === 'autocompleteIndex' ? GET_CATALOGS_STANDAR_PREMIUM_PLAN : ""
-
+    const lang = useSelector(state => state.navar.lang);
     const [value, setValue] = useState('')
     const [suggestions, setSuggestions] = useState([]);
     const [skipQuery, setSkipQuery] = useState(true);
-    const { getSuggestions } = useAutocompleteIndex(type)
+    const { getSuggestions } = useAutocompleteIndex(type);
+    const history = useHistory();
     useQuery(query,
         {
-            variables: { "keyword": value },
+            variables: { "keyword": value, "lang": lang.value },
             skip: skipQuery,
             onCompleted: data => {
                 setSuggestions(getSuggestions(data, type))
@@ -62,6 +65,14 @@ function UseAutocompleteField({ type }) {
         );
     }
 
+    function onKeyPress(e) {
+        if (e.key === 'Enter') {
+            history.push(`/query/${e.target.value}`)
+        }
+    }
+
+
+
     const renderInputComponent = inputProps => (
         <div className="inputContainer">
             <img className="icon" src={searchImg} />
@@ -73,6 +84,7 @@ function UseAutocompleteField({ type }) {
         placeholder: "Buscar",
         autoComplete: "off",
         value,
+        onKeyPress: onKeyPress,
         onChange: e => {
             if (e.target.outerText !== "") {
                 setValue(e.target.outerText)

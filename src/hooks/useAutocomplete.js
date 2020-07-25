@@ -1,13 +1,8 @@
-import { useSelector } from "react-redux";
-
 function useAutocompleteIndex(type) {
-
-    const lang = useSelector(state => state.navar.lang);
-
     function getSuggestions(data) {
         if (type === "autocompleteIndex") {
             var listItems = [];
-            var response = data.getCatalogsStandardPremimItemPlan.map(result => {
+            var response = data.getCatalogsStandardPremiumItemPlanFiltered.map(result => {
 
                 if (result.__typename === 'Item') {
                     listItems.push(result)

@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, { Component, useState } from "react";
+import { Redirect, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
-import { connect } from "react-redux";
+import { miniaturePath } from "../../../config/constants";
+import { useSelector } from "react-redux";
+import { useQuery } from '@apollo/client';
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
+import { GET_SOUGHT_ITEMS } from "../../../graphQL/search/searchQueries"
 // import {
 //   Hits,
 //   Pagination,
@@ -21,9 +24,23 @@ import PropTypes from "prop-types";
 // );
 
 function MyComponent(state) {
+  //const { searchText } = this.props.location.state;
+  const lang = useSelector(state => state.navar.lang);
+  const { keyword } = useParams()
+  const [items, setItems] = useState([]);
   const { t, i18n } = useTranslation();
-  if (i18n.language !== state.lang.value) {
-    i18n.changeLanguage(state.lang.value);
+  console.log(GET_SOUGHT_ITEMS);
+  useQuery(GET_SOUGHT_ITEMS,
+    {
+      variables: { "keyword": keyword, "lang": lang.value },
+      onCompleted: data => {
+        setItems(data)
+      },
+    }
+  );
+
+  if (i18n.language !== lang.value) {
+    i18n.changeLanguage(lang.value);
   }
   return (
     <div>
@@ -32,11 +49,7 @@ function MyComponent(state) {
           <h2>{t("query.products&categories")}</h2>
           <label>{t("query.productList")}</label>
         </div>
-        {/* <div className="ais-InstantSearch">
-          <InstantSearch
-            indexName="dev_tellamarket"
-            searchClient={state.searchClient}
-          > */}
+
         <div className="list-product">
           <div className="filter">
             {/* <ClearRefinements
@@ -88,17 +101,44 @@ function MyComponent(state) {
                 defaultRefinement={[state.idCategory]}
               /> */}
             </div>
-            {/* <Hits
-              hitComponent={hit => (
-                <Hit
-                  hit={hit}
-                  lang={state.lang.value}
-                  setRedirect={state.setRedirect}
-                />
-              )}
-            /> */}
+            {
+              items.getCatalogsStandardPremiumItemPlan &&
+              items.getCatalogsStandardPremiumItemPlan.map((categories) =>
+                categories.filteredItems.map(item =>
+                  <div className="item-product--list">
+                    <div className="img-list">
+                      <img
+                        src={`${miniaturePath}${item.image}`}
+                        align="left"
+                        alt={item.name}
+                      />
+                    </div>
+                    <div className="info-product--list">
+                      <label className="title-product--list">
+                        {item.name}
+                      </label>
+                      <div className="category-list">
+                        {item.description}
+                      </div>
+                      <div className="price-button--list">
+                        <div className="price-list">
+                          $0000
+                        </div>
+                        <button
+                          className="btns btn-go"
+                        // onClick={() => hit.setRedirect(props.hit)}
+                        >
+                          Ver mas</button>
+                      </div>
+                    </div>
+                  </div>
+
+                ))
+            }
+
           </div>
         </div>
+
         <div className="center">
           <div className="pagination">
             {/* <Pagination totalPages={5} /> */}
@@ -157,31 +197,15 @@ class Query extends Component {
   };
 
   render() {
-    const { idCategory } = this.props.location.state;
-    const { getProductsByCategory, items, lang } = this.props;
 
-    if (
-      (items.length === 0 && this.state === null) ||
-      (this.state !== null &&
-        this.state.idCat !== null &&
-        this.state.idCat !== idCategory)
-    ) {
-      this.setState(
-        {
-          idCat: idCategory
-        },
-        () => {
-          getProductsByCategory(idCategory);
-        }
-      );
-    }
+    const { getProductsByCategory, lang } = this.props;
 
     return (
       <div>
         <MyComponent
           lang={lang}
           //searchClient={searchClient}
-          idCategory={idCategory}
+          // idCategory={idCategory}
           setRedirect={this.setRedirect}
           renderRedirect={this.renderRedirect}
         ></MyComponent>
@@ -190,51 +214,4 @@ class Query extends Component {
   }
 }
 
-function Hit(hit) {
-  const props = hit.hit;
-  return (
-    <div className="item-product--list">
-      <div className="img-list">
-        <img
-          src={props.hit.images[0].imageUrl}
-          align="left"
-          alt={props.hit.productInformation.productName}
-        />
-      </div>
-      <div className="info-product--list">
-        <label className="title-product--list">
-          {props.hit.productInformation.brand}
-        </label>
-        <div className="category-list">
-          {hit.lang === "es"
-            ? props.hit.productInformation.spanishDescription
-            : props.hit.productInformation.englishDescription}
-        </div>
-        <div className="price-button--list">
-          <div className="price-list">
-            ${props.hit.productInformation.price}
-          </div>
-          <button
-            className="btns btn-go"
-            onClick={() => hit.setRedirect(props.hit)}
-          >
-            Ver mas
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-Hit.propTypes = {
-  hit: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  lang: state.navar.lang,
-  items: state.queryResult.items
-});
-
-export default connect(mapStateToProps, {
-  getProductsByCategory
-})(Query);
+export default Query;
