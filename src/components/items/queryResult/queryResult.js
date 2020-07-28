@@ -7,34 +7,20 @@ import { useSelector } from "react-redux";
 import { useQuery } from '@apollo/client';
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
 import { GET_SOUGHT_ITEMS } from "../../../graphQL/search/searchQueries"
-// import {
-//   Hits,
-//   Pagination,
-//   ClearRefinements,
-//   RefinementList,
-//   Configure,
-//   SortBy
-// } from "react-instantsearch-dom";
-//import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
 
-// const searchClient = algoliasearch(
-//   "LOYYIQWO7O",
-//   "1ba2b0f2147ae9c9553f63c594e0feca"
-// );
-
 function MyComponent(state) {
-  //const { searchText } = this.props.location.state;
   const lang = useSelector(state => state.navar.lang);
   const { keyword } = useParams()
   const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const { t, i18n } = useTranslation();
-  console.log(GET_SOUGHT_ITEMS);
   useQuery(GET_SOUGHT_ITEMS,
     {
-      variables: { "keyword": keyword, "lang": lang.value },
+      variables: { "keyword": keyword, "lang": lang.value, "order": "asc", "pageNumber": 1, "nPerPage": 2 },
       onCompleted: data => {
-        setItems(data)
+        setItems(data.getItemsPaginationAndFIltered.items);
+        setCategories(data.getItemsPaginationAndFIltered.catalogs);
       },
     }
   );
@@ -80,6 +66,10 @@ function MyComponent(state) {
             </div>
             <div className="category">
               <label className="title-filter">{t("query.category")}</label>
+              {categories &&
+                categories.map(categorie =>
+                  <li>{categorie.name}</li>
+                )}
               {/* <RefinementList attribute="subcategory.subcategoryName" />
               <Configure hitsPerPage={8} /> */}
             </div>
@@ -102,38 +92,36 @@ function MyComponent(state) {
               /> */}
             </div>
             {
-              items.getCatalogsStandardPremiumItemPlan &&
-              items.getCatalogsStandardPremiumItemPlan.map((categories) =>
-                categories.filteredItems.map(item =>
-                  <div className="item-product--list">
-                    <div className="img-list">
-                      <img
-                        src={`${miniaturePath}${item.image}`}
-                        align="left"
-                        alt={item.name}
-                      />
+              items &&
+              items.map((item) =>
+                <div className="item-product--list">
+                  <div className="img-list">
+                    <img
+                      src={`${miniaturePath}${item.image}`}
+                      align="left"
+                      alt={item.name}
+                    />
+                  </div>
+                  <div className="info-product--list">
+                    <label className="title-product--list">
+                      {item.name}
+                    </label>
+                    <div className="category-list">
+                      {item.description}
                     </div>
-                    <div className="info-product--list">
-                      <label className="title-product--list">
-                        {item.name}
-                      </label>
-                      <div className="category-list">
-                        {item.description}
+                    <div className="price-button--list">
+                      <div className="price-list">
+                        {`$${item.price}`}
                       </div>
-                      <div className="price-button--list">
-                        <div className="price-list">
-                          $0000
-                        </div>
-                        <button
-                          className="btns btn-go"
-                        // onClick={() => hit.setRedirect(props.hit)}
-                        >
-                          Ver mas</button>
-                      </div>
+                      <button
+                        className="btns btn-go"
+                      // onClick={() => hit.setRedirect(props.hit)}
+                      >
+                        Ver mas</button>
                     </div>
                   </div>
-
-                ))
+                </div>
+              )
             }
 
           </div>
@@ -197,15 +185,9 @@ class Query extends Component {
   };
 
   render() {
-
-    const { getProductsByCategory, lang } = this.props;
-
     return (
       <div>
         <MyComponent
-          lang={lang}
-          //searchClient={searchClient}
-          // idCategory={idCategory}
           setRedirect={this.setRedirect}
           renderRedirect={this.renderRedirect}
         ></MyComponent>
