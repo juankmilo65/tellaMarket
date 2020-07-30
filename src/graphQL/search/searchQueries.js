@@ -17,9 +17,13 @@ query getItemsPaginationAndFIltered($keyword: String!, $lang: String!, $order: S
     itemsIds{
       _id
     }
-    catalogs{
+    catalogsItems{
+     _id
+    {
+      mysqlId,
       name
-      mysqlId
+    }
+    items
     }
     }
 }

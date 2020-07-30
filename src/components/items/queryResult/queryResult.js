@@ -1,8 +1,11 @@
 import React, { Component, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
+import { Range, getTrackBackground } from 'react-range';
 import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
+import "../filter/filter"
 import { miniaturePath } from "../../../config/constants";
+import UseRange from "../../commons/range/UseRange"
 import { useSelector } from "react-redux";
 import { useQuery } from '@apollo/client';
 import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
@@ -20,7 +23,7 @@ function MyComponent(state) {
       variables: { "keyword": keyword, "lang": lang.value, "order": "asc", "pageNumber": 1, "nPerPage": 2 },
       onCompleted: data => {
         setItems(data.getItemsPaginationAndFIltered.items);
-        setCategories(data.getItemsPaginationAndFIltered.catalogs);
+        setCategories(data.getItemsPaginationAndFIltered.catalogsItems);
       },
     }
   );
@@ -35,9 +38,8 @@ function MyComponent(state) {
           <h2>{t("query.products&categories")}</h2>
           <label>{t("query.productList")}</label>
         </div>
-
-        <div className="list-product">
-          <div className="filter">
+        <div className="row">
+          <div className="col-2 filter">
             {/* <ClearRefinements
               translations={{
                 reset: t("query.clean")
@@ -68,15 +70,12 @@ function MyComponent(state) {
               <label className="title-filter">{t("query.category")}</label>
               {categories &&
                 categories.map(categorie =>
-                  <li>{categorie.name}</li>
+                  <label>{`${categorie._id.name} (${categorie.items})`}</label>
                 )}
-              {/* <RefinementList attribute="subcategory.subcategoryName" />
-              <Configure hitsPerPage={8} /> */}
             </div>
             <div className="price">
-              <label className="title-filter">{t("query.brand")}</label>
-              {/* <RefinementList attribute="productInformation.brand" />
-              <Configure hitsPerPage={8} /> */}
+              <label className="title-filter">{t("query.price")}</label>
+              <UseRange />
             </div>
             <div className="year">
               <label className="title-filter">Localización</label>
@@ -84,7 +83,7 @@ function MyComponent(state) {
               <Configure hitsPerPage={8} /> */}
             </div>
           </div>
-          <div className="list-products">
+          <div className="col-9 list-products">
             <div className="refineQueryList">
               {/* <RefinementList
                 attribute="subcategory.categorySelectedId"
@@ -123,10 +122,8 @@ function MyComponent(state) {
                 </div>
               )
             }
-
           </div>
         </div>
-
         <div className="center">
           <div className="pagination">
             {/* <Pagination totalPages={5} /> */}
