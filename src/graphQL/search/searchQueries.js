@@ -12,7 +12,17 @@ query getItemsPaginationAndFIltered($keyword: String!, $lang: String!, $order: S
       price
     }  
     pageInfo{
-      count 
+      count
+    }
+    pricesRange{
+      max
+      min
+    }
+     quantityLocation{
+     _id{
+      location
+    }
+      quantity
     }
     itemsIds{
       _id

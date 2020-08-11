@@ -1,32 +1,61 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { Range, getTrackBackground } from 'react-range';
 import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
 import "../filter/filter"
 import { miniaturePath } from "../../../config/constants";
 import UseRange from "../../commons/range/UseRange"
+import UsePagination from "../../commons/pagination/UsePagination"
 import { useSelector } from "react-redux";
 import { useQuery } from '@apollo/client';
-import { getProductsByCategory } from "../queryResult/actions/queryResultActions";
 import { GET_SOUGHT_ITEMS } from "../../../graphQL/search/searchQueries"
-import PropTypes from "prop-types";
+import { initialQuantitiyPerPage } from "../../../config/constants"
 
 function MyComponent(state) {
   const lang = useSelector(state => state.navar.lang);
   const { keyword } = useParams()
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [pricesRange, setPricesRange] = useState({ min: 0, max: 0 });
+  const [page, setPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState();
+  const [itemsPerPage, setItemsPerPage] = useState(initialQuantitiyPerPage);
+  const [pageSizes, setPageSizes] = useState([]);
+  const [locations, setLocations] = useState([]);
   const { t, i18n } = useTranslation();
   useQuery(GET_SOUGHT_ITEMS,
     {
-      variables: { "keyword": keyword, "lang": lang.value, "order": "asc", "pageNumber": 1, "nPerPage": 2 },
+      variables: { "keyword": keyword, "lang": lang.value, "order": "asc", "pageNumber": page, "nPerPage": itemsPerPage },
       onCompleted: data => {
         setItems(data.getItemsPaginationAndFIltered.items);
         setCategories(data.getItemsPaginationAndFIltered.catalogsItems);
+        setPricesRange(data.getItemsPaginationAndFIltered.pricesRange[0]);
+        setLocations(data.getItemsPaginationAndFIltered.quantityLocation);
+        setPageInfo(data.getItemsPaginationAndFIltered.pageInfo[0]);
       },
     }
   );
+
+  const handlePageSizeChange = (event) => {
+    setItemsPerPage(parseInt(event.target.value));
+    setPage(1);
+  };
+
+  useEffect(() => {
+    var list = [];
+    if (pageSizes.length === 0 && pageInfo !== undefined) {
+
+      for (let index = initialQuantitiyPerPage; index < pageInfo.count; index = index + initialQuantitiyPerPage) {
+        list.push(index);
+      }
+      list.push(pageInfo.count);
+      setPageSizes(list);
+    }
+  }, [pageInfo])
+
+  const setCurrentPageCallBack = (page) => {
+    setPage(page);
+  }
 
   if (i18n.language !== lang.value) {
     i18n.changeLanguage(lang.value);
@@ -40,31 +69,8 @@ function MyComponent(state) {
         </div>
         <div className="row">
           <div className="col-2 filter">
-            {/* <ClearRefinements
-              translations={{
-                reset: t("query.clean")
-              }}
-            /> */}
             <div className="order">
               <label className="title-filter">{t("query.sort")}</label>
-              {/* <SortBy
-                defaultRefinement="dev_tellamarket"
-                items={[
-                  {
-                    value: "dev_tellamarket",
-                    label: "Default"
-                  },
-                  {
-                    value: "dev_tellamarket_asc",
-                    label: "Price Asc"
-                  },
-                  {
-                    value: "dev_tellamarket_desc",
-                    label: "Price Des"
-                  }
-                ]}
-              />
-              <Configure hitsPerPage={8} /> */}
             </div>
             <div className="category">
               <label className="title-filter">{t("query.category")}</label>
@@ -75,21 +81,20 @@ function MyComponent(state) {
             </div>
             <div className="price">
               <label className="title-filter">{t("query.price")}</label>
-              <UseRange />
+              {
+                pricesRange.max > 0 ?
+                  <UseRange minValue={pricesRange.min} maxValue={pricesRange.max} step={10} />
+                  : <div />
+              }
             </div>
             <div className="year">
-              <label className="title-filter">Localización</label>
-              {/* <RefinementList attribute="productInformation.location" />
-              <Configure hitsPerPage={8} /> */}
+              <label className="title-filter">{t("query.location")}</label>
+              {locations &&
+                locations.map(location =>
+                  <label>{`${location._id.location} (${location.quantity})`}</label>)}
             </div>
           </div>
           <div className="col-9 list-products">
-            <div className="refineQueryList">
-              {/* <RefinementList
-                attribute="subcategory.categorySelectedId"
-                defaultRefinement={[state.idCategory]}
-              /> */}
-            </div>
             {
               items &&
               items.map((item) =>
@@ -123,14 +128,23 @@ function MyComponent(state) {
               )
             }
           </div>
-        </div>
-        <div className="center">
-          <div className="pagination">
-            {/* <Pagination totalPages={5} /> */}
+          <div className="rightPagination">
+            {"Items per Page: "}
+            <select onChange={handlePageSizeChange} value={itemsPerPage}>
+              {pageSizes.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+            {
+              pageInfo === undefined ?
+                <div /> :
+                <UsePagination pagesQuantities={Math.ceil(pageInfo.count / itemsPerPage)} setCurrentPageCallBack={setCurrentPageCallBack} />
+            }
           </div>
         </div>
-        {/* </InstantSearch> 
-        </div>*/}
+
       </div>
       {state.renderRedirect()}
     </div>

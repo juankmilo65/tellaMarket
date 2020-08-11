@@ -19,3 +19,4 @@ export const socialAuth = {
   googleApplicationId:
     "565852726350-2fllph1abvcfja2b3pjgecgqabs1h1tr.apps.googleusercontent.com", //
 };
+export const initialQuantitiyPerPage = 3;

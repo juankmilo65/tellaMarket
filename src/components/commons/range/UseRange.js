@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { Range, getTrackBackground } from "react-range";
 
-function UseRange() {
-    const STEP = 20;
-    const MIN = 300;
-    const MAX = 10000;
-
-    const [values, setValues] = useState([300, 600])
+function UseRange({ minValue, maxValue, step }) {
+    const [values, setValues] = useState([minValue, maxValue])
 
     return (<div
         style={{
@@ -17,9 +13,9 @@ function UseRange() {
     >
         <Range
             values={values}
-            step={STEP}
-            min={MIN}
-            max={MAX}
+            step={step}
+            min={minValue}
+            max={maxValue}
             onChange={values => setValues(values)}
             renderTrack={({ props, children }) => (
                 <div
@@ -41,8 +37,8 @@ function UseRange() {
                             background: getTrackBackground({
                                 values: values,
                                 colors: ['#DBDBDB', '#FFB808', '#DBDBDB'],
-                                min: MIN,
-                                max: MAX
+                                min: minValue,
+                                max: maxValue
                             }),
                             alignSelf: "center"
                         }}

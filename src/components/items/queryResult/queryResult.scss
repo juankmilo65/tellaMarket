@@ -191,3 +191,17 @@ label.title-filter {
 .center {
   text-align: center;
 }
+
+.rightPagination {
+  position: relative;
+  left: 58%;
+  top: 6px;
+}
+
+.rightPagination button:hover:not(.active) {
+  background-color: $yellow;
+}
+
+.rightPagination li:hover:not(.active) {
+  background-color: transparent;
+}
