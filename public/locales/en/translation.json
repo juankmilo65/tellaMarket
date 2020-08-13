@@ -163,6 +163,7 @@
     "price": "Price",
     "location": "Location:",
     "products&categories": "Products & Categories",
-    "productList": "Product list"
+    "productList": "Product list",
+    "itemsPerPage": "Items per page:"
   }
 }

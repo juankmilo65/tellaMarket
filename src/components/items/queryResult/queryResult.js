@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Redirect, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./queryResult.scss";
@@ -17,12 +18,16 @@ function MyComponent(state) {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [pricesRange, setPricesRange] = useState({ min: 0, max: 0 });
+  const [redirect, setRedirect] = useState(false);
+  const [idItemSelected, setIdItemSelected] = useState();
   const [page, setPage] = useState(1);
   const [pageInfo, setPageInfo] = useState();
   const [itemsPerPage, setItemsPerPage] = useState(initialQuantitiyPerPage);
   const [pageSizes, setPageSizes] = useState([]);
   const [locations, setLocations] = useState([]);
   const { t, i18n } = useTranslation();
+
+  const history = useHistory();
   useQuery(GET_SOUGHT_ITEMS,
     {
       variables: { "keyword": keyword, "lang": lang.value, "order": "asc", "pageNumber": page, "nPerPage": itemsPerPage },
@@ -57,6 +62,17 @@ function MyComponent(state) {
     setPage(page);
   }
 
+  const redirectItemDetail = (id) => {
+    setRedirect(true);
+    setIdItemSelected(id)
+  }
+
+  const renderRedirect = () => {
+    if (redirect) {
+      history.push(`/itemDetail/${idItemSelected}`)
+    }
+  }
+
   if (i18n.language !== lang.value) {
     i18n.changeLanguage(lang.value);
   }
@@ -76,7 +92,7 @@ function MyComponent(state) {
               <label className="title-filter">{t("query.category")}</label>
               {categories &&
                 categories.map(categorie =>
-                  <label>{`${categorie._id.name} (${categorie.items})`}</label>
+                  <label key={categorie._id.mysqlId}>{`${categorie._id.name} (${categorie.items})`}</label>
                 )}
             </div>
             <div className="price">
@@ -91,14 +107,14 @@ function MyComponent(state) {
               <label className="title-filter">{t("query.location")}</label>
               {locations &&
                 locations.map(location =>
-                  <label>{`${location._id.location} (${location.quantity})`}</label>)}
+                  <label key={location._id.location}>{`${location._id.location} (${location.quantity})`}</label>)}
             </div>
           </div>
           <div className="col-9 list-products">
             {
               items &&
               items.map((item) =>
-                <div className="item-product--list">
+                <div key={item.mysqlId} className="item-product--list">
                   <div className="img-list">
                     <img
                       src={`${miniaturePath}${item.image}`}
@@ -119,7 +135,7 @@ function MyComponent(state) {
                       </div>
                       <button
                         className="btns btn-go"
-                      // onClick={() => hit.setRedirect(props.hit)}
+                        onClick={() => redirectItemDetail(item.mysqlId)}
                       >
                         Ver mas</button>
                     </div>
@@ -129,79 +145,37 @@ function MyComponent(state) {
             }
           </div>
           <div className="rightPagination">
-            {"Items per Page: "}
-            <select onChange={handlePageSizeChange} value={itemsPerPage}>
-              {pageSizes.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            {
-              pageInfo === undefined ?
-                <div /> :
-                <UsePagination pagesQuantities={Math.ceil(pageInfo.count / itemsPerPage)} setCurrentPageCallBack={setCurrentPageCallBack} />
-            }
+            <div>
+              {
+                pageInfo === undefined ?
+                  <div /> :
+                  <UsePagination pagesQuantities={Math.ceil(pageInfo.count / itemsPerPage)} setCurrentPageCallBack={setCurrentPageCallBack} />
+              }
+            </div>
+            <div>
+              {t("query.itemsPerPage")}
+              <select onChange={handlePageSizeChange} value={itemsPerPage}>
+                {pageSizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </ div>
           </div>
         </div>
 
       </div>
-      {state.renderRedirect()}
+      {renderRedirect()}
     </div>
   );
 }
 
 class Query extends Component {
-  state = {
-    redirect: false,
-    selectedItem: {}
-  };
-  setRedirect = item => {
-    this.setState({
-      redirect: true
-    });
-    this.setState({
-      selectedItem: item
-    });
-  };
-
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      const { lang } = this.props;
-      var obj = new Object();
-      obj["titlecategory"] =
-        lang === "en"
-          ? this.state.selectedItem.subcategory.subcategoryName
-          : this.state.selectedItem.subcategory.subcategoryName;
-      obj["titleproduct"] = this.state.selectedItem.productInformation.brand;
-      obj["valueprice"] = this.state.selectedItem.productInformation.price;
-      obj[
-        "description"
-      ] = this.state.selectedItem.productInformation.description;
-      obj["email"] = this.state.selectedItem.productInformation.email;
-      obj["phone"] = this.state.selectedItem.productInformation.phone;
-      obj["images"] = this.state.selectedItem.images;
-      obj["year"] = this.state.selectedItem.productInformation.year;
-      return (
-        <Redirect
-          to={{
-            pathname: "/itemDetail",
-            state: {
-              itemtemObjet: obj
-            }
-          }}
-        />
-      );
-    }
-  };
-
   render() {
     return (
       <div>
-        <MyComponent
-          setRedirect={this.setRedirect}
-          renderRedirect={this.renderRedirect}
-        ></MyComponent>
+        <MyComponent />
       </div>
     );
   }

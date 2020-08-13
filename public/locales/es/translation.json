@@ -163,6 +163,7 @@
     "price": "Precio",
     "location": "Localización:",
     "products&categories": " Productos y Categorias",
-    "productList": "Listado de productos"
+    "productList": "Listado de productos",
+    "itemsPerPage": "Productos por página:"
   }
 }

@@ -8,6 +8,7 @@ import warning from "../../../images/triangle.svg";
 import { Redirect } from "react-router-dom";
 import { hideHeader } from "../../layout/actions/navarActions";
 import Spinner from "../../commons/spinner/Spinner";
+import { imagesPath } from "../../../config/constants"
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -271,55 +272,47 @@ class ItemDetail extends Component {
   };
 
   render() {
-    const { lang, auth, match, item, currency } = this.props;
+    const { lang, auth, match, item, currency, getItem } = this.props;
     let itemtemObjet = null;
-    if (this.props.location.state !== undefined) {
-      itemtemObjet = this.props.location.state.itemtemObjet;
+    if (item === null) {
+      getItem(match.params.itemId);
     } else {
-      const {
-        match: { param },
-        getItem
-      } = this.props;
+      var listImages = [];
 
-      if (item === null) {
-        getItem(match.params.itemId);
-      } else {
-        var listImages = [];
-
-        item.Images.map(imge => {
-          listImages.push({
-            imageUrl: "data:image/jpeg;base64," + imge.Image
-          });
+      item.Images.split(",").map(imge => {
+        listImages.push({
+          imageUrl: imagesPath + imge
         });
+      });
 
-        itemtemObjet = {
-          images: item.images,
-          titlecategory:
-            lang.value === "en"
-              ? item.subcategoryName.split(",")[0]
-              : item.subcategoryName.split(",")[1],
-          titleproduct:
-            lang.value === "en"
-              ? item.titleproduct.split("|")[0]
-              : item.titleproduct.split("|")[1],
-          valueprice:
-            item.valueprice == 0
-              ? lang.value === "en"
-                ? "Consult"
-                : "A consultar"
-              : currency + " " + item.valueprice,
-          description:
-            lang.value === "en"
-              ? item.description.split("|")[0]
-              : item.description.split("|")[1],
-          email: item.email,
-          phone: item.Phone,
-          images: listImages,
-          id: match.IdItem,
-          year: item.Year
-        };
-      }
+      itemtemObjet = {
+        images: item.images,
+        titlecategory:
+          lang.value === "en"
+            ? item.subcategoryName.split(",")[0]
+            : item.subcategoryName.split(",")[1],
+        titleproduct:
+          lang.value === "en"
+            ? item.titleproduct.split("|")[0]
+            : item.titleproduct.split("|")[1],
+        valueprice:
+          item.valueprice == 0
+            ? lang.value === "en"
+              ? "Consult"
+              : "A consultar"
+            : currency + " " + item.valueprice,
+        description:
+          lang.value === "en"
+            ? item.description.split("|")[0]
+            : item.description.split("|")[1],
+        email: item.email,
+        phone: item.Phone,
+        images: listImages,
+        id: match.IdItem,
+        year: item.Year
+      };
     }
+
 
     return (
       <div>
@@ -328,18 +321,18 @@ class ItemDetail extends Component {
             <Spinner />
           </div>
         ) : (
-          <MyComponent
-            lang={lang}
-            itemtemObjet={itemtemObjet}
-            handleDetails={this.handleDetails}
-            showDetails={this.state.showDetails}
-            handleShowMessage={this.handleShowMessage}
-            showModal={this.state.showModal}
-            auth={auth}
-            handleOk={this.handleOk}
-            renderRedirect={this.renderRedirect}
-          ></MyComponent>
-        )}
+            <MyComponent
+              lang={lang}
+              itemtemObjet={itemtemObjet}
+              handleDetails={this.handleDetails}
+              showDetails={this.state.showDetails}
+              handleShowMessage={this.handleShowMessage}
+              showModal={this.state.showModal}
+              auth={auth}
+              handleOk={this.handleOk}
+              renderRedirect={this.renderRedirect}
+            ></MyComponent>
+          )}
       </div>
     );
   }

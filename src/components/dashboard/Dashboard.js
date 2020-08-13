@@ -257,7 +257,6 @@ class Dashboard extends Component {
     const itemsPlusPlan = [];
     const itemsFreePlan = [];
     const finalListItems = [];
-    //var base64Flag = "data:image/jpeg;base64,";
 
     console.log(miniaturePath);
 
@@ -298,10 +297,6 @@ class Dashboard extends Component {
           }
         });
         imagesMultiBar.push({
-          // titlecategory:
-          //   lang.value === "en"
-          //     ? item.Titlecategory.split("|")[0]
-          //     : item.Titlecategory.split("|")[1],
           titleproduct: item.Titleproduct,
           valueprice:
             item.Valueprice == 0
@@ -309,13 +304,6 @@ class Dashboard extends Component {
                 ? "Consult"
                 : "A Consultar"
               : "€ " + item.Valueprice,
-          // description:
-          //   lang.value === "en"
-          //     ? item.Description.split("|")[0]
-          //     : item.Description.split("|")[1],
-          // email: item.Email,
-          // phone: item.Phone,
-          // year: item.Year,
           id: item.Id,
           idPlan: item.Idplan,
           images: listImagesPerItem,
@@ -336,14 +324,6 @@ class Dashboard extends Component {
     if (itemsPremiumPlan != undefined && itemsPremiumPlan.length > 0) {
       if (imagesHeader != undefined && imagesHeader.length > 0) {
         itemBasicInformation.map((item) => {
-          var listImagesPerItem = [];
-          // item.Images.split(",").map((image) => {
-          //   if (image !== "") {
-          //     listImagesPerItem.push({
-          //       imageUrl: headersPath + item.Name,
-          //     });
-          //   }
-          // });
           imagesMainBar.push({
             titlecategory:
               lang.value === "en"

@@ -11,9 +11,6 @@ import logo from "../../images/Logo.svg";
 import ControlledOpenSelect from "../commons/select/select";
 import Categories from "../commons/select/categoriesMenu";
 import { hamburgerMenu } from "./scripts/scripts";
-import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
-import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-
 import UseAutocompleteField from "../commons/autocomplete/UseAutocompleteField"
 
 class Navbar extends Component {

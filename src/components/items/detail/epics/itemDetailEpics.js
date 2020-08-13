@@ -29,26 +29,7 @@ export default function itemDetailEpics(action$) {
               }
             })
             .then(dataItem => {
-              return fetch(
-                apiServices + "/getImagesByIdItem?idItem=" + action.payload,
-                {
-                  mode: "cors",
-                  method: "GET",
-                  headers: new Headers({
-                    Accept: "application/json",
-                    "Content-Type": "application/json; charset=UTF-8"
-                  })
-                }
-              )
-                .then(images => {
-                  if (images.ok) {
-                    return images.json();
-                  }
-                })
-                .then(data => {
-                  dataItem[0].Images = data;
-                  return getItemSuccess(dataItem[0]);
-                });
+              return getItemSuccess(dataItem[0]);
             })
         );
       }
