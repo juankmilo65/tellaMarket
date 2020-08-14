@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import "./itemDetail.scss";
@@ -8,7 +8,9 @@ import warning from "../../../images/triangle.svg";
 import { Redirect } from "react-router-dom";
 import { hideHeader } from "../../layout/actions/navarActions";
 import Spinner from "../../commons/spinner/Spinner";
-import { imagesPath } from "../../../config/constants"
+import { imagesPath } from "../../../config/constants";
+import ReactImageZoom from "react-image-zoom";
+
 
 function MyComponent(state) {
   const { t, i18n } = useTranslation();
@@ -16,24 +18,35 @@ function MyComponent(state) {
     i18n.changeLanguage(state.lang.value);
   }
 
+  const bigImg = {
+    zoomLensStyle:
+      'width: 50px; height: 50px;'
+    , zoomPosition: "original", width: 524, height: 500, offset: { vertical: 10, horizontal: 10 }, zoomWidth: 524, zoomHeight: 506, img: state.itemtemObjet.images[0].imageUrl
+  }
+
   return (
     <div className="container pd-top--130px">
       <div className="info-product">
         <div className="d-flex">
           <div className="img-info--product col-6">
-            <img
+            <div className="img-big">
+              <ReactImageZoom {...bigImg} />
+            </div>
+            {/* <img
               className="img-big"
               src={state.itemtemObjet.images[0].imageUrl}
-            />
+            /> */}
             <div className="img-slider">
               {state.itemtemObjet.images &&
-                state.itemtemObjet.images.map(image => {
-                  return (
-                    <div>
-                      <img src={image.imageUrl} />
-                    </div>
-                  );
-                })}
+                state.itemtemObjet.images.map((image, index) => {
+                  if (index !== 0)
+                    return (
+                      <div key={index}>
+                        <img src={image.imageUrl} onClick={() => state.moveAray(state.itemtemObjet.images, index, 0)} />
+                      </div>
+                    );
+                })
+              }
             </div>
           </div>
           <div className="col-5">
@@ -241,7 +254,8 @@ class ItemDetail extends Component {
   state = {
     showModal: false,
     showDetails: false,
-    redirect: false
+    redirect: false,
+    imagesArray: []
   };
 
   handleDetails = () => {
@@ -271,6 +285,17 @@ class ItemDetail extends Component {
     }
   };
 
+  moveAray = (arr, old_index, new_index) => {
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    this.setState({ imagesArray: arr });
+  }
+
   render() {
     const { lang, auth, match, item, currency, getItem } = this.props;
     let itemtemObjet = null;
@@ -279,11 +304,18 @@ class ItemDetail extends Component {
     } else {
       var listImages = [];
 
-      item.Images.split(",").map(imge => {
-        listImages.push({
-          imageUrl: imagesPath + imge
+      if (this.state.imagesArray.length == 0) {
+        item.Images.split(",").map(imge => {
+          listImages.push({
+            imageUrl: imagesPath + imge
+          });
         });
-      });
+      } else {
+
+        this.state.imagesArray.map(img => {
+          listImages.push(img);
+        })
+      }
 
       itemtemObjet = {
         images: item.images,
@@ -313,7 +345,6 @@ class ItemDetail extends Component {
       };
     }
 
-
     return (
       <div>
         {itemtemObjet === null ? (
@@ -331,6 +362,7 @@ class ItemDetail extends Component {
               auth={auth}
               handleOk={this.handleOk}
               renderRedirect={this.renderRedirect}
+              moveAray={this.moveAray}
             ></MyComponent>
           )}
       </div>
