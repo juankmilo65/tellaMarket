@@ -14,13 +14,12 @@ import {
 import { cleanItems } from "../items/controlDataItem/actions/controlDataItemActions";
 import { setStep } from "../items/steps/actions/stepsActions";
 import { getProductsByPlan } from "../items/queryResult/actions/queryResultActions";
-import logoWhite from "../commons/carousel/img/logo-white.png";
 import imgproveedor from "../commons/carousel/img/imgprovedor.png";
 import producto1 from "../commons/carousel/img/producto1.png";
 import producto2 from "../commons/carousel/img/producto2.png";
 import cloneDeep from "clone-deep";
 import { miniaturePath, headersPath } from "../../config/constants";
-
+import UseFooter from "../footer/UseFooter"
 import "./dashboard.scss";
 
 function MyComponent(state) {
@@ -145,64 +144,7 @@ function MyComponent(state) {
       <div>
         <Notifications notifications={state.notifications} />
       </div>
-      <div className="footer-menu">
-        <div className="container">
-          <div className="item-footer--menu">
-            <img alt="witheLogo" src={state.logoWhite} />
-            <div className="text-footer">
-              <span>+61 3 8376 6284</span>
-            </div>
-            <div className="text-footer">
-              <span>info@tellamarket.com</span>
-            </div>
-            {/* <div className="social-network">
-                <image src="" className="facebook" />
-                <image src="" className="google" />
-              </div> */}
-          </div>
-          <div className="item-footer--menu">
-            <h2>Nosotros</h2>
-            <div className="text-footer">
-              <a href="/">Tella Market</a>
-            </div>
-            <div className="text-footer">
-              <a href="/">{t("dashboard.contact")}</a>
-            </div>
-          </div>
-          <div className="item-footer--menu">
-            <h2>{t("dashboard.categories")}</h2>
-            <div className="text-footer">
-              <a href="/">Industrias</a>
-            </div>
-            <div className="text-footer">
-              <a href="/">Construcción</a>
-            </div>
-            <div className="text-footer">
-              <a href="/">Confecciones</a>
-            </div>
-            <div className="text-footer">
-              <a href="/">Descuentos</a>
-            </div>
-          </div>
-
-          <div className="item-footer--menu">
-            <h2>{t("dashboard.support")}</h2>
-            <div className="text-footer">
-              <a href="/">Blog</a>
-            </div>
-            <div className="text-footer">
-              <a href="/">FAQs</a>
-            </div>
-          </div>
-          <div className="item-footer--menu">
-            <h2>Subscríbete</h2>
-            {/* <input type="text" value="" placeholder="Tu email aquí" /> */}
-            <div className="text-footer">
-              <a href="/">{t("dashboard.copyright")}</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <UseFooter />
     </div>
   );
 }
@@ -342,12 +284,12 @@ class Dashboard extends Component {
     }
 
     if (imagesPromo != undefined && imagesPromo.length > 0) {
-      // imagesPromo.map((image) => {
-      //   imagesPromotion.push({
-      //     imageUrl: base64Flag + image.image,
-      //     redirectUrl: "http://www.tellaneedles.com",
-      //   });
-      // });
+      imagesPromo.map((image) => {
+        imagesPromotion.push({
+          imageUrl: "data:image/jpeg:base64," + image.image,
+          redirectUrl: "http://www.tellaneedles.com",
+        });
+      });
     }
 
     if (finalListItems.length > 0 && itemBasicInformation.length > 0) {
@@ -363,7 +305,6 @@ class Dashboard extends Component {
         imagesMultiBar={imagesMultiBar}
         imagesPromotion={imagesPromotion}
         notifications={notifications}
-        logoWhite={logoWhite}
         loading={loading}
       />
     );

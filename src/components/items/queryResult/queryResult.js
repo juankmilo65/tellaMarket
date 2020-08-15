@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from '@apollo/client';
 import { GET_SOUGHT_ITEMS } from "../../../graphQL/search/searchQueries"
 import { initialQuantitiyPerPage } from "../../../config/constants"
+import UseFooter from "../../footer/UseFooter"
 
 function MyComponent(state) {
   const lang = useSelector(state => state.navar.lang);
@@ -166,6 +167,7 @@ function MyComponent(state) {
         </div>
 
       </div>
+      <UseFooter />
       {renderRedirect()}
     </div>
   );

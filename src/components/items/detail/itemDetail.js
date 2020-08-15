@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import "./itemDetail.scss";
@@ -10,6 +10,7 @@ import { hideHeader } from "../../layout/actions/navarActions";
 import Spinner from "../../commons/spinner/Spinner";
 import { imagesPath } from "../../../config/constants";
 import ReactImageZoom from "react-image-zoom";
+import UseFooter from "../../footer/UseFooter"
 
 
 function MyComponent(state) {
@@ -25,42 +26,43 @@ function MyComponent(state) {
   }
 
   return (
-    <div className="container pd-top--130px">
-      <div className="info-product">
-        <div className="d-flex">
-          <div className="img-info--product col-6">
-            <div className="img-big">
-              <ReactImageZoom {...bigImg} />
-            </div>
-            {/* <img
+    <div>
+      <div className="container pd-top--130px">
+        <div className="info-product">
+          <div className="d-flex">
+            <div className="img-info--product col-6">
+              <div className="img-big">
+                <ReactImageZoom {...bigImg} />
+              </div>
+              {/* <img
               className="img-big"
               src={state.itemtemObjet.images[0].imageUrl}
             /> */}
-            <div className="img-slider">
-              {state.itemtemObjet.images &&
-                state.itemtemObjet.images.map((image, index) => {
-                  if (index !== 0)
-                    return (
-                      <div key={index}>
-                        <img src={image.imageUrl} onClick={() => state.moveAray(state.itemtemObjet.images, index, 0)} />
-                      </div>
-                    );
-                })
-              }
+              <div className="img-slider">
+                {state.itemtemObjet.images &&
+                  state.itemtemObjet.images.map((image, index) => {
+                    if (index !== 0)
+                      return (
+                        <div key={index}>
+                          <img src={image.imageUrl} onClick={() => state.moveAray(state.itemtemObjet.images, index, 0)} />
+                        </div>
+                      );
+                  })
+                }
+              </div>
             </div>
-          </div>
-          <div className="col-5">
-            <div>
-              <label className="title-product--list">
-                {state.itemtemObjet.titleproduct}
-              </label>
-            </div>
-            <div className="price-list"> {state.itemtemObjet.valueprice}</div>
-            <div className="hr"></div>
-            <div className="info-product--description">
-              <span>{state.itemtemObjet.description}</span>
-              <ul>
-                {/* <li>
+            <div className="col-5">
+              <div>
+                <label className="title-product--list">
+                  {state.itemtemObjet.titleproduct}
+                </label>
+              </div>
+              <div className="price-list"> {state.itemtemObjet.valueprice}</div>
+              <div className="hr"></div>
+              <div className="info-product--description">
+                <span>{state.itemtemObjet.description}</span>
+                <ul>
+                  {/* <li>
                   <span>7 x 5.5 x 7.5 in</span>
                 </li>
                 <li>
@@ -71,58 +73,58 @@ function MyComponent(state) {
                     Adecuado para plantas que miden 2-4 pulgadas de diámetro.
                   </span>
                 </li> */}
-              </ul>
-            </div>
-            <div className="contact-seller">
-              <div className="button-icon">
-                <button
-                  className={
-                    state.auth.User != undefined
-                      ? "btns btn-go"
-                      : "btns btn-go disable"
-                  }
-                  onClick={
-                    state.auth.User != undefined
-                      ? state.handleDetails
-                      : state.handleShowMessage
-                  }
-                >
-                  {t("itemDetal.contact")}
-                </button>
-                {/* <i className="material-icons unlike">favorite_border</i>*/}
-                <i className="material-icons like">favorite</i>
+                </ul>
               </div>
-
-              {state.showDetails && (
-                <div className="detail-product">
-                  <div>
-                    <label>Phone:</label>
-                    <span className="cl-green">{state.itemtemObjet.phone}</span>
-                  </div>
-                  <div>
-                    <label>Email:</label>
-                    <span className="cl-green">{state.itemtemObjet.email}</span>
-                  </div>
+              <div className="contact-seller">
+                <div className="button-icon">
+                  <button
+                    className={
+                      state.auth.User != undefined
+                        ? "btns btn-go"
+                        : "btns btn-go disable"
+                    }
+                    onClick={
+                      state.auth.User != undefined
+                        ? state.handleDetails
+                        : state.handleShowMessage
+                    }
+                  >
+                    {t("itemDetal.contact")}
+                  </button>
+                  {/* <i className="material-icons unlike">favorite_border</i>*/}
+                  <i className="material-icons like">favorite</i>
                 </div>
-              )}
-            </div>
-            <div className="detail-product">
-              <div>
-                <label>{t("itemDetal.availability")}:</label>
-                <span className="cl-green">{t("itemDetal.stok")}</span>
+
+                {state.showDetails && (
+                  <div className="detail-product">
+                    <div>
+                      <label>Phone:</label>
+                      <span className="cl-green">{state.itemtemObjet.phone}</span>
+                    </div>
+                    <div>
+                      <label>Email:</label>
+                      <span className="cl-green">{state.itemtemObjet.email}</span>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div>
-                <label>{t("itemDetal.categories")}:</label>
-                <span>{state.itemtemObjet.titlecategory}</span>
-              </div>
-              <div>
-                <label>{t("itemDetal.year")}:</label>
-                <span>{state.itemtemObjet.year}</span>
+              <div className="detail-product">
+                <div>
+                  <label>{t("itemDetal.availability")}:</label>
+                  <span className="cl-green">{t("itemDetal.stok")}</span>
+                </div>
+                <div>
+                  <label>{t("itemDetal.categories")}:</label>
+                  <span>{state.itemtemObjet.titlecategory}</span>
+                </div>
+                <div>
+                  <label>{t("itemDetal.year")}:</label>
+                  <span>{state.itemtemObjet.year}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <div className="description-product">
+          {/* <div className="description-product">
           <ul class="nav" id="myTab" role="tablist">
             <li class="nav-item">
               <a
@@ -232,20 +234,23 @@ function MyComponent(state) {
             </div>
           </div>
         </div> */}
+        </div>
+        <Popup
+          modal
+          open={state.showModal}
+          closeOnDocumentClick={false}
+          className="modal-alert"
+        >
+          <img src={warning} className="img-alert" />
+          <h3>{t("messages.createAccount")}</h3>
+          <button className="btns btn-go" onClick={state.handleOk}>
+            {t("messages.ok")}
+          </button>
+        </Popup>
+
+        {state.renderRedirect()}
       </div>
-      <Popup
-        modal
-        open={state.showModal}
-        closeOnDocumentClick={false}
-        className="modal-alert"
-      >
-        <img src={warning} className="img-alert" />
-        <h3>{t("messages.createAccount")}</h3>
-        <button className="btns btn-go" onClick={state.handleOk}>
-          {t("messages.ok")}
-        </button>
-      </Popup>
-      {state.renderRedirect()}
+      <UseFooter />
     </div>
   );
 }
