@@ -71,11 +71,9 @@ function UseAutocompleteField({ type }) {
         }
     }
 
-
-
     const renderInputComponent = inputProps => (
         <div className="inputContainer">
-            <img className="icon" src={searchImg} />
+            <img alt="Search" className="icon" src={searchImg} />
             <input {...inputProps} />
         </div>
     );
