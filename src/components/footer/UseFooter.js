@@ -17,7 +17,7 @@ function UseFooter() {
                 <div className="item-footer--menu">
                     <img alt="witheLogo" src={logoWhite} />
                     <div className="text-footer">
-                        <span>+61 3 8376 6284</span>
+                        <span>+61 3 8376 6285</span>
                     </div>
                     <div className="text-footer">
                         <span>info@tellamarket.com</span>
